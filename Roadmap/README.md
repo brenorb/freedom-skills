@@ -225,6 +225,8 @@ Além dos skills de tecnologia específica, parece muito promissor ter uma camad
     - explica em linguagem simples por que uma ferramenta pode ser arriscada ou inadequada para um certo contexto.
 39. **ai-request-coach**
     - ajuda usuários não técnicos a transformar pedidos vagos em pedidos melhores para a IA, sugerindo objetivo, contexto, restrições, formato de saída e perguntas de esclarecimento.
+40. **skill-auditor**
+    - faz uma auditoria curta antes da instalação de um skill, revisando manifesto, instruções, ferramentas pedidas, ações potencialmente perigosas, sinais de exfiltração, comportamento malicioso e compatibilidade com a política local, idealmente com leitura cruzada por múltiplos modelos.
 
 ## 7. Recortes iniciais que parecem mais promissores
 
@@ -248,19 +250,21 @@ Se a ideia é começar pequeno e útil, eu priorizaria três eixos em paralelo.
 
 ### Eixo C, onboarding e segurança para não técnicos
 1. **ai-request-coach**
-2. **secure-project-bootstrap**
-3. **threat-model-lite**
-4. **private-comms-setup**
-5. **opsec-checkup**
-6. **privacy-alerts**
-7. **publish-safely**
-8. **incident-checklist**
+2. **skill-auditor**
+3. **secure-project-bootstrap**
+4. **threat-model-lite**
+5. **private-comms-setup**
+6. **opsec-checkup**
+7. **privacy-alerts**
+8. **publish-safely**
+9. **incident-checklist**
 
 ### Minha recomendação
 Se for para focar com disciplina, eu começaria por:
 - **OpenClaw + Hermes + Codex** como trio mais importante para testar experiência e execução
-- e por **6 skills iniciais**:
+- e por **7 skills iniciais**:
   - **ai-request-coach**
+  - **skill-auditor**
   - **secure-project-bootstrap**
   - **threat-model-lite**
   - **private-comms-setup**
@@ -283,6 +287,7 @@ Isso me parece um começo melhor para o público que você descreveu do que come
 ## 9. Pesquisa separada
 - [[skill-discovery-and-trust.md]] — discovery, recommendation e trust de skills com foco em Nostr e mitigação contra skill malicioso
 - [[ai-request-coach.md]] — spec inicial para uma skill focada em ajudar usuários não técnicos a pedir melhor para a IA
+- [[skill-auditor.md]] — spec inicial para uma skill focada em auditar skills antes da instalação
 
 ## 10. Fontes iniciais para expandir depois
 - Bitcoin.org wallet chooser
