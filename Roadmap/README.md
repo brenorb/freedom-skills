@@ -223,6 +223,8 @@ Além dos skills de tecnologia específica, parece muito promissor ter uma camad
     - checklist para quando algo der errado: conta comprometida, aparelho perdido, link suspeito, vazamento etc.
 38. **tool-risk-explainer**
     - explica em linguagem simples por que uma ferramenta pode ser arriscada ou inadequada para um certo contexto.
+39. **ai-request-coach**
+    - ajuda usuários não técnicos a transformar pedidos vagos em pedidos melhores para a IA, sugerindo objetivo, contexto, restrições, formato de saída e perguntas de esclarecimento.
 
 ## 7. Recortes iniciais que parecem mais promissores
 
@@ -245,18 +247,20 @@ Se a ideia é começar pequeno e útil, eu priorizaria três eixos em paralelo.
 5. **guided-agent-mode**
 
 ### Eixo C, onboarding e segurança para não técnicos
-1. **secure-project-bootstrap**
-2. **threat-model-lite**
-3. **private-comms-setup**
-4. **opsec-checkup**
-5. **privacy-alerts**
-6. **publish-safely**
-7. **incident-checklist**
+1. **ai-request-coach**
+2. **secure-project-bootstrap**
+3. **threat-model-lite**
+4. **private-comms-setup**
+5. **opsec-checkup**
+6. **privacy-alerts**
+7. **publish-safely**
+8. **incident-checklist**
 
 ### Minha recomendação
 Se for para focar com disciplina, eu começaria por:
 - **OpenClaw + Hermes + Codex** como trio mais importante para testar experiência e execução
-- e por **5 skills iniciais**:
+- e por **6 skills iniciais**:
+  - **ai-request-coach**
   - **secure-project-bootstrap**
   - **threat-model-lite**
   - **private-comms-setup**
@@ -274,9 +278,11 @@ Isso me parece um começo melhor para o público que você descreveu do que come
 - Queremos que o projeto seja multi-harness desde o início?
 - A abstração principal deve ser por **skill**, por **harness adapter** ou por **guided workflow**?
 - Quais níveis de risco aceitaremos para usuários não técnicos?
+- Quanto dessa ajuda de prompting deve acontecer automaticamente versus em modo assistido, com perguntas antes de agir?
 
 ## 9. Pesquisa separada
 - [[skill-discovery-and-trust.md]] — discovery, recommendation e trust de skills com foco em Nostr e mitigação contra skill malicioso
+- [[ai-request-coach.md]] — spec inicial para uma skill focada em ajudar usuários não técnicos a pedir melhor para a IA
 
 ## 10. Fontes iniciais para expandir depois
 - Bitcoin.org wallet chooser
