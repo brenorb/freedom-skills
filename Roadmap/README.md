@@ -200,7 +200,10 @@ Se for para focar com disciplina, eu começaria por:
 - Queremos que o projeto seja **multi-harness desde o início** ou comece por Codex e depois expanda?
 - A abstração principal deve ser por **skill** ou por **harness adapter**?
 
-## 7. Fontes iniciais para expandir depois
+## 7. Pesquisa separada
+- [[skill-discovery-and-trust.md]] — discovery, recommendation e trust de skills com foco em Nostr e mitigação contra skill malicioso
+
+## 8. Fontes iniciais para expandir depois
 - Bitcoin.org wallet chooser
 - Bitcoin Optech
 - Fedimint docs
@@ -208,7 +211,7 @@ Se for para focar com disciplina, eu começaria por:
 - sites/docs oficiais de Sparrow, Electrum, Nunchuk, Phoenix, Zeus, BTCPay, Nostr
 - docs oficiais de Codex, Claude Code, Gemini CLI e Cursor
 
-## 8. Observações
+## 9. Observações
 - Isto é um mapa inicial, não uma taxonomia final.
 - Vale validar uso real e prioridade antes de abrir muitas frentes.
 - A combinação mais natural hoje parece: **Bitcoin + Lightning + Nostr + BTCPay + Cashu/Fedimint**.
