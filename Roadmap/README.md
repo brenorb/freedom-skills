@@ -155,11 +155,12 @@ Além dos skills por tecnologia, o projeto também ganha muito se pensar nos **h
 
 ### Também vale tratar como primeira classe
 - **Claude Code**: muito forte para leitura ampla de codebase, refactors e navegação com bom julgamento.
-- **Gemini CLI**: bom para exploração, geração e tarefas de apoio.
+- **Goose**: vale tratar como importante no ecossistema de testes e compatibilidade entre agentes.
 
 ### Secundários por enquanto
+- **Gemini CLI**: útil para exploração, geração e tarefas de apoio, mas não parece central agora.
 - **Cursor Agent / Cursor CLI**: ainda importante, mas menos central do que OpenClaw/Hermes para o rumo que você descreveu.
-- **Aider / OpenCode / Goose / Pi**: bons como adaptadores, benchmark e compatibilidade futura.
+- **Aider / OpenCode / Pi**: bons como adaptadores, benchmark e compatibilidade futura.
 
 ### O que padronizar entre harnesses
 - seleção do melhor harness por tipo de tarefa
@@ -175,7 +176,7 @@ Além dos skills por tecnologia, o projeto também ganha muito se pensar nos **h
 
 ### Ideias de skills ligadas a harnesses
 21. **harness-chooser**
-    - recomenda OpenClaw, Hermes, Codex, Claude Code, Gemini ou outro conforme a tarefa e o perfil do usuário.
+    - recomenda OpenClaw, Hermes, Codex, Claude Code, Goose, Gemini ou outro conforme a tarefa e o perfil do usuário.
 22. **prompt-packager**
     - monta contexto, arquivos e instruções do jeito certo para cada harness.
 23. **repo-context-bundler**
@@ -274,11 +275,11 @@ Isso me parece um começo melhor para o público que você descreveu do que come
 - Fedimint docs
 - Cashu docs
 - sites/docs oficiais de Sparrow, Electrum, Nunchuk, Phoenix, Zeus, BTCPay, Nostr
-- docs oficiais de OpenClaw, Hermes, Codex, Claude Code, Gemini CLI e Cursor
+- docs oficiais de OpenClaw, Hermes, Codex, Claude Code, Goose, Gemini CLI e Cursor
 
 ## 11. Observações
 - Isto é um mapa inicial, não uma taxonomia final.
 - Vale validar uso real e prioridade antes de abrir muitas frentes.
 - A combinação mais natural hoje parece: **Bitcoin + Lightning + Nostr + BTCPay + Cashu/Fedimint**.
-- No eixo de agents, a combinação mais natural agora parece: **OpenClaw + Hermes + Codex**, com Claude Code e Gemini como complementos fortes.
+- No eixo de agents, a combinação mais natural agora parece: **OpenClaw + Hermes + Codex**, com Claude Code e Goose como complementos fortes.
 - Para o público descrito, UX guiada e segurança por padrão importam tanto quanto capacidade técnica.
