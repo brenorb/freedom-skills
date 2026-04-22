@@ -123,38 +123,59 @@ Objetivo inicial: identificar tecnologias adjacentes ao Bitcoin, carteiras/ecoss
 20. **secure-comms-chooser**
     - recomenda stack de comunicação conforme ameaça, comunidade e UX.
 
-## 4. Harnesses / coding agents que vale considerar
+## 4. Público prioritário que parece mais importante
 
-Além dos skills por tecnologia, o projeto também pode ganhar muito se pensar em **harnesses** como camada de execução.
+Um recorte forte para o Freedom Skills pode ser:
+- **ativistas de liberdade e direitos humanos**
+- pessoas em ambientes de censura, vigilância ou repressão
+- usuários **não técnicos** que precisam montar projetos, se comunicar melhor e reduzir risco sem virar especialistas
 
-### Principais para priorizar
-1. **Codex**
-   - hoje parece ser o principal no teu fluxo.
-   - forte para edição de código, diffs, contexto de repo e execução orientada a tarefa.
-2. **Claude Code**
-   - muito forte para leitura ampla de codebase, refactors e navegação com bom julgamento.
-   - vale tratar como primeira classe.
-3. **Gemini CLI**
-   - bom para geração, exploração e tarefas de apoio; pode ser útil como alternativa competitiva.
+Isso muda a priorização.
 
-### Secundários que podem fazer sentido
-- **Cursor Agent / Cursor CLI**: importante porque muita gente já usa Cursor como ambiente principal.
-- **Aider / OpenCode / Goose / Pi**: menos centrais para v1, mas úteis como “adaptadores” ou benchmark de compatibilidade.
+Não basta ter skills “poderosas”. Elas precisam ser:
+- guiadas
+- opinativas
+- com linguagem simples
+- seguras por padrão
+- com alertas claros de privacidade e segurança
+- úteis para alguém que quer **fazer uma coisa concreta** sem entender toda a stack por trás
+
+## 5. Harnesses / agents que vale priorizar
+
+Além dos skills por tecnologia, o projeto também ganha muito se pensar nos **harnesses/agentes** como camada de execução e UX.
+
+### Mais importantes agora
+1. **OpenClaw**
+   - importante como camada prática de orquestração, automação, memória, sessões e ferramentas.
+   - especialmente valioso para fluxos guiados e assistentes úteis para não técnicos.
+2. **Hermes**
+   - faz sentido tratar como peça importante de testes e experiência de agente, especialmente se for parte do ecossistema que vocês querem comparar/validar.
+3. **Codex**
+   - segue como principal para código, diffs, contexto de repo e tarefas de implementação.
+
+### Também vale tratar como primeira classe
+- **Claude Code**: muito forte para leitura ampla de codebase, refactors e navegação com bom julgamento.
+- **Gemini CLI**: bom para exploração, geração e tarefas de apoio.
+
+### Secundários por enquanto
+- **Cursor Agent / Cursor CLI**: ainda importante, mas menos central do que OpenClaw/Hermes para o rumo que você descreveu.
+- **Aider / OpenCode / Goose / Pi**: bons como adaptadores, benchmark e compatibilidade futura.
 
 ### O que padronizar entre harnesses
-- seleção de harness por tipo de tarefa
-- empacotamento de contexto do repo
+- seleção do melhor harness por tipo de tarefa
+- empacotamento de contexto do repo e da conversa
 - anexação de arquivos relevantes
 - modo interativo vs modo batch
 - patch/diff/apply
 - execução com aprovações/permissões
 - sessões persistentes vs one-shot
-- troca de modelo e fallback
+- fallback de modelo/runtime
 - custo, latência e qualidade por tarefa
+- suporte a fluxos guiados para usuários não técnicos
 
 ### Ideias de skills ligadas a harnesses
 21. **harness-chooser**
-    - recomenda Codex, Claude Code, Gemini ou outro conforme a tarefa.
+    - recomenda OpenClaw, Hermes, Codex, Claude Code, Gemini ou outro conforme a tarefa e o perfil do usuário.
 22. **prompt-packager**
     - monta contexto, arquivos e instruções do jeito certo para cada harness.
 23. **repo-context-bundler**
@@ -163,12 +184,41 @@ Além dos skills por tecnologia, o projeto também pode ganhar muito se pensar e
     - compara qualidade, tempo e custo entre harnesses em tarefas parecidas.
 25. **session-orchestrator**
     - gerencia sessões persistentes, retomada de contexto e handoff entre agentes.
+26. **guided-agent-mode**
+    - adapta a experiência do agente para usuários não técnicos, com linguagem simples e checkpoints explícitos.
 
-## 5. Recortes iniciais que parecem mais promissores
+## 6. Skills básicas que podem ajudar ativistas e pessoas não técnicas
 
-Se a ideia é começar pequeno e útil, eu priorizaria dois eixos em paralelo.
+Além dos skills de tecnologia específica, parece muito promissor ter uma camada de skills mais básicas e guiadas.
 
-### Eixo A, skills de domínio Bitcoin / sovereign tech
+27. **secure-project-bootstrap**
+    - ajuda a tirar um projeto do zero com estrutura mínima, checklist, nomes, pastas, prioridades e riscos.
+28. **threat-model-lite**
+    - ajuda a pessoa a pensar: do que preciso me proteger, de quem, e o que é risco alto vs baixo.
+29. **private-comms-setup**
+    - compara e ajuda a configurar ferramentas como Signal, SimpleX, Matrix, Nostr e afins, com tradeoffs claros.
+30. **opsec-checkup**
+    - checklist simples de segurança operacional: dispositivo, contas, backups, 2FA, links, arquivos, exposição.
+31. **publish-safely**
+    - ajuda a publicar texto, site, manifesto, formulário ou campanha com menos risco de vazamento de metadados e erros bobos.
+32. **privacy-alerts**
+    - revisa um plano/projeto e aponta alertas de privacidade, rastreabilidade e exposição.
+33. **secure-file-sharing-guide**
+    - recomenda formas de compartilhar arquivos, links e mídias com menos risco.
+34. **backup-and-recovery-drill**
+    - ensina a fazer backup e recuperar acesso sem depender de memória ou improviso.
+35. **campaign-ops-lite**
+    - ajuda a organizar ação, evento, campanha ou grupo pequeno com comunicação, papéis, agenda e follow-up.
+36. **incident-checklist**
+    - checklist para quando algo der errado: conta comprometida, aparelho perdido, link suspeito, vazamento etc.
+37. **tool-risk-explainer**
+    - explica em linguagem simples por que uma ferramenta pode ser arriscada ou inadequada para um certo contexto.
+
+## 7. Recortes iniciais que parecem mais promissores
+
+Se a ideia é começar pequeno e útil, eu priorizaria três eixos em paralelo.
+
+### Eixo A, domínio Bitcoin / sovereign tech
 1. **wallet-comparator**
 2. **btcpay-ops**
 3. **nostr-publisher**
@@ -177,42 +227,58 @@ Se a ideia é começar pequeno e útil, eu priorizaria dois eixos em paralelo.
 6. **bitcoin-research-radar**
 7. **bitdevs-ops**
 
-### Eixo B, skills de infraestrutura de agentes / harnesses
+### Eixo B, infraestrutura de agentes / harnesses
 1. **harness-chooser**
 2. **prompt-packager**
 3. **repo-context-bundler**
 4. **session-orchestrator**
+5. **guided-agent-mode**
+
+### Eixo C, onboarding e segurança para não técnicos
+1. **secure-project-bootstrap**
+2. **threat-model-lite**
+3. **private-comms-setup**
+4. **opsec-checkup**
+5. **privacy-alerts**
+6. **publish-safely**
+7. **incident-checklist**
 
 ### Minha recomendação
 Se for para focar com disciplina, eu começaria por:
-- **Codex + Claude Code + Gemini CLI** como trio principal de harnesses
-- e por **3 skills iniciais**:
+- **OpenClaw + Hermes + Codex** como trio mais importante para testar experiência e execução
+- e por **5 skills iniciais**:
+  - **secure-project-bootstrap**
+  - **threat-model-lite**
+  - **private-comms-setup**
   - **wallet-comparator**
-  - **btcpay-ops**
   - **harness-chooser**
 
-## 6. Próximas perguntas para afinar o projeto
-- O foco é usuário final, dev, merchant ou comunidade?
+Isso me parece um começo melhor para o público que você descreveu do que começar só por skills mais técnicas.
+
+## 8. Próximas perguntas para afinar o projeto
+- O foco principal é ativista não técnico, operador técnico, merchant, ou comunidade Bitcoin?
 - Queremos skills mais operacionais, mais educativas ou mais analíticas?
 - O projeto vai mirar automações locais/CLI ou integrações remotas/APIs?
 - O recorte principal é Bitcoin puro, Lightning, Nostr, ou “sovereign tech” em volta de Bitcoin?
-- Queremos começar por um catálogo amplo ou por 3 skills fortes e bem acabadas?
-- Queremos que o projeto seja **multi-harness desde o início** ou comece por Codex e depois expanda?
-- A abstração principal deve ser por **skill** ou por **harness adapter**?
+- Queremos começar por um catálogo amplo ou por poucas skills muito boas?
+- Queremos que o projeto seja multi-harness desde o início?
+- A abstração principal deve ser por **skill**, por **harness adapter** ou por **guided workflow**?
+- Quais níveis de risco aceitaremos para usuários não técnicos?
 
-## 7. Pesquisa separada
+## 9. Pesquisa separada
 - [[skill-discovery-and-trust.md]] — discovery, recommendation e trust de skills com foco em Nostr e mitigação contra skill malicioso
 
-## 8. Fontes iniciais para expandir depois
+## 10. Fontes iniciais para expandir depois
 - Bitcoin.org wallet chooser
 - Bitcoin Optech
 - Fedimint docs
 - Cashu docs
 - sites/docs oficiais de Sparrow, Electrum, Nunchuk, Phoenix, Zeus, BTCPay, Nostr
-- docs oficiais de Codex, Claude Code, Gemini CLI e Cursor
+- docs oficiais de OpenClaw, Hermes, Codex, Claude Code, Gemini CLI e Cursor
 
-## 9. Observações
+## 11. Observações
 - Isto é um mapa inicial, não uma taxonomia final.
 - Vale validar uso real e prioridade antes de abrir muitas frentes.
 - A combinação mais natural hoje parece: **Bitcoin + Lightning + Nostr + BTCPay + Cashu/Fedimint**.
-- No eixo de agents, a combinação mais natural hoje parece: **Codex + Claude Code + Gemini CLI**, com Cursor como opcional importante.
+- No eixo de agents, a combinação mais natural agora parece: **OpenClaw + Hermes + Codex**, com Claude Code e Gemini como complementos fortes.
+- Para o público descrito, UX guiada e segurança por padrão importam tanto quanto capacidade técnica.
