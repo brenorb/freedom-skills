@@ -4,10 +4,17 @@ Primeira varredura de direções para o projeto Freedom Skills.
 
 Objetivo inicial: identificar tecnologias adjacentes ao Bitcoin, carteiras/ecossistemas mais relevantes e ideias de skills úteis para construir em volta disso.
 
+## Notas adicionais
+
+- [skills-benchmarks-landscape.md](./skills-benchmarks-landscape.md)
+  - levantamento do que existe hoje em benchmarks de skills e benchmarks adjacentes
+- [skills-benchmark-strategy.md](./skills-benchmark-strategy.md)
+  - proposta de como o Freedom Skills pode reaproveitar benchmarks existentes e onde precisa construir os seus
+
 ## 1. Tecnologias adjacentes ao Bitcoin
 
 ### Base Bitcoin
-- Bitcoin Core, descriptors, PSBT, Miniscript, Taproot, MuSig2
+- Bitcoin Core, descriptors, PSBT, Miniscript, Simplicity, Taproot, MuSig2
 - Lightning Network, LNURL, BOLT12, Nostr Wallet Connect (NWC)
 - Hardware wallets, multisig, watch-only, xpubs, descriptors
 - Self-custody UX, backup/recovery, signing flows
@@ -206,13 +213,15 @@ Além dos skills de tecnologia específica, parece muito promissor ter uma camad
     - revisa um plano/projeto e aponta alertas de privacidade, rastreabilidade e exposição.
 33. **secure-file-sharing-guide**
     - recomenda formas de compartilhar arquivos, links e mídias com menos risco.
-34. **backup-and-recovery-drill**
+34. **gpg-ops-guide**
+    - gera/gerencia chaves GPG, assina/verifica arquivos e mensagens, e orienta boas práticas de distribuição/revogação de chave.
+35. **backup-and-recovery-drill**
     - ensina a fazer backup e recuperar acesso sem depender de memória ou improviso.
-35. **campaign-ops-lite**
+36. **campaign-ops-lite**
     - ajuda a organizar ação, evento, campanha ou grupo pequeno com comunicação, papéis, agenda e follow-up.
-36. **incident-checklist**
+37. **incident-checklist**
     - checklist para quando algo der errado: conta comprometida, aparelho perdido, link suspeito, vazamento etc.
-37. **tool-risk-explainer**
+38. **tool-risk-explainer**
     - explica em linguagem simples por que uma ferramenta pode ser arriscada ou inadequada para um certo contexto.
 
 ## 7. Recortes iniciais que parecem mais promissores
