@@ -1,0 +1,584 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Benchmarks De Skills Em 2026 · Freedom Skills</title>
+    <link rel="stylesheet" href="../assets/site.css">
+  </head>
+  <body>
+    <main class="page-shell">
+  <nav class="site-nav" aria-label="Navegacao">
+    <a href="../index.html">Indice</a><a href="skills-benchmark-strategy.html">Anterior</a>
+  </nav>
+  <article class="manuscript">
+    <p class="page-meta">Roadmap/skills-benchmarks-landscape.md</p>
+    <h1 id="benchmarks-de-skills-em-2026">Benchmarks De Skills Em 2026</h1>
+<h2 id="tldr">TL;DR</h2>
+<p>Hoje existem poucos benchmarks que medem <strong>skills</strong> diretamente, e quase todos sao de 2026.</p>
+<ul>
+<li>Os tres mais importantes sao:
+<ul>
+<li><a href="https://www.skillsbench.ai/">SkillsBench</a></li>
+<li><a href="https://arxiv.org/abs/2603.15401">SWE-Skills-Bench</a></li>
+<li><a href="https://arxiv.org/abs/2604.04323">How Well Do Agentic Skills Work in the Wild</a></li>
+</ul></li>
+<li>O resto do ecossistema mede capacidades adjacentes: function calling, tool use, web agents, terminal agents, GUI agents e software engineering.</li>
+<li>Ainda <strong>nao parece existir</strong> um benchmark forte que combine:
+<ul>
+<li>descoberta de skill</li>
+<li>qualidade da skill</li>
+<li>composicao de multiplas skills</li>
+<li>safety/trust/provenance</li>
+<li>UX para usuarios nao tecnicos</li>
+<li>comparacao cross-harness</li>
+</ul></li>
+</ul>
+<p>Minha leitura: para o Freedom Skills, o caminho certo nao e esperar um benchmark pronto. E <strong>compor o que ja existe</strong> e construir a camada que falta.</p>
+<h2 id="1-benchmarks-que-medem-skills-diretamente">1. Benchmarks Que Medem Skills Diretamente</h2>
+<table>
+<thead>
+<tr>
+<th>Benchmark</th>
+<th>Status</th>
+<th>O que mede</th>
+<th>O que aprendi</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://www.skillsbench.ai/">SkillsBench</a> / <a href="https://arxiv.org/abs/2602.12670">paper</a> / <a href="https://github.com/benchflow-ai/skillsbench">repo</a></td>
+<td>Fev 2026, ativo</td>
+<td>Utilidade de skills em tarefas multi-dominio</td>
+<td>E o benchmark mais importante hoje para skills em geral</td>
+</tr>
+<tr>
+<td><a href="https://arxiv.org/abs/2603.15401">SWE-Skills-Bench</a> / <a href="https://github.com/GeniusHTX/SWE-Skills-Bench">repo</a></td>
+<td>Mar 2026</td>
+<td>Utilidade marginal de skills em software engineering real</td>
+<td>Mostra que muita skill publica quase nao ajuda</td>
+</tr>
+<tr>
+<td><a href="https://arxiv.org/abs/2604.04323">How Well Do Agentic Skills Work in the Wild</a> / <a href="https://github.com/UCSB-NLP-Chang/Skill-Usage">repo</a></td>
+<td>Abr 2026</td>
+<td>Skill retrieval e uso em cenarios mais realistas</td>
+<td>Mostra que o ganho de skill cai bastante quando a selecao deixa de ser idealizada</td>
+</tr>
+</tbody>
+</table>
+<h3 id="11-skillsbench">1.1 SkillsBench</h3>
+<p>Fonte principal:</p>
+<ul>
+<li><a href="https://arxiv.org/abs/2602.12670">Paper no arXiv</a></li>
+<li><a href="https://www.skillsbench.ai/">Site oficial</a></li>
+<li><a href="https://github.com/benchflow-ai/skillsbench">Repo oficial</a></li>
+</ul>
+<p>Pontos centrais:</p>
+<ul>
+<li>O paper apresenta <strong>86 tasks em 11 dominios</strong>, com verificadores deterministicos.</li>
+<li>Cada task e avaliada em tres condicoes:
+<ul>
+<li>sem skills</li>
+<li>com skills curadas</li>
+<li>com skills auto-geradas</li>
+</ul></li>
+<li>O resultado principal do paper: skills curadas sobem a pass rate media em <strong>+16.2 pontos percentuais</strong>, mas o ganho varia muito por dominio.</li>
+<li>O mesmo paper diz que <strong>skills auto-geradas nao trazem ganho medio</strong>, o que e um sinal importante: o agente ainda nao e bom em escrever por conta propria a memoria procedural de que ele se beneficiaria depois.</li>
+<li>O paper tambem argumenta que skills focadas, com <strong>2-3 modulos</strong>, funcionam melhor do que documentacao ampla e enciclopedica.</li>
+</ul>
+<p>Leitura pratica:</p>
+<ul>
+<li>Skills podem ajudar bastante.</li>
+<li>Mas a ajuda nao e uniforme.</li>
+<li>O formato da skill importa.</li>
+<li>“Mais contexto” nao e o mesmo que “melhor skill”.</li>
+</ul>
+<p>Observacao importante de versao:</p>
+<ul>
+<li>O <a href="https://arxiv.org/abs/2602.12670">paper</a> fala em <strong>86 tasks</strong>.</li>
+<li>O <a href="https://www.skillsbench.ai/">site oficial</a> hoje mostra leaderboard publica em <strong>84 tasks</strong>.</li>
+<li>O <a href="https://github.com/benchflow-ai/skillsbench">repo</a> tambem fala de benchmark ativo e tarefas publicas, mas sem cravar o mesmo numero do abstract.</li>
+</ul>
+<p>Minha inferencia:</p>
+<ul>
+<li>O benchmark ainda esta evoluindo e o numero de tasks publicas/ativas mudou entre paper, repo e leaderboard.</li>
+<li>Para qualquer comparacao seria obrigatorio registrar <strong>data e versao</strong>.</li>
+</ul>
+<p>Snapshot util do site em 2026-04-22:</p>
+<ul>
+<li><code>Codex + GPT-5.2</code>: <strong>30.6% sem skills -&gt; 44.7% com skills</strong></li>
+<li><code>Claude Code + Opus 4.6</code>: <strong>30.6% -&gt; 44.5%</strong></li>
+<li><code>Claude Code + Opus 4.5</code>: <strong>22.0% -&gt; 45.3%</strong></li>
+<li><code>Gemini CLI + Gemini 3 Flash</code>: <strong>31.3% -&gt; 48.7%</strong></li>
+</ul>
+<p>O ponto mais importante aqui nao e o ranking em si. E que o site ja esta se posicionando como benchmark de <strong>agent + harness + model + skill</strong>, nao so de modelo base.</p>
+<h3 id="12-swe-skills-bench">1.2 SWE-Skills-Bench</h3>
+<p>Fonte principal:</p>
+<ul>
+<li><a href="https://arxiv.org/abs/2603.15401">Paper no arXiv</a></li>
+<li><a href="https://github.com/GeniusHTX/SWE-Skills-Bench">Repo oficial</a></li>
+</ul>
+<p>Pontos centrais:</p>
+<ul>
+<li>Benchmark requirement-driven focado em software engineering real.</li>
+<li>O paper emparelha <strong>49 skills publicas</strong> com repositorios GitHub reais, fixados em commits especificos.</li>
+<li>O abstract reporta <strong>~565 task instances em 6 subdominios</strong>.</li>
+<li>A avaliacao e pareada:
+<ul>
+<li>com skill</li>
+<li>sem skill</li>
+</ul></li>
+<li>O resultado principal e bem mais sobrio do que o hype de mercado:
+<ul>
+<li><strong>39 de 49</strong> skills nao melhoram a pass rate</li>
+<li>ganho medio de apenas <strong>+1.2 pp</strong></li>
+<li>so <strong>7</strong> skills especializadas produzem ganho relevante</li>
+<li><strong>3</strong> pioram o desempenho</li>
+<li>overhead de tokens vai de economia modesta ate <strong>+451%</strong> sem melhoria correspondente</li>
+</ul></li>
+</ul>
+<p>Leitura pratica:</p>
+<ul>
+<li>Skill em engenharia de software nao pode ser tratada como magia.</li>
+<li>Skill generica, velha ou fora de contexto pode:
+<ul>
+<li>nao ajudar</li>
+<li>aumentar custo</li>
+<li>atrapalhar</li>
+</ul></li>
+</ul>
+<p>Para o Freedom Skills, essa e talvez a licao mais importante de todo o levantamento:</p>
+<ul>
+<li>skill boa nao e “mais prompt”</li>
+<li>skill boa e <strong>contexto procedural certo, no momento certo, para o runtime certo</strong></li>
+</ul>
+<h3 id="13-how-well-do-agentic-skills-work-in-the-wild">1.3 How Well Do Agentic Skills Work in the Wild</h3>
+<p>Fonte principal:</p>
+<ul>
+<li><a href="https://arxiv.org/abs/2604.04323">Paper no arXiv</a></li>
+<li><a href="https://github.com/UCSB-NLP-Chang/Skill-Usage">Repo oficial</a></li>
+</ul>
+<p>Pontos centrais:</p>
+<ul>
+<li>Esse trabalho faz a pergunta mais proxima do mundo real:
+<ul>
+<li>o que acontece quando o agente precisa <strong>procurar</strong>, <strong>selecionar</strong> e <strong>adaptar</strong> skills sozinho?</li>
+</ul></li>
+<li>O repo usa:
+<ul>
+<li><code>SkillsBench</code> com <strong>84 tasks</strong></li>
+<li><code>Terminal-Bench 2.0</code> com <strong>89 tasks</strong></li>
+<li>um conjunto de <strong>34 mil skills reais</strong></li>
+</ul></li>
+<li>O paper avalia varios cenarios:
+<ul>
+<li>skills force-loaded</li>
+<li>skills curadas</li>
+<li>skills curadas com distractors</li>
+<li>retrieval top-k em repositorio grande</li>
+<li>refinement query-specific</li>
+<li>refinement query-agnostic</li>
+</ul></li>
+</ul>
+<p>Resultado principal:</p>
+<ul>
+<li>O ganho de skills <strong>degrada consistentemente</strong> quando o setup fica mais realista.</li>
+<li>Ou seja:
+<ul>
+<li>no laboratorio a skill parece otima</li>
+<li>no marketplace real, com ruido e selecao imperfeita, o ganho some ou cai muito</li>
+</ul></li>
+<li>O abstract destaca que refinamento <strong>query-specific</strong> recupera parte relevante desse valor.</li>
+<li>No <code>Terminal-Bench 2.0</code>, o paper reporta melhoria de <strong>57.7% para 65.5%</strong> para Claude Opus 4.6 com query-specific refinement.</li>
+</ul>
+<p>Leitura pratica:</p>
+<ul>
+<li>A parte dificil nao e so escrever a skill.</li>
+<li>A parte dificil e:
+<ul>
+<li>encontrar a skill certa</li>
+<li>nao cair em falsos positivos</li>
+<li>adaptar a skill ao caso concreto</li>
+<li>lidar com skills imperfeitas</li>
+</ul></li>
+</ul>
+<p>Isso encaixa muito com o problema real de um registry de skills.</p>
+<h2 id="2-benchmarks-adjacentes-que-importam-muito">2. Benchmarks Adjacentes Que Importam Muito</h2>
+<p>Eles nao medem “skills” diretamente, mas medem capacidades sem as quais um ecossistema de skills nao fecha.</p>
+<h2 id="21-function-calling-e-tool-use">2.1 Function Calling E Tool Use</h2>
+<table>
+<thead>
+<tr>
+<th>Benchmark</th>
+<th>Fonte</th>
+<th>O que mede</th>
+<th>Relevancia para skills</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://gorilla.cs.berkeley.edu/leaderboard">BFCL V4</a> / <a href="https://github.com/ShishirPatil/gorilla/tree/main/berkeley-function-call-leaderboard">repo</a></td>
+<td>Berkeley/Gorilla</td>
+<td>function calling executavel, multi-turn, web search, memory, format sensitivity</td>
+<td>skill sem invocacao correta de ferramenta vira papel</td>
+</tr>
+<tr>
+<td><a href="https://arxiv.org/abs/2311.10775">ToolTalk</a></td>
+<td>paper</td>
+<td>multi-step tool usage em dialogo</td>
+<td>bom para skills conversacionais</td>
+</tr>
+<tr>
+<td><a href="https://arxiv.org/abs/2408.04682">ToolSandbox</a> / <a href="https://github.com/apple/ToolSandbox">repo</a></td>
+<td>Apple</td>
+<td>tool use stateful, conversational e interactive</td>
+<td>bom para medir dependencias de estado e informacao insuficiente</td>
+</tr>
+<tr>
+<td><a href="https://arxiv.org/abs/2406.12045">tau-bench</a></td>
+<td>paper</td>
+<td>interacao tool-agent-user com politicas de dominio</td>
+<td>bom para skills que precisam seguir regras</td>
+</tr>
+<tr>
+<td><a href="https://arxiv.org/abs/2506.07982">tau2-bench</a></td>
+<td>paper</td>
+<td>dual-control, onde usuario e agente tambem agem</td>
+<td>bom para skills guiadas para nao tecnicos</td>
+</tr>
+<tr>
+<td><a href="https://arxiv.org/abs/2304.08244">API-Bank</a></td>
+<td>paper</td>
+<td>benchmark mais antigo de tool-augmented LLMs</td>
+<td>util como baseline historico</td>
+</tr>
+</tbody>
+</table>
+<p>Leitura pratica:</p>
+<ul>
+<li>BFCL e a melhor referencia para <strong>tool invocation</strong>.</li>
+<li>tau-bench e mais proximo de <strong>policy-following em fluxo real</strong>.</li>
+<li>ToolSandbox e util para medir onde a skill depende de estado acumulado, nomes canonicos, precondicoes e informacao faltante.</li>
+</ul>
+<h2 id="22-web-agents">2.2 Web Agents</h2>
+<table>
+<thead>
+<tr>
+<th>Benchmark</th>
+<th>Fonte</th>
+<th>O que mede</th>
+<th>Relevancia para skills</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://webarena.dev/">WebArena</a> / <a href="https://arxiv.org/abs/2307.13854">paper</a> / <a href="https://github.com/web-arena-x/webarena">repo</a></td>
+<td>Carnegie Mellon et al.</td>
+<td>tarefas web realistas em ambiente self-hosted</td>
+<td>boa base para skills web reproduziveis</td>
+</tr>
+<tr>
+<td><a href="https://jykoh.com/vwa">VisualWebArena</a> / <a href="https://arxiv.org/abs/2401.13649">paper</a> / <a href="https://github.com/web-arena-x/visualwebarena">repo</a></td>
+<td>CMU et al.</td>
+<td>tarefas web visualmente ancoradas</td>
+<td>importante para skills que dependem de UI, nao so DOM</td>
+</tr>
+<tr>
+<td><a href="https://arxiv.org/abs/2407.15711">AssistantBench</a></td>
+<td>paper</td>
+<td>tasks web realistas e demoradas</td>
+<td>bom para medir utilidade real, nao so navegacao curta</td>
+</tr>
+<tr>
+<td><a href="https://github.com/ServiceNow/WorkArena">WorkArena</a> / <a href="https://arxiv.org/abs/2403.07718">paper</a></td>
+<td>ServiceNow</td>
+<td>rotina de knowledge work em ServiceNow</td>
+<td>excelente para skills de escritorio/ops</td>
+</tr>
+<tr>
+<td><a href="https://arxiv.org/abs/2407.05291">WorkArena++</a></td>
+<td>paper</td>
+<td>composicao, planejamento, memoria</td>
+<td>util para composition benchmarks</td>
+</tr>
+<tr>
+<td><a href="https://github.com/ServiceNow/webarena-verified">WebArena-Verified</a></td>
+<td>ServiceNow, 2025-2026</td>
+<td>versao auditada, scoring offline e deterministico</td>
+<td>boa referencia para “verified release” de benchmark</td>
+</tr>
+</tbody>
+</table>
+<p>Pontos uteis:</p>
+<ul>
+<li>O <a href="https://arxiv.org/abs/2307.13854">paper do WebArena</a> reporta melhor agente GPT-4-based com <strong>14.41%</strong> vs <strong>78.24% humano</strong>.</li>
+<li>O <a href="https://github.com/web-arena-x/webarena">repo do WebArena</a> fala de <strong>812 examples</strong> na avaliacao end-to-end.</li>
+<li>O <a href="https://github.com/web-arena-x/visualwebarena">repo do VisualWebArena</a> fala em <strong>910 tasks</strong> no conjunto completo.</li>
+<li>O <a href="https://github.com/ServiceNow/WorkArena">repo do WorkArena</a> fala em <strong>19.912 instancias unicas de 33 tasks atomicas</strong>, e o <code>WorkArena++</code> com <strong>682 tasks</strong> composicionais.</li>
+<li>O <a href="https://github.com/ServiceNow/webarena-verified">repo do WebArena-Verified</a> destaca um subset hard de <strong>258 tasks</strong> e avaliacao offline deterministica.</li>
+</ul>
+<h2 id="23-gui-desktop-e-mobile">2.3 GUI, Desktop E Mobile</h2>
+<table>
+<thead>
+<tr>
+<th>Benchmark</th>
+<th>Fonte</th>
+<th>O que mede</th>
+<th>Relevancia para skills</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://os-world.github.io/">OSWorld</a> / <a href="https://arxiv.org/abs/2404.07972">paper</a> / <a href="https://github.com/xlang-ai/OSWorld">repo</a></td>
+<td>xlang-ai et al.</td>
+<td>open-ended tasks em computadores reais</td>
+<td>skills que dependem de apps reais e fluxos cross-app</td>
+</tr>
+<tr>
+<td><a href="https://github.com/xlang-ai/OSWorld">OSWorld-Verified</a></td>
+<td>update de 2025</td>
+<td>versao corrigida/verified</td>
+<td>referencia para benchmark endurecido apos feedback da comunidade</td>
+</tr>
+<tr>
+<td><a href="https://arxiv.org/abs/2510.24563">OSWorld-MCP</a></td>
+<td>paper</td>
+<td>GUI + invocacao MCP</td>
+<td>muito relevante se skills forem acopladas a ferramentas MCP</td>
+</tr>
+<tr>
+<td><a href="https://google-research.github.io/android_world/">AndroidWorld</a> / <a href="https://arxiv.org/abs/2405.14573">paper</a> / <a href="https://github.com/google-research/android_world">repo</a></td>
+<td>Google Research</td>
+<td>benchmark dinamico em Android</td>
+<td>skills mobile e tarefas de onboarding no celular</td>
+</tr>
+<tr>
+<td><a href="https://github.com/Tongyi-MAI/MobileWorld">MobileWorld</a></td>
+<td>repo/paper</td>
+<td>benchmark mobile online com MCP</td>
+<td>interessante como direcao emergente</td>
+</tr>
+</tbody>
+</table>
+<p>Pontos uteis:</p>
+<ul>
+<li>O <a href="https://github.com/google-research/android_world">repo do AndroidWorld</a> fala em <strong>116 tasks em 20 apps</strong> e milhoes de variacoes parametrizadas.</li>
+<li>O <a href="https://github.com/xlang-ai/OSWorld">repo do OSWorld</a> destaca o lancamento de <strong>OSWorld-Verified</strong> em <strong>2025-07-28</strong>.</li>
+<li>O <a href="https://arxiv.org/abs/2510.24563">abstract do OSWorld-MCP</a> fala em <strong>158 ferramentas validadas em 7 apps</strong> e evidencia que MCP tools costumam melhorar o sucesso, mas a taxa de invocacao correta ainda e baixa.</li>
+</ul>
+<h2 id="24-terminal-coding-e-software-engineering">2.4 Terminal, Coding E Software Engineering</h2>
+<table>
+<thead>
+<tr>
+<th>Benchmark</th>
+<th>Fonte</th>
+<th>O que mede</th>
+<th>Relevancia para skills</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/harbor-framework/terminal-bench">Terminal-Bench</a> / <a href="https://arxiv.org/abs/2601.11868">paper</a></td>
+<td>Harbor/Laude</td>
+<td>tarefas reais em terminal</td>
+<td>benchmark forte para skill operacional</td>
+</tr>
+<tr>
+<td><a href="https://github.com/SWE-bench/SWE-bench">SWE-bench</a> / <a href="https://arxiv.org/abs/2310.06770">paper</a></td>
+<td>Princeton et al.</td>
+<td>resolucao de issues reais em GitHub</td>
+<td>baseline principal para skills de coding</td>
+</tr>
+<tr>
+<td><a href="https://huggingface.co/datasets/SWE-bench/SWE-bench_Verified">SWE-bench Verified</a></td>
+<td>Princeton/OpenAI Preparedness</td>
+<td>subset resolvivel validado por humanos</td>
+<td>melhor controle de qualidade</td>
+</tr>
+<tr>
+<td><a href="https://arxiv.org/abs/2410.03859">SWE-bench Multimodal</a></td>
+<td>paper/repo</td>
+<td>tarefas com componente visual em software</td>
+<td>util para skills de frontend ou GUI dev</td>
+</tr>
+<tr>
+<td><a href="https://the-agent-company.com/">TheAgentCompany</a> / <a href="https://arxiv.org/abs/2412.14161">paper</a> / <a href="https://github.com/TheAgentCompany/TheAgentCompany">repo</a></td>
+<td>CMU et al.</td>
+<td>tarefas profissionais consequenciais</td>
+<td>bom para benchmark de “digital worker”</td>
+</tr>
+</tbody>
+</table>
+<p>Pontos uteis:</p>
+<ul>
+<li>O <a href="https://github.com/harbor-framework/terminal-bench">repo do Terminal-Bench</a> diz que o benchmark ainda esta em <strong>beta</strong> com <strong>~100 tasks</strong>.</li>
+<li>O <a href="https://github.com/UCSB-NLP-Chang/Skill-Usage">repo do Skill-Usage</a> usa <code>Terminal-Bench 2.0</code> com <strong>89 tasks</strong>.</li>
+<li>O <a href="https://github.com/SWE-bench/SWE-bench">repo do SWE-bench</a> destaca <code>SWE-bench Verified</code> como subset de <strong>500 problemas</strong> validado por engenheiros.</li>
+<li>O <a href="https://github.com/TheAgentCompany/TheAgentCompany">repo do TheAgentCompany</a> fala em <strong>175 task images</strong> dentro de uma empresa simulada.</li>
+</ul>
+<p>Leitura pratica:</p>
+<ul>
+<li>Se o Freedom Skills quiser provar valor em runtime real, <code>Terminal-Bench</code>, <code>SWE-bench Verified</code> e <code>TheAgentCompany</code> sao as referencias mais fortes do lado de “fazer de verdade”.</li>
+</ul>
+<h2 id="25-assistants-generalistas-e-lifelong-learning">2.5 Assistants Generalistas E Lifelong Learning</h2>
+<table>
+<thead>
+<tr>
+<th>Benchmark</th>
+<th>Fonte</th>
+<th>O que mede</th>
+<th>Relevancia para skills</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://arxiv.org/abs/2311.12983">GAIA</a></td>
+<td>paper / dataset</td>
+<td>assistentes gerais com web, multimodalidade e tool use</td>
+<td>bom benchmark de utilidade geral</td>
+</tr>
+<tr>
+<td><a href="https://arxiv.org/abs/2308.03688">AgentBench</a></td>
+<td>paper / repo</td>
+<td>LLMs como agentes em 8 ambientes</td>
+<td>bom baseline historico</td>
+</tr>
+<tr>
+<td><a href="https://arxiv.org/abs/2505.11942">LifelongAgentBench</a></td>
+<td>paper</td>
+<td>lifelong learning em tarefas interdependentes</td>
+<td>relevante para bibliotecas de skills que aprendem ao longo do tempo</td>
+</tr>
+</tbody>
+</table>
+<p>Pontos uteis:</p>
+<ul>
+<li>O <a href="https://arxiv.org/abs/2311.12983">paper do GAIA</a> apresenta <strong>466 questoes</strong> e reporta <strong>92% humano vs 15% GPT-4 com plugins</strong> na epoca.</li>
+<li>O <a href="https://arxiv.org/abs/2308.03688">paper do AgentBench</a> cobre <strong>8 ambientes</strong>.</li>
+<li>O <a href="https://arxiv.org/abs/2505.11942">paper do LifelongAgentBench</a> e um dos poucos que trata explicitamente de <strong>tarefas skill-grounded e interdependentes</strong>.</li>
+</ul>
+<h2 id="3-o-que-ainda-falta-no-mercado">3. O Que Ainda Falta No Mercado</h2>
+<p>Mesmo somando tudo acima, ainda faltam partes importantes para um ecossistema serio de skills.</p>
+<h3 id="31-descoberta-e-roteamento-de-skills">3.1 Descoberta E Roteamento De Skills</h3>
+<p>Ainda ha pouco benchmark convincente para:</p>
+<ul>
+<li>recuperar a skill certa em repositorios enormes</li>
+<li>distinguir skills parecidas mas semanticamente diferentes</li>
+<li>avaliar metadata enganosa ou insuficiente</li>
+</ul>
+<p>Dois trabalhos adjacentes importam aqui:</p>
+<ul>
+<li><a href="https://arxiv.org/abs/2603.22455">SkillRouter</a>: estuda roteamento em <strong>~80k skills e 75 queries verificadas por especialistas</strong></li>
+<li><a href="https://arxiv.org/abs/2603.20313">Semantic Tool Discovery for MCP</a>: trabalha descoberta semantica de ferramentas MCP</li>
+</ul>
+<h3 id="32-trust-safety-e-manipulacao-de-ranking">3.2 Trust, Safety E Manipulacao De Ranking</h3>
+<p>Tambem falta benchmark forte para:</p>
+<ul>
+<li>skill maliciosa</li>
+<li>skill outdated</li>
+<li>skill com capabilities excessivas</li>
+<li>skill description manipulada para ser escolhida indevidamente</li>
+</ul>
+<p>Trabalho adjacente importante:</p>
+<ul>
+<li><a href="https://arxiv.org/abs/2510.02554">ToolTweak</a>: mostra que nomes e descricoes de tools podem enviesar fortemente a selecao</li>
+</ul>
+<p>Isso importa muito para qualquer marketplace ou registry.</p>
+<h3 id="33-ux-para-nao-tecnicos">3.3 UX Para Nao Tecnicos</h3>
+<p>Quase nenhum benchmark atual mede bem:</p>
+<ul>
+<li>se a skill reduz ambiguidade</li>
+<li>se a skill melhora onboarding</li>
+<li>se o agente avisa sobre risco e privacidade na hora certa</li>
+<li>se a resposta fica mais compreensivel para um usuario leigo</li>
+</ul>
+<p>Para o Freedom Skills, isso parece central, nao periferico.</p>
+<h2 id="4-o-que-isso-implica-para-o-freedom-skills">4. O Que Isso Implica Para O Freedom Skills</h2>
+<p>Minha leitura atual:</p>
+<ul>
+<li>Se a pergunta for “ja existe benchmark de skills?” a resposta curta e:
+<ul>
+<li><strong>sim, mas ainda sao poucos e novos</strong></li>
+</ul></li>
+<li>Se a pergunta for “ja existe benchmark pronto para o tipo de sistema que queremos?” a resposta e:
+<ul>
+<li><strong>nao</strong></li>
+</ul></li>
+</ul>
+<p>O que existe hoje cobre bem:</p>
+<ul>
+<li>eficacia local de skills</li>
+<li>tool use</li>
+<li>execucao em web/OS/terminal</li>
+<li>coding agents</li>
+</ul>
+<p>O que ainda falta e exatamente a parte mais interessante para esse projeto:</p>
+<ul>
+<li>discovery</li>
+<li>trust</li>
+<li>portability entre harnesses</li>
+<li>composicao multi-skill</li>
+<li>UX guiada e segura</li>
+</ul>
+<p>Por isso faz sentido usar os benchmarks existentes como base comparativa e construir uma camada propria por cima.</p>
+<p>O documento complementar com essa proposta esta em <a href="./skills-benchmark-strategy.html">skills-benchmark-strategy.md</a>.</p>
+<h2 id="fontes">Fontes</h2>
+<h3 id="benchmarks-diretos-de-skills">Benchmarks diretos de skills</h3>
+<ul>
+<li><a href="https://www.skillsbench.ai/">SkillsBench site</a></li>
+<li><a href="https://arxiv.org/abs/2602.12670">SkillsBench paper</a></li>
+<li><a href="https://github.com/benchflow-ai/skillsbench">SkillsBench repo</a></li>
+<li><a href="https://arxiv.org/abs/2603.15401">SWE-Skills-Bench paper</a></li>
+<li><a href="https://github.com/GeniusHTX/SWE-Skills-Bench">SWE-Skills-Bench repo</a></li>
+<li><a href="https://arxiv.org/abs/2604.04323">How Well Do Agentic Skills Work in the Wild</a></li>
+<li><a href="https://github.com/UCSB-NLP-Chang/Skill-Usage">Skill-Usage repo</a></li>
+</ul>
+<h3 id="tool-use-e-function-calling">Tool use e function calling</h3>
+<ul>
+<li><a href="https://gorilla.cs.berkeley.edu/leaderboard">BFCL leaderboard</a></li>
+<li><a href="https://github.com/ShishirPatil/gorilla/tree/main/berkeley-function-call-leaderboard">BFCL repo</a></li>
+<li><a href="https://arxiv.org/abs/2311.10775">ToolTalk</a></li>
+<li><a href="https://arxiv.org/abs/2408.04682">ToolSandbox</a></li>
+<li><a href="https://arxiv.org/abs/2406.12045">tau-bench</a></li>
+<li><a href="https://arxiv.org/abs/2506.07982">tau2-bench</a></li>
+<li><a href="https://arxiv.org/abs/2304.08244">API-Bank</a></li>
+</ul>
+<h3 id="web-gui-terminal-e-coding">Web, GUI, terminal e coding</h3>
+<ul>
+<li><a href="https://arxiv.org/abs/2307.13854">WebArena</a></li>
+<li><a href="https://github.com/web-arena-x/webarena">WebArena repo</a></li>
+<li><a href="https://arxiv.org/abs/2401.13649">VisualWebArena</a></li>
+<li><a href="https://github.com/web-arena-x/visualwebarena">VisualWebArena repo</a></li>
+<li><a href="https://arxiv.org/abs/2407.15711">AssistantBench</a></li>
+<li><a href="https://github.com/ServiceNow/WorkArena">WorkArena repo</a></li>
+<li><a href="https://arxiv.org/abs/2403.07718">WorkArena paper</a></li>
+<li><a href="https://arxiv.org/abs/2407.05291">WorkArena++ paper</a></li>
+<li><a href="https://github.com/ServiceNow/webarena-verified">WebArena-Verified repo</a></li>
+<li><a href="https://arxiv.org/abs/2404.07972">OSWorld paper</a></li>
+<li><a href="https://github.com/xlang-ai/OSWorld">OSWorld repo</a></li>
+<li><a href="https://arxiv.org/abs/2510.24563">OSWorld-MCP paper</a></li>
+<li><a href="https://arxiv.org/abs/2405.14573">AndroidWorld paper</a></li>
+<li><a href="https://github.com/google-research/android_world">AndroidWorld repo</a></li>
+<li><a href="https://github.com/Tongyi-MAI/MobileWorld">MobileWorld repo</a></li>
+<li><a href="https://github.com/harbor-framework/terminal-bench">Terminal-Bench repo</a></li>
+<li><a href="https://arxiv.org/abs/2601.11868">Terminal-Bench paper</a></li>
+<li><a href="https://github.com/SWE-bench/SWE-bench">SWE-bench repo</a></li>
+<li><a href="https://arxiv.org/abs/2310.06770">SWE-bench paper</a></li>
+<li><a href="https://arxiv.org/abs/2410.03859">SWE-bench Multimodal</a></li>
+<li><a href="https://arxiv.org/abs/2412.14161">TheAgentCompany paper</a></li>
+<li><a href="https://github.com/TheAgentCompany/TheAgentCompany">TheAgentCompany repo</a></li>
+</ul>
+<h3 id="assistants-gerais-memoria-e-discovery">Assistants gerais, memoria e discovery</h3>
+<ul>
+<li><a href="https://arxiv.org/abs/2311.12983">GAIA</a></li>
+<li><a href="https://arxiv.org/abs/2308.03688">AgentBench</a></li>
+<li><a href="https://arxiv.org/abs/2505.11942">LifelongAgentBench</a></li>
+<li><a href="https://arxiv.org/abs/2603.22455">SkillRouter</a></li>
+<li><a href="https://arxiv.org/abs/2603.20313">Semantic Tool Discovery for MCP</a></li>
+<li><a href="https://arxiv.org/abs/2510.02554">ToolTweak</a></li>
+</ul>
+    <div class="mpe-end"></div>
+  </article>
+</main>
+  </body>
+</html>

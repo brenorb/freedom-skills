@@ -1,0 +1,470 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Skill discovery, recommendation and trust · Freedom Skills</title>
+    <link rel="stylesheet" href="../assets/site.css">
+  </head>
+  <body>
+    <main class="page-shell">
+  <nav class="site-nav" aria-label="Navegacao">
+    <a href="../index.html">Indice</a><a href="README.html">Anterior</a><a href="skills-benchmark-strategy.html">Proximo</a>
+  </nav>
+  <article class="manuscript">
+    <p class="page-meta">Roadmap/skill-discovery-and-trust.md</p>
+    <h1 id="skill-discovery-recommendation-and-trust">Skill discovery, recommendation and trust</h1>
+<p>Pesquisa inicial sobre descoberta de skills, recomendação e mitigação de risco para skills maliciosos, com preferência por uma arquitetura descentralizada baseada em <strong>Nostr</strong>.</p>
+<h2 id="tldr">TL;DR</h2>
+<p>Não parece existir hoje um padrão Nostr maduro e específico para <strong>registry de skills</strong>. O que existe são <strong>blocos compatíveis</strong> que podem ser combinados:</p>
+<ul>
+<li><strong>NIP-89</strong> para descoberta de handlers/apps recomendados</li>
+<li><strong>NIP-51</strong> para listas, sets e curadorias públicas/privadas</li>
+<li><strong>NIP-32</strong> para labels, classificação, risco e compatibilidade</li>
+<li><strong>NIP-56</strong> para reports, inclusive <code>malware</code></li>
+<li><strong>NIP-58</strong> para badges/attestations de confiança</li>
+<li><strong>NIP-34</strong> para anunciar repositórios e colaboração de código via Nostr</li>
+<li><strong>NIP-90</strong> para serviços/agentes sob demanda, útil para a camada de uso/execução</li>
+</ul>
+<p>Minha leitura: dá para montar uma arquitetura muito boa em Nostr, mas ela precisará ser <strong>composta</strong> a partir desses NIPs, e não simplesmente adotada pronta.</p>
+<h2 id="1-o-que-já-existe-em-nostr-que-ajuda">1. O que já existe em Nostr que ajuda</h2>
+<h3 id="11-descoberta-de-apps-e-handlers-nip-89">1.1 Descoberta de apps e handlers, NIP-89</h3>
+<p>O NIP-89 define:</p>
+<ul>
+<li><code>kind:31990</code> para um app publicar como lida com certos kinds</li>
+<li><code>kind:31989</code> para usuários recomendarem apps/handlers para kinds específicos</li>
+</ul>
+<p>Isso é interessante porque se aproxima bastante de um modelo de descoberta de skills:</p>
+<ul>
+<li>o <strong>skill publisher</strong> pode publicar um manifesto tipo handler</li>
+<li>usuários/curadores podem publicar recomendações</li>
+<li>clientes podem buscar recomendações primeiro no grafo social e depois resolver o manifesto do skill</li>
+</ul>
+<p>Ponto forte:</p>
+<ul>
+<li>descoberta descentralizada e social-first</li>
+</ul>
+<p>Limitação:</p>
+<ul>
+<li>foi desenhado para <strong>application handlers</strong>, não para skill packages com trust/security/provenance completos</li>
+</ul>
+<h3 id="12-listas-sets-e-curadoria-nip-51">1.2 Listas, sets e curadoria, NIP-51</h3>
+<p>O NIP-51 define listas públicas/privadas e vários tipos de sets.</p>
+<p>Isso é ótimo para:</p>
+<ul>
+<li>listas de skills favoritos</li>
+<li>listas de skills aprovados por uma comunidade</li>
+<li>sets temáticos, por exemplo:
+<ul>
+<li><code>bitcoin-wallets</code></li>
+<li><code>nostr-publishing</code></li>
+<li><code>btcpay-merchant-ops</code></li>
+<li><code>safe-for-beginners</code></li>
+<li><code>audited-skills</code></li>
+</ul></li>
+</ul>
+<p>Também é útil para:</p>
+<ul>
+<li>seguir curadores</li>
+<li>montar feeds de recomendação</li>
+<li>publicar listas privadas de skills internos/experimentais</li>
+</ul>
+<h3 id="13-labels-e-classificação-nip-32">1.3 Labels e classificação, NIP-32</h3>
+<p>O NIP-32 permite anexar labels a eventos, pubkeys, relays, URLs e tópicos.</p>
+<p>Isso pode servir para classificar skills por:</p>
+<ul>
+<li>categoria</li>
+<li>linguagem</li>
+<li>compatibilidade com harnesses</li>
+<li>risco</li>
+<li>status de auditoria</li>
+<li>maturidade</li>
+<li>licença</li>
+</ul>
+<p>Exemplos de labels úteis:</p>
+<ul>
+<li><code>skill.category:bitcoin</code></li>
+<li><code>skill.category:nostr</code></li>
+<li><code>skill.category:btcpay</code></li>
+<li><code>skill.runtime:codex</code></li>
+<li><code>skill.runtime:claude-code</code></li>
+<li><code>skill.runtime:gemini</code></li>
+<li><code>skill.risk:low</code></li>
+<li><code>skill.risk:network-write</code></li>
+<li><code>skill.audit:passed</code></li>
+<li><code>skill.audit:manual-review-required</code></li>
+</ul>
+<h3 id="14-reports-inclusive-malware-nip-56">1.4 Reports, inclusive malware, NIP-56</h3>
+<p>O NIP-56 define reports (<code>kind:1984</code>) e inclui explicitamente o tipo <code>malware</code>.</p>
+<p>Isso é uma peça importante para um ecossistema de skills porque dá uma base para:</p>
+<ul>
+<li>denunciar skills maliciosos</li>
+<li>denunciar publishers comprometidos</li>
+<li>denunciar blobs/artefatos infectados</li>
+<li>distribuir sinais de risco via grafo social</li>
+</ul>
+<p>Limitação importante:</p>
+<ul>
+<li>report sozinho não basta, porque pode ser manipulado, brigado e spammado</li>
+<li>precisa ser combinado com confiança social, curadores e políticas locais</li>
+</ul>
+<h3 id="15-badges-e-attestations-nip-58">1.5 Badges e attestations, NIP-58</h3>
+<p>O NIP-58 permite badges emitidos por terceiros e escolhidos pelo usuário no perfil.</p>
+<p>Isso pode virar uma camada de atestação, por exemplo:</p>
+<ul>
+<li><code>audited-by-freedom-skills</code></li>
+<li><code>trusted-publisher</code></li>
+<li><code>bitcoin-domain-expert</code></li>
+<li><code>claude-code-compatible</code></li>
+<li><code>reproducible-artifact</code></li>
+</ul>
+<p>Uso interessante:</p>
+<ul>
+<li>badges emitidos por auditores, comunidades ou mantenedores respeitados</li>
+<li>clientes podem elevar o ranking de skills com badges de emissores confiáveis</li>
+</ul>
+<h3 id="16-repositórios-e-código-no-nostr-nip-34">1.6 Repositórios e código no Nostr, NIP-34</h3>
+<p>O NIP-34 cobre anúncio de repositórios Git, patches, PRs e issues via Nostr.</p>
+<p>Isso sugere um caminho forte para skills:</p>
+<ul>
+<li>cada skill pode apontar para um repo anunciado em Nostr</li>
+<li>o source of truth do código fica versionado e auditável</li>
+<li>reputação do skill pode se apoiar também no histórico do repositório e dos maintainers</li>
+</ul>
+<p>Isso é melhor do que guardar só um blob solto, porque:</p>
+<ul>
+<li>facilita revisão de diff</li>
+<li>facilita provenance</li>
+<li>facilita auditoria humana</li>
+</ul>
+<h3 id="17-serviçosagentes-sob-demanda-nip-90">1.7 Serviços/agentes sob demanda, NIP-90</h3>
+<p>O NIP-90 é mais sobre Data Vending Machines, isto é, pedidos de computação/resultado.</p>
+<p>Não resolve registry de skill, mas ajuda a pensar a camada de <strong>uso</strong>:</p>
+<ul>
+<li>skill como serviço remoto</li>
+<li>agente como skill executável sob demanda</li>
+<li>comparação entre múltiplos provedores para o mesmo tipo de tarefa</li>
+</ul>
+<p>Pode ser útil se o projeto quiser suportar dois modelos:</p>
+<ul>
+<li><strong>skill package local</strong></li>
+<li><strong>skill/service remoto</strong></li>
+</ul>
+<h2 id="2-o-que-já-existe-fora-de-nostr-e-vale-reaproveitar">2. O que já existe fora de Nostr e vale reaproveitar</h2>
+<p>Para segurança, o Nostr sozinho não basta. O ideal é combinar Nostr com práticas modernas de supply chain.</p>
+<h3 id="21-tuf">2.1 TUF</h3>
+<p>O TUF, The Update Framework, é focado em segurança de sistemas de update, incluindo cenários em que o repositório ou chaves são comprometidos.</p>
+<p>Ideias reaproveitáveis:</p>
+<ul>
+<li>múltiplos papéis de assinatura</li>
+<li>rotação e revogação de chaves</li>
+<li>thresholds, por exemplo exigir 2 de 3 assinaturas para um skill “trusted”</li>
+<li>metadata separada dos artefatos</li>
+</ul>
+<h3 id="22-in-toto">2.2 in-toto</h3>
+<p>O in-toto registra quais passos foram executados, por quem e em que ordem dentro da supply chain.</p>
+<p>Ideias reaproveitáveis:</p>
+<ul>
+<li>provar de qual commit saiu o skill</li>
+<li>provar quem empacotou</li>
+<li>provar que os testes passaram</li>
+<li>provar que o artefato publicado corresponde ao source revisado</li>
+</ul>
+<h3 id="23-slsa">2.3 SLSA</h3>
+<p>O SLSA é um framework de níveis de integridade para artefatos de software.</p>
+<p>Ideias reaproveitáveis:</p>
+<ul>
+<li>provenance verificável</li>
+<li>builds auditáveis</li>
+<li>hardening gradual por níveis</li>
+<li>linguagem comum para dizer se um skill tem baixa ou alta garantia</li>
+</ul>
+<h3 id="24-assinatura-e-provenance-de-artefatos">2.4 Assinatura e provenance de artefatos</h3>
+<p>Mesmo quando o registry é descentralizado, ainda vale usar ideias do mundo de pacotes/containers:</p>
+<ul>
+<li>assinatura criptográfica dos manifests</li>
+<li>hash de conteúdo de cada arquivo</li>
+<li>provenance do build/pacote</li>
+<li>política local de verificação antes de instalar/executar</li>
+</ul>
+<h2 id="3-proposta-de-arquitetura-nostr-first-para-discovery-de-skills">3. Proposta de arquitetura Nostr-first para discovery de skills</h2>
+<h3 id="31-entidades-principais">3.1 Entidades principais</h3>
+<ol type="1">
+<li><strong>Skill manifest</strong>
+<ul>
+<li>evento descrevendo o skill, versão, publisher, runtime compatível, capabilities e artefatos</li>
+</ul></li>
+<li><strong>Skill recommendation</strong>
+<ul>
+<li>evento de recomendação/curadoria por usuários ou comunidades</li>
+</ul></li>
+<li><strong>Skill labels</strong>
+<ul>
+<li>classificação, compatibilidade, risco, auditoria</li>
+</ul></li>
+<li><strong>Skill reports</strong>
+<ul>
+<li>malware, spam, impersonation, unsafe behavior</li>
+</ul></li>
+<li><strong>Skill badges / attestations</strong>
+<ul>
+<li>emitidos por auditores/curadores confiáveis</li>
+</ul></li>
+</ol>
+<h3 id="32-modelo-mínimo">3.2 Modelo mínimo</h3>
+<p>Uma primeira versão poderia ser:</p>
+<ul>
+<li>usar um evento tipo manifesto do skill, possivelmente inspirado em <strong>NIP-89</strong></li>
+<li>usar <strong>NIP-51</strong> para listas e catálogos curados</li>
+<li>usar <strong>NIP-32</strong> para labels e compatibilidade</li>
+<li>usar <strong>NIP-56</strong> para reports</li>
+<li>usar <strong>NIP-58</strong> para badges de confiança</li>
+<li>usar <strong>NIP-34</strong> quando o skill tiver repo Git associado</li>
+</ul>
+<h3 id="33-ranking--recomendação">3.3 Ranking / recomendação</h3>
+<p>A recomendação pode combinar:</p>
+<ul>
+<li>quem você segue</li>
+<li>curadores seguidos</li>
+<li>badges emitidos por emissores que você confia</li>
+<li>sinais de uso/instalação</li>
+<li>quantidade e peso social de reports negativos</li>
+<li>compatibilidade com o harness em uso</li>
+<li>proximidade temática com o contexto atual</li>
+</ul>
+<h3 id="34-sinal-de-uso">3.4 Sinal de uso</h3>
+<p>Dá para pensar em eventos opcionais de uso, por exemplo:</p>
+<ul>
+<li>install</li>
+<li>execute</li>
+<li>success</li>
+<li>failure</li>
+<li>uninstall</li>
+<li>bookmark</li>
+</ul>
+<p>Mas isso precisa ser tratado com cuidado por privacidade. O default ideal provavelmente é:</p>
+<ul>
+<li>uso local e privado</li>
+<li>opt-in explícito para publicação</li>
+<li>ou publicação agregada/anônima quando fizer sentido</li>
+</ul>
+<h2 id="4-como-reduzir-o-risco-de-skill-malicioso">4. Como reduzir o risco de skill malicioso</h2>
+<h2 id="resposta-curta">Resposta curta</h2>
+<p><strong>Não dá para garantir 100%.</strong></p>
+<p>O que dá para fazer é construir um sistema de <strong>redução de risco em camadas</strong>.</p>
+<h3 id="41-manifesto-com-capabilities-explícitas">4.1 Manifesto com capabilities explícitas</h3>
+<p>Cada skill deve declarar claramente:</p>
+<ul>
+<li>quais ferramentas pode pedir</li>
+<li>se precisa de shell</li>
+<li>se precisa de rede</li>
+<li>se precisa escrever em disco</li>
+<li>se precisa acessar segredos</li>
+<li>se precisa enviar mensagens para fora</li>
+<li>quais harnesses/runtime suporta</li>
+</ul>
+<p>Exemplo de classes de risco:</p>
+<ul>
+<li><code>read-only</code></li>
+<li><code>workspace-write</code></li>
+<li><code>network-read</code></li>
+<li><code>network-write</code></li>
+<li><code>exec-shell</code></li>
+<li><code>secret-access</code></li>
+<li><code>external-messaging</code></li>
+</ul>
+<h3 id="42-permissões-vêm-da-plataforma-não-do-skill">4.2 Permissões vêm da plataforma, não do skill</h3>
+<p>Regra importante:</p>
+<ul>
+<li>o skill pode <strong>declarar</strong> o que gostaria de usar</li>
+<li>mas quem concede permissão é a <strong>plataforma/política do usuário</strong>, nunca o skill sozinho</li>
+</ul>
+<p>Ou seja, o manifesto não pode auto-conceder poderes.</p>
+<h3 id="43-artefatos-com-hash-e-assinatura">4.3 Artefatos com hash e assinatura</h3>
+<p>Para cada versão do skill:</p>
+<ul>
+<li>hash do manifesto</li>
+<li>hash dos arquivos do skill</li>
+<li>assinatura do publisher</li>
+<li>idealmente também assinatura de auditores/curadores</li>
+</ul>
+<h3 id="44-provenance-e-reprodutibilidade">4.4 Provenance e reprodutibilidade</h3>
+<p>Quanto mais sensível o skill, mais vale exigir:</p>
+<ul>
+<li>vínculo com commit Git</li>
+<li>origem do build/pacote</li>
+<li>provenance verificável</li>
+<li>artefato reproduzível ou pelo menos comparável</li>
+</ul>
+<h3 id="45-sandbox-por-padrão">4.5 Sandbox por padrão</h3>
+<p>Mesmo skill confiável deve rodar com contenção:</p>
+<ul>
+<li>filesystem limitado</li>
+<li>rede limitada</li>
+<li>sem acesso automático a segredos</li>
+<li>sem execução irrestrita de shell</li>
+<li>aprovações para ações sensíveis</li>
+</ul>
+<h3 id="46-revisão-humana-e-auditoria-comunitária">4.6 Revisão humana e auditoria comunitária</h3>
+<p>Para skills de maior risco, vale exigir:</p>
+<ul>
+<li>revisão manual</li>
+<li>diff legível</li>
+<li>changelog</li>
+<li>approval gates</li>
+<li>auditoria por mais de uma pessoa ou organização</li>
+</ul>
+<h3 id="47-trust-graph-e-curadores">4.7 Trust graph e curadores</h3>
+<p>Em vez de confiar em “qualquer skill publicado”, o cliente pode priorizar:</p>
+<ul>
+<li>publishers que você segue</li>
+<li>curadores seguidos</li>
+<li>organizações confiáveis</li>
+<li>publishers com badges fortes</li>
+<li>skills sem reports relevantes</li>
+</ul>
+<h3 id="48-revogação-e-quarentena">4.8 Revogação e quarentena</h3>
+<p>Se um skill ou publisher for comprometido, o sistema precisa suportar:</p>
+<ul>
+<li>revogação de versão</li>
+<li>blacklist local</li>
+<li>labels de alto risco</li>
+<li>quarentena temporária</li>
+<li>remoção de recomendação</li>
+</ul>
+<h3 id="49-política-local-por-organização">4.9 Política local por organização</h3>
+<p>Empresas/comunidades podem manter listas próprias:</p>
+<ul>
+<li>approved skills</li>
+<li>denied skills</li>
+<li>allowlist de publishers</li>
+<li>threshold mínimo de badges/auditoria</li>
+<li>skills permitidos por ambiente</li>
+</ul>
+<h2 id="5-modelo-prático-que-parece-mais-promissor">5. Modelo prático que parece mais promissor</h2>
+<p>Se fosse desenhar agora, eu faria assim:</p>
+<h3 id="camada-1-identidade-e-publicação">Camada 1, identidade e publicação</h3>
+<ul>
+<li>publisher publica skill manifest assinado</li>
+<li>skill aponta para repo, release ou artefato hasheado</li>
+<li>idealmente também aponta para commit Git</li>
+</ul>
+<h3 id="camada-2-discovery">Camada 2, discovery</h3>
+<ul>
+<li>catálogo via listas/sets no Nostr</li>
+<li>descoberta social via follows e curadores</li>
+<li>busca por labels e temas</li>
+</ul>
+<h3 id="camada-3-reputação">Camada 3, reputação</h3>
+<ul>
+<li>recommendations</li>
+<li>badges</li>
+<li>labels</li>
+<li>reports</li>
+<li>uso local/telemetria opt-in</li>
+</ul>
+<h3 id="camada-4-segurança">Camada 4, segurança</h3>
+<ul>
+<li>verificação de assinatura</li>
+<li>verificação de hash</li>
+<li>política de capabilities</li>
+<li>sandbox</li>
+<li>approval para ações sensíveis</li>
+<li>revogação</li>
+</ul>
+<h2 id="6-o-que-eu-acho-que-já-existe-vs-o-que-ainda-falta">6. O que eu acho que já existe vs o que ainda falta</h2>
+<h3 id="já-existe-em-forma-de-building-blocks">Já existe em forma de building blocks</h3>
+<ul>
+<li>descoberta de handlers, NIP-89</li>
+<li>curadoria/listas, NIP-51</li>
+<li>labels, NIP-32</li>
+<li>reports de malware, NIP-56</li>
+<li>badges, NIP-58</li>
+<li>repositórios Git via Nostr, NIP-34</li>
+<li>jobs/serviços sob demanda, NIP-90</li>
+</ul>
+<h3 id="ainda-falta-ou-pelo-menos-não-aparece-como-padrão-consolidado">Ainda falta, ou pelo menos não aparece como padrão consolidado</h3>
+<ul>
+<li>um <strong>skill manifest</strong> padronizado</li>
+<li>um <strong>modelo de capabilities/permissões</strong> para skills</li>
+<li>um <strong>modelo de provenance</strong> específico para skills</li>
+<li>um <strong>esquema de recommendation</strong> mais padronizado</li>
+<li>uma forma padrão de <strong>revogação</strong> de versões maliciosas</li>
+<li>uma UX boa para explicar risco ao usuário</li>
+</ul>
+<h2 id="7-recomendação-para-o-freedom-skills">7. Recomendação para o Freedom Skills</h2>
+<p>Eu seguiria por este caminho:</p>
+<h3 id="fase-1">Fase 1</h3>
+<ul>
+<li>definir um <strong>manifesto de skill</strong> simples</li>
+<li>incluir capabilities, runtime compatível, artefatos e hashes</li>
+<li>manter source em Git e registrar commit/release</li>
+</ul>
+<h3 id="fase-2">Fase 2</h3>
+<ul>
+<li>mapear esse manifesto para publicação via Nostr</li>
+<li>usar NIP-51 para catálogos e curadorias</li>
+<li>usar NIP-32 para classificação e risco</li>
+</ul>
+<h3 id="fase-3">Fase 3</h3>
+<ul>
+<li>adicionar reputação:
+<ul>
+<li>recommendations</li>
+<li>badges</li>
+<li>reports</li>
+<li>web-of-trust</li>
+</ul></li>
+</ul>
+<h3 id="fase-4">Fase 4</h3>
+<ul>
+<li>endurecer a segurança:
+<ul>
+<li>provenance</li>
+<li>thresholds de assinatura</li>
+<li>sandbox e policies locais</li>
+<li>revogação e quarantine</li>
+</ul></li>
+</ul>
+<h2 id="8-minha-opinião-direta">8. Minha opinião direta</h2>
+<p>A parte de <strong>discovery e recommendation</strong> dá para fazer de forma bem elegante em Nostr.</p>
+<p>A parte de <strong>segurança</strong> não deve depender só de Nostr.</p>
+<p>Nostr é muito bom para:</p>
+<ul>
+<li>identidade</li>
+<li>publicação</li>
+<li>descoberta social</li>
+<li>reputação descentralizada</li>
+<li>revogação social e sinais de risco</li>
+</ul>
+<p>Mas a segurança pesada precisa vir da combinação com:</p>
+<ul>
+<li>assinatura de artefatos</li>
+<li>hashes</li>
+<li>provenance</li>
+<li>sandbox</li>
+<li>política local</li>
+<li>revisão humana</li>
+</ul>
+<p>Se eu tivesse que resumir em uma linha:</p>
+<blockquote>
+<p>Nostr resolve bem a camada social do registry, mas não deve ser a única linha de defesa contra skill malicioso.</p>
+</blockquote>
+<h2 id="9-fontes-pesquisadas">9. Fontes pesquisadas</h2>
+<ul>
+<li>NIP-89, Recommended Application Handlers</li>
+<li>NIP-51, Lists</li>
+<li>NIP-32, Labeling</li>
+<li>NIP-56, Reporting</li>
+<li>NIP-58, Badges</li>
+<li>NIP-34, git stuff</li>
+<li>NIP-90, Data Vending Machine</li>
+<li>TUF, The Update Framework</li>
+<li>in-toto</li>
+<li>SLSA</li>
+</ul>
+    <div class="mpe-end"></div>
+  </article>
+</main>
+  </body>
+</html>

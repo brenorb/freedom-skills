@@ -1,0 +1,517 @@
+/* Please visit the URL below for more information: */
+/*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
+
+/* Medieval manuscript-inspired markdown theme */
+.manuscript {
+  --ink: #2c231a;
+  --ink-soft: #4a3d31;
+  --parchment: #f6edd9;
+  --parchment-dark: #eadfc8;
+  --gold: #9f7a33;
+  --gold-soft: #b9995b;
+  --rose-oxide: #7f4b3f;
+  --lapis: #2f4f89;
+  --vermilion: #983334;
+  --line: rgba(82, 58, 29, 0.2);
+  --shadow: rgba(54, 35, 14, 0.16);
+  --code-bg: #efe5d2;
+  --code-border: #d8c7a6;
+  --code-ink: #3a3025;
+  --code-muted: #5f5141;
+
+  position: relative;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 12% 8%, rgba(194, 162, 102, 0.12) 0, rgba(194, 162, 102, 0) 38%),
+    radial-gradient(circle at 88% 82%, rgba(127, 75, 63, 0.08) 0, rgba(127, 75, 63, 0) 40%),
+    linear-gradient(175deg, #f8efdc 0%, var(--parchment) 100%);
+  font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  font-size: 17px;
+  line-height: 1.62;
+  letter-spacing: 0.01em;
+  max-width: 840px;
+  margin: 14px auto 26px;
+  padding: 42px 62px 46px;
+  border: 1px solid rgba(99, 70, 31, 0.28);
+  border-radius: 6px;
+  box-shadow:
+    0 14px 42px var(--shadow),
+    inset 0 0 0 2px rgba(242, 229, 202, 0.7),
+    inset 0 0 0 9px rgba(127, 75, 63, 0.06);
+}
+
+/* Some MPE layouts generate an extra empty preview container; hide it. */
+.manuscript:empty {
+  display: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+.manuscript h1,
+.manuscript h2,
+.manuscript h3,
+.manuscript h4 {
+  color: #251d15;
+  font-family: "Baskerville", "Times New Roman", serif;
+  letter-spacing: 0.03em;
+  margin-top: 1.45em;
+  margin-bottom: 0.42em;
+}
+
+.manuscript h1 {
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 1.88em;
+  line-height: 1.25;
+  margin-top: 0.18em;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 0.38em;
+}
+
+.manuscript h1::before {
+  content: "❦ ❧ ❦";
+  display: block;
+  margin-bottom: 0.45em;
+  text-align: center;
+  color: var(--gold);
+  letter-spacing: 0.2em;
+  font-size: 0.42em;
+  text-shadow: 0 1px 0 rgba(255, 248, 229, 0.6);
+}
+
+.manuscript h1::after {
+  content: " ✦ ✧ ✦ ";
+  display: block;
+  margin-top: 0.3em;
+  text-align: center;
+  color: var(--gold-soft);
+  letter-spacing: 0.2em;
+  font-size: 0.5em;
+}
+
+.manuscript h2,
+.manuscript h3 {
+  text-align: left;
+  border-left: 3px solid rgba(159, 122, 51, 0.48);
+  padding-left: 0.52em;
+}
+
+.manuscript h2 {
+  color: #2d305f;
+  border-left-color: rgba(47, 79, 137, 0.65);
+}
+
+.manuscript h3 {
+  color: #5e2a2b;
+  border-left-color: rgba(152, 51, 52, 0.5);
+}
+
+.manuscript p {
+  color: var(--ink-soft);
+  margin: 0.62em 0;
+  text-align: justify;
+  hyphens: auto;
+}
+
+.manuscript strong {
+  color: #6a2f2a;
+}
+
+.manuscript em {
+  color: #5a4a38;
+}
+
+.manuscript a {
+  color: #2f4f89;
+  text-decoration-color: rgba(47, 79, 137, 0.45);
+}
+
+.manuscript a:hover {
+  color: #983334;
+  text-decoration-color: rgba(152, 51, 52, 0.45);
+}
+
+.manuscript hr {
+  border: 0;
+  margin: 1.35em 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    rgba(127, 75, 63, 0),
+    rgba(127, 75, 63, 0.36),
+    rgba(127, 75, 63, 0)
+  );
+}
+
+.manuscript blockquote {
+  color: #4a3a2b;
+  border-left: 3px solid var(--gold-soft);
+  border-right: 1px solid rgba(176, 141, 87, 0.2);
+  background: linear-gradient(90deg, rgba(176, 141, 87, 0.16), rgba(176, 141, 87, 0.05));
+  margin: 1em 0;
+  padding: 0.72em 1em 0.72em 1.1em;
+  border-radius: 2px;
+}
+
+.manuscript ul,
+.manuscript ol {
+  color: var(--ink-soft);
+}
+
+.manuscript li::marker {
+  color: #355a9a;
+}
+
+/* Softer inline code, no eye-jolting contrast */
+.manuscript :not(pre) > code {
+  background: rgba(224, 207, 177, 0.44);
+  color: #4f3d2f;
+  border: 1px solid rgba(150, 121, 71, 0.26);
+  border-radius: 4px;
+  padding: 0.1em 0.38em;
+  font-family: "Cascadia Mono", "SF Mono", ui-monospace, monospace;
+  font-size: 0.88em;
+}
+
+/* Code blocks: darker manuscript panel with readable highlighting */
+.manuscript pre {
+  background: linear-gradient(180deg, #d8c8aa, #cfbd9f);
+  color: #2f261d;
+  border: 1px solid #b29769;
+  border-radius: 8px;
+  padding: 0.95em 1.1em;
+  margin: 1.1em 0;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 245, 225, 0.32),
+    0 2px 8px rgba(47, 30, 12, 0.1);
+}
+
+.manuscript pre code,
+.manuscript code.hljs,
+.manuscript .hljs {
+  background: transparent !important;
+  color: #2f261d !important;
+  text-shadow: none !important;
+  font-family: "Cascadia Mono", "SF Mono", ui-monospace, monospace;
+  font-size: 0.87em;
+  line-height: 1.48;
+}
+
+.manuscript .hljs-comment,
+.manuscript .hljs-quote {
+  color: #6a5a49 !important;
+  font-style: italic;
+}
+
+.manuscript .hljs-keyword,
+.manuscript .hljs-selector-tag,
+.manuscript .hljs-literal {
+  color: #5f2534 !important;
+  font-weight: 600;
+}
+
+.manuscript .hljs-string,
+.manuscript .hljs-title,
+.manuscript .hljs-name,
+.manuscript .hljs-section {
+  color: #234b79 !important;
+}
+
+.manuscript .hljs-number,
+.manuscript .hljs-symbol,
+.manuscript .hljs-attr,
+.manuscript .hljs-attribute,
+.manuscript .hljs-variable {
+  color: #7a4522 !important;
+}
+
+.manuscript .hljs-function .hljs-title,
+.manuscript .hljs-title.function_,
+.manuscript .hljs-title.class_ {
+  color: #3f2a67 !important;
+}
+
+.manuscript .hljs-built_in,
+.manuscript .hljs-type {
+  color: #2d5f47 !important;
+}
+
+.manuscript .hljs-operator,
+.manuscript .hljs-punctuation {
+  color: #584839 !important;
+}
+
+.manuscript table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5em 0;
+  border: 1px solid rgba(131, 97, 45, 0.3);
+}
+
+.manuscript thead tr {
+  background: rgba(159, 122, 51, 0.18);
+}
+
+.manuscript th,
+.manuscript td {
+  border: 1px solid rgba(131, 97, 45, 0.24);
+  padding: 0.55em 0.7em;
+}
+
+.manuscript img {
+  display: block;
+  margin: 1.25em auto;
+  max-width: 100%;
+  border: 1px solid rgba(102, 75, 37, 0.35);
+  border-radius: 3px;
+  box-shadow:
+    0 7px 22px rgba(33, 24, 15, 0.18),
+    inset 0 0 0 1px rgba(247, 236, 214, 0.55);
+}
+
+/* Illuminated initial for opening paragraph */
+.manuscript h1 + p::first-letter,
+.manuscript h2 + p::first-letter {
+  color: var(--vermilion);
+  float: left;
+  font-size: 2.25em;
+  line-height: 0.82;
+  padding: 0.08em 0.08em 0 0;
+  font-weight: 600;
+  font-family: "Baskerville", "Times New Roman", serif;
+  text-shadow: 1px 0 0 rgba(47, 79, 137, 0.26);
+}
+
+/* Replace default "End of document" with manuscript colophon */
+.manuscript .crossnote-end,
+.manuscript #crossnote-end,
+.manuscript .end-of-document,
+.manuscript [data-role="end-of-document"],
+.manuscript .manuscript-end,
+.manuscript .mpe-end {
+  position: relative;
+  margin-top: 1.6em;
+  padding-top: 0.7em;
+  border-top: 1px solid rgba(122, 86, 37, 0.26);
+  text-align: center;
+  color: transparent !important;
+  font-size: 0 !important;
+  line-height: 0 !important;
+}
+
+.manuscript .crossnote-end::after,
+.manuscript #crossnote-end::after,
+.manuscript .end-of-document::after,
+.manuscript [data-role="end-of-document"]::after,
+.manuscript .manuscript-end::after,
+.manuscript .mpe-end::after {
+  content: "FINIS · Deo gratias";
+  color: #7c2f31;
+  font-size: 0.92rem;
+  font-family: "Baskerville", "Times New Roman", serif;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  line-height: 1.4;
+  text-shadow: 1px 0 0 rgba(47, 79, 137, 0.16);
+}
+
+
+:root {
+  color-scheme: light;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: #eadfc8;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  padding: 18px 10px 36px;
+  background:
+    radial-gradient(circle at top, rgba(159, 122, 51, 0.18), rgba(159, 122, 51, 0) 34%),
+    linear-gradient(180deg, #f2e7cf 0%, #eadfc8 100%);
+}
+
+a {
+  transition:
+    color 160ms ease,
+    border-color 160ms ease,
+    transform 160ms ease,
+    background-color 160ms ease;
+}
+
+.page-shell,
+.index-shell {
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+.site-nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin: 0 auto 16px;
+  padding: 4px;
+  position: sticky;
+  top: 8px;
+  z-index: 10;
+}
+
+.site-nav a {
+  color: #4a3d31;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.72rem;
+  padding: 0.56rem 0.9rem;
+  border: 1px solid rgba(99, 70, 31, 0.24);
+  border-radius: 999px;
+  background: rgba(248, 239, 220, 0.82);
+  box-shadow: 0 8px 18px rgba(54, 35, 14, 0.09);
+  backdrop-filter: blur(8px);
+}
+
+.site-nav a:hover {
+  color: #983334;
+  border-color: rgba(152, 51, 52, 0.4);
+  background: rgba(248, 239, 220, 0.96);
+  transform: translateY(-1px);
+}
+
+.page-meta {
+  margin: 0 0 1.2rem;
+  text-align: center;
+  color: #6a5a49;
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+}
+
+.index-shell {
+  padding: 18px 0 28px;
+}
+
+.index-header {
+  max-width: 780px;
+  margin: 0 auto 18px;
+  text-align: center;
+  color: #3f3225;
+  padding: 26px 14px 14px;
+}
+
+.eyebrow {
+  margin: 0 0 0.5rem;
+  color: #7f4b3f;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-size: 0.74rem;
+}
+
+.index-header h1 {
+  margin: 0;
+  font-family: "Baskerville", "Times New Roman", serif;
+  font-size: clamp(2.1rem, 5vw, 3.4rem);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.index-header p {
+  margin: 0.9rem auto 0;
+  max-width: 50rem;
+  color: #5a4a38;
+  line-height: 1.6;
+}
+
+.index-list {
+  display: grid;
+  gap: 14px;
+}
+
+.index-card {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 18px 18px 16px;
+  border: 1px solid rgba(99, 70, 31, 0.26);
+  border-radius: 18px;
+  background:
+    linear-gradient(180deg, rgba(248, 239, 220, 0.93), rgba(240, 229, 207, 0.96));
+  box-shadow:
+    0 12px 28px rgba(54, 35, 14, 0.09),
+    inset 0 0 0 1px rgba(247, 236, 214, 0.6);
+}
+
+.index-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(152, 51, 52, 0.38);
+}
+
+.index-card h2 {
+  margin: 0 0 0.38rem;
+  font-family: "Baskerville", "Times New Roman", serif;
+  color: #251d15;
+  font-size: 1.35rem;
+  letter-spacing: 0.02em;
+}
+
+.index-card p {
+  margin: 0;
+  color: #5a4a38;
+  line-height: 1.58;
+}
+
+.index-card .meta {
+  margin-top: 0.75rem;
+  color: #7a6a57;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.footer-note {
+  margin: 18px auto 0;
+  text-align: center;
+  color: #6a5a49;
+  font-size: 0.82rem;
+}
+
+@media (max-width: 640px) {
+  body {
+    padding: 12px 6px 24px;
+  }
+
+  .site-nav {
+    top: 6px;
+    gap: 8px;
+  }
+
+  .site-nav a {
+    font-size: 0.67rem;
+    padding: 0.5rem 0.78rem;
+  }
+
+  .manuscript {
+    padding: 28px 18px 30px;
+    margin: 0 auto 16px;
+    font-size: 16px;
+    line-height: 1.58;
+  }
+
+  .index-header {
+    padding-top: 18px;
+  }
+
+  .index-card {
+    padding: 16px 14px 14px;
+    border-radius: 14px;
+  }
+}

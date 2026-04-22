@@ -1,0 +1,418 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Roadmap · Freedom Skills</title>
+    <link rel="stylesheet" href="../assets/site.css">
+  </head>
+  <body>
+    <main class="page-shell">
+  <nav class="site-nav" aria-label="Navegacao">
+    <a href="../index.html">Indice</a><a href="skill-discovery-and-trust.html">Proximo</a>
+  </nav>
+  <article class="manuscript">
+    <p class="page-meta">Roadmap/README.md</p>
+    <h1 id="roadmap">Roadmap</h1>
+<p>Primeira varredura de direções para o projeto Freedom Skills.</p>
+<p>Objetivo inicial: identificar tecnologias adjacentes ao Bitcoin, carteiras/ecossistemas mais relevantes e ideias de skills úteis para construir em volta disso.</p>
+<h2 id="notas-adicionais">Notas adicionais</h2>
+<ul>
+<li><a href="./skills-benchmarks-landscape.html">skills-benchmarks-landscape.md</a>
+<ul>
+<li>levantamento do que existe hoje em benchmarks de skills e benchmarks adjacentes</li>
+</ul></li>
+<li><a href="./skills-benchmark-strategy.html">skills-benchmark-strategy.md</a>
+<ul>
+<li>proposta de como o Freedom Skills pode reaproveitar benchmarks existentes e onde precisa construir os seus</li>
+</ul></li>
+</ul>
+<h2 id="1-tecnologias-adjacentes-ao-bitcoin">1. Tecnologias adjacentes ao Bitcoin</h2>
+<h3 id="base-bitcoin">Base Bitcoin</h3>
+<ul>
+<li>Bitcoin Core, descriptors, PSBT, Miniscript, Simplicity, Taproot, MuSig2</li>
+<li>Lightning Network, LNURL, BOLT12, Nostr Wallet Connect (NWC)</li>
+<li>Hardware wallets, multisig, watch-only, xpubs, descriptors</li>
+<li>Self-custody UX, backup/recovery, signing flows</li>
+</ul>
+<h3 id="camadas-e-protocolos-próximos">Camadas e protocolos próximos</h3>
+<ul>
+<li><strong>Nostr</strong>: identidade, mensagens, social, zaps, NWC, automações ligadas a chaves/eventos.</li>
+<li><strong>BTCPay Server</strong>: pagamentos, lojas, invoices, webhooks, automação para creators/comércios.</li>
+<li><strong>Fedimint</strong>: e-cash federado, custódia comunitária, onboarding simples e privacidade.</li>
+<li><strong>Cashu</strong>: e-cash Chaumiano, mints, wallets, vouchers, paywalls e micropagamentos.</li>
+<li><strong>Liquid</strong>: asset issuance, L-BTC, swaps, treasury e casos institucionais.</li>
+<li><strong>RGB</strong>: assets/smart contracts client-side sobre Bitcoin.</li>
+<li><strong>Taproot Assets</strong>: emissão e movimentação de assets usando a stack de Lightning/Taproot.</li>
+<li><strong>Ark</strong>: pagamentos Bitcoin com foco em UX e escalabilidade, ainda cedo mas conceitualmente promissor.</li>
+<li><strong>Silent Payments / PayJoin / CoinJoin / privacy tooling</strong>: privacidade e composição de pagamentos.</li>
+<li><strong>DLCs</strong>: contratos discretos para apostas, hedge e mercados condicionais.</li>
+</ul>
+<h3 id="tecnologias-de-comunicaçãocomunidade-que-fazem-sentido-ao-lado-de-bitcoin">Tecnologias de comunicação/comunidade que fazem sentido ao lado de Bitcoin</h3>
+<ul>
+<li><strong>SimpleX</strong>: mensageria privada, sem identificador global persistente.</li>
+<li><strong>Matrix</strong>: comunidades, bridging, bots e coordenação open source.</li>
+<li><strong>White Noise / Noise-style secure messaging</strong>: linha de ferramentas de comunicação privada e resistente à vigilância.</li>
+<li><strong>Signal</strong>: menos aberto para integrações, mas UX e referência de privacidade importam.</li>
+</ul>
+<h2 id="2-carteiras-e-stacks-mais-relevantes-para-observar">2. Carteiras e stacks mais relevantes para observar</h2>
+<h3 id="mobile--uso-cotidiano">Mobile / uso cotidiano</h3>
+<ul>
+<li><strong>Phoenix</strong>: Lightning com boa UX, forte referência para self-custody simples.</li>
+<li><strong>Blixt</strong>: Lightning power-user/mobile node.</li>
+<li><strong>Muun</strong>: UX muito forte, modelo híbrido, boa referência de onboarding.</li>
+<li><strong>Wallet of Satoshi</strong>: enorme adoção histórica por simplicidade, apesar de custodial.</li>
+<li><strong>Blink</strong>: custodial muito usada em onboarding Lightning.</li>
+<li><strong>Aqua</strong>: Bitcoin + Liquid, ponte interessante para assets e stablecoins.</li>
+<li><strong>BlueWallet</strong>: referência histórica em mobile/watch-only/Lightning.</li>
+<li><strong>Zeus</strong>: controle de node Lightning e operações mais avançadas.</li>
+</ul>
+<h3 id="hardware--cold-storage">Hardware / cold storage</h3>
+<ul>
+<li><strong>Bitkey</strong></li>
+<li><strong>Coldcard</strong></li>
+<li><strong>Ledger</strong></li>
+<li><strong>Trezor</strong></li>
+<li><strong>Jade</strong></li>
+<li><strong>Passport</strong></li>
+</ul>
+<h3 id="desktop--multisig--advanced">Desktop / multisig / advanced</h3>
+<ul>
+<li><strong>Sparrow</strong></li>
+<li><strong>Electrum</strong></li>
+<li><strong>Nunchuk</strong></li>
+<li><strong>Specter Desktop</strong></li>
+</ul>
+<h3 id="ecash--fedimint--cashu">Ecash / Fedimint / Cashu</h3>
+<ul>
+<li><strong>Fedi</strong></li>
+<li><strong>Cashu wallets</strong> (ecosistema de mints, vouchers, apps web/mobile/CLI)</li>
+</ul>
+<h3 id="o-que-aprender-com-as-carteiras-mais-usadas">O que aprender com as carteiras mais usadas</h3>
+<ul>
+<li>onboarding e backup</li>
+<li>receive/send extremamente simples</li>
+<li>fee selection sem confundir</li>
+<li>watch-only e separação entre observação e assinatura</li>
+<li>hardware wallet pairing</li>
+<li>integração com LNURL, NWC, BTCPay e Nostr</li>
+<li>recovery, migration, export/import, compatibilidade entre wallets</li>
+</ul>
+<h2 id="3-ideias-de-skills-interessantes-para-criar">3. Ideias de skills interessantes para criar</h2>
+<h3 id="bitcoin-infra--custody">Bitcoin infra / custody</h3>
+<ol type="1">
+<li><strong>bitcoin-wallet-audit</strong>
+<ul>
+<li>inspeciona setup de wallet, backups, multisig, xpub/descriptors, riscos comuns.</li>
+</ul></li>
+<li><strong>psbt-assistant</strong>
+<ul>
+<li>ajuda a montar, revisar e explicar PSBTs antes de assinar.</li>
+</ul></li>
+<li><strong>sparrow-helper</strong>
+<ul>
+<li>tarefas comuns no Sparrow: labels, import/export, UTXO hygiene, coin control.</li>
+</ul></li>
+<li><strong>multisig-checklist</strong>
+<ul>
+<li>cria/valida checklist de setup multisig, recovery e rotação de dispositivos.</li>
+</ul></li>
+</ol>
+<h3 id="lightning--payments">Lightning / payments</h3>
+<ol start="5" type="1">
+<li><strong>lightning-ops</strong>
+<ul>
+<li>invoices, LNURL, liquidity, node checks, canais, swaps, backups.</li>
+</ul></li>
+<li><strong>btcpay-ops</strong>
+<ul>
+<li>instalar/configurar BTCPay, criar lojas, webhooks, integração com produtos/assinaturas.</li>
+</ul></li>
+<li><strong>ln-onboarding</strong>
+<ul>
+<li>guia pessoas para escolher carteira Lightning conforme perfil: custodial, self-custody, node, merchant.</li>
+</ul></li>
+</ol>
+<h3 id="nostr--identity--creator-economy">Nostr / identity / creator economy</h3>
+<ol start="8" type="1">
+<li><strong>nostr-publisher</strong>
+<ul>
+<li>publicar notas, threads, artigos, eventos e sincronizar conteúdos.</li>
+</ul></li>
+<li><strong>nostr-profile-ops</strong>
+<ul>
+<li>perfil, relays, nip-05, listas, follows, verificação de presença.</li>
+</ul></li>
+<li><strong>nostr-wallet-connect-helper</strong>
+<ul>
+<li>conectar apps via NWC, diagnosticar permissões e limites.</li>
+</ul></li>
+<li><strong>nostr-event-promoter</strong>
+<ul>
+<li>divulgar meetups/Bitdevs em múltiplos relays e formatos.</li>
+</ul></li>
+</ol>
+<h3 id="ecash--fedimint--privacy-payments">Ecash / Fedimint / privacy payments</h3>
+<ol start="12" type="1">
+<li><strong>cashu-ops</strong>
+<ul>
+<li>escolher mint, emitir/resgatar ecash, vouchers, análise de risco e UX.</li>
+</ul></li>
+<li><strong>fedimint-guide</strong>
+<ul>
+<li>comparar federações, onboarding, casos de uso comunitários.</li>
+</ul></li>
+<li><strong>privacy-payment-advisor</strong>
+<ul>
+<li>ajuda a escolher entre on-chain, Lightning, Cashu, Fedimint, Liquid conforme contexto.</li>
+</ul></li>
+</ol>
+<h3 id="comunidade--educação--pesquisa">Comunidade / educação / pesquisa</h3>
+<ol start="15" type="1">
+<li><strong>bitcoin-research-radar</strong>
+<ul>
+<li>acompanha Bitcoin Optech, BIPs, newsletters, mudanças de wallets e infra.</li>
+</ul></li>
+<li><strong>bitdevs-ops</strong>
+<ul>
+<li>pauta, divulgação, follow-up, relatório, pagamentos e checklist do evento.</li>
+</ul></li>
+<li><strong>wallet-comparator</strong>
+<ul>
+<li>compara carteiras por self-custody, privacidade, Lightning, hardware, open source e perfil de uso.</li>
+</ul></li>
+</ol>
+<h3 id="comunicação-privada--comunidade-técnica">Comunicação privada / comunidade técnica</h3>
+<ol start="18" type="1">
+<li><strong>simplex-helper</strong>
+<ul>
+<li>onboarding e operação de grupos/canais no ecossistema SimpleX.</li>
+</ul></li>
+<li><strong>matrix-community-ops</strong>
+<ul>
+<li>rooms, bridges, bots, moderação e integrações.</li>
+</ul></li>
+<li><strong>secure-comms-chooser</strong>
+<ul>
+<li>recomenda stack de comunicação conforme ameaça, comunidade e UX.</li>
+</ul></li>
+</ol>
+<h2 id="4-público-prioritário-que-parece-mais-importante">4. Público prioritário que parece mais importante</h2>
+<p>Um recorte forte para o Freedom Skills pode ser:</p>
+<ul>
+<li><strong>ativistas de liberdade e direitos humanos</strong></li>
+<li>pessoas em ambientes de censura, vigilância ou repressão</li>
+<li>usuários <strong>não técnicos</strong> que precisam montar projetos, se comunicar melhor e reduzir risco sem virar especialistas</li>
+</ul>
+<p>Isso muda a priorização.</p>
+<p>Não basta ter skills “poderosas”. Elas precisam ser:</p>
+<ul>
+<li>guiadas</li>
+<li>opinativas</li>
+<li>com linguagem simples</li>
+<li>seguras por padrão</li>
+<li>com alertas claros de privacidade e segurança</li>
+<li>úteis para alguém que quer <strong>fazer uma coisa concreta</strong> sem entender toda a stack por trás</li>
+</ul>
+<h2 id="5-harnesses--agents-que-vale-priorizar">5. Harnesses / agents que vale priorizar</h2>
+<p>Além dos skills por tecnologia, o projeto também ganha muito se pensar nos <strong>harnesses/agentes</strong> como camada de execução e UX.</p>
+<h3 id="mais-importantes-agora">Mais importantes agora</h3>
+<ol type="1">
+<li><strong>OpenClaw</strong>
+<ul>
+<li>importante como camada prática de orquestração, automação, memória, sessões e ferramentas.</li>
+<li>especialmente valioso para fluxos guiados e assistentes úteis para não técnicos.</li>
+</ul></li>
+<li><strong>Hermes</strong>
+<ul>
+<li>faz sentido tratar como peça importante de testes e experiência de agente, especialmente se for parte do ecossistema que vocês querem comparar/validar.</li>
+</ul></li>
+<li><strong>Codex</strong>
+<ul>
+<li>segue como principal para código, diffs, contexto de repo e tarefas de implementação.</li>
+</ul></li>
+</ol>
+<h3 id="também-vale-tratar-como-primeira-classe">Também vale tratar como primeira classe</h3>
+<ul>
+<li><strong>Claude Code</strong>: muito forte para leitura ampla de codebase, refactors e navegação com bom julgamento.</li>
+<li><strong>Goose</strong>: vale tratar como importante no ecossistema de testes e compatibilidade entre agentes.</li>
+</ul>
+<h3 id="secundários-por-enquanto">Secundários por enquanto</h3>
+<ul>
+<li><strong>Gemini CLI</strong>: útil para exploração, geração e tarefas de apoio, mas não parece central agora.</li>
+<li><strong>Cursor Agent / Cursor CLI</strong>: ainda importante, mas menos central do que OpenClaw/Hermes para o rumo que você descreveu.</li>
+<li><strong>Aider / OpenCode / Pi</strong>: bons como adaptadores, benchmark e compatibilidade futura.</li>
+</ul>
+<h3 id="o-que-padronizar-entre-harnesses">O que padronizar entre harnesses</h3>
+<ul>
+<li>seleção do melhor harness por tipo de tarefa</li>
+<li>empacotamento de contexto do repo e da conversa</li>
+<li>anexação de arquivos relevantes</li>
+<li>modo interativo vs modo batch</li>
+<li>patch/diff/apply</li>
+<li>execução com aprovações/permissões</li>
+<li>sessões persistentes vs one-shot</li>
+<li>fallback de modelo/runtime</li>
+<li>custo, latência e qualidade por tarefa</li>
+<li>suporte a fluxos guiados para usuários não técnicos</li>
+</ul>
+<h3 id="ideias-de-skills-ligadas-a-harnesses">Ideias de skills ligadas a harnesses</h3>
+<ol start="21" type="1">
+<li><strong>harness-chooser</strong>
+<ul>
+<li>recomenda OpenClaw, Hermes, Codex, Claude Code, Goose, Gemini ou outro conforme a tarefa e o perfil do usuário.</li>
+</ul></li>
+<li><strong>prompt-packager</strong>
+<ul>
+<li>monta contexto, arquivos e instruções do jeito certo para cada harness.</li>
+</ul></li>
+<li><strong>repo-context-bundler</strong>
+<ul>
+<li>escolhe e agrupa os arquivos mais úteis antes de chamar o agente.</li>
+</ul></li>
+<li><strong>harness-benchmark</strong>
+<ul>
+<li>compara qualidade, tempo e custo entre harnesses em tarefas parecidas.</li>
+</ul></li>
+<li><strong>session-orchestrator</strong>
+<ul>
+<li>gerencia sessões persistentes, retomada de contexto e handoff entre agentes.</li>
+</ul></li>
+<li><strong>guided-agent-mode</strong>
+<ul>
+<li>adapta a experiência do agente para usuários não técnicos, com linguagem simples e checkpoints explícitos.</li>
+</ul></li>
+</ol>
+<h2 id="6-skills-básicas-que-podem-ajudar-ativistas-e-pessoas-não-técnicas">6. Skills básicas que podem ajudar ativistas e pessoas não técnicas</h2>
+<p>Além dos skills de tecnologia específica, parece muito promissor ter uma camada de skills mais básicas e guiadas.</p>
+<ol start="27" type="1">
+<li><strong>secure-project-bootstrap</strong>
+<ul>
+<li>ajuda a tirar um projeto do zero com estrutura mínima, checklist, nomes, pastas, prioridades e riscos.</li>
+</ul></li>
+<li><strong>threat-model-lite</strong>
+<ul>
+<li>ajuda a pessoa a pensar: do que preciso me proteger, de quem, e o que é risco alto vs baixo.</li>
+</ul></li>
+<li><strong>private-comms-setup</strong>
+<ul>
+<li>compara e ajuda a configurar ferramentas como Signal, SimpleX, Matrix, Nostr e afins, com tradeoffs claros.</li>
+</ul></li>
+<li><strong>opsec-checkup</strong>
+<ul>
+<li>checklist simples de segurança operacional: dispositivo, contas, backups, 2FA, links, arquivos, exposição.</li>
+</ul></li>
+<li><strong>publish-safely</strong>
+<ul>
+<li>ajuda a publicar texto, site, manifesto, formulário ou campanha com menos risco de vazamento de metadados e erros bobos.</li>
+</ul></li>
+<li><strong>privacy-alerts</strong>
+<ul>
+<li>revisa um plano/projeto e aponta alertas de privacidade, rastreabilidade e exposição.</li>
+</ul></li>
+<li><strong>secure-file-sharing-guide</strong>
+<ul>
+<li>recomenda formas de compartilhar arquivos, links e mídias com menos risco.</li>
+</ul></li>
+<li><strong>gpg-ops-guide</strong>
+<ul>
+<li>gera/gerencia chaves GPG, assina/verifica arquivos e mensagens, e orienta boas práticas de distribuição/revogação de chave.</li>
+</ul></li>
+<li><strong>backup-and-recovery-drill</strong>
+<ul>
+<li>ensina a fazer backup e recuperar acesso sem depender de memória ou improviso.</li>
+</ul></li>
+<li><strong>campaign-ops-lite</strong>
+<ul>
+<li>ajuda a organizar ação, evento, campanha ou grupo pequeno com comunicação, papéis, agenda e follow-up.</li>
+</ul></li>
+<li><strong>incident-checklist</strong>
+<ul>
+<li>checklist para quando algo der errado: conta comprometida, aparelho perdido, link suspeito, vazamento etc.</li>
+</ul></li>
+<li><strong>tool-risk-explainer</strong>
+<ul>
+<li>explica em linguagem simples por que uma ferramenta pode ser arriscada ou inadequada para um certo contexto.</li>
+</ul></li>
+</ol>
+<h2 id="7-recortes-iniciais-que-parecem-mais-promissores">7. Recortes iniciais que parecem mais promissores</h2>
+<p>Se a ideia é começar pequeno e útil, eu priorizaria três eixos em paralelo.</p>
+<h3 id="eixo-a-domínio-bitcoin--sovereign-tech">Eixo A, domínio Bitcoin / sovereign tech</h3>
+<ol type="1">
+<li><strong>wallet-comparator</strong></li>
+<li><strong>btcpay-ops</strong></li>
+<li><strong>nostr-publisher</strong></li>
+<li><strong>nostr-wallet-connect-helper</strong></li>
+<li><strong>cashu-ops</strong></li>
+<li><strong>bitcoin-research-radar</strong></li>
+<li><strong>bitdevs-ops</strong></li>
+</ol>
+<h3 id="eixo-b-infraestrutura-de-agentes--harnesses">Eixo B, infraestrutura de agentes / harnesses</h3>
+<ol type="1">
+<li><strong>harness-chooser</strong></li>
+<li><strong>prompt-packager</strong></li>
+<li><strong>repo-context-bundler</strong></li>
+<li><strong>session-orchestrator</strong></li>
+<li><strong>guided-agent-mode</strong></li>
+</ol>
+<h3 id="eixo-c-onboarding-e-segurança-para-não-técnicos">Eixo C, onboarding e segurança para não técnicos</h3>
+<ol type="1">
+<li><strong>secure-project-bootstrap</strong></li>
+<li><strong>threat-model-lite</strong></li>
+<li><strong>private-comms-setup</strong></li>
+<li><strong>opsec-checkup</strong></li>
+<li><strong>privacy-alerts</strong></li>
+<li><strong>publish-safely</strong></li>
+<li><strong>incident-checklist</strong></li>
+</ol>
+<h3 id="minha-recomendação">Minha recomendação</h3>
+<p>Se for para focar com disciplina, eu começaria por:</p>
+<ul>
+<li><strong>OpenClaw + Hermes + Codex</strong> como trio mais importante para testar experiência e execução</li>
+<li>e por <strong>5 skills iniciais</strong>:
+<ul>
+<li><strong>secure-project-bootstrap</strong></li>
+<li><strong>threat-model-lite</strong></li>
+<li><strong>private-comms-setup</strong></li>
+<li><strong>wallet-comparator</strong></li>
+<li><strong>harness-chooser</strong></li>
+</ul></li>
+</ul>
+<p>Isso me parece um começo melhor para o público que você descreveu do que começar só por skills mais técnicas.</p>
+<h2 id="8-próximas-perguntas-para-afinar-o-projeto">8. Próximas perguntas para afinar o projeto</h2>
+<ul>
+<li>O foco principal é ativista não técnico, operador técnico, merchant, ou comunidade Bitcoin?</li>
+<li>Queremos skills mais operacionais, mais educativas ou mais analíticas?</li>
+<li>O projeto vai mirar automações locais/CLI ou integrações remotas/APIs?</li>
+<li>O recorte principal é Bitcoin puro, Lightning, Nostr, ou “sovereign tech” em volta de Bitcoin?</li>
+<li>Queremos começar por um catálogo amplo ou por poucas skills muito boas?</li>
+<li>Queremos que o projeto seja multi-harness desde o início?</li>
+<li>A abstração principal deve ser por <strong>skill</strong>, por <strong>harness adapter</strong> ou por <strong>guided workflow</strong>?</li>
+<li>Quais níveis de risco aceitaremos para usuários não técnicos?</li>
+</ul>
+<h2 id="9-pesquisa-separada">9. Pesquisa separada</h2>
+<ul>
+<li>[[skill-discovery-and-trust.md]] — discovery, recommendation e trust de skills com foco em Nostr e mitigação contra skill malicioso</li>
+</ul>
+<h2 id="10-fontes-iniciais-para-expandir-depois">10. Fontes iniciais para expandir depois</h2>
+<ul>
+<li>Bitcoin.org wallet chooser</li>
+<li>Bitcoin Optech</li>
+<li>Fedimint docs</li>
+<li>Cashu docs</li>
+<li>sites/docs oficiais de Sparrow, Electrum, Nunchuk, Phoenix, Zeus, BTCPay, Nostr</li>
+<li>docs oficiais de OpenClaw, Hermes, Codex, Claude Code, Goose, Gemini CLI e Cursor</li>
+</ul>
+<h2 id="11-observações">11. Observações</h2>
+<ul>
+<li>Isto é um mapa inicial, não uma taxonomia final.</li>
+<li>Vale validar uso real e prioridade antes de abrir muitas frentes.</li>
+<li>A combinação mais natural hoje parece: <strong>Bitcoin + Lightning + Nostr + BTCPay + Cashu/Fedimint</strong>.</li>
+<li>No eixo de agents, a combinação mais natural agora parece: <strong>OpenClaw + Hermes + Codex</strong>, com Claude Code e Goose como complementos fortes.</li>
+<li>Para o público descrito, UX guiada e segurança por padrão importam tanto quanto capacidade técnica.</li>
+</ul>
+    <div class="mpe-end"></div>
+  </article>
+</main>
+  </body>
+</html>

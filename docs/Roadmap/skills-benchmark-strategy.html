@@ -1,0 +1,450 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Estrategia De Benchmark Para Freedom Skills · Freedom Skills</title>
+    <link rel="stylesheet" href="../assets/site.css">
+  </head>
+  <body>
+    <main class="page-shell">
+  <nav class="site-nav" aria-label="Navegacao">
+    <a href="../index.html">Indice</a><a href="skill-discovery-and-trust.html">Anterior</a><a href="skills-benchmarks-landscape.html">Proximo</a>
+  </nav>
+  <article class="manuscript">
+    <p class="page-meta">Roadmap/skills-benchmark-strategy.md</p>
+    <h1 id="estrategia-de-benchmark-para-freedom-skills">Estrategia De Benchmark Para Freedom Skills</h1>
+<h2 id="tldr">TL;DR</h2>
+<p>O melhor caminho nao parece ser inventar um benchmark gigantesco do zero.</p>
+<p>O melhor caminho parece ser:</p>
+<ul>
+<li>usar benchmarks existentes para o que eles ja medem bem</li>
+<li>construir uma camada propria exatamente onde o mercado ainda esta fraco:
+<ul>
+<li>discovery</li>
+<li>trust</li>
+<li>composicao</li>
+<li>UX guiada</li>
+<li>portability entre harnesses</li>
+</ul></li>
+</ul>
+<h2 id="1-o-que-o-benchmark-do-projeto-precisa-responder">1. O Que O Benchmark Do Projeto Precisa Responder</h2>
+<p>Se o projeto e “Freedom Skills”, as perguntas certas nao sao so “o agente resolveu?”.</p>
+<p>As perguntas certas sao:</p>
+<ul>
+<li>a skill certa foi descoberta?</li>
+<li>a skill certa foi carregada?</li>
+<li>a skill ajudou mais do que atrapalhou?</li>
+<li>a skill induziu passos inseguros?</li>
+<li>a skill continuou util em harnesses diferentes?</li>
+<li>a skill reduziu a carga cognitiva do usuario?</li>
+<li>a skill manteve avisos de privacidade, opsec e risco quando necessario?</li>
+</ul>
+<p>Ou seja: o benchmark precisa medir <strong>valor operacional</strong>, nao so performance abstrata.</p>
+<h2 id="2-principios-de-design">2. Principios De Design</h2>
+<h3 id="21-medir-delta-contra-baseline">2.1 Medir Delta Contra Baseline</h3>
+<p>Toda task importante deveria ter pelo menos tres condicoes:</p>
+<ul>
+<li>sem skill</li>
+<li>com skill curada</li>
+<li>com skill recuperada automaticamente</li>
+</ul>
+<p>Sem isso, fica facil confundir:</p>
+<ul>
+<li>qualidade do modelo</li>
+<li>qualidade do harness</li>
+<li>qualidade da skill</li>
+</ul>
+<h3 id="22-separar-descoberta-de-execucao">2.2 Separar Descoberta De Execucao</h3>
+<p>Uma skill pode falhar por dois motivos muito diferentes:</p>
+<ul>
+<li>a skill certa nao foi encontrada</li>
+<li>a skill foi encontrada, mas era ruim</li>
+</ul>
+<p>Se isso cair num numero unico, o diagnostico fica fraco.</p>
+<h3 id="23-fixar-versao-data-e-runtime">2.3 Fixar Versao, Data E Runtime</h3>
+<p>Os benchmarks atuais estao mudando rapido. Entao cada resultado precisa registrar:</p>
+<ul>
+<li>data</li>
+<li>benchmark version</li>
+<li>harness</li>
+<li>modelo</li>
+<li>provider</li>
+<li>numero de trials</li>
+<li>policy de ferramentas/permissoes</li>
+</ul>
+<h3 id="24-preferir-verificadores-deterministicos">2.4 Preferir Verificadores Deterministicos</h3>
+<p>Sempre que possivel, usar:</p>
+<ul>
+<li>scripts</li>
+<li>diffs</li>
+<li>estado final verificavel</li>
+<li>artefatos esperados</li>
+<li>comparacao estrutural</li>
+</ul>
+<p>LLM-as-judge ainda e util, mas como complemento, nao como fundamento.</p>
+<h3 id="25-medir-instabilidade">2.5 Medir Instabilidade</h3>
+<p>Skill systems sao instaveis por natureza. Entao alem de pass rate, vale medir:</p>
+<ul>
+<li><code>pass@k</code></li>
+<li>variancia por trial</li>
+<li>taxa de regressao</li>
+<li>taxa de uso incorreto da skill</li>
+</ul>
+<p>Isso vem diretamente da licao de <a href="https://arxiv.org/abs/2406.12045">tau-bench</a> e do ecossistema de agent eval mais recente.</p>
+<h2 id="3-o-que-reusar-de-fora">3. O Que Reusar De Fora</h2>
+<h2 id="31-camada-de-eficacia-de-skill">3.1 Camada De Eficacia De Skill</h2>
+<p>Reusar como referencia externa:</p>
+<ul>
+<li><a href="https://www.skillsbench.ai/">SkillsBench</a></li>
+<li><a href="https://arxiv.org/abs/2603.15401">SWE-Skills-Bench</a></li>
+<li><a href="https://arxiv.org/abs/2604.04323">How Well Do Agentic Skills Work in the Wild</a></li>
+</ul>
+<p>Uso recomendado:</p>
+<ul>
+<li>comparar o desenho das nossas skills com o estado da arte</li>
+<li>validar se uma skill focada realmente ajuda</li>
+<li>medir se retrieval real mantem valor ou dissolve o ganho</li>
+</ul>
+<h2 id="32-camada-de-tool-use">3.2 Camada De Tool Use</h2>
+<p>Reusar:</p>
+<ul>
+<li><a href="https://gorilla.cs.berkeley.edu/leaderboard">BFCL</a></li>
+<li><a href="https://arxiv.org/abs/2408.04682">ToolSandbox</a></li>
+<li><a href="https://arxiv.org/abs/2406.12045">tau-bench</a></li>
+</ul>
+<p>Uso recomendado:</p>
+<ul>
+<li>testar se a skill leva a melhor selecao de ferramentas</li>
+<li>testar se a skill melhora chamada multi-step</li>
+<li>testar se a skill ajuda a seguir regras de dominio</li>
+</ul>
+<h2 id="33-camada-de-execucao-real">3.3 Camada De Execucao Real</h2>
+<p>Reusar conforme o dominio:</p>
+<ul>
+<li><a href="https://github.com/ServiceNow/webarena-verified">WebArena-Verified</a></li>
+<li><a href="https://github.com/ServiceNow/WorkArena">WorkArena</a></li>
+<li><a href="https://github.com/xlang-ai/OSWorld">OSWorld-Verified</a></li>
+<li><a href="https://github.com/harbor-framework/terminal-bench">Terminal-Bench</a></li>
+<li><a href="https://huggingface.co/datasets/SWE-bench/SWE-bench_Verified">SWE-bench Verified</a></li>
+<li><a href="https://the-agent-company.com/">TheAgentCompany</a></li>
+</ul>
+<p>Uso recomendado:</p>
+<ul>
+<li>provar que a skill sai do papel</li>
+<li>medir impacto em tarefas long-horizon</li>
+<li>comparar harnesses em ambiente com verificador forte</li>
+</ul>
+<h2 id="4-o-que-precisamos-construir-aqui">4. O Que Precisamos Construir Aqui</h2>
+<h2 id="41-skill-discovery-bench">4.1 Skill Discovery Bench</h2>
+<p>Objetivo:</p>
+<ul>
+<li>medir se o sistema encontra as skills certas num catalogo grande e ruidoso</li>
+</ul>
+<p>Entrada:</p>
+<ul>
+<li>tarefa do usuario</li>
+<li>catalogo com skills boas, skills parecidas, skills distratoras e skills maliciosas</li>
+</ul>
+<p>Metricas:</p>
+<ul>
+<li>Recall@k</li>
+<li>MRR</li>
+<li>top-1 accuracy</li>
+<li>latencia</li>
+<li>custo em tokens</li>
+<li>false positive rate</li>
+<li>taxa de selecao de skill insegura</li>
+</ul>
+<p>Casos que precisam existir:</p>
+<ul>
+<li>skill certa com nome ruim</li>
+<li>skill errada com descricao sedutora</li>
+<li>skills quase iguais, mas uma esta outdated</li>
+<li>skills cujo corpo e importante, nao so metadata</li>
+</ul>
+<p>Aqui vale absorver as licoes de:</p>
+<ul>
+<li><a href="https://arxiv.org/abs/2603.22455">SkillRouter</a></li>
+<li><a href="https://arxiv.org/abs/2510.02554">ToolTweak</a></li>
+</ul>
+<h2 id="42-skill-fit-bench">4.2 Skill Fit Bench</h2>
+<p>Objetivo:</p>
+<ul>
+<li>medir se a skill certa realmente melhora o task success</li>
+</ul>
+<p>Condicoes:</p>
+<ul>
+<li>no-skill</li>
+<li>correct-skill</li>
+<li>retrieved-skill</li>
+</ul>
+<p>Metricas:</p>
+<ul>
+<li>delta de pass rate</li>
+<li>delta de custo</li>
+<li>delta de latencia</li>
+<li>negative delta rate</li>
+<li>unnecessary skill load rate</li>
+</ul>
+<p>Essa camada responde a pergunta:</p>
+<ul>
+<li>“essa skill e realmente util ou so aumenta contexto?”</li>
+</ul>
+<h2 id="43-skill-composition-bench">4.3 Skill Composition Bench</h2>
+<p>Objetivo:</p>
+<ul>
+<li>medir tarefas que exigem 2-4 skills articuladas</li>
+</ul>
+<p>Exemplos bons para este projeto:</p>
+<ul>
+<li>Nostr + BTCPay</li>
+<li>Cashu + Lightning</li>
+<li>carteira + threat model + publish safely</li>
+<li>evento comunitario + pagamentos + follow-up privado</li>
+</ul>
+<p>Metricas:</p>
+<ul>
+<li>task completion</li>
+<li>ordem correta de uso</li>
+<li>composicao minima necessaria</li>
+<li>taxa de chamadas redundantes</li>
+<li>taxa de quebra de contexto entre skills</li>
+</ul>
+<h2 id="44-skill-trust-and-safety-bench">4.4 Skill Trust And Safety Bench</h2>
+<p>Objetivo:</p>
+<ul>
+<li>medir se o sistema recusa ou isola skills arriscadas</li>
+</ul>
+<p>Casos que deveriam entrar:</p>
+<ul>
+<li>skill com pedido de permissao excessivo</li>
+<li>skill com acao externa nao justificada</li>
+<li>skill desatualizada para runtime atual</li>
+<li>skill com proveniencia indefinida</li>
+<li>skill com instruction hijacking no texto</li>
+<li>skill que incentiva vazamento de segredo</li>
+<li>skill que omite alerta de privacidade</li>
+</ul>
+<p>Metricas:</p>
+<ul>
+<li>unsafe accept rate</li>
+<li>safe reject rate</li>
+<li>precision/recall de bloqueio</li>
+<li>clareza da justificativa de bloqueio</li>
+<li>taxa de escalonamento correto para aprovacao humana</li>
+</ul>
+<p>Isso parece especialmente importante para um ecossistema que quer lidar com:</p>
+<ul>
+<li>ativistas</li>
+<li>autocustodia</li>
+<li>comunicacao privada</li>
+<li>pagamentos</li>
+</ul>
+<h2 id="45-skill-ux-bench">4.5 Skill UX Bench</h2>
+<p>Objetivo:</p>
+<ul>
+<li>medir se a skill melhora a experiencia de usuarios nao tecnicos</li>
+</ul>
+<p>Isso hoje quase nao aparece nos benchmarks existentes.</p>
+<p>Metricas:</p>
+<ul>
+<li>numero de turnos ate a conclusao</li>
+<li>necessidade de esclarecimento</li>
+<li>compreensibilidade da resposta</li>
+<li>qualidade de warnings</li>
+<li>taxa de erro humano induzido pela resposta</li>
+</ul>
+<p>Casos ideais:</p>
+<ul>
+<li>onboarding de wallet</li>
+<li>setup de private comms</li>
+<li>escolha de meio de pagamento por contexto</li>
+<li>publicacao segura</li>
+<li>recovery/backup drill</li>
+</ul>
+<h2 id="46-skill-portability-bench">4.6 Skill Portability Bench</h2>
+<p>Objetivo:</p>
+<ul>
+<li>medir se a mesma skill sobrevive em runtimes diferentes</li>
+</ul>
+<p>Harnesses naturais para comparar:</p>
+<ul>
+<li>Codex</li>
+<li>Claude Code</li>
+<li>Gemini CLI</li>
+<li>OpenHands ou outro agent runtime aberto</li>
+</ul>
+<p>Metricas:</p>
+<ul>
+<li>pass rate por harness</li>
+<li>delta de formatacao/adaptacao</li>
+<li>taxa de falha por incompatibilidade</li>
+<li>custo de manutencao por harness</li>
+</ul>
+<h2 id="5-um-v0-realista">5. Um V0 Realista</h2>
+<p>Eu comecaria pequeno e verificavel.</p>
+<h3 id="escopo">Escopo</h3>
+<ul>
+<li><strong>25 a 40 tasks</strong></li>
+<li><strong>4 suites</strong></li>
+<li><strong>3 harnesses</strong></li>
+<li><strong>3 condicoes por task</strong></li>
+</ul>
+<h3 id="suites">Suites</h3>
+<ol type="1">
+<li><code>discovery</code></li>
+</ol>
+<ul>
+<li>8 a 10 tasks</li>
+<li>foco em recuperar a skill certa</li>
+</ul>
+<ol start="2" type="1">
+<li><code>execution</code></li>
+</ol>
+<ul>
+<li>8 a 10 tasks</li>
+<li>foco em fazer uma coisa concreta com verificador deterministico</li>
+</ul>
+<ol start="3" type="1">
+<li><code>composition</code></li>
+</ol>
+<ul>
+<li>5 a 8 tasks</li>
+<li>foco em usar 2-4 skills em sequencia</li>
+</ul>
+<ol start="4" type="1">
+<li><code>trust</code></li>
+</ol>
+<ul>
+<li>5 a 8 tasks</li>
+<li>foco em skills enganosas, desatualizadas ou perigosas</li>
+</ul>
+<h3 id="dominios-iniciais">Dominios Iniciais</h3>
+<p>Para ficar alinhado ao repo atual:</p>
+<ul>
+<li>Bitcoin wallets</li>
+<li>Lightning</li>
+<li>BTCPay</li>
+<li>Nostr</li>
+<li>Cashu/Fedimint</li>
+<li>secure communications</li>
+<li>threat modeling leve</li>
+<li>publish safely</li>
+</ul>
+<h2 id="6-formato-de-task">6. Formato De Task</h2>
+<p>Cada task deveria ter algo como:</p>
+<ul>
+<li><code>task.md</code></li>
+<li><code>verifier.sh</code> ou <code>verifier.py</code></li>
+<li><code>expected_artifacts/</code></li>
+<li><code>risk_labels.json</code></li>
+<li><code>allowed_tools.json</code></li>
+<li><code>gold_skills.json</code></li>
+<li><code>distractor_skills.json</code></li>
+</ul>
+<p>Campos importantes:</p>
+<ul>
+<li>objetivo</li>
+<li>precondicoes</li>
+<li>artefato final esperado</li>
+<li>tolerancias</li>
+<li>niveis de risco</li>
+<li>se a task exige escalonamento para humano</li>
+</ul>
+<h2 id="7-metricas-que-eu-guardaria">7. Metricas Que Eu Guardaria</h2>
+<p>Primarias:</p>
+<ul>
+<li>task success</li>
+<li>pass@k</li>
+<li>unsafe success rate</li>
+</ul>
+<p>Secundarias:</p>
+<ul>
+<li>custo</li>
+<li>tempo</li>
+<li>numero de tool calls</li>
+<li>numero de turnos</li>
+<li>skills carregadas</li>
+<li>skills realmente usadas</li>
+</ul>
+<p>Diagnosticas:</p>
+<ul>
+<li>retrieval miss</li>
+<li>retrieval false positive</li>
+<li>skill loaded but ignored</li>
+<li>skill followed but harmful</li>
+<li>skill stale/runtime mismatch</li>
+<li>user clarification burden</li>
+</ul>
+<h2 id="8-o-que-nao-fazer">8. O Que Nao Fazer</h2>
+<ul>
+<li>Nao construir um benchmark genericissimo de “agents” antes de provar valor em 10 tasks fortes.</li>
+<li>Nao misturar discovery e execution num unico score global.</li>
+<li>Nao depender so de judge LLM.</li>
+<li>Nao rankear apenas modelos base.</li>
+<li>Nao assumir que skill com mais texto e melhor.</li>
+<li>Nao ignorar versao de runtime, porque boa parte das regressioes de skill parece vir exatamente disso.</li>
+</ul>
+<h2 id="9-proxima-sequencia-de-trabalho">9. Proxima Sequencia De Trabalho</h2>
+<p>Eu faria assim:</p>
+<ol type="1">
+<li>Congelar um <code>benchmark-registry.md</code> com as suites externas que vao servir de referencia.</li>
+<li>Escolher <strong>10 tasks canonicas</strong> do Freedom Skills.</li>
+<li>Definir verificadores deterministicos para essas 10 tasks.</li>
+<li>Montar um corpus pequeno de skills:
+<ul>
+<li>corretas</li>
+<li>distratoras</li>
+<li>outdated</li>
+<li>maliciosas</li>
+</ul></li>
+<li>Rodar o primeiro corte em:
+<ul>
+<li>Codex</li>
+<li>Claude Code</li>
+<li>Gemini CLI</li>
+</ul></li>
+<li>So depois expandir volume.</li>
+</ol>
+<h2 id="10-minha-opiniao">10. Minha Opiniao</h2>
+<p>O espaco de benchmark de skills esta finalmente ficando serio, mas ainda esta incompleto.</p>
+<p>O que ja existe hoje e bom para:</p>
+<ul>
+<li>provar que skill pode ajudar</li>
+<li>provar que hype sozinho nao basta</li>
+<li>provar que retrieval real e o gargalo</li>
+</ul>
+<p>O que ainda falta, e onde o Freedom Skills pode ter opiniao propria, e:</p>
+<ul>
+<li>benchmark de trust</li>
+<li>benchmark de discovery em marketplace real</li>
+<li>benchmark de UX para nao tecnicos</li>
+<li>benchmark de portability entre harnesses</li>
+</ul>
+<p>Se o projeto fizer isso bem, nao vai estar so usando benchmarks existentes. Vai estar ajudando a definir a proxima geracao deles.</p>
+<h2 id="referencias">Referencias</h2>
+<ul>
+<li><a href="https://www.skillsbench.ai/">SkillsBench</a></li>
+<li><a href="https://arxiv.org/abs/2602.12670">SkillsBench paper</a></li>
+<li><a href="https://arxiv.org/abs/2603.15401">SWE-Skills-Bench</a></li>
+<li><a href="https://arxiv.org/abs/2604.04323">How Well Do Agentic Skills Work in the Wild</a></li>
+<li><a href="https://gorilla.cs.berkeley.edu/leaderboard">BFCL</a></li>
+<li><a href="https://arxiv.org/abs/2408.04682">ToolSandbox</a></li>
+<li><a href="https://arxiv.org/abs/2406.12045">tau-bench</a></li>
+<li><a href="https://github.com/ServiceNow/webarena-verified">WebArena-Verified</a></li>
+<li><a href="https://github.com/ServiceNow/WorkArena">WorkArena</a></li>
+<li><a href="https://github.com/xlang-ai/OSWorld">OSWorld</a></li>
+<li><a href="https://arxiv.org/abs/2510.24563">OSWorld-MCP</a></li>
+<li><a href="https://github.com/google-research/android_world">AndroidWorld</a></li>
+<li><a href="https://github.com/harbor-framework/terminal-bench">Terminal-Bench</a></li>
+<li><a href="https://github.com/SWE-bench/SWE-bench">SWE-bench</a></li>
+<li><a href="https://the-agent-company.com/">TheAgentCompany</a></li>
+<li><a href="https://arxiv.org/abs/2603.22455">SkillRouter</a></li>
+<li><a href="https://arxiv.org/abs/2510.02554">ToolTweak</a></li>
+</ul>
+    <div class="mpe-end"></div>
+  </article>
+</main>
+  </body>
+</html>
