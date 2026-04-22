@@ -319,26 +319,219 @@ Campos importantes:
 
 ## 7. Metricas Que Eu Guardaria
 
-Primarias:
-- task success
-- pass@k
-- unsafe success rate
+A lista abaixo ja serve como base para o desenho do benchmark proprio.
 
-Secundarias:
-- custo
-- tempo
-- numero de tool calls
+### 7.1 Metricas primarias
+
+Essas sao as metricas que realmente dizem se o sistema resolveu a task ou nao.
+
+- **task success**
+  - taxa de tasks resolvidas pelo verificador
+- **partial success**
+  - quando a task nao passa totalmente, mas cumpre parte importante do objetivo
+- **pass@k**
+  - sucesso considerando k tentativas ou k corridas
+- **unsafe success rate**
+  - taxa de tasks que "passaram", mas violando politica, seguranca ou restricoes da task
+- **trustworthy success rate**
+  - taxa de tasks que passam **e** respeitam requisitos de seguranca, permissao e escopo
+
+### 7.2 Metricas de eficiencia
+
+Essas dizem o custo real de chegar no resultado.
+
+- **total tokens in**
+- **total tokens out**
+- **total tokens**
+- **token efficiency**
+  - sucesso por token gasto
+- **wall clock time**
+  - tempo total ate terminar
+- **time to first useful action**
+  - quanto tempo o sistema demora para sair da enrolacao e fazer algo util
+- **time to verified success**
+- **number of turns**
+- **number of tool calls**
+- **number of failed tool calls**
+- **number of retries**
+- **cost in USD** ou custo estimado por corrida
+
+### 7.3 Metricas de discovery e retrieval
+
+Como o Freedom Skills deve lidar com marketplace/registry, essa camada precisa ser medida separadamente.
+
+- **retrieval recall@k**
+  - se a skill correta apareceu entre as top k recuperadas
+- **retrieval precision@k**
+  - quantas das skills recuperadas eram realmente uteis
+- **retrieval miss rate**
+  - a skill certa existia, mas nao foi encontrada
+- **retrieval false positive rate**
+  - skill errada aparece como se fosse boa candidata
+- **ranking quality**
+  - quao alto a skill correta apareceu no ranking
+- **first relevant skill rank**
+- **distractor selection rate**
+  - frequencia com que uma skill distratora e escolhida
+- **malicious skill selection rate**
+  - frequencia com que uma skill maliciosa ou enganosa e escolhida
+- **stale skill selection rate**
+  - frequencia com que o sistema escolhe skill desatualizada
+
+### 7.4 Metricas de uso de skills
+
+Nao basta recuperar. Precisa medir se a skill foi realmente usada e se ajudou.
+
+- **skills loaded**
+  - quantas skills foram carregadas
+- **skills actually used**
+  - quantas influenciaram a execucao de verdade
+- **skill utilization rate**
+  - proporcao entre skills carregadas e skills realmente usadas
+- **skill adherence**
+  - quanto o agente seguiu o procedimento relevante da skill
+- **skill override rate**
+  - frequencia com que o agente ignora a skill e segue outro caminho
+- **skill conflict rate**
+  - quando duas skills ou instrucoes entram em conflito
+- **skill composition success**
+  - sucesso em tasks que exigem 2 ou mais skills em sequencia
+- **skill transferability**
+  - mesma skill funciona em mais de um harness/runtime?
+- **skill portability failure rate**
+  - taxa de falha por mismatch de harness, toolset ou runtime
+
+### 7.5 Metricas de qualidade da execucao
+
+Aqui entra a qualidade do artefato final, nao apenas o fato de passar ou nao.
+
+- **artifact correctness**
+  - quao correto esta o artefato final
+- **artifact completeness**
+  - cobriu todos os requisitos?
+- **artifact format compliance**
+  - entregou no formato pedido?
+- **deterministic verifier score**
+  - quando houver score numerico do verificador
+- **judge score**
+  - quando um LLM judge ou avaliacao humana complementar for necessaria
+- **regression rate**
+  - resolveu uma coisa quebrando outra?
+- **repair burden**
+  - quanto trabalho manual faltou para deixar a saida usavel
+
+### 7.6 Metricas de seguranca, trust e policy
+
+Essa parte parece central para o benchmark do Freedom Skills.
+
+- **policy violation rate**
+- **unsafe tool usage rate**
+  - usou ferramenta proibida ou num contexto nao permitido
+- **permission escalation attempts**
+- **secret exposure rate**
+  - vazou segredo, token, credencial, dado sensivel
+- **privacy violation rate**
+  - expos metadados, identificadores ou informacao alem do necessario
+- **over-broad capability use**
+  - usou capacidades mais poderosas do que a task exigia
+- **malicious skill execution rate**
+  - seguiu instrucoes de skill maliciosa
+- **deception susceptibility**
+  - caiu em metadata enganosa, descricoes falsas ou nomes manipulados
+- **human escalation correctness**
+  - soube parar e pedir confirmacao quando devia
+
+### 7.7 Metricas de UX para usuarios nao tecnicos
+
+Essa e uma parte que quase nao aparece nos benchmarks atuais, mas para Freedom Skills deveria aparecer.
+
+- **clarification burden**
+  - quantas perguntas o sistema precisou fazer para entender a task
+- **useful clarification rate**
+  - proporcao de perguntas que realmente ajudaram
+- **time to usable plan**
+  - em quanto tempo o usuario recebe um plano acionavel
+- **instruction clarity score**
+  - a resposta ficou clara para leigo?
+- **jargon load**
+  - quanto jargao tecnico apareceu desnecessariamente
+- **guided workflow completion rate**
+  - usuarios conseguem terminar o fluxo guiado?
+- **risk warning coverage**
+  - o sistema avisou riscos importantes quando devia?
+- **overwarning rate**
+  - alertou risco demais e atrapalhou o fluxo?
+- **user confidence score**
+  - o usuario sente que sabe o que fazer depois da resposta?
+
+### 7.8 Metricas comparativas entre harnesses
+
+Como o projeto e multi-harness, vale guardar metricas comparaveis por runtime.
+
+- **success by harness**
+- **cost by harness**
+- **latency by harness**
+- **retrieval quality by harness**
+- **skill adherence by harness**
+- **safety by harness**
+- **non-technical UX by harness**
+- **variance by harness**
+  - o mesmo harness e estavel entre rodadas ou muito erratico?
+
+### 7.9 Metricas diagnosticas
+
+Essas nao sao headline, mas explicam porque um resultado deu certo ou errado.
+
+- **retrieval miss**
+- **retrieval false positive**
+- **skill loaded but ignored**
+- **skill followed but harmful**
+- **skill stale/runtime mismatch**
+- **tool unavailable mismatch**
+- **context window overflow or truncation issue**
+- **user clarification burden**
+- **verifier mismatch**
+  - o sistema aparentemente resolveu, mas o verificador nao reconheceu
+
+### 7.10 O que eu logaria por corrida
+
+Para nao descobrir tarde demais que faltou observabilidade, eu guardaria por run:
+
+- task id
+- suite
+- harness
+- modelo
+- skill set disponivel
+- top k skills recuperadas
+- skill selecionada
+- skills efetivamente usadas
+- tempo total
+- tokens in/out
+- custo estimado
 - numero de turnos
-- skills carregadas
-- skills realmente usadas
+- numero de tool calls
+- eventos de erro
+- violacoes de policy
+- score do verificador
+- score complementar de juiz humano/LLM, se houver
+- outcome final: fail / partial / success / unsafe-success
 
-Diagnosticas:
-- retrieval miss
-- retrieval false positive
-- skill loaded but ignored
-- skill followed but harmful
-- skill stale/runtime mismatch
-- user clarification burden
+### 7.11 Minha shortlist de metricas para v1
+
+Se eu fosse comecar pequeno, mediria obrigatoriamente:
+
+1. **task success**
+2. **unsafe success rate**
+3. **retrieval recall@k**
+4. **distractor selection rate**
+5. **skills loaded vs skills actually used**
+6. **wall clock time**
+7. **total tokens**
+8. **cost**
+9. **clarification burden**
+10. **risk warning coverage**
+11. **skill portability failure rate**
+12. **trustworthy success rate**
 
 ## 8. O Que Nao Fazer
 
