@@ -252,6 +252,10 @@ Sinais positivos:
 - publisher conhecido pelo usuario
 - publisher aprovado pela organizacao
 - skill usada antes com sucesso
+- vouch explicito de peers confiaveis
+- recomendada por pessoas que o usuario segue
+- recomendada por curadores seguidos
+- usada por comunidades proximas ao usuario
 - auditoria humana registrada
 - artefatos assinados
 - hashes batem
@@ -273,6 +277,46 @@ Sinais negativos:
 
 Confianca deve ser contextual. Uma pessoa pode confiar numa skill para ler Markdown, mas nao para enviar emails ou acessar secrets.
 
+### 8.1 Web of trust e vouches
+
+Web of trust nao e popularidade. O ponto nao e "muita gente gostou"; e "pessoas relevantes para mim estao colocando reputacao em jogo por esta skill".
+
+Sinais de web of trust:
+
+- peer direto fez vouch da skill
+- peer direto usa a skill regularmente
+- pessoa seguida recomendou a skill
+- curador confiavel incluiu a skill em uma lista
+- organizacao confiavel aprovou a skill
+- auditor conhecido assinou uma revisao
+- varios peers independentes convergem na mesma recomendacao
+- nao ha reports relevantes vindos de peers confiaveis
+
+Esses sinais devem ser ponderados por proximidade e contexto:
+
+```text
+trust =
+  direct_peer_vouches +
+  followed_people_vouches +
+  trusted_curator_vouches +
+  organization_approval +
+  auditor_attestations +
+  local_success_history -
+  trusted_negative_reports -
+  suspicious_recommendation_patterns
+```
+
+Exemplo: uma skill de Nostr recomendada por tres pessoas que o usuario segue no Nostr pode subir bastante no ranking. Mas isso nao deve liberar automaticamente capabilities sensiveis. O vouch aumenta confianca; a politica local ainda decide o que pode executar.
+
+Vouches tambem precisam ter escopo. "Usei e gostei" vale menos que:
+
+```text
+Eu usei `github-pr-review-helper@2.1.0` em tres PRs.
+Nao pediu secrets.
+So leu comentarios e escreveu no workspace.
+Funcionou no Codex.
+```
+
 ## 9. Score de risco
 
 Risco responde: "qual o tamanho do estrago se essa skill se comportar mal?"
@@ -288,18 +332,27 @@ Uma taxonomia pratica:
 
 O risco base vem das capabilities declaradas. Depois ele e ajustado por comportamento observado e auditoria.
 
-Exemplo:
+Risco deve medir blast radius, nao reputacao. Um publisher desconhecido nao torna automaticamente a skill mais destrutiva; ele reduz a confianca. Misturar os dois deixa o algoritmo confuso.
+
+Exemplo de risco intrinseco:
 
 ```text
 risk =
   capability_risk +
   dependency_risk +
-  publisher_uncertainty +
   artifact_uncertainty +
   behavior_anomaly
 ```
 
-O ponto importante: risco alto nao significa "nunca instalar". Significa exigir mais evidencia, mais sandbox e mais confirmacao.
+Depois, a decisao combina risco com confianca:
+
+```text
+decision_pressure =
+  intrinsic_risk -
+  trust_mitigation
+```
+
+O ponto importante: risco alto nao significa "nunca instalar". Significa exigir mais evidencia, mais sandbox e mais confirmacao. Web of trust ajuda a reduzir incerteza, mas nao apaga o risco operacional de uma skill com shell, rede de escrita ou acesso a secrets.
 
 ## 10. Score final
 
@@ -323,12 +376,17 @@ Onde:
 - `risk_penalty` cresce com permissoes sensiveis
 - `policy_penalty` bloqueia ou rebaixa o que viola regras locais
 
+O `trust_multiplier` deve incluir web of trust: peers diretos, pessoas seguidas, curadores, organizacoes e auditores. O peso de um vouch deve cair com distancia social e subir quando vem acompanhado de contexto verificavel, versao exata e ausencia de conflito de interesse.
+
 Para casos sensiveis, use thresholds:
 
 ```text
 se risk >= R4 e trust < threshold:
   nao recomendar instalacao direta
   mostrar como "requer revisao"
+
+se risk >= R4 e trust >= threshold:
+  permitir recomendacao, mas manter sandbox e confirmacao explicita
 ```
 
 ## 11. Politica local
@@ -546,8 +604,9 @@ def recommend_skills(query, workspace, user_profile, policy):
             continue
 
         utility = score_utility(skill, intent, workspace)
-        trust = score_trust(skill, user_profile)
-        risk = score_risk(skill)
+        trust_signals = collect_trust_signals(skill, evidence, user_profile)
+        trust = score_trust(skill, trust_signals, user_profile)
+        risk = score_intrinsic_risk(skill)
         policy_result = evaluate_policy(skill, risk, trust, policy)
 
         if policy_result.blocked:

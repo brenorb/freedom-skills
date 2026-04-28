@@ -224,6 +224,10 @@ Fontes preferidas: skills ja usadas, listas confiaveis, repositorios conhecidos<
 <li>publisher conhecido pelo usuario</li>
 <li>publisher aprovado pela organizacao</li>
 <li>skill usada antes com sucesso</li>
+<li>vouch explicito de peers confiaveis</li>
+<li>recomendada por pessoas que o usuario segue</li>
+<li>recomendada por curadores seguidos</li>
+<li>usada por comunidades proximas ao usuario</li>
 <li>auditoria humana registrada</li>
 <li>artefatos assinados</li>
 <li>hashes batem</li>
@@ -244,6 +248,35 @@ Fontes preferidas: skills ja usadas, listas confiaveis, repositorios conhecidos<
 <li>pacote tenta executar coisas fora do escopo declarado</li>
 </ul>
 <p>Confianca deve ser contextual. Uma pessoa pode confiar numa skill para ler Markdown, mas nao para enviar emails ou acessar secrets.</p>
+<h3 id="81-web-of-trust-e-vouches">8.1 Web of trust e vouches</h3>
+<p>Web of trust nao e popularidade. O ponto nao e “muita gente gostou”; e “pessoas relevantes para mim estao colocando reputacao em jogo por esta skill”.</p>
+<p>Sinais de web of trust:</p>
+<ul>
+<li>peer direto fez vouch da skill</li>
+<li>peer direto usa a skill regularmente</li>
+<li>pessoa seguida recomendou a skill</li>
+<li>curador confiavel incluiu a skill em uma lista</li>
+<li>organizacao confiavel aprovou a skill</li>
+<li>auditor conhecido assinou uma revisao</li>
+<li>varios peers independentes convergem na mesma recomendacao</li>
+<li>nao ha reports relevantes vindos de peers confiaveis</li>
+</ul>
+<p>Esses sinais devem ser ponderados por proximidade e contexto:</p>
+<pre class="text"><code>trust =
+  direct_peer_vouches +
+  followed_people_vouches +
+  trusted_curator_vouches +
+  organization_approval +
+  auditor_attestations +
+  local_success_history -
+  trusted_negative_reports -
+  suspicious_recommendation_patterns</code></pre>
+<p>Exemplo: uma skill de Nostr recomendada por tres pessoas que o usuario segue no Nostr pode subir bastante no ranking. Mas isso nao deve liberar automaticamente capabilities sensiveis. O vouch aumenta confianca; a politica local ainda decide o que pode executar.</p>
+<p>Vouches tambem precisam ter escopo. “Usei e gostei” vale menos que:</p>
+<pre class="text"><code>Eu usei `github-pr-review-helper@2.1.0` em tres PRs.
+Nao pediu secrets.
+So leu comentarios e escreveu no workspace.
+Funcionou no Codex.</code></pre>
 <h2 id="9-score-de-risco">9. Score de risco</h2>
 <p>Risco responde: “qual o tamanho do estrago se essa skill se comportar mal?”</p>
 <p>Uma taxonomia pratica:</p>
@@ -256,14 +289,18 @@ Fontes preferidas: skills ja usadas, listas confiaveis, repositorios conhecidos<
 <li><code>R5</code>: acesso a segredos, mensagens externas, pagamentos, contas de usuario</li>
 </ul>
 <p>O risco base vem das capabilities declaradas. Depois ele e ajustado por comportamento observado e auditoria.</p>
-<p>Exemplo:</p>
+<p>Risco deve medir blast radius, nao reputacao. Um publisher desconhecido nao torna automaticamente a skill mais destrutiva; ele reduz a confianca. Misturar os dois deixa o algoritmo confuso.</p>
+<p>Exemplo de risco intrinseco:</p>
 <pre class="text"><code>risk =
   capability_risk +
   dependency_risk +
-  publisher_uncertainty +
   artifact_uncertainty +
   behavior_anomaly</code></pre>
-<p>O ponto importante: risco alto nao significa “nunca instalar”. Significa exigir mais evidencia, mais sandbox e mais confirmacao.</p>
+<p>Depois, a decisao combina risco com confianca:</p>
+<pre class="text"><code>decision_pressure =
+  intrinsic_risk -
+  trust_mitigation</code></pre>
+<p>O ponto importante: risco alto nao significa “nunca instalar”. Significa exigir mais evidencia, mais sandbox e mais confirmacao. Web of trust ajuda a reduzir incerteza, mas nao apaga o risco operacional de uma skill com shell, rede de escrita ou acesso a secrets.</p>
 <h2 id="10-score-final">10. Score final</h2>
 <p>Ranking nao deve ser “maior utilidade vence”. Deve ser utilidade ponderada por confianca e penalizada por risco.</p>
 <p>Uma formula inicial:</p>
@@ -280,10 +317,14 @@ Fontes preferidas: skills ja usadas, listas confiaveis, repositorios conhecidos<
 <li><code>risk_penalty</code> cresce com permissoes sensiveis</li>
 <li><code>policy_penalty</code> bloqueia ou rebaixa o que viola regras locais</li>
 </ul>
+<p>O <code>trust_multiplier</code> deve incluir web of trust: peers diretos, pessoas seguidas, curadores, organizacoes e auditores. O peso de um vouch deve cair com distancia social e subir quando vem acompanhado de contexto verificavel, versao exata e ausencia de conflito de interesse.</p>
 <p>Para casos sensiveis, use thresholds:</p>
 <pre class="text"><code>se risk &gt;= R4 e trust &lt; threshold:
   nao recomendar instalacao direta
-  mostrar como &quot;requer revisao&quot;</code></pre>
+  mostrar como &quot;requer revisao&quot;
+
+se risk &gt;= R4 e trust &gt;= threshold:
+  permitir recomendacao, mas manter sandbox e confirmacao explicita</code></pre>
 <h2 id="11-politica-local">11. Politica local</h2>
 <p>Politica local e a parte que impede o sistema de virar uma democracia de popularidade.</p>
 <p>Exemplos:</p>
@@ -467,8 +508,9 @@ Acao: usar uma vez / instalar / ver detalhes</code></pre>
             continue
 
         utility = score_utility(skill, intent, workspace)
-        trust = score_trust(skill, user_profile)
-        risk = score_risk(skill)
+        trust_signals = collect_trust_signals(skill, evidence, user_profile)
+        trust = score_trust(skill, trust_signals, user_profile)
+        risk = score_intrinsic_risk(skill)
         policy_result = evaluate_policy(skill, risk, trust, policy)
 
         if policy_result.blocked:
