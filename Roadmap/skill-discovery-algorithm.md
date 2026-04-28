@@ -54,7 +54,9 @@ O algoritmo pode ser pensado assim:
 ```text
 query/contexto do usuario
   -> entender intencao
-  -> gerar candidatos
+  -> descobrir fontes provaveis
+  -> consultar fontes externas
+  -> resolver candidatos encontrados
   -> filtrar compatibilidade
   -> calcular utilidade
   -> calcular confianca
@@ -68,18 +70,33 @@ query/contexto do usuario
 
 Esse pipeline e mais importante do que qualquer tecnologia de registry.
 
-## 4. Ingestao: como skills entram no indice
+## 4. Descoberta federada: onde procurar
 
-Uma skill pode entrar por varios caminhos:
+O usuario nao esta olhando uma lista local de skills. Na pratica, a plataforma precisa descobrir skills em fontes distribuidas, mais parecido com busca na web do que com uma app store fechada.
 
-- publicada por um autor
-- importada de um repositorio
-- adicionada manualmente por um usuario
-- recomendada por um time
-- aprovada por uma organizacao
-- descoberta em um catalogo publico
+Fontes possiveis:
 
-Na ingestao, o sistema deve:
+- busca geral na web
+- sites especificos de listas de skills
+- repositorios Git
+- releases de projetos
+- indices comunitarios
+- listas curadas por pessoas ou times
+- eventos publicados em redes/protocolos descentralizados
+- referencias encontradas em READMEs, documentacao e posts
+- cache local de skills ja vistas antes
+
+O algoritmo nao deve assumir uma fonte canonica. Ele deve tratar discovery como um problema de **coleta, normalizacao e verificacao de candidatos**.
+
+Para cada fonte, o sistema precisa de um adaptador:
+
+- `web_search`: encontra paginas, repositorios e listas publicas
+- `repo_scan`: procura manifestos em repositorios conhecidos
+- `curated_list`: le listas mantidas por usuarios, comunidades ou empresas
+- `protocol_events`: le eventos de redes descentralizadas, quando existirem
+- `local_cache`: reaproveita skills ja vistas, instaladas ou avaliadas
+
+Depois da coleta, cada candidato precisa ser resolvido para algo verificavel:
 
 1. validar schema do manifesto
 2. normalizar categorias, runtimes e capabilities
@@ -93,31 +110,46 @@ Skills sem manifesto bom podem existir, mas devem perder ranking e exigir mais c
 
 ## 5. Geracao de candidatos
 
-Discovery bom nao depende de um unico tipo de busca. Ele mistura varias fontes de candidatos.
+Discovery bom nao depende de uma lista local. Ele mistura fontes externas, curadorias e contexto local para montar um conjunto pequeno de candidatos plausiveis.
 
-### 5.1 Busca lexical
+### 5.1 Planejamento da busca
 
-Boa para termos exatos:
+Antes de sair procurando, a plataforma transforma o pedido do usuario em uma estrategia:
 
-- `kaggle`
-- `btcpay`
-- `docx`
-- `github pr comments`
-- `pomodoro`
+- termos provaveis de busca
+- categorias provaveis
+- runtimes aceitos
+- capacidades aceitaveis
+- fontes preferidas
+- fontes proibidas
+- grau maximo de risco
 
-Usa BM25 ou equivalente em nome, descricao, tags, exemplos e README.
+Exemplo:
 
-### 5.2 Busca semantica
+```text
+Pedido: "preciso converter PDF escaneado em Markdown"
+Busca externa: "codex skill pdf markdown ocr", "agent skill pdf ocr markdown"
+Categorias: documents, pdf, ocr, markdown
+Capabilities maximas: read-file, write-workspace, optional-network-read
+Fontes preferidas: skills ja usadas, listas confiaveis, repositorios conhecidos
+```
 
-Boa quando o usuario descreve uma necessidade:
+### 5.2 Consulta de fontes
 
-- "quero transformar um PDF em markdown"
-- "preciso responder comentarios de review"
-- "me ajuda a organizar uma planilha"
+Cada fonte devolve evidencias, nao necessariamente uma skill pronta:
 
-Usa embeddings sobre descricao, exemplos, docs e historico de tarefas resolvidas.
+- URL de manifesto
+- repo com `SKILL.md`
+- release com bundle
+- pagina de catalogo
+- recomendacao humana
+- lista curada
+- evento assinado
+- referencia indireta em documentacao
 
-### 5.3 Matching por contexto
+O sistema deve coletar mais candidatos do que pretende mostrar. Depois ele deduplica, resolve versoes e descarta o que nao passa no minimo de qualidade.
+
+### 5.3 Cache local e matching por contexto
 
 O sistema tambem deve olhar para o ambiente atual:
 
@@ -131,7 +163,16 @@ O sistema tambem deve olhar para o ambiente atual:
 
 Exemplo: se o workspace tem `.pptx`, skills de apresentacao sobem. Se tem `pyproject.toml`, skills Python sobem. Se ha um PR aberto, skills GitHub sobem.
 
-### 5.4 Curadoria
+O cache local serve para acelerar e personalizar, mas nao e a fonte de verdade. Ele guarda:
+
+- skills ja vistas
+- manifestos resolvidos
+- hashes conhecidos
+- fontes que funcionaram
+- uso local
+- bloqueios e preferencias do usuario
+
+### 5.4 Curadoria e descoberta social
 
 Listas humanas sao essenciais:
 
@@ -142,6 +183,18 @@ Listas humanas sao essenciais:
 - skills bloqueadas por seguranca
 
 Curadoria nao deve substituir ranking. Ela deve entrar como sinal ponderado.
+
+### 5.5 Deduplicacao e resolucao
+
+Fontes diferentes podem apontar para a mesma skill. Antes de ranquear, o sistema precisa agrupar candidatos por identidade:
+
+- mesmo `id`
+- mesmo repositorio
+- mesmo publisher + nome
+- mesmo hash de artefato
+- manifestos equivalentes em fontes diferentes
+
+Depois, escolhe a versao mais apropriada pela politica local: estavel, assinada, auditada, recente o suficiente e compativel com o runtime.
 
 ## 6. Filtro de compatibilidade
 
@@ -166,8 +219,8 @@ Utilidade responde: "essa skill provavelmente ajuda neste caso?"
 
 Sinais bons:
 
-- match textual com a consulta
-- match semantico com a intencao
+- a fonte encontrada descreve uma tarefa parecida
+- o manifesto declara entradas/saidas compativeis com o pedido
 - exemplos parecidos com a tarefa atual
 - compatibilidade com arquivos do workspace
 - historico de sucesso local
@@ -180,8 +233,8 @@ Um score simples:
 
 ```text
 utility =
-  0.25 * semantic_match +
-  0.20 * lexical_match +
+  0.25 * task_fit +
+  0.20 * manifest_fit +
   0.20 * context_match +
   0.15 * historical_success +
   0.10 * documentation_quality +
@@ -307,7 +360,7 @@ Toda recomendacao deveria conseguir responder:
 
 Exemplo de explicacao boa:
 
-> Recomendada porque combina semanticamente com "converter PDF para Markdown", suporta este runtime, ja foi usada 12 vezes localmente com sucesso e pede apenas leitura do arquivo e escrita no workspace.
+> Recomendada porque foi encontrada em uma fonte confiavel para tarefas de PDF, o manifesto declara entrada PDF e saida Markdown, suporta este runtime, ja foi usada 12 vezes localmente com sucesso e pede apenas leitura do arquivo e escrita no workspace.
 
 Exemplo ruim:
 
@@ -425,9 +478,9 @@ Risco: baixo, leitura de arquivo e escrita no workspace.
 Acao: usar uma vez / instalar / ver detalhes
 ```
 
-### 17.2 Catalogo pesquisavel
+### 17.2 Busca federada
 
-Busca com filtros:
+Busca que consulta fontes externas e permite filtros:
 
 - categoria
 - runtime
@@ -456,28 +509,34 @@ Antes de instalar/executar:
 Eu faria o MVP assim:
 
 1. Definir manifesto local de skill.
-2. Criar indice local com busca lexical e semantica.
-3. Implementar capabilities e classes de risco.
-4. Implementar score simples: utilidade, confianca, risco.
-5. Permitir listas curadas locais: favoritos, aprovadas, bloqueadas.
-6. Mostrar explicacao curta para cada recomendacao.
-7. Registrar feedback local de uso.
-8. Travar instalacao/execucao por politica local.
+2. Criar adaptadores de descoberta para web, repositorios, listas curadas e cache local.
+3. Implementar resolucao de candidatos para manifestos versionados e hasheados.
+4. Implementar capabilities e classes de risco.
+5. Implementar score simples: utilidade, confianca, risco.
+6. Permitir listas curadas locais: favoritos, aprovadas, bloqueadas.
+7. Mostrar explicacao curta para cada recomendacao.
+8. Registrar feedback local de uso.
+9. Travar instalacao/execucao por politica local.
 
-Nao precisa comecar com rede descentralizada, marketplace ou reputacao global. Primeiro o sistema precisa recomendar bem para uma pessoa em uma maquina.
+Nao precisa comecar com marketplace ou reputacao global. Primeiro o sistema precisa descobrir candidatos em fontes reais, resolver manifestos corretamente e recomendar bem para uma pessoa em uma maquina.
 
 ## 19. Pseudocodigo
 
 ```python
 def recommend_skills(query, workspace, user_profile, policy):
     intent = parse_intent(query, workspace)
+    search_plan = plan_discovery(intent, workspace, user_profile, policy)
 
-    candidates = union(
-        lexical_search(intent.terms),
-        semantic_search(intent.embedding),
-        context_matches(workspace),
-        curated_candidates(user_profile),
+    evidence = collect_from_sources(
+        web_search(search_plan),
+        repo_scan(search_plan),
+        curated_lists(search_plan, user_profile),
+        protocol_events(search_plan),
+        local_cache(search_plan, user_profile),
     )
+
+    candidates = resolve_candidates(evidence)
+    candidates = deduplicate(candidates)
 
     scored = []
 
@@ -530,4 +589,3 @@ App store otimiza por popularidade, reviews e conversao. Skills precisam otimiza
 Minha regra de ouro:
 
 > Recomende pela utilidade, permita pela politica, limite pelo sandbox e aprenda com o uso local.
-
