@@ -353,30 +353,308 @@
 <li>se a task exige escalonamento para humano</li>
 </ul>
 <h2 id="7-metricas-que-eu-guardaria">7. Metricas Que Eu Guardaria</h2>
-<p>Primarias:</p>
+<p>A lista abaixo ja serve como base para o desenho do benchmark proprio.</p>
+<h3 id="71-metricas-primarias">7.1 Metricas primarias</h3>
+<p>Essas sao as metricas que realmente dizem se o sistema resolveu a task ou nao.</p>
 <ul>
-<li>task success</li>
-<li>pass@k</li>
-<li>unsafe success rate</li>
+<li><strong>task success</strong>
+<ul>
+<li>taxa de tasks resolvidas pelo verificador</li>
+</ul></li>
+<li><strong>partial success</strong>
+<ul>
+<li>quando a task nao passa totalmente, mas cumpre parte importante do objetivo</li>
+</ul></li>
+<li><strong>pass@k</strong>
+<ul>
+<li>sucesso considerando k tentativas ou k corridas</li>
+</ul></li>
+<li><strong>unsafe success rate</strong>
+<ul>
+<li>taxa de tasks que “passaram”, mas violando politica, seguranca ou restricoes da task</li>
+</ul></li>
+<li><strong>trustworthy success rate</strong>
+<ul>
+<li>taxa de tasks que passam <strong>e</strong> respeitam requisitos de seguranca, permissao e escopo</li>
+</ul></li>
 </ul>
-<p>Secundarias:</p>
+<h3 id="72-metricas-de-eficiencia">7.2 Metricas de eficiencia</h3>
+<p>Essas dizem o custo real de chegar no resultado.</p>
 <ul>
-<li>custo</li>
-<li>tempo</li>
-<li>numero de tool calls</li>
+<li><strong>total tokens in</strong></li>
+<li><strong>total tokens out</strong></li>
+<li><strong>total tokens</strong></li>
+<li><strong>token efficiency</strong>
+<ul>
+<li>sucesso por token gasto</li>
+</ul></li>
+<li><strong>wall clock time</strong>
+<ul>
+<li>tempo total ate terminar</li>
+</ul></li>
+<li><strong>time to first useful action</strong>
+<ul>
+<li>quanto tempo o sistema demora para sair da enrolacao e fazer algo util</li>
+</ul></li>
+<li><strong>time to verified success</strong></li>
+<li><strong>number of turns</strong></li>
+<li><strong>number of tool calls</strong></li>
+<li><strong>number of failed tool calls</strong></li>
+<li><strong>number of retries</strong></li>
+<li><strong>cost in USD</strong> ou custo estimado por corrida</li>
+</ul>
+<h3 id="73-metricas-de-discovery-e-retrieval">7.3 Metricas de discovery e retrieval</h3>
+<p>Como o Freedom Skills deve lidar com marketplace/registry, essa camada precisa ser medida separadamente.</p>
+<ul>
+<li><strong>retrieval recall@k</strong>
+<ul>
+<li>se a skill correta apareceu entre as top k recuperadas</li>
+</ul></li>
+<li><strong>retrieval precision@k</strong>
+<ul>
+<li>quantas das skills recuperadas eram realmente uteis</li>
+</ul></li>
+<li><strong>retrieval miss rate</strong>
+<ul>
+<li>a skill certa existia, mas nao foi encontrada</li>
+</ul></li>
+<li><strong>retrieval false positive rate</strong>
+<ul>
+<li>skill errada aparece como se fosse boa candidata</li>
+</ul></li>
+<li><strong>ranking quality</strong>
+<ul>
+<li>quao alto a skill correta apareceu no ranking</li>
+</ul></li>
+<li><strong>first relevant skill rank</strong></li>
+<li><strong>distractor selection rate</strong>
+<ul>
+<li>frequencia com que uma skill distratora e escolhida</li>
+</ul></li>
+<li><strong>malicious skill selection rate</strong>
+<ul>
+<li>frequencia com que uma skill maliciosa ou enganosa e escolhida</li>
+</ul></li>
+<li><strong>stale skill selection rate</strong>
+<ul>
+<li>frequencia com que o sistema escolhe skill desatualizada</li>
+</ul></li>
+</ul>
+<h3 id="74-metricas-de-uso-de-skills">7.4 Metricas de uso de skills</h3>
+<p>Nao basta recuperar. Precisa medir se a skill foi realmente usada e se ajudou.</p>
+<ul>
+<li><strong>skills loaded</strong>
+<ul>
+<li>quantas skills foram carregadas</li>
+</ul></li>
+<li><strong>skills actually used</strong>
+<ul>
+<li>quantas influenciaram a execucao de verdade</li>
+</ul></li>
+<li><strong>skill utilization rate</strong>
+<ul>
+<li>proporcao entre skills carregadas e skills realmente usadas</li>
+</ul></li>
+<li><strong>skill adherence</strong>
+<ul>
+<li>quanto o agente seguiu o procedimento relevante da skill</li>
+</ul></li>
+<li><strong>skill override rate</strong>
+<ul>
+<li>frequencia com que o agente ignora a skill e segue outro caminho</li>
+</ul></li>
+<li><strong>skill conflict rate</strong>
+<ul>
+<li>quando duas skills ou instrucoes entram em conflito</li>
+</ul></li>
+<li><strong>skill composition success</strong>
+<ul>
+<li>sucesso em tasks que exigem 2 ou mais skills em sequencia</li>
+</ul></li>
+<li><strong>skill transferability</strong>
+<ul>
+<li>mesma skill funciona em mais de um harness/runtime?</li>
+</ul></li>
+<li><strong>skill portability failure rate</strong>
+<ul>
+<li>taxa de falha por mismatch de harness, toolset ou runtime</li>
+</ul></li>
+</ul>
+<h3 id="75-metricas-de-qualidade-da-execucao">7.5 Metricas de qualidade da execucao</h3>
+<p>Aqui entra a qualidade do artefato final, nao apenas o fato de passar ou nao.</p>
+<ul>
+<li><strong>artifact correctness</strong>
+<ul>
+<li>quao correto esta o artefato final</li>
+</ul></li>
+<li><strong>artifact completeness</strong>
+<ul>
+<li>cobriu todos os requisitos?</li>
+</ul></li>
+<li><strong>artifact format compliance</strong>
+<ul>
+<li>entregou no formato pedido?</li>
+</ul></li>
+<li><strong>deterministic verifier score</strong>
+<ul>
+<li>quando houver score numerico do verificador</li>
+</ul></li>
+<li><strong>judge score</strong>
+<ul>
+<li>quando um LLM judge ou avaliacao humana complementar for necessaria</li>
+</ul></li>
+<li><strong>regression rate</strong>
+<ul>
+<li>resolveu uma coisa quebrando outra?</li>
+</ul></li>
+<li><strong>repair burden</strong>
+<ul>
+<li>quanto trabalho manual faltou para deixar a saida usavel</li>
+</ul></li>
+</ul>
+<h3 id="76-metricas-de-seguranca-trust-e-policy">7.6 Metricas de seguranca, trust e policy</h3>
+<p>Essa parte parece central para o benchmark do Freedom Skills.</p>
+<ul>
+<li><strong>policy violation rate</strong></li>
+<li><strong>unsafe tool usage rate</strong>
+<ul>
+<li>usou ferramenta proibida ou num contexto nao permitido</li>
+</ul></li>
+<li><strong>permission escalation attempts</strong></li>
+<li><strong>secret exposure rate</strong>
+<ul>
+<li>vazou segredo, token, credencial, dado sensivel</li>
+</ul></li>
+<li><strong>privacy violation rate</strong>
+<ul>
+<li>expos metadados, identificadores ou informacao alem do necessario</li>
+</ul></li>
+<li><strong>over-broad capability use</strong>
+<ul>
+<li>usou capacidades mais poderosas do que a task exigia</li>
+</ul></li>
+<li><strong>malicious skill execution rate</strong>
+<ul>
+<li>seguiu instrucoes de skill maliciosa</li>
+</ul></li>
+<li><strong>deception susceptibility</strong>
+<ul>
+<li>caiu em metadata enganosa, descricoes falsas ou nomes manipulados</li>
+</ul></li>
+<li><strong>human escalation correctness</strong>
+<ul>
+<li>soube parar e pedir confirmacao quando devia</li>
+</ul></li>
+</ul>
+<h3 id="77-metricas-de-ux-para-usuarios-nao-tecnicos">7.7 Metricas de UX para usuarios nao tecnicos</h3>
+<p>Essa e uma parte que quase nao aparece nos benchmarks atuais, mas para Freedom Skills deveria aparecer.</p>
+<ul>
+<li><strong>clarification burden</strong>
+<ul>
+<li>quantas perguntas o sistema precisou fazer para entender a task</li>
+</ul></li>
+<li><strong>useful clarification rate</strong>
+<ul>
+<li>proporcao de perguntas que realmente ajudaram</li>
+</ul></li>
+<li><strong>time to usable plan</strong>
+<ul>
+<li>em quanto tempo o usuario recebe um plano acionavel</li>
+</ul></li>
+<li><strong>instruction clarity score</strong>
+<ul>
+<li>a resposta ficou clara para leigo?</li>
+</ul></li>
+<li><strong>jargon load</strong>
+<ul>
+<li>quanto jargao tecnico apareceu desnecessariamente</li>
+</ul></li>
+<li><strong>guided workflow completion rate</strong>
+<ul>
+<li>usuarios conseguem terminar o fluxo guiado?</li>
+</ul></li>
+<li><strong>risk warning coverage</strong>
+<ul>
+<li>o sistema avisou riscos importantes quando devia?</li>
+</ul></li>
+<li><strong>overwarning rate</strong>
+<ul>
+<li>alertou risco demais e atrapalhou o fluxo?</li>
+</ul></li>
+<li><strong>user confidence score</strong>
+<ul>
+<li>o usuario sente que sabe o que fazer depois da resposta?</li>
+</ul></li>
+</ul>
+<h3 id="78-metricas-comparativas-entre-harnesses">7.8 Metricas comparativas entre harnesses</h3>
+<p>Como o projeto e multi-harness, vale guardar metricas comparaveis por runtime.</p>
+<ul>
+<li><strong>success by harness</strong></li>
+<li><strong>cost by harness</strong></li>
+<li><strong>latency by harness</strong></li>
+<li><strong>retrieval quality by harness</strong></li>
+<li><strong>skill adherence by harness</strong></li>
+<li><strong>safety by harness</strong></li>
+<li><strong>non-technical UX by harness</strong></li>
+<li><strong>variance by harness</strong>
+<ul>
+<li>o mesmo harness e estavel entre rodadas ou muito erratico?</li>
+</ul></li>
+</ul>
+<h3 id="79-metricas-diagnosticas">7.9 Metricas diagnosticas</h3>
+<p>Essas nao sao headline, mas explicam porque um resultado deu certo ou errado.</p>
+<ul>
+<li><strong>retrieval miss</strong></li>
+<li><strong>retrieval false positive</strong></li>
+<li><strong>skill loaded but ignored</strong></li>
+<li><strong>skill followed but harmful</strong></li>
+<li><strong>skill stale/runtime mismatch</strong></li>
+<li><strong>tool unavailable mismatch</strong></li>
+<li><strong>context window overflow or truncation issue</strong></li>
+<li><strong>user clarification burden</strong></li>
+<li><strong>verifier mismatch</strong>
+<ul>
+<li>o sistema aparentemente resolveu, mas o verificador nao reconheceu</li>
+</ul></li>
+</ul>
+<h3 id="710-o-que-eu-logaria-por-corrida">7.10 O que eu logaria por corrida</h3>
+<p>Para nao descobrir tarde demais que faltou observabilidade, eu guardaria por run:</p>
+<ul>
+<li>task id</li>
+<li>suite</li>
+<li>harness</li>
+<li>modelo</li>
+<li>skill set disponivel</li>
+<li>top k skills recuperadas</li>
+<li>skill selecionada</li>
+<li>skills efetivamente usadas</li>
+<li>tempo total</li>
+<li>tokens in/out</li>
+<li>custo estimado</li>
 <li>numero de turnos</li>
-<li>skills carregadas</li>
-<li>skills realmente usadas</li>
+<li>numero de tool calls</li>
+<li>eventos de erro</li>
+<li>violacoes de policy</li>
+<li>score do verificador</li>
+<li>score complementar de juiz humano/LLM, se houver</li>
+<li>outcome final: fail / partial / success / unsafe-success</li>
 </ul>
-<p>Diagnosticas:</p>
-<ul>
-<li>retrieval miss</li>
-<li>retrieval false positive</li>
-<li>skill loaded but ignored</li>
-<li>skill followed but harmful</li>
-<li>skill stale/runtime mismatch</li>
-<li>user clarification burden</li>
-</ul>
+<h3 id="711-minha-shortlist-de-metricas-para-v1">7.11 Minha shortlist de metricas para v1</h3>
+<p>Se eu fosse comecar pequeno, mediria obrigatoriamente:</p>
+<ol type="1">
+<li><strong>task success</strong></li>
+<li><strong>unsafe success rate</strong></li>
+<li><strong>retrieval recall@k</strong></li>
+<li><strong>distractor selection rate</strong></li>
+<li><strong>skills loaded vs skills actually used</strong></li>
+<li><strong>wall clock time</strong></li>
+<li><strong>total tokens</strong></li>
+<li><strong>cost</strong></li>
+<li><strong>clarification burden</strong></li>
+<li><strong>risk warning coverage</strong></li>
+<li><strong>skill portability failure rate</strong></li>
+<li><strong>trustworthy success rate</strong></li>
+</ol>
 <h2 id="8-o-que-nao-fazer">8. O Que Nao Fazer</h2>
 <ul>
 <li>Nao construir um benchmark genericissimo de “agents” antes de provar valor em 10 tasks fortes.</li>

@@ -9,7 +9,7 @@
   <body>
     <main class="page-shell">
   <nav class="site-nav" aria-label="Navegacao">
-    <a href="../index.html">Indice</a><a href="skill-discovery-and-trust.html">Proximo</a>
+    <a href="../index.html">Indice</a><a href="ai-request-coach.html">Proximo</a>
   </nav>
   <article class="manuscript">
     <p class="page-meta">Roadmap/README.md</p>
@@ -25,6 +25,14 @@
 <li><a href="./skills-benchmark-strategy.html">skills-benchmark-strategy.md</a>
 <ul>
 <li>proposta de como o Freedom Skills pode reaproveitar benchmarks existentes e onde precisa construir os seus</li>
+</ul></li>
+<li><a href="./skill-discovery-algorithm.html">skill-discovery-algorithm.md</a>
+<ul>
+<li>modelo de algoritmo para descoberta, ranking, compartilhamento, confianca, risco e politica local de skills</li>
+</ul></li>
+<li><a href="./skill-discovery-and-trust.html">skill-discovery-and-trust.md</a>
+<ul>
+<li>pesquisa inicial sobre descoberta e confianca com uma arquitetura descentralizada baseada em Nostr</li>
 </ul></li>
 </ul>
 <h2 id="1-tecnologias-adjacentes-ao-bitcoin">1. Tecnologias adjacentes ao Bitcoin</h2>
@@ -334,6 +342,14 @@
 <ul>
 <li>explica em linguagem simples por que uma ferramenta pode ser arriscada ou inadequada para um certo contexto.</li>
 </ul></li>
+<li><strong>ai-request-coach</strong>
+<ul>
+<li>ajuda usuários não técnicos a transformar pedidos vagos em pedidos melhores para a IA, sugerindo objetivo, contexto, restrições, formato de saída e perguntas de esclarecimento.</li>
+</ul></li>
+<li><strong>skill-auditor</strong>
+<ul>
+<li>faz uma auditoria curta antes da instalação de um skill, revisando manifesto, instruções, ferramentas pedidas, ações potencialmente perigosas, sinais de exfiltração, comportamento malicioso e compatibilidade com a política local, idealmente com leitura cruzada por múltiplos modelos.</li>
+</ul></li>
 </ol>
 <h2 id="7-recortes-iniciais-que-parecem-mais-promissores">7. Recortes iniciais que parecem mais promissores</h2>
 <p>Se a ideia é começar pequeno e útil, eu priorizaria três eixos em paralelo.</p>
@@ -357,6 +373,8 @@
 </ol>
 <h3 id="eixo-c-onboarding-e-segurança-para-não-técnicos">Eixo C, onboarding e segurança para não técnicos</h3>
 <ol type="1">
+<li><strong>ai-request-coach</strong></li>
+<li><strong>skill-auditor</strong></li>
 <li><strong>secure-project-bootstrap</strong></li>
 <li><strong>threat-model-lite</strong></li>
 <li><strong>private-comms-setup</strong></li>
@@ -369,8 +387,10 @@
 <p>Se for para focar com disciplina, eu começaria por:</p>
 <ul>
 <li><strong>OpenClaw + Hermes + Codex</strong> como trio mais importante para testar experiência e execução</li>
-<li>e por <strong>5 skills iniciais</strong>:
+<li>e por <strong>7 skills iniciais</strong>:
 <ul>
+<li><strong>ai-request-coach</strong></li>
+<li><strong>skill-auditor</strong></li>
 <li><strong>secure-project-bootstrap</strong></li>
 <li><strong>threat-model-lite</strong></li>
 <li><strong>private-comms-setup</strong></li>
@@ -389,10 +409,13 @@
 <li>Queremos que o projeto seja multi-harness desde o início?</li>
 <li>A abstração principal deve ser por <strong>skill</strong>, por <strong>harness adapter</strong> ou por <strong>guided workflow</strong>?</li>
 <li>Quais níveis de risco aceitaremos para usuários não técnicos?</li>
+<li>Quanto dessa ajuda de prompting deve acontecer automaticamente versus em modo assistido, com perguntas antes de agir?</li>
 </ul>
 <h2 id="9-pesquisa-separada">9. Pesquisa separada</h2>
 <ul>
 <li>[[skill-discovery-and-trust.md]] — discovery, recommendation e trust de skills com foco em Nostr e mitigação contra skill malicioso</li>
+<li>[[ai-request-coach.md]] — spec inicial para uma skill focada em ajudar usuários não técnicos a pedir melhor para a IA</li>
+<li>[[skill-auditor.md]] — spec inicial para uma skill focada em auditar skills antes da instalação</li>
 </ul>
 <h2 id="10-fontes-iniciais-para-expandir-depois">10. Fontes iniciais para expandir depois</h2>
 <ul>

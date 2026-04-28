@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>skill-auditor · Freedom Skills</title>
+    <link rel="stylesheet" href="../assets/site.css">
+  </head>
+  <body>
+    <main class="page-shell">
+  <nav class="site-nav" aria-label="Navegacao">
+    <a href="../index.html">Indice</a><a href="ai-request-coach.html">Anterior</a><a href="skill-discovery-algorithm.html">Proximo</a>
+  </nav>
+  <article class="manuscript">
+    <p class="page-meta">Roadmap/skill-auditor.md</p>
+    <h1 id="skill-auditor">skill-auditor</h1>
+<p>Spec inicial para uma skill focada em <strong>auditar skills antes da instalacao</strong>.</p>
+<h2 id="problema">Problema</h2>
+<p>Se o Freedom Skills tiver marketplace, discovery ou instalacao de skills de terceiros, uma pergunta basica aparece cedo:</p>
+<blockquote>
+<p>como evitar instalar uma skill maliciosa, insegura, enganosa ou simplesmente desnecessariamente perigosa?</p>
+</blockquote>
+<p>Nao existe garantia perfeita. Mas da para reduzir muito o risco com uma auditoria curta, repetivel e orientada por politica.</p>
+<h2 id="objetivo">Objetivo</h2>
+<p>Antes de instalar uma skill, a skill <code>skill-auditor</code> deve ajudar a responder:</p>
+<ul>
+<li>o que essa skill realmente faz?</li>
+<li>o que ela pede para usar?</li>
+<li>quais capacidades ela tenta obter?</li>
+<li>ha sinais de exfiltracao, execucao indevida, privilege escalation ou comportamento hostil?</li>
+<li>a skill parece compativel com a politica local?</li>
+<li>vale aprovar, revisar manualmente, sandboxar ou bloquear?</li>
+</ul>
+<h2 id="resultado-esperado">Resultado esperado</h2>
+<p>A skill deve produzir uma avaliacao curta e acionavel, nao um tratado abstrato.</p>
+<p>Saida ideal:</p>
+<ul>
+<li><strong>resumo da skill</strong></li>
+<li><strong>capacidades solicitadas</strong></li>
+<li><strong>riscos identificados</strong></li>
+<li><strong>sinais suspeitos</strong></li>
+<li><strong>recomendacao final</strong></li>
+<li><strong>acao sugerida</strong>: aprovar, aprovar com restricoes, revisar manualmente, bloquear</li>
+</ul>
+<h2 id="entradas">Entradas</h2>
+<p>A skill pode receber:</p>
+<ul>
+<li>pasta do skill</li>
+<li>manifesto do skill</li>
+<li>arquivos principais, como <code>SKILL.md</code>, scripts, referencias e wrappers</li>
+<li>metadata publicada em registry ou Nostr</li>
+<li>politica local da instalacao</li>
+<li>opcionalmente resultados de leitura por mais de um modelo</li>
+</ul>
+<h2 id="o-que-ela-deve-inspecionar">O que ela deve inspecionar</h2>
+<h3 id="1-superficie-declarada">1. Superficie declarada</h3>
+<ul>
+<li>nome e descricao da skill</li>
+<li>objetivo declarado</li>
+<li>ferramentas pedidas</li>
+<li>arquivos acessados</li>
+<li>necessidade de rede</li>
+<li>necessidade de escrita em disco</li>
+<li>necessidade de execucao de shell</li>
+<li>necessidade de envio para terceiros</li>
+</ul>
+<h3 id="2-superficie-real">2. Superficie real</h3>
+<ul>
+<li>scripts chamados de forma indireta</li>
+<li>downloads externos</li>
+<li>comandos dinamicos</li>
+<li>uso de shell com interpolacao arriscada</li>
+<li>chamadas de rede nao justificadas</li>
+<li>prompts que tentam burlar politica da plataforma</li>
+<li>instrucoes para ignorar revisao, aprovacao ou seguranca</li>
+</ul>
+<h3 id="3-sinais-de-malicia-ou-comportamento-hostil">3. Sinais de malicia ou comportamento hostil</h3>
+<ul>
+<li>exfiltracao de arquivos ou segredos</li>
+<li>coleta excessiva de contexto</li>
+<li>envio de dados para endpoints opacos</li>
+<li>instalacao de binarios ou dependencias sem necessidade clara</li>
+<li>execucao de comandos destrutivos</li>
+<li>alteracoes fora do escopo do workspace</li>
+<li>tentativas de auto-ampliar permissoes</li>
+<li>engenharia social nas instrucoes</li>
+</ul>
+<h3 id="4-compatibilidade-com-politica-local">4. Compatibilidade com politica local</h3>
+<ul>
+<li>a skill pede mais do que a politica permite?</li>
+<li>a skill pede capacidades que nao combinam com seu objetivo?</li>
+<li>a skill pode rodar em sandbox?</li>
+<li>a skill exige aprovacao humana forte?</li>
+</ul>
+<h2 id="leitura-cruzada-por-multiplos-modelos">Leitura cruzada por multiplos modelos</h2>
+<p>Uma parte importante da ideia e passar a skill por mais de um modelo/agente para reduzir ponto cego.</p>
+<p>Exemplo de fluxo:</p>
+<ul>
+<li>modelo A faz leitura estrutural e enumera capacidades</li>
+<li>modelo B faz leitura adversarial, procurando risco e abuso</li>
+<li>modelo C faz revisao final e resolve divergencias</li>
+</ul>
+<p>O objetivo nao e “democratizar a verdade”, e sim aumentar cobertura de risco.</p>
+<h2 id="estrutura-de-saida-sugerida">Estrutura de saida sugerida</h2>
+<h3 id="resumo">Resumo</h3>
+<ul>
+<li>o que a skill faz em 2 ou 3 linhas</li>
+</ul>
+<h3 id="capacidades-solicitadas">Capacidades solicitadas</h3>
+<ul>
+<li>read only</li>
+<li>workspace write</li>
+<li>exec shell</li>
+<li>network read</li>
+<li>network write</li>
+<li>secrets</li>
+<li>messaging</li>
+</ul>
+<h3 id="achados">Achados</h3>
+<ul>
+<li>achados de baixo risco</li>
+<li>achados de medio risco</li>
+<li>achados de alto risco</li>
+</ul>
+<h3 id="sinais-suspeitos">Sinais suspeitos</h3>
+<ul>
+<li>lista curta e objetiva</li>
+</ul>
+<h3 id="recomendacao">Recomendacao</h3>
+<ul>
+<li><strong>approve</strong></li>
+<li><strong>approve-with-restrictions</strong></li>
+<li><strong>manual-review-required</strong></li>
+<li><strong>block</strong></li>
+</ul>
+<h3 id="justificativa">Justificativa</h3>
+<ul>
+<li>razoes objetivas para a recomendacao</li>
+</ul>
+<h2 id="heuristicas-importantes">Heuristicas importantes</h2>
+<h3 id="capacidade-sem-justificativa-e-sinal-ruim">Capacidade sem justificativa e sinal ruim</h3>
+<p>Se a skill pede rede, shell ou escrita ampla sem precisar disso para o objetivo, isso deve pesar contra.</p>
+<h3 id="texto-bonito-nao-conta-como-prova">Texto bonito nao conta como prova</h3>
+<p>A auditoria deve olhar para o que a skill <strong>faz ou tenta fazer</strong>, nao apenas para o que ela diz.</p>
+<h3 id="menos-falso-positivo-inutil">Menos falso positivo inutil</h3>
+<p>Nem toda skill poderosa e maliciosa. A ideia e separar:</p>
+<ul>
+<li>poder legitimo</li>
+<li>poder excessivo</li>
+<li>poder opaco</li>
+</ul>
+<h3 id="politica-local-manda">Politica local manda</h3>
+<p>Uma skill pode ser aceitavel num laboratorio tecnico e inaceitavel num ambiente sensivel.</p>
+<h2 id="possiveis-niveis-de-risco">Possiveis niveis de risco</h2>
+<ul>
+<li><strong>baixo</strong>: leitura e transformacao local, sem shell, sem rede, sem segredos</li>
+<li><strong>medio</strong>: escrita local limitada, shell controlado, sem exfiltracao externa</li>
+<li><strong>alto</strong>: rede, shell amplo, instalacao de dependencias, integracoes externas</li>
+<li><strong>critico</strong>: segredos, terceiros, comandos destrutivos, opacidade forte, auto-elevacao</li>
+</ul>
+<h2 id="integracoes-naturais">Integracoes naturais</h2>
+<p>Essa skill conversa diretamente com:</p>
+<ul>
+<li><code>skill-discovery-and-trust.md</code></li>
+<li><code>privacy-alerts</code></li>
+<li><code>threat-model-lite</code></li>
+<li><code>guided-agent-mode</code></li>
+</ul>
+<h2 id="benchmarks--avaliacao-futura">Benchmarks / avaliacao futura</h2>
+<p>Se quiser benchmarkar essa skill, daria para medir:</p>
+<ul>
+<li>taxa de deteccao de skills maliciosas</li>
+<li>taxa de falso positivo</li>
+<li>qualidade da classificacao de risco</li>
+<li>concordancia entre modelos/auditores</li>
+<li>tempo de auditoria</li>
+<li>utilidade pratica da recomendacao final</li>
+</ul>
+<h2 id="minha-leitura">Minha leitura</h2>
+<p>Essa skill e uma das mais importantes do projeto.</p>
+<p>Porque sem discovery confiavel e pre-install audit, um ecossistema de skills corre o risco de virar um marketplace de prompt opaco com superficie de ataque crescente.</p>
+<p>Em uma frase:</p>
+<blockquote>
+<p><code>skill-auditor</code> existe para impedir que a conveniencia de instalar skills seja maior do que a seguranca de quem vai usá-las.</p>
+</blockquote>
+    <div class="mpe-end"></div>
+  </article>
+</main>
+  </body>
+</html>

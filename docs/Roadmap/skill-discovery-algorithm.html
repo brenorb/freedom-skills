@@ -1,0 +1,462 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Algoritmo de descoberta e compartilhamento de skills · Freedom Skills</title>
+    <link rel="stylesheet" href="../assets/site.css">
+  </head>
+  <body>
+    <main class="page-shell">
+  <nav class="site-nav" aria-label="Navegacao">
+    <a href="../index.html">Indice</a><a href="skill-auditor.html">Anterior</a><a href="skill-discovery-and-trust.html">Proximo</a>
+  </nav>
+  <article class="manuscript">
+    <p class="page-meta">Roadmap/skill-discovery-algorithm.md</p>
+    <h1 id="algoritmo-de-descoberta-e-compartilhamento-de-skills">Algoritmo de descoberta e compartilhamento de skills</h1>
+<p>Este documento ignora transporte, protocolo e rede social. A pergunta aqui e:</p>
+<blockquote>
+<p>Como deveria funcionar um bom sistema de descoberta, recomendacao, compartilhamento e confianca para skills?</p>
+</blockquote>
+<p>A resposta curta: um bom sistema nao e uma lista ordenada por popularidade. Ele e um pipeline de decisao que combina <strong>intencao do usuario</strong>, <strong>compatibilidade tecnica</strong>, <strong>qualidade observada</strong>, <strong>risco</strong>, <strong>confianca social/organizacional</strong> e <strong>politica local</strong>.</p>
+<h2 id="1-o-que-o-sistema-precisa-resolver">1. O que o sistema precisa resolver</h2>
+<p>Um usuario nao quer “achar skills”. Ele quer:</p>
+<ul>
+<li>resolver uma tarefa agora</li>
+<li>evitar instalar lixo</li>
+<li>evitar instalar algo perigoso</li>
+<li>entender por que uma skill e recomendada</li>
+<li>compartilhar uma skill util com pouco atrito</li>
+<li>confiar que atualizacoes nao trocaram uma ferramenta boa por uma bomba</li>
+</ul>
+<p>Entao discovery de skills tem quatro problemas separados:</p>
+<ol type="1">
+<li><strong>Recuperacao</strong>: achar skills candidatas para uma intencao.</li>
+<li><strong>Ranking</strong>: ordenar candidatas pelo melhor tradeoff entre utilidade e confianca.</li>
+<li><strong>Admissao</strong>: decidir se uma skill pode ser instalada/executada naquele ambiente.</li>
+<li><strong>Distribuicao de confianca</strong>: permitir que pessoas, times e comunidades compartilhem curadoria sem transformar isso em “instale porque e popular”.</li>
+</ol>
+<h2 id="2-objeto-central-o-manifesto-da-skill">2. Objeto central: o manifesto da skill</h2>
+<p>Toda skill precisa ter um manifesto estruturado. Sem isso, discovery vira busca textual fragil.</p>
+<p>Campos essenciais:</p>
+<ul>
+<li><code>id</code>: identificador estavel da skill</li>
+<li><code>name</code>: nome humano</li>
+<li><code>description</code>: descricao curta</li>
+<li><code>version</code>: versao publicada</li>
+<li><code>publisher</code>: autor ou organizacao</li>
+<li><code>runtime</code>: ambientes suportados, por exemplo Codex, Claude Code, Gemini CLI</li>
+<li><code>entrypoints</code>: comandos, prompts, scripts ou arquivos principais</li>
+<li><code>capabilities</code>: permissoes desejadas</li>
+<li><code>inputs</code>: tipos de entrada esperados</li>
+<li><code>outputs</code>: tipos de saida produzidos</li>
+<li><code>domains</code>: temas e categorias</li>
+<li><code>examples</code>: exemplos reais de uso</li>
+<li><code>artifacts</code>: arquivos, hashes e fonte</li>
+<li><code>provenance</code>: commit, build, assinatura, auditoria, quando existir</li>
+</ul>
+<p>O manifesto nao concede permissao. Ele apenas declara o que a skill pede. A plataforma decide se aceita.</p>
+<h2 id="3-pipeline-basico">3. Pipeline basico</h2>
+<p>O algoritmo pode ser pensado assim:</p>
+<pre class="text"><code>query/contexto do usuario
+  -&gt; entender intencao
+  -&gt; gerar candidatos
+  -&gt; filtrar compatibilidade
+  -&gt; calcular utilidade
+  -&gt; calcular confianca
+  -&gt; calcular risco
+  -&gt; aplicar politica local
+  -&gt; ranquear
+  -&gt; explicar recomendacao
+  -&gt; instalar/executar com sandbox
+  -&gt; coletar feedback local</code></pre>
+<p>Esse pipeline e mais importante do que qualquer tecnologia de registry.</p>
+<h2 id="4-ingestao-como-skills-entram-no-indice">4. Ingestao: como skills entram no indice</h2>
+<p>Uma skill pode entrar por varios caminhos:</p>
+<ul>
+<li>publicada por um autor</li>
+<li>importada de um repositorio</li>
+<li>adicionada manualmente por um usuario</li>
+<li>recomendada por um time</li>
+<li>aprovada por uma organizacao</li>
+<li>descoberta em um catalogo publico</li>
+</ul>
+<p>Na ingestao, o sistema deve:</p>
+<ol type="1">
+<li>validar schema do manifesto</li>
+<li>normalizar categorias, runtimes e capabilities</li>
+<li>calcular hashes dos artefatos</li>
+<li>extrair texto indexavel</li>
+<li>rodar checks estaticos basicos</li>
+<li>atribuir uma classe inicial de risco</li>
+<li>registrar origem e versao</li>
+</ol>
+<p>Skills sem manifesto bom podem existir, mas devem perder ranking e exigir mais cautela.</p>
+<h2 id="5-geracao-de-candidatos">5. Geracao de candidatos</h2>
+<p>Discovery bom nao depende de um unico tipo de busca. Ele mistura varias fontes de candidatos.</p>
+<h3 id="51-busca-lexical">5.1 Busca lexical</h3>
+<p>Boa para termos exatos:</p>
+<ul>
+<li><code>kaggle</code></li>
+<li><code>btcpay</code></li>
+<li><code>docx</code></li>
+<li><code>github pr comments</code></li>
+<li><code>pomodoro</code></li>
+</ul>
+<p>Usa BM25 ou equivalente em nome, descricao, tags, exemplos e README.</p>
+<h3 id="52-busca-semantica">5.2 Busca semantica</h3>
+<p>Boa quando o usuario descreve uma necessidade:</p>
+<ul>
+<li>“quero transformar um PDF em markdown”</li>
+<li>“preciso responder comentarios de review”</li>
+<li>“me ajuda a organizar uma planilha”</li>
+</ul>
+<p>Usa embeddings sobre descricao, exemplos, docs e historico de tarefas resolvidas.</p>
+<h3 id="53-matching-por-contexto">5.3 Matching por contexto</h3>
+<p>O sistema tambem deve olhar para o ambiente atual:</p>
+<ul>
+<li>arquivos presentes no workspace</li>
+<li>extensoes de arquivos</li>
+<li>framework detectado</li>
+<li>comandos disponiveis</li>
+<li>sistema operacional</li>
+<li>ferramentas autenticadas</li>
+<li>historico local de uso</li>
+</ul>
+<p>Exemplo: se o workspace tem <code>.pptx</code>, skills de apresentacao sobem. Se tem <code>pyproject.toml</code>, skills Python sobem. Se ha um PR aberto, skills GitHub sobem.</p>
+<h3 id="54-curadoria">5.4 Curadoria</h3>
+<p>Listas humanas sao essenciais:</p>
+<ul>
+<li>favoritos do usuario</li>
+<li>aprovados pelo time</li>
+<li>recomendados por especialistas</li>
+<li>skills oficiais de um projeto</li>
+<li>skills bloqueadas por seguranca</li>
+</ul>
+<p>Curadoria nao deve substituir ranking. Ela deve entrar como sinal ponderado.</p>
+<h2 id="6-filtro-de-compatibilidade">6. Filtro de compatibilidade</h2>
+<p>Antes de ranquear, descarte ou rebaixe skills que nao podem funcionar.</p>
+<p>Verificacoes tipicas:</p>
+<ul>
+<li>runtime suportado</li>
+<li>sistema operacional</li>
+<li>versao minima da plataforma</li>
+<li>dependencias disponiveis</li>
+<li>ferramentas externas necessarias</li>
+<li>tipo de workspace</li>
+<li>capacidades proibidas pela politica local</li>
+<li>conflitos com outras skills</li>
+</ul>
+<p>Uma skill perfeita para a tarefa, mas impossivel de executar, nao deve aparecer como recomendacao principal.</p>
+<h2 id="7-score-de-utilidade">7. Score de utilidade</h2>
+<p>Utilidade responde: “essa skill provavelmente ajuda neste caso?”</p>
+<p>Sinais bons:</p>
+<ul>
+<li>match textual com a consulta</li>
+<li>match semantico com a intencao</li>
+<li>exemplos parecidos com a tarefa atual</li>
+<li>compatibilidade com arquivos do workspace</li>
+<li>historico de sucesso local</li>
+<li>historico de sucesso em contextos parecidos</li>
+<li>manutencao recente</li>
+<li>documentacao clara</li>
+<li>testes ou fixtures</li>
+</ul>
+<p>Um score simples:</p>
+<pre class="text"><code>utility =
+  0.25 * semantic_match +
+  0.20 * lexical_match +
+  0.20 * context_match +
+  0.15 * historical_success +
+  0.10 * documentation_quality +
+  0.10 * maintenance_health</code></pre>
+<p>Os pesos devem ser ajustaveis. Para uma primeira versao, pesos manuais sao suficientes.</p>
+<h2 id="8-score-de-confianca">8. Score de confianca</h2>
+<p>Confianca responde: “quem esta dizendo que isso e bom, e por que eu deveria ligar?”</p>
+<p>Sinais positivos:</p>
+<ul>
+<li>publisher conhecido pelo usuario</li>
+<li>publisher aprovado pela organizacao</li>
+<li>skill usada antes com sucesso</li>
+<li>auditoria humana registrada</li>
+<li>artefatos assinados</li>
+<li>hashes batem</li>
+<li>origem em repositorio conhecido</li>
+<li>recomendada por curadores confiaveis</li>
+<li>poucas mudancas perigosas entre versoes</li>
+<li>bom historico de updates</li>
+</ul>
+<p>Sinais negativos:</p>
+<ul>
+<li>publisher novo ou desconhecido</li>
+<li>ownership mudou recentemente</li>
+<li>artefato sem fonte</li>
+<li>manifesto vago</li>
+<li>capabilities amplas demais</li>
+<li>reports negativos relevantes</li>
+<li>versao nova sem historico</li>
+<li>pacote tenta executar coisas fora do escopo declarado</li>
+</ul>
+<p>Confianca deve ser contextual. Uma pessoa pode confiar numa skill para ler Markdown, mas nao para enviar emails ou acessar secrets.</p>
+<h2 id="9-score-de-risco">9. Score de risco</h2>
+<p>Risco responde: “qual o tamanho do estrago se essa skill se comportar mal?”</p>
+<p>Uma taxonomia pratica:</p>
+<ul>
+<li><code>R0</code>: leitura local limitada</li>
+<li><code>R1</code>: escrita no workspace</li>
+<li><code>R2</code>: rede de leitura</li>
+<li><code>R3</code>: rede de escrita ou chamadas autenticadas</li>
+<li><code>R4</code>: shell, instalacao de dependencias ou execucao de binarios</li>
+<li><code>R5</code>: acesso a segredos, mensagens externas, pagamentos, contas de usuario</li>
+</ul>
+<p>O risco base vem das capabilities declaradas. Depois ele e ajustado por comportamento observado e auditoria.</p>
+<p>Exemplo:</p>
+<pre class="text"><code>risk =
+  capability_risk +
+  dependency_risk +
+  publisher_uncertainty +
+  artifact_uncertainty +
+  behavior_anomaly</code></pre>
+<p>O ponto importante: risco alto nao significa “nunca instalar”. Significa exigir mais evidencia, mais sandbox e mais confirmacao.</p>
+<h2 id="10-score-final">10. Score final</h2>
+<p>Ranking nao deve ser “maior utilidade vence”. Deve ser utilidade ponderada por confianca e penalizada por risco.</p>
+<p>Uma formula inicial:</p>
+<pre class="text"><code>final_score =
+  utility_score
+  * trust_multiplier
+  * compatibility_multiplier
+  - risk_penalty
+  - policy_penalty</code></pre>
+<p>Onde:</p>
+<ul>
+<li><code>trust_multiplier</code> aumenta skills vindas de fontes confiaveis</li>
+<li><code>compatibility_multiplier</code> derruba skills parcialmente compativeis</li>
+<li><code>risk_penalty</code> cresce com permissoes sensiveis</li>
+<li><code>policy_penalty</code> bloqueia ou rebaixa o que viola regras locais</li>
+</ul>
+<p>Para casos sensiveis, use thresholds:</p>
+<pre class="text"><code>se risk &gt;= R4 e trust &lt; threshold:
+  nao recomendar instalacao direta
+  mostrar como &quot;requer revisao&quot;</code></pre>
+<h2 id="11-politica-local">11. Politica local</h2>
+<p>Politica local e a parte que impede o sistema de virar uma democracia de popularidade.</p>
+<p>Exemplos:</p>
+<ul>
+<li>nunca instalar skill com <code>secret-access</code> sem aprovacao explicita</li>
+<li>permitir somente publishers aprovados em workspaces de cliente</li>
+<li>bloquear skills sem hash de artefato</li>
+<li>exigir auditoria para <code>network-write</code></li>
+<li>permitir auto-install apenas ate <code>R1</code></li>
+<li>quarentenar versoes recem-publicadas por 24 horas</li>
+</ul>
+<p>Politica deve ser declarativa e auditavel.</p>
+<h2 id="12-explicabilidade">12. Explicabilidade</h2>
+<p>Toda recomendacao deveria conseguir responder:</p>
+<ul>
+<li>por que apareceu?</li>
+<li>por que esta acima das outras?</li>
+<li>quais permissoes pede?</li>
+<li>quem recomenda?</li>
+<li>qual e o risco?</li>
+<li>o que mudou desde a versao anterior?</li>
+<li>o que sera bloqueado pelo sandbox?</li>
+</ul>
+<p>Exemplo de explicacao boa:</p>
+<blockquote>
+<p>Recomendada porque combina semanticamente com “converter PDF para Markdown”, suporta este runtime, ja foi usada 12 vezes localmente com sucesso e pede apenas leitura do arquivo e escrita no workspace.</p>
+</blockquote>
+<p>Exemplo ruim:</p>
+<blockquote>
+<p>Popular no catalogo.</p>
+</blockquote>
+<p>Popularidade sozinha e um sinal fraco.</p>
+<h2 id="13-compartilhamento">13. Compartilhamento</h2>
+<p>Compartilhar skill nao deveria significar “manda um zip e confia”.</p>
+<p>Modelos melhores:</p>
+<ul>
+<li>compartilhar um link para manifesto versionado</li>
+<li>compartilhar uma lista curada</li>
+<li>compartilhar uma recomendacao com comentario</li>
+<li>compartilhar uma policy pack de time</li>
+<li>compartilhar um lockfile com hashes</li>
+<li>compartilhar um bundle assinado</li>
+</ul>
+<p>O compartilhamento ideal inclui:</p>
+<ul>
+<li>versao exata</li>
+<li>hash dos artefatos</li>
+<li>origem</li>
+<li>capabilities</li>
+<li>comentario humano opcional</li>
+<li>contexto em que funcionou</li>
+</ul>
+<p>Exemplo:</p>
+<pre class="text"><code>Usei `markdown-converter@1.4.2` para converter PDFs escaneados.
+Funcionou bem com contratos longos.
+Capabilities: read-file, write-workspace, optional-ocr.
+Nao requer rede.</code></pre>
+<h2 id="14-atualizacoes">14. Atualizacoes</h2>
+<p>Atualizacao e uma das maiores fontes de risco.</p>
+<p>O sistema deve comparar versoes:</p>
+<ul>
+<li>capabilities novas</li>
+<li>dependencias novas</li>
+<li>arquivos executaveis novos</li>
+<li>mudanca de publisher</li>
+<li>mudanca de origem</li>
+<li>aumento de risco</li>
+<li>diferenca de tamanho anormal</li>
+<li>mudancas em scripts de install/run</li>
+</ul>
+<p>Regras praticas:</p>
+<ul>
+<li>patch sem mudanca de capability pode atualizar com pouco atrito</li>
+<li>nova capability sensivel exige confirmacao</li>
+<li>troca de publisher exige revisao</li>
+<li>queda de assinatura/provenance bloqueia update automatico</li>
+</ul>
+<h2 id="15-feedback-loop">15. Feedback loop</h2>
+<p>O sistema melhora quando aprende com uso real, mas privacidade precisa ser default.</p>
+<p>Feedback local:</p>
+<ul>
+<li>instalada</li>
+<li>executada</li>
+<li>completou tarefa</li>
+<li>falhou</li>
+<li>desinstalada</li>
+<li>marcada como favorita</li>
+<li>bloqueada pelo usuario</li>
+</ul>
+<p>Feedback compartilhavel, se opt-in:</p>
+<ul>
+<li>recomendacao</li>
+<li>review textual</li>
+<li>report de bug</li>
+<li>report de malware</li>
+<li>score agregado anonimo</li>
+<li>exemplo de tarefa resolvida</li>
+</ul>
+<p>O historico local deve pesar muito. Se uma skill funciona repetidamente para Breno, isso importa mais do que popularidade global.</p>
+<h2 id="16-anti-gaming">16. Anti-gaming</h2>
+<p>Qualquer sistema de ranking sera atacado.</p>
+<p>Defesas basicas:</p>
+<ul>
+<li>nao usar download count bruto como sinal forte</li>
+<li>pesar recomendacoes por confianca, nao por quantidade</li>
+<li>detectar reviews coordenadas</li>
+<li>separar publisher reputation de skill reputation</li>
+<li>penalizar mudancas bruscas de capability</li>
+<li>quarentena para publishers novos</li>
+<li>permitir blocklists locais</li>
+<li>exigir hashes e assinaturas para artefatos</li>
+</ul>
+<p>O objetivo nao e impedir todo ataque. E evitar que ataques baratos funcionem.</p>
+<h2 id="17-ux-recomendada">17. UX recomendada</h2>
+<p>Uma boa interface teria tres modos:</p>
+<h3 id="171-sugestao-durante-a-tarefa">17.1 Sugestao durante a tarefa</h3>
+<p>Quando o usuario pede algo, a plataforma sugere:</p>
+<pre class="text"><code>Skill sugerida: markdown-converter
+Motivo: esta tarefa envolve PDF -&gt; Markdown.
+Risco: baixo, leitura de arquivo e escrita no workspace.
+Acao: usar uma vez / instalar / ver detalhes</code></pre>
+<h3 id="172-catalogo-pesquisavel">17.2 Catalogo pesquisavel</h3>
+<p>Busca com filtros:</p>
+<ul>
+<li>categoria</li>
+<li>runtime</li>
+<li>risco maximo</li>
+<li>publisher</li>
+<li>curador</li>
+<li>capacidades</li>
+<li>auditada ou nao</li>
+<li>funciona offline</li>
+</ul>
+<h3 id="173-tela-de-decisao">17.3 Tela de decisao</h3>
+<p>Antes de instalar/executar:</p>
+<ul>
+<li>resumo da skill</li>
+<li>exemplos de uso</li>
+<li>permissoes pedidas</li>
+<li>origem e versao</li>
+<li>sinais de confianca</li>
+<li>riscos</li>
+<li>mudancas desde a ultima versao</li>
+<li>botoes: usar uma vez, instalar, negar, revisar codigo</li>
+</ul>
+<h2 id="18-mvp-recomendado">18. MVP recomendado</h2>
+<p>Eu faria o MVP assim:</p>
+<ol type="1">
+<li>Definir manifesto local de skill.</li>
+<li>Criar indice local com busca lexical e semantica.</li>
+<li>Implementar capabilities e classes de risco.</li>
+<li>Implementar score simples: utilidade, confianca, risco.</li>
+<li>Permitir listas curadas locais: favoritos, aprovadas, bloqueadas.</li>
+<li>Mostrar explicacao curta para cada recomendacao.</li>
+<li>Registrar feedback local de uso.</li>
+<li>Travar instalacao/execucao por politica local.</li>
+</ol>
+<p>Nao precisa comecar com rede descentralizada, marketplace ou reputacao global. Primeiro o sistema precisa recomendar bem para uma pessoa em uma maquina.</p>
+<h2 id="19-pseudocodigo">19. Pseudocodigo</h2>
+<pre class="python"><code>def recommend_skills(query, workspace, user_profile, policy):
+    intent = parse_intent(query, workspace)
+
+    candidates = union(
+        lexical_search(intent.terms),
+        semantic_search(intent.embedding),
+        context_matches(workspace),
+        curated_candidates(user_profile),
+    )
+
+    scored = []
+
+    for skill in candidates:
+        compatibility = check_compatibility(skill, workspace)
+        if compatibility.blocked:
+            continue
+
+        utility = score_utility(skill, intent, workspace)
+        trust = score_trust(skill, user_profile)
+        risk = score_risk(skill)
+        policy_result = evaluate_policy(skill, risk, trust, policy)
+
+        if policy_result.blocked:
+            continue
+
+        final = (
+            utility
+            * trust.multiplier
+            * compatibility.multiplier
+            - risk.penalty
+            - policy_result.penalty
+        )
+
+        scored.append({
+            &quot;skill&quot;: skill,
+            &quot;score&quot;: final,
+            &quot;utility&quot;: utility,
+            &quot;trust&quot;: trust,
+            &quot;risk&quot;: risk,
+            &quot;explanation&quot;: explain(skill, utility, trust, risk, policy_result),
+        })
+
+    return sorted(scored, key=lambda item: item[&quot;score&quot;], reverse=True)</code></pre>
+<h2 id="20-opiniao-direta">20. Opiniao direta</h2>
+<p>O melhor sistema de descoberta de skills parece mais com um <strong>package manager com ranking contextual e policy engine</strong> do que com uma app store.</p>
+<p>App store otimiza por popularidade, reviews e conversao. Skills precisam otimizar por:</p>
+<ul>
+<li>encaixe na tarefa atual</li>
+<li>baixo atrito</li>
+<li>seguranca operacional</li>
+<li>confianca contextual</li>
+<li>controle local</li>
+<li>explicabilidade</li>
+</ul>
+<p>Minha regra de ouro:</p>
+<blockquote>
+<p>Recomende pela utilidade, permita pela politica, limite pelo sandbox e aprenda com o uso local.</p>
+</blockquote>
+    <div class="mpe-end"></div>
+  </article>
+</main>
+  </body>
+</html>

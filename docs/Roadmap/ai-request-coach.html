@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ai-request-coach · Freedom Skills</title>
+    <link rel="stylesheet" href="../assets/site.css">
+  </head>
+  <body>
+    <main class="page-shell">
+  <nav class="site-nav" aria-label="Navegacao">
+    <a href="../index.html">Indice</a><a href="README.html">Anterior</a><a href="skill-auditor.html">Proximo</a>
+  </nav>
+  <article class="manuscript">
+    <p class="page-meta">Roadmap/ai-request-coach.md</p>
+    <h1 id="ai-request-coach">ai-request-coach</h1>
+<p>Spec inicial de uma skill para ajudar <strong>usuários não técnicos</strong> a pedir melhor para a IA sem precisar aprender prompting “na marra”.</p>
+<h2 id="problema">Problema</h2>
+<p>Muita gente sabe o que quer fazer, mas não sabe como pedir.</p>
+<p>Pedidos típicos de usuário não técnico costumam vir assim:</p>
+<ul>
+<li>“faz isso”</li>
+<li>“me ajuda com esse negócio”</li>
+<li>“quero criar um projeto”</li>
+<li>“arruma isso aqui”</li>
+<li>“faz um site / campanha / documento”</li>
+</ul>
+<p>O problema não é falta de intenção. É falta de estrutura. A IA normalmente precisa inferir:</p>
+<ul>
+<li>objetivo real</li>
+<li>contexto</li>
+<li>urgência</li>
+<li>restrições</li>
+<li>público-alvo</li>
+<li>formato de saída</li>
+<li>nível de risco aceitável</li>
+</ul>
+<p>Essa skill existe para reduzir esse atrito.</p>
+<h2 id="objetivo">Objetivo</h2>
+<p>Transformar pedidos vagos ou incompletos em pedidos melhores, com menos carga cognitiva para o usuário.</p>
+<p>Ela não deve ensinar prompt engineering como aula. Ela deve <strong>ajudar o usuário a chegar mais rápido num pedido útil</strong>.</p>
+<h2 id="usuário-alvo">Usuário-alvo</h2>
+<ul>
+<li>pessoas não técnicas</li>
+<li>ativistas / organizadores / comunicadores</li>
+<li>gente com pressa</li>
+<li>usuários que sabem o objetivo, mas não sabem estruturar o pedido</li>
+<li>usuários que ficam intimidados com IA ou não sabem “o jeito certo de pedir”</li>
+</ul>
+<h2 id="resultado-esperado">Resultado esperado</h2>
+<p>A skill deve ajudar a IA a fazer 5 coisas:</p>
+<ol type="1">
+<li><strong>Inferir a intenção principal</strong> do usuário</li>
+<li><strong>Detectar lacunas</strong> relevantes de contexto</li>
+<li><strong>Fazer poucas perguntas boas</strong>, em vez de jogar um questionário enorme</li>
+<li><strong>Sugerir uma formulação melhor</strong> do pedido</li>
+<li><strong>Oferecer modos guiados</strong>, como “rápido”, “mais seguro”, “mais detalhado” ou “feito para mim”</li>
+</ol>
+<h2 id="o-que-a-skill-faria-na-prática">O que a skill faria na prática</h2>
+<h3 id="1-reescrever-o-pedido-do-usuário">1. Reescrever o pedido do usuário</h3>
+<p>Exemplo:</p>
+<p>Entrada do usuário:</p>
+<blockquote>
+<p>quero ajuda para organizar um evento</p>
+</blockquote>
+<p>Saída intermediária:</p>
+<blockquote>
+<p>Entendi. Você quer organizar um evento e precisa de ajuda prática. Posso te ajudar a montar plano, cronograma, divulgação, orçamento ou checklist. Se quiser, já começo com um plano simples.</p>
+</blockquote>
+<h3 id="2-perguntar-só-o-mínimo-necessário">2. Perguntar só o mínimo necessário</h3>
+<p>Em vez de dez perguntas, faria algo como:</p>
+<ul>
+<li>qual é o objetivo do evento?</li>
+<li>quando ele acontece?</li>
+<li>você quer um plano rápido ou detalhado?</li>
+</ul>
+<h3 id="3-oferecer-estrutura-pronta">3. Oferecer estrutura pronta</h3>
+<p>Exemplo:</p>
+<ul>
+<li>objetivo</li>
+<li>público</li>
+<li>prazo</li>
+<li>formato de entrega</li>
+<li>riscos / cuidados</li>
+</ul>
+<h3 id="4-melhorar-a-formulação-sem-culpar-o-usuário">4. Melhorar a formulação sem culpar o usuário</h3>
+<p>Em vez de:</p>
+<ul>
+<li>“seu prompt está ruim”</li>
+</ul>
+<p>Usar algo como:</p>
+<ul>
+<li>“posso deixar seu pedido mais claro para a IA e seguir com isso”</li>
+</ul>
+<h3 id="5-ajustar-o-modo-de-ajuda-ao-contexto">5. Ajustar o modo de ajuda ao contexto</h3>
+<p>Exemplos de modo:</p>
+<ul>
+<li><strong>modo rápido</strong>: assume o razoável e começa</li>
+<li><strong>modo guiado</strong>: faz 2 ou 3 perguntas antes</li>
+<li><strong>modo seguro</strong>: destaca riscos, privacidade, exposição e validações</li>
+<li><strong>modo especialista invisível</strong>: a IA reorganiza o pedido internamente sem exigir nada do usuário</li>
+</ul>
+<h2 id="entradas">Entradas</h2>
+<p>A skill pode receber:</p>
+<ul>
+<li>mensagem vaga do usuário</li>
+<li>link, imagem, arquivo ou contexto curto</li>
+<li>histórico recente da conversa</li>
+<li>preferência de modo, se houver</li>
+</ul>
+<h2 id="saídas">Saídas</h2>
+<p>A skill pode produzir uma ou mais destas saídas:</p>
+<ul>
+<li>pedido reestruturado</li>
+<li>perguntas de esclarecimento mínimas</li>
+<li>plano inicial de ação</li>
+<li>checklist do que falta</li>
+<li>alerta de risco / privacidade / segurança</li>
+<li>template que o usuário pode reutilizar</li>
+</ul>
+<h2 id="exemplo-de-transformação">Exemplo de transformação</h2>
+<h3 id="caso-1-pedido-muito-vago">Caso 1, pedido muito vago</h3>
+<p>Usuário:</p>
+<blockquote>
+<p>quero montar uma campanha</p>
+</blockquote>
+<p>Skill ajudaria a IA a converter isso em algo como:</p>
+<blockquote>
+<p>Posso te ajudar a montar a campanha. Para não complicar, me diz só 3 coisas: qual é a causa, para quem é a campanha, e qual o prazo. Se preferir, eu posso assumir um formato simples e já te entregar um rascunho.</p>
+</blockquote>
+<h3 id="caso-2-pedido-operacional">Caso 2, pedido operacional</h3>
+<p>Usuário:</p>
+<blockquote>
+<p>preciso fazer um site pra um evento</p>
+</blockquote>
+<p>Transformação útil:</p>
+<blockquote>
+<p>Posso montar a estrutura do site. Me ajuda só com: nome do evento, data, objetivo e onde as pessoas se inscrevem. Se quiser, já começo com uma landing page padrão e depois ajustamos.</p>
+</blockquote>
+<h3 id="caso-3-contexto-sensível">Caso 3, contexto sensível</h3>
+<p>Usuário:</p>
+<blockquote>
+<p>quero divulgar isso sem me expor</p>
+</blockquote>
+<p>Transformação útil:</p>
+<blockquote>
+<p>Entendi. Como isso envolve exposição, vou priorizar segurança e privacidade. Posso te ajudar a escolher canal, formato de publicação e o que evitar divulgar. Se quiser, começo com um plano mais seguro e conservador.</p>
+</blockquote>
+<h2 id="heurísticas-importantes">Heurísticas importantes</h2>
+<h3 id="menos-é-mais">Menos é mais</h3>
+<p>A skill não deve burocratizar a conversa. Ela deve reduzir fricção, não aumentar.</p>
+<h3 id="perguntas-com-alto-valor-informacional">Perguntas com alto valor informacional</h3>
+<p>Só perguntar o que muda materialmente a resposta.</p>
+<h3 id="ajudar-sem-infantilizar">Ajudar sem infantilizar</h3>
+<p>Usuário não técnico não é usuário incapaz. O tom precisa ser respeitoso.</p>
+<h3 id="explicação-opcional">Explicação opcional</h3>
+<p>A pessoa pode querer só ajuda prática. Explicações longas sobre prompting devem ser opt-in.</p>
+<h3 id="segurança-contextual">Segurança contextual</h3>
+<p>Se o pedido tocar em:</p>
+<ul>
+<li>exposição pública</li>
+<li>identidade</li>
+<li>localização</li>
+<li>contas</li>
+<li>arquivos sensíveis</li>
+<li>comunicação com terceiros</li>
+</ul>
+<p>A skill deve sugerir cuidado extra ou acionar skills irmãs, como:</p>
+<ul>
+<li><code>threat-model-lite</code></li>
+<li><code>private-comms-setup</code></li>
+<li><code>privacy-alerts</code></li>
+<li><code>publish-safely</code></li>
+</ul>
+<h2 id="modos-possíveis">Modos possíveis</h2>
+<h3 id="modo-1-invisível">Modo 1, invisível</h3>
+<p>A IA melhora o pedido internamente sem falar muito disso. Melhor para fluidez.</p>
+<h3 id="modo-2-assistido">Modo 2, assistido</h3>
+<p>A IA mostra uma versão melhorada do pedido e pede confirmação. Melhor para ensinar sem dar aula.</p>
+<h3 id="modo-3-template">Modo 3, template</h3>
+<p>A IA entrega um mini formulário reutilizável. Melhor para trabalhos recorrentes.</p>
+<h2 id="critérios-de-sucesso">Critérios de sucesso</h2>
+<p>A skill está funcionando bem se:</p>
+<ul>
+<li>o usuário chega mais rápido numa resposta útil</li>
+<li>há menos troca inútil de mensagens</li>
+<li>a IA faz menos perguntas redundantes</li>
+<li>pedidos vagos ainda produzem progresso</li>
+<li>usuários não técnicos se sentem mais à vontade para pedir ajuda</li>
+<li>contextos sensíveis disparam alertas melhores</li>
+</ul>
+<h2 id="riscos">Riscos</h2>
+<ul>
+<li>perguntar demais e matar a fluidez</li>
+<li>presumir contexto errado com excesso de confiança</li>
+<li>transformar toda conversa em formulário</li>
+<li>explicar demais “como pedir” em vez de simplesmente ajudar</li>
+<li>esconder riscos reais para parecer conveniente</li>
+</ul>
+<h2 id="benchmarks--avaliação-futura">Benchmarks / avaliação futura</h2>
+<p>Essa skill poderia ser avaliada por:</p>
+<ul>
+<li>taxa de sucesso de pedidos vagos vs sem a skill</li>
+<li>número de mensagens até chegar numa tarefa executável</li>
+<li>satisfação subjetiva do usuário</li>
+<li>redução de ambiguidades críticas</li>
+<li>desempenho com usuários não técnicos reais</li>
+<li>taxa de detecção de contextos sensíveis</li>
+</ul>
+<h2 id="relação-com-outras-skills-do-roadmap">Relação com outras skills do roadmap</h2>
+<p>Esta skill conversa diretamente com:</p>
+<ul>
+<li><code>secure-project-bootstrap</code></li>
+<li><code>threat-model-lite</code></li>
+<li><code>private-comms-setup</code></li>
+<li><code>privacy-alerts</code></li>
+<li><code>publish-safely</code></li>
+<li><code>guided-agent-mode</code></li>
+</ul>
+<h2 id="minha-leitura">Minha leitura</h2>
+<p>Essa pode ser uma das skills mais importantes do projeto.</p>
+<p>Porque antes de resolver execução, benchmark ou marketplace, ela resolve uma coisa básica: <strong>ajudar a pessoa a conseguir pedir ajuda de um jeito que a IA realmente consiga transformar em ação útil.</strong></p>
+    <div class="mpe-end"></div>
+  </article>
+</main>
+  </body>
+</html>
