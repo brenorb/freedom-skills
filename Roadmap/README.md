@@ -10,6 +10,10 @@ Objetivo inicial: identificar tecnologias adjacentes ao Bitcoin, carteiras/ecoss
   - levantamento do que existe hoje em benchmarks de skills e benchmarks adjacentes
 - [skills-benchmark-strategy.md](./skills-benchmark-strategy.md)
   - proposta de como o Freedom Skills pode reaproveitar benchmarks existentes e onde precisa construir os seus
+- [skill-discovery-algorithm.md](./skill-discovery-algorithm.md)
+  - modelo de algoritmo para descoberta, ranking, compartilhamento, confianca, risco e politica local de skills
+- [skill-discovery-and-trust.md](./skill-discovery-and-trust.md)
+  - pesquisa inicial sobre descoberta e confianca com uma arquitetura descentralizada baseada em Nostr
 
 ## 1. Tecnologias adjacentes ao Bitcoin
 
