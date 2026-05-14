@@ -18,6 +18,8 @@ Objetivo inicial: identificar tecnologias adjacentes ao Bitcoin, carteiras/ecoss
   - panorama priorizado das tecnologias de freedom tech mais relevantes, com enfase no stack Bitcoin, Nostr, Lightning, ecash, mensageria privada e publicacao resistente a censura
 - [freedom-tech-automation-inventory.md](./freedom-tech-automation-inventory.md)
   - inventario das superficies de automacao, skills existentes, MCPs, CLIs, SDKs e lacunas de empacotamento mais promissoras para o projeto
+- [human-rights-freedom-tech-brainstorm.md](./human-rights-freedom-tech-brainstorm.md)
+  - brainstorm em ingles de skills adicionais para ativistas, defensores de direitos humanos e usuarios de freedom tech, com destaque para ideias promissoras e o recorte FOSS vs nao tecnico
 
 ## 1. Tecnologias adjacentes ao Bitcoin
 

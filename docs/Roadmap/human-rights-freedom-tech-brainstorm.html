@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Human Rights And Freedom-Tech Skill Brainstorm · Freedom Skills</title>
+    <link rel="stylesheet" href="../assets/site.css">
+  </head>
+  <body>
+    <main class="page-shell">
+  <nav class="site-nav" aria-label="Navegacao">
+    <a href="../index.html">Indice</a><a href="freedom-tech-landscape.html">Anterior</a><a href="skill-auditor.html">Proximo</a>
+  </nav>
+  <article class="manuscript">
+    <p class="page-meta">Roadmap/human-rights-freedom-tech-brainstorm.md</p>
+    <h1 id="human-rights-and-freedom-tech-skill-brainstorm">Human Rights And Freedom-Tech Skill Brainstorm</h1>
+<p>As of 2026-05-14.</p>
+<p>This brainstorm is intentionally broader than the current Bitcoin, private communications, and cryptography roadmap. It focuses on additional skill areas that could matter to human rights defenders, freedom activists, dissidents, journalists, community organizers, and non-technical users operating in hostile environments.</p>
+<p>The list below tries to avoid repeating the ideas already captured in the main roadmap documents.</p>
+<h2 id="most-promising-directions">Most Promising Directions</h2>
+<p>These are the strongest candidates from this brainstorm because they combine real user value with plausible implementation paths.</p>
+<h3 id="how-to-read-the-labels">How to read the labels</h3>
+<ul>
+<li><code>FOSS-heavy</code>: the skill would likely rely on open-source software, self-hostable tools, or standard open protocols.</li>
+<li><code>Non-technical-heavy</code>: the skill is mainly workflow, judgment, coordination, or human process rather than software operation.</li>
+<li>Many of the best ideas are hybrid. That is a feature, not a flaw.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Skill</th>
+<th>What it does</th>
+<th>FOSS-heavy</th>
+<th>Non-technical-heavy</th>
+<th>Likely implementation surface</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>evidence-intake</code></td>
+<td>Receives photos, videos, audio, and written testimony, then organizes them with time, place, incident context, source notes, and handling status.</td>
+<td><code>Medium</code></td>
+<td><code>High</code></td>
+<td>Filesystem workflows, OCR, hashing, structured templates, case folders</td>
+</tr>
+<tr>
+<td><code>media-redaction</code></td>
+<td>Removes faces, plates, names, voices, and other identifiers from sensitive media before publication or sharing.</td>
+<td><code>High</code></td>
+<td><code>Medium</code></td>
+<td><code>ffmpeg</code>, image tooling, OCR, speech-to-text, blur/redaction pipelines</td>
+</tr>
+<tr>
+<td><code>metadata-scrubber</code></td>
+<td>Cleans EXIF, author names, revision history, embedded previews, and other metadata that can reveal source, device, or location.</td>
+<td><code>High</code></td>
+<td><code>Low</code></td>
+<td><code>exiftool</code>, <code>mat2</code>, PDF/image/video metadata tooling</td>
+</tr>
+<tr>
+<td><code>mirror-network-builder</code></td>
+<td>Creates a replication plan across multiple hosts, formats, and delivery channels so material survives takedowns and blocking.</td>
+<td><code>High</code></td>
+<td><code>Medium</code></td>
+<td>static site tooling, object storage, rsync, IPFS-style distribution, archive workflows</td>
+</tr>
+<tr>
+<td><code>onion-publisher</code></td>
+<td>Publishes <code>.onion</code> versions of sites, pages, and documents for censorship resistance and alternate reachability.</td>
+<td><code>High</code></td>
+<td><code>Low</code></td>
+<td>Tor hidden services, static sites, local web servers, deployment scripts</td>
+</tr>
+<tr>
+<td><code>persona-separator</code></td>
+<td>Helps users separate public, organizational, pseudonymous, and operational identities so they do not leak into one another.</td>
+<td><code>Low</code></td>
+<td><code>High</code></td>
+<td>decision trees, profile/account mapping, checklists, browser/device profile separation</td>
+</tr>
+<tr>
+<td><code>secure-intake-form-builder</code></td>
+<td>Designs safer forms with minimal data collection, clearer consent language, and lower risk for whistleblowers, victims, and beneficiaries.</td>
+<td><code>Medium</code></td>
+<td><code>High</code></td>
+<td>form stacks, schema guidance, consent templates, data minimization checks</td>
+</tr>
+<tr>
+<td><code>anonymous-tipline-setup</code></td>
+<td>Helps groups set up an anonymous reporting channel with better triage, less improvisation, and fewer accidental disclosures.</td>
+<td><code>Medium</code></td>
+<td><code>High</code></td>
+<td>self-hosted forms, inbox routing, ticketing, secure submission patterns</td>
+</tr>
+<tr>
+<td><code>field-kit-checklist</code></td>
+<td>Organizes the physical and digital kit for protests, documentation missions, field reporting, or emergency support work.</td>
+<td><code>Low</code></td>
+<td><code>High</code></td>
+<td>checklists, packing logic, equipment inventories, print/export kits</td>
+</tr>
+<tr>
+<td><code>detainee-support-coordinator</code></td>
+<td>Coordinates what happens after a detention: logs, assigned tasks, family contact, legal handoff, and follow-up.</td>
+<td><code>Low</code></td>
+<td><code>High</code></td>
+<td>workflow templates, status tracking, contact trees, incident runbooks</td>
+</tr>
+<tr>
+<td><code>claim-verifier</code></td>
+<td>Verifies dates, locations, claims, quotes, and numbers before they become advocacy material, testimony, or a public statement.</td>
+<td><code>Medium</code></td>
+<td><code>High</code></td>
+<td>search, structured fact tables, source comparison, citation workflow</td>
+</tr>
+<tr>
+<td><code>tool-migration-guide</code></td>
+<td>Helps a group leave an unsafe or brittle platform and move to a better one without breaking operations in the middle of the transition.</td>
+<td><code>Medium</code></td>
+<td><code>High</code></td>
+<td>migration checklists, import/export guidance, user comms, permissions review</td>
+</tr>
+</tbody>
+</table>
+<h2 id="software-first-hybrid-and-human-process-first">Software-First, Hybrid, And Human-Process-First</h2>
+<p>This list is not purely non-technical.</p>
+<h3 id="software-first-ideas">Software-first ideas</h3>
+<p>These are strongly tied to open-source software, self-hosting, or technical automation:</p>
+<ul>
+<li><code>media-redaction</code></li>
+<li><code>metadata-scrubber</code></li>
+<li><code>mirror-network-builder</code></li>
+<li><code>onion-publisher</code></li>
+<li><code>anonymous-tipline-setup</code></li>
+<li><code>tool-migration-guide</code></li>
+<li><code>secure-intake-form-builder</code></li>
+<li><code>claim-verifier</code></li>
+</ul>
+<h3 id="hybrid-ideas">Hybrid ideas</h3>
+<p>These are part software and part operational practice:</p>
+<ul>
+<li><code>evidence-intake</code></li>
+<li><code>persona-separator</code></li>
+<li><code>field-kit-checklist</code></li>
+<li><code>detainee-support-coordinator</code></li>
+</ul>
+<h3 id="human-process-first-ideas">Human-process-first ideas</h3>
+<p>These are mainly coordination, judgment, triage, consent, workflow, and training:</p>
+<ul>
+<li>many of the organization, intake, advocacy, and care skills later in this document</li>
+</ul>
+<h2 id="1-documentation-evidence-and-testimony">1. Documentation, Evidence, And Testimony</h2>
+<ul>
+<li><code>evidence-intake</code> — receives photos, videos, audio, and testimony and organizes them with time, place, context, and handling notes.</li>
+<li><code>chain-of-custody-lite</code> — creates a lightweight evidence-preservation workflow so material is easier to defend later.</li>
+<li><code>media-redaction</code> — removes faces, plates, names, voices, and other identifying details from sensitive material.</li>
+<li><code>metadata-scrubber</code> — strips EXIF, author names, revision history, filenames, and other revealing metadata.</li>
+<li><code>witness-interview-guide</code> — helps conduct witness interviews with clearer structure and fewer leading questions.</li>
+<li><code>testimony-structurer</code> — turns a raw account into a chronological and internally consistent testimony draft.</li>
+<li><code>abuse-pattern-mapper</code> — groups incidents by location, unit, method, date range, or recurring actor.</li>
+<li><code>evidence-crosslinker</code> — links media, witness accounts, and documents that refer to the same incident.</li>
+<li><code>source-consent-check</code> — checks what can be published, under what name, and with what risks.</li>
+<li><code>evidence-export-packager</code> — packages evidence for lawyers, journalists, archives, or partner organizations.</li>
+<li><code>forensic-timeline-builder</code> — assembles incident timelines from multiple fragmented sources.</li>
+<li><code>document-authenticity-check</code> — helps assess whether a PDF, memo, or screenshot appears manipulated or inconsistent.</li>
+<li><code>screenshot-provenance-helper</code> — records origin, capture context, and supporting notes for screenshots.</li>
+<li><code>ocr-translate-redact</code> — extracts text, translates it, and redacts dangerous details in images or documents.</li>
+<li><code>evidence-priority-sorter</code> — separates strong, weak, duplicate, and risky-to-publish evidence.</li>
+</ul>
+<h2 id="2-publishing-preservation-and-takedown-resistance">2. Publishing, Preservation, And Takedown Resistance</h2>
+<ul>
+<li><code>mirror-network-builder</code> — creates a multi-channel replication plan for important content.</li>
+<li><code>onion-publisher</code> — publishes <code>.onion</code> versions of sites and documents.</li>
+<li><code>ipfs-publisher</code> — packages and publishes content through IPFS-like distribution flows.</li>
+<li><code>archive-seed</code> — submits pages and files to archiving services and preserves hashes and retrieval links.</li>
+<li><code>takedown-resilience-planner</code> — prepares fallback channels before a site, page, or account gets removed.</li>
+<li><code>static-site-emergency-kit</code> — generates a minimal static site for campaigns, emergency statements, or incident updates.</li>
+<li><code>low-bandwidth-publisher</code> — creates lightweight versions of important content for slow or unreliable networks.</li>
+<li><code>offline-drop-packager</code> — assembles HTML, PDF, ZIP, or media bundles for USB, SD card, LAN, or offline relay distribution.</li>
+<li><code>censorship-fallback-router</code> — picks alternate publication and access channels when the main one is blocked.</li>
+<li><code>petition-resilience-kit</code> — replicates petitions or forms across more resilient hosting surfaces.</li>
+<li><code>press-room-builder</code> — creates a lightweight press room with media assets, timeline, contacts, and key facts.</li>
+<li><code>campaign-microsite-builder</code> — builds a simple campaign or incident microsite without depending on a fragile central platform.</li>
+</ul>
+<h2 id="3-access-circumvention-and-hostile-network-navigation">3. Access, Circumvention, And Hostile-Network Navigation</h2>
+<ul>
+<li><code>anti-blocking-setup</code> — configures layered access options for bypassing basic to moderate censorship.</li>
+<li><code>browser-hardening</code> — hardens a browser against leakage, fingerprinting, and contaminated sessions.</li>
+<li><code>safe-search-mode</code> — guides sensitive research with less exposure of account history and browsing traces.</li>
+<li><code>link-safety-gate</code> — evaluates suspicious links before a user opens them.</li>
+<li><code>download-safety-check</code> — checks signatures, hashes, provenance, and risk before opening downloads.</li>
+<li><code>wifi-risk-check</code> — reviews the risk of public Wi-Fi, captive portals, and local interception.</li>
+<li><code>cross-border-mode</code> — prepares a lower-exposure digital posture before crossing borders or checkpoints.</li>
+<li><code>device-checkpoint-prep</code> — helps reduce what is exposed before device inspection or seizure risk.</li>
+<li><code>travel-comms-plan</code> — prepares contact, fallback, and check-in routines for sensitive travel.</li>
+<li><code>shutdown-survival-kit</code> — assembles a playbook for unstable connectivity or internet shutdown conditions.</li>
+</ul>
+<h2 id="4-identity-accounts-and-compartmentalization">4. Identity, Accounts, And Compartmentalization</h2>
+<ul>
+<li><code>persona-separator</code> — separates public, internal, pseudonymous, and operational identities.</li>
+<li><code>account-compartment-builder</code> — maps which accounts, browsers, profiles, and devices belong to which role.</li>
+<li><code>alias-hygiene</code> — reduces overlap across usernames, email addresses, phone numbers, and bios.</li>
+<li><code>burner-phone-setup</code> — prepares a narrowly scoped phone for temporary or high-risk use.</li>
+<li><code>burner-browser-profile</code> — creates isolated browser profiles for research, publishing, and administration.</li>
+<li><code>contact-book-sanitizer</code> — cleans and segments contacts to reduce lateral exposure.</li>
+<li><code>2fa-migration-helper</code> — safely migrates authentication factors across devices and methods.</li>
+<li><code>recovery-contact-planner</code> — organizes account recovery without creating bigger exposure.</li>
+<li><code>shared-account-exit-plan</code> — removes former volunteers or admins cleanly from shared systems.</li>
+<li><code>least-privilege-audit</code> — reviews who really needs access to what.</li>
+<li><code>identity-leak-scanner</code> — looks for obvious public links across profiles, domains, bios, and infra.</li>
+<li><code>doxxing-surface-review</code> — spots public exposure of address, routine, employer, family, or historical data.</li>
+</ul>
+<h2 id="5-team-coordination-roles-and-organizational-security">5. Team Coordination, Roles, And Organizational Security</h2>
+<ul>
+<li><code>volunteer-intake-secure</code> — screens and onboards volunteers without collecting unnecessary personal data.</li>
+<li><code>role-splitting-designer</code> — separates responsibilities so one compromise does not expose everything.</li>
+<li><code>cell-structure-planner</code> — helps groups design lower-fragility operational structures.</li>
+<li><code>handoff-protocol</code> — standardizes safe handoff of context between people or teams.</li>
+<li><code>need-to-know-router</code> — routes sensitive information only to those who need it.</li>
+<li><code>sensitive-meeting-prep</code> — prepares high-risk meetings with rules, agenda, and post-meeting handling.</li>
+<li><code>minutes-redactor</code> — converts raw meeting notes into a safer circulation version.</li>
+<li><code>decision-log-sanitizer</code> — preserves institutional memory without oversharing sensitive context.</li>
+<li><code>access-offboarding</code> — runs a clean offboarding checklist for staff, volunteers, or collaborators.</li>
+<li><code>conflict-deescalation-playbook</code> — helps teams respond when tension, infiltration fear, or trust breakdown appears.</li>
+<li><code>rumor-control-desk</code> — slows down internal rumor spirals by forcing verification before escalation.</li>
+<li><code>trust-onboarding</code> — structures access and trust as a gradual process instead of an all-at-once jump.</li>
+</ul>
+<h2 id="6-research-verification-and-information-defense">6. Research, Verification, And Information Defense</h2>
+<ul>
+<li><code>claim-verifier</code> — checks claims, dates, locations, and quotations before publication.</li>
+<li><code>rapid-osint-brief</code> — builds a quick brief on an actor, institution, event, company, or policy.</li>
+<li><code>narrative-watch</code> — tracks how an issue is being framed across channels and audiences.</li>
+<li><code>disinfo-triage</code> — classifies content that may be false, manipulated, or coordinated.</li>
+<li><code>bot-amplification-check</code> — looks for basic signs of synthetic or coordinated amplification.</li>
+<li><code>press-quote-checker</code> — validates that numbers and quotes are being repeated accurately.</li>
+<li><code>translation-sanity-check</code> — catches high-impact translation mistakes in legal, political, or security-sensitive contexts.</li>
+<li><code>fact-pack-builder</code> — creates compact fact packets for spokespeople, partners, or allies.</li>
+<li><code>source-credibility-grid</code> — compares sources without relying only on authority or popularity.</li>
+<li><code>legislation-monitor</code> — tracks laws, rules, and policy proposals that threaten civil liberties.</li>
+<li><code>institution-map</code> — maps agencies, companies, funders, contractors, and power relationships.</li>
+<li><code>incident-pattern-radar</code> — detects repeated abuse patterns by place, date, actor, or tactic.</li>
+</ul>
+<h2 id="7-data-collection-intake-and-safer-records">7. Data Collection, Intake, And Safer Records</h2>
+<ul>
+<li><code>secure-intake-form-builder</code> — designs safer collection forms with minimal data and better consent.</li>
+<li><code>anonymous-tipline-setup</code> — sets up a safer anonymous reporting flow.</li>
+<li><code>case-intake-router</code> — sorts incoming cases by urgency, risk, legal relevance, or communications priority.</li>
+<li><code>data-minimization-review</code> — reviews an existing dataset to see what should stop being collected or kept.</li>
+<li><code>retention-policy-lite</code> — defines how long different categories of data should exist.</li>
+<li><code>consent-language-helper</code> — writes simpler, clearer consent language.</li>
+<li><code>safe-spreadsheet-review</code> — reviews spreadsheets for sensitive columns, dangerous sharing, or silent leakage.</li>
+<li><code>beneficiary-privacy-check</code> — protects lists of beneficiaries, victims, witnesses, or participants.</li>
+<li><code>survey-risk-check</code> — assesses whether a survey is politically or operationally risky before launch.</li>
+<li><code>duplicate-case-merger</code> — merges repeated case entries without losing context.</li>
+</ul>
+<h2 id="8-hardware-fieldwork-and-offline-operations">8. Hardware, Fieldwork, And Offline Operations</h2>
+<ul>
+<li><code>field-kit-checklist</code> — organizes equipment for field reporting, protest support, or evidence gathering.</li>
+<li><code>power-resilience-planner</code> — plans battery, charging, cable, and power fallback needs.</li>
+<li><code>mesh-radio-onboarding</code> — helps people join radio or mesh setups without too much jargon.</li>
+<li><code>portable-server-setup</code> — prepares a lightweight local server for LAN sharing, local archives, or offline coordination.</li>
+<li><code>offline-map-packager</code> — packages maps, key locations, and route notes for offline use.</li>
+<li><code>safe-rendezvous-planner</code> — helps plan meetings with less fragile logistics.</li>
+<li><code>checkpoint-logistics</code> — organizes travel, documents, contacts, and fallback routines in checkpoint-heavy environments.</li>
+<li><code>equipment-sharing-ledger</code> — tracks borrowed devices and media in a less chaotic way.</li>
+<li><code>device-sanitation-between-users</code> — cleans shared devices between shifts or volunteers.</li>
+<li><code>rapid-relocation-kit</code> — prepares a digital and physical minimum for fast evacuation or relocation.</li>
+</ul>
+<h2 id="9-media-advocacy-and-external-relations">9. Media, Advocacy, And External Relations</h2>
+<ul>
+<li><code>press-outreach-sanitizer</code> — prepares safer outreach to journalists without oversharing.</li>
+<li><code>spokesperson-brief-builder</code> — creates concise spokesperson briefs from messy internal context.</li>
+<li><code>hostile-interview-prep</code> — prepares people for aggressive or adversarial interviews.</li>
+<li><code>public-statement-risk-review</code> — reviews a public statement for avoidable risk before release.</li>
+<li><code>campaign-message-tuner</code> — adapts a message for different audiences without losing accuracy.</li>
+<li><code>solidarity-partner-mapper</code> — maps likely allies by geography, issue area, language, and capacity.</li>
+<li><code>donor-comms-separator</code> — separates supporter communication from sensitive operational communication.</li>
+<li><code>coalition-sync-kit</code> — helps multiple groups align public messaging without centralizing too much.</li>
+<li><code>rapid-response-page</code> — creates an initial public response page for arrest, attack, leak, or crackdown.</li>
+<li><code>international-brief-pack</code> — builds short briefings for international NGOs, media, or partner networks.</li>
+</ul>
+<h2 id="10-care-support-and-continuity">10. Care, Support, And Continuity</h2>
+<ul>
+<li><code>burnout-load-balancer</code> — redistributes work when a team is overloaded or emotionally exhausted.</li>
+<li><code>detainee-support-coordinator</code> — coordinates support after detention, arrest, or disappearance.</li>
+<li><code>family-notification-helper</code> — structures how families are informed during crisis situations.</li>
+<li><code>trauma-aware-intake</code> — adjusts intake language and tempo to reduce additional harm.</li>
+<li><code>bereavement-ops</code> — supports the operational side of death, disappearance, or grief-heavy incidents.</li>
+<li><code>mutual-aid-router</code> — routes incoming and outgoing mutual-aid requests more cleanly.</li>
+<li><code>safety-checkin-scheduler</code> — defines check-in routines for people in the field or at risk.</li>
+<li><code>rest-rotation-planner</code> — avoids overloading the same few people during crisis response.</li>
+</ul>
+<h2 id="11-education-training-and-autonomy">11. Education, Training, And Autonomy</h2>
+<ul>
+<li><code>freedom-tech-onboarding-by-role</code> — teaches different stacks to journalists, organizers, lawyers, volunteers, or family members.</li>
+<li><code>security-drill-runner</code> — runs tabletop or practical drills so teams rehearse before a crisis.</li>
+<li><code>nontechnical-admin-coach</code> — helps non-technical administrators operate systems with fewer mistakes.</li>
+<li><code>trainer-kit-builder</code> — produces workshop structure, exercises, and support materials.</li>
+<li><code>risk-explainer-by-scenario</code> — explains risk through concrete scenarios rather than abstract doctrine.</li>
+<li><code>tool-migration-guide</code> — helps a group migrate from unsafe or brittle tools to safer ones.</li>
+<li><code>low-literacy-tech-guide</code> — adapts training and instructions for users with low digital familiarity.</li>
+<li><code>multilingual-rollout-pack</code> — prepares guides and onboarding materials in multiple languages for faster adoption.</li>
+</ul>
+<h2 id="12-final-take">12. Final Take</h2>
+<p>The most interesting pattern here is that many valuable skills for human-rights and freedom-tech users are not purely about protocols or apps.</p>
+<p>They often sit at the boundary between:</p>
+<ul>
+<li>open-source software</li>
+<li>operational discipline</li>
+<li>documentation quality</li>
+<li>consent and harm reduction</li>
+<li>training and coordination under pressure</li>
+</ul>
+<p>That boundary is probably where Freedom Skills can become unusually useful.</p>
+    <div class="mpe-end"></div>
+  </article>
+</main>
+  </body>
+</html>
