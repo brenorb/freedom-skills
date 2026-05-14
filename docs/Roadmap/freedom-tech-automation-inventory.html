@@ -1,0 +1,406 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Freedom-Tech Automation Inventory · Freedom Skills</title>
+    <link rel="stylesheet" href="../assets/site.css">
+  </head>
+  <body>
+    <main class="page-shell">
+  <nav class="site-nav" aria-label="Navegacao">
+    <a href="../index.html">Indice</a><a href="ai-request-coach.html">Anterior</a><a href="freedom-tech-landscape.html">Proximo</a>
+  </nav>
+  <article class="manuscript">
+    <p class="page-meta">Roadmap/freedom-tech-automation-inventory.md</p>
+    <h1 id="freedom-tech-automation-inventory">Freedom-Tech Automation Inventory</h1>
+<p>As of 2026-05-14.</p>
+<p>This document answers a narrower question than the landscape scan: which products already have real automation surfaces, existing AI integrations, or obvious skill-building interfaces?</p>
+<h2 id="quick-read">Quick Read</h2>
+<p>Best first-wave skill targets:</p>
+<ol type="1">
+<li><code>btcpay-greenfield</code></li>
+<li><code>nostr-ops</code></li>
+<li><code>nwc-wallet</code></li>
+<li><code>cashu-cli</code></li>
+<li><code>simplex-bot</code></li>
+<li><code>matrix-community-ops</code></li>
+<li><code>bitcoin-core-readonly</code></li>
+</ol>
+<p>Best second-wave targets:</p>
+<ol type="1">
+<li><code>fedimint-client</code></li>
+<li><code>signal-signald</code></li>
+<li><code>lnbits</code></li>
+<li><code>gpg-openpgp</code></li>
+<li><code>white-noise-core</code></li>
+</ol>
+<p>Defer for now:</p>
+<ol type="1">
+<li><code>keet</code></li>
+<li><code>briar</code></li>
+<li><code>bitchat</code></li>
+<li><code>nowhere</code></li>
+<li>standalone <code>rsa</code></li>
+</ol>
+<h2 id="1-what-already-exists">1. What Already Exists</h2>
+<h3 id="existing-packaged-skills-or-agent-integrations">Existing packaged skills or agent integrations</h3>
+<table>
+<thead>
+<tr>
+<th>Product</th>
+<th>Existing integration</th>
+<th>Link</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Signal</td>
+<td>Local <code>signal-cli</code> skill in this repo on <code>main</code></td>
+<td>Upstream surface: <a href="https://github.com/AsamK/signal-cli">AsamK/signal-cli</a></td>
+<td>Already proves the pattern: sync, resolve recipients, send safely.</td>
+</tr>
+<tr>
+<td>Nostr</td>
+<td>MCP server</td>
+<td><a href="https://github.com/AustinKelsay/nostr-mcp-server">AustinKelsay/nostr-mcp-server</a></td>
+<td>Real MCP packaging for profiles, notes, keys, and NIP search.</td>
+</tr>
+<tr>
+<td>NWC / Lightning</td>
+<td>Alby MCP</td>
+<td><a href="https://github.com/getAlby/mcp">getAlby/mcp</a></td>
+<td>Strong packaged MCP around NWC, LNURL, and related Lightning flows.</td>
+</tr>
+<tr>
+<td>Bitcoin</td>
+<td>Community MCPs</td>
+<td><a href="https://github.com/runeape-sats/bitcoin-mcp">runeape-sats/bitcoin-mcp</a>, <a href="https://github.com/AbdelStark/bitcoin-mcp">AbdelStark/bitcoin-mcp</a></td>
+<td>Not first-party, but enough exists to show demand and feasibility.</td>
+</tr>
+<tr>
+<td>mesh-llm</td>
+<td>Built-in skill material</td>
+<td><a href="https://github.com/Mesh-LLM/mesh-llm">Mesh-LLM/mesh-llm</a></td>
+<td>Support infra, not core freedom tech.</td>
+</tr>
+<tr>
+<td>Crabbox</td>
+<td>Built-in skill material</td>
+<td><a href="https://github.com/openclaw/crabbox">openclaw/crabbox</a></td>
+<td>Same conclusion as mesh-llm: useful infra around the skill stack.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="high-quality-low-level-automation-surfaces-with-no-good-freedom-skill-yet">High-quality low-level automation surfaces with no good Freedom Skill yet</h3>
+<table>
+<thead>
+<tr>
+<th>Product</th>
+<th>Strongest surface</th>
+<th>Link</th>
+<th>Buildability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Bitcoin Core</td>
+<td>JSON-RPC and <code>bitcoin-cli</code></td>
+<td><a href="https://bitcoincore.org/en/doc/26.0.0/">RPC docs</a></td>
+<td><code>Very high</code></td>
+</tr>
+<tr>
+<td>HWI</td>
+<td>Hardware wallet CLI/API</td>
+<td><a href="https://github.com/bitcoin-core/HWI">bitcoin-core/HWI</a></td>
+<td><code>High</code></td>
+</tr>
+<tr>
+<td>BDK</td>
+<td>Wallet SDK and CLI</td>
+<td><a href="https://github.com/bitcoindevkit/bdk">bitcoindevkit/bdk</a></td>
+<td><code>High</code></td>
+</tr>
+<tr>
+<td>LND</td>
+<td>gRPC / REST</td>
+<td><a href="https://github.com/lightningnetwork/lnd">lightningnetwork/lnd</a></td>
+<td><code>Very high</code></td>
+</tr>
+<tr>
+<td>Core Lightning</td>
+<td>JSON-RPC and plugins</td>
+<td><a href="https://github.com/ElementsProject/lightning">ElementsProject/lightning</a></td>
+<td><code>Very high</code></td>
+</tr>
+<tr>
+<td>BTCPay Server</td>
+<td>Greenfield API</td>
+<td><a href="https://docs.btcpayserver.org/CustomIntegration/">BTCPay docs</a></td>
+<td><code>Very high</code></td>
+</tr>
+<tr>
+<td>LNbits</td>
+<td>HTTP API and extensions</td>
+<td><a href="https://github.com/lnbits/lnbits">lnbits/lnbits</a></td>
+<td><code>High</code></td>
+</tr>
+<tr>
+<td>Cashu</td>
+<td>Nutshell CLI / mint server</td>
+<td><a href="https://github.com/cashubtc/nutshell">cashubtc/nutshell</a></td>
+<td><code>Very high</code></td>
+</tr>
+<tr>
+<td>Cashu</td>
+<td>CDK CLI / mintd / gRPC</td>
+<td><a href="https://github.com/cashubtc/cdk">cashubtc/cdk</a></td>
+<td><code>High</code></td>
+</tr>
+<tr>
+<td>Fedimint</td>
+<td><code>fedimint-cli</code> and client RPC</td>
+<td><a href="https://github.com/fedimint/fedimint">fedimint/fedimint</a></td>
+<td><code>High</code></td>
+</tr>
+<tr>
+<td>Nostr</td>
+<td><code>nak</code> CLI</td>
+<td><a href="https://github.com/fiatjaf/nak">fiatjaf/nak</a></td>
+<td><code>Very high</code></td>
+</tr>
+<tr>
+<td>Nostr</td>
+<td>SDKs and relay implementations</td>
+<td><a href="https://github.com/rust-nostr/nostr">rust-nostr</a>, <a href="https://github.com/hoytech/strfry">strfry</a></td>
+<td><code>High</code></td>
+</tr>
+<tr>
+<td>Signal</td>
+<td><code>signald</code></td>
+<td><a href="https://signald.org/articles/getting-started/">signald docs</a></td>
+<td><code>High</code></td>
+</tr>
+<tr>
+<td>SimpleX</td>
+<td>Terminal CLI + local WebSocket bot API</td>
+<td><a href="https://github.com/simplex-chat/simplex-chat">simplex-chat/simplex-chat</a></td>
+<td><code>Very high</code></td>
+</tr>
+<tr>
+<td>Matrix</td>
+<td>SDKs and bot tooling</td>
+<td><a href="https://github.com/matrix-org/matrix-rust-sdk">matrix-rust-sdk</a>, <a href="https://github.com/8go/matrix-commander">matrix-commander</a></td>
+<td><code>Very high</code></td>
+</tr>
+<tr>
+<td>White Noise</td>
+<td>Rust core + CLI binaries</td>
+<td><a href="https://github.com/marmot-protocol/whitenoise-rs">marmot-protocol/whitenoise-rs</a></td>
+<td><code>Medium</code></td>
+</tr>
+<tr>
+<td>GPG / OpenPGP</td>
+<td><code>gpg</code> CLI</td>
+<td><a href="https://www.gnupg.org/documentation/manuals/gnupg/Invoking-GPG.html">GnuPG docs</a></td>
+<td><code>Very high</code></td>
+</tr>
+<tr>
+<td>GPG / OpenPGP</td>
+<td><code>sq</code> CLI / Sequoia</td>
+<td><a href="https://github.com/sequoia-pgp/sequoia">Sequoia PGP</a></td>
+<td><code>High</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="weak-or-missing-automation-surfaces">Weak or missing automation surfaces</h3>
+<table>
+<thead>
+<tr>
+<th>Product</th>
+<th>Why it is weak today</th>
+<th>Judgment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Keet</td>
+<td>App-first product; no obvious stable automation surface.</td>
+<td>Do not build a Keet skill first.</td>
+</tr>
+<tr>
+<td>Briar</td>
+<td>Strong mission fit, weak public automation surface.</td>
+<td>Watch only.</td>
+</tr>
+<tr>
+<td>Bitchat</td>
+<td>Interesting protocol and codebase, but still app-centric and security-sensitive.</td>
+<td>Watch only.</td>
+</tr>
+<tr>
+<td>Nowhere</td>
+<td>Strong publishing idea, weak public SDK/CLI/API surface.</td>
+<td>Watch only.</td>
+</tr>
+<tr>
+<td>standalone RSA</td>
+<td>Too primitive and misuse-prone.</td>
+<td>Fold into GPG/OpenPGP or OpenSSL ops.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="2-recommendations-by-product-area">2. Recommendations by Product Area</h2>
+<h3 id="build-now">Build now</h3>
+<table>
+<thead>
+<tr>
+<th>Skill</th>
+<th>Why now</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>btcpay-greenfield</code></td>
+<td>Stable merchant API, high real-world leverage, clearly non-custodial.</td>
+</tr>
+<tr>
+<td><code>nostr-ops</code></td>
+<td>Strong CLI/SDK/MCP ecosystem and central to the Bitcoin-adjacent stack.</td>
+</tr>
+<tr>
+<td><code>nwc-wallet</code></td>
+<td>Best current programmable wallet surface for agents.</td>
+</tr>
+<tr>
+<td><code>cashu-cli</code></td>
+<td>Strong wallet and mint CLI surface; high privacy relevance.</td>
+</tr>
+<tr>
+<td><code>simplex-bot</code></td>
+<td>One of the best un-packaged freedom-tech bot surfaces available.</td>
+</tr>
+<tr>
+<td><code>matrix-community-ops</code></td>
+<td>Bots, bridges, rooms, and moderation all map well to skills.</td>
+</tr>
+<tr>
+<td><code>bitcoin-core-readonly</code></td>
+<td>Safe and useful entry point into node-aware skills.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="build-soon">Build soon</h3>
+<table>
+<thead>
+<tr>
+<th>Skill</th>
+<th>Why later</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>fedimint-client</code></td>
+<td>Buildable, but ecosystem is still moving quickly.</td>
+</tr>
+<tr>
+<td><code>signal-signald</code></td>
+<td>Richer than raw <code>signal-cli</code>, but heavier to operate.</td>
+</tr>
+<tr>
+<td><code>lnbits</code></td>
+<td>Good wallet/account experimentation layer once the core stack is covered.</td>
+</tr>
+<tr>
+<td><code>gpg-openpgp</code></td>
+<td>Valuable, but should stay tightly scoped around sign/verify/encrypt/decrypt.</td>
+</tr>
+<tr>
+<td><code>white-noise-core</code></td>
+<td>Promising, but current surface is still library-first.</td>
+</tr>
+<tr>
+<td><code>zeus-helper</code></td>
+<td>Useful wallet/node surface, but after core protocols and merchant rails.</td>
+</tr>
+<tr>
+<td><code>boltz-swaps</code></td>
+<td>Important operationally, but best after Core/Lightning/BTCPay coverage exists.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="watchlist">Watchlist</h3>
+<table>
+<thead>
+<tr>
+<th>Candidate</th>
+<th>Why wait</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>nowhere</code></td>
+<td>Interesting architecture, but current public automation surface is weak.</td>
+</tr>
+<tr>
+<td><code>bitchat</code></td>
+<td>High-upside for protests/disasters, but too immature and app-centric.</td>
+</tr>
+<tr>
+<td><code>keet</code></td>
+<td>Better to target Holepunch primitives than the Keet app itself.</td>
+</tr>
+<tr>
+<td><code>session</code></td>
+<td>Buildable enough to experiment with, but lower priority.</td>
+</tr>
+<tr>
+<td><code>mesh-llm</code></td>
+<td>Support infra for sovereign agents, not a first-wave product skill.</td>
+</tr>
+<tr>
+<td><code>crabbox</code></td>
+<td>Same as mesh-llm: useful around Freedom Skills, not the core roadmap.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="3-specific-calls-on-the-added-items">3. Specific Calls on the Added Items</h2>
+<h3 id="gpg"><code>gpg</code></h3>
+<p>Yes. This should become a candidate Freedom Skill.</p>
+<p>Good scope:</p>
+<ul>
+<li>key generation</li>
+<li>sign</li>
+<li>verify</li>
+<li>encrypt</li>
+<li>decrypt</li>
+<li>import/export</li>
+<li>release verification</li>
+</ul>
+<p>Bad scope:</p>
+<ul>
+<li>“teach all of OpenPGP”</li>
+<li>broad trust-model theory without a concrete workflow</li>
+</ul>
+<h3 id="rsa"><code>rsa</code></h3>
+<p>No as a standalone skill.</p>
+<p>The right abstraction is:</p>
+<ul>
+<li><code>gpg-openpgp</code>, if the task is human-facing secure communications or release verification</li>
+<li>tightly-scoped OpenSSL operations, if the task is infrastructure compatibility</li>
+</ul>
+<h3 id="mesh-llm"><code>mesh-llm</code></h3>
+<p>Useful, but as support infrastructure for sovereign/private agent compute rather than freedom tech itself.</p>
+<h3 id="crab-box"><code>crab box</code></h3>
+<p>Useful, but the same conclusion as <code>mesh-llm</code>: support infrastructure, not a core Freedom Skill product area.</p>
+<h3 id="nowhere"><code>nowhere</code></h3>
+<p>Interesting and worth tracking. Today it looks more like a watchlist item than a near-term skill target because the public automation surface is still weak compared with BTCPay, Nostr, Cashu, Matrix, or SimpleX.</p>
+<h2 id="4-bottom-line">4. Bottom Line</h2>
+<p>The biggest gap is not protocol maturity. It is packaging maturity.</p>
+<p>Bitcoin Core, BTCPay, Cashu, Fedimint, Nostr, NWC, SimpleX, Matrix, and GPG all already have enough surface area to support serious agent skills. The opportunity for Freedom Skills is to package those interfaces into safe, opinionated workflows before someone else does it badly.</p>
+    <div class="mpe-end"></div>
+  </article>
+</main>
+  </body>
+</html>

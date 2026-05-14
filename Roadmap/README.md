@@ -14,6 +14,10 @@ Objetivo inicial: identificar tecnologias adjacentes ao Bitcoin, carteiras/ecoss
   - modelo de algoritmo para descoberta, ranking, compartilhamento, confianca, risco e politica local de skills
 - [skill-discovery-and-trust.md](./skill-discovery-and-trust.md)
   - pesquisa inicial sobre descoberta e confianca com uma arquitetura descentralizada baseada em Nostr
+- [freedom-tech-landscape.md](./freedom-tech-landscape.md)
+  - panorama priorizado das tecnologias de freedom tech mais relevantes, com enfase no stack Bitcoin, Nostr, Lightning, ecash, mensageria privada e publicacao resistente a censura
+- [freedom-tech-automation-inventory.md](./freedom-tech-automation-inventory.md)
+  - inventario das superficies de automacao, skills existentes, MCPs, CLIs, SDKs e lacunas de empacotamento mais promissoras para o projeto
 
 ## 1. Tecnologias adjacentes ao Bitcoin
 

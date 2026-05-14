@@ -1,0 +1,472 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Freedom-Tech Landscape · Freedom Skills</title>
+    <link rel="stylesheet" href="../assets/site.css">
+  </head>
+  <body>
+    <main class="page-shell">
+  <nav class="site-nav" aria-label="Navegacao">
+    <a href="../index.html">Indice</a><a href="freedom-tech-automation-inventory.html">Anterior</a><a href="skill-auditor.html">Proximo</a>
+  </nav>
+  <article class="manuscript">
+    <p class="page-meta">Roadmap/freedom-tech-landscape.md</p>
+    <h1 id="freedom-tech-landscape">Freedom-Tech Landscape</h1>
+<p>As of 2026-05-14.</p>
+<p>This is the working landscape scan for Freedom Skills. It is opinionated on purpose: the goal is to identify what is important enough to deserve skill coverage, not to produce an encyclopedic list.</p>
+<h2 id="executive-take">Executive Take</h2>
+<p>The center of gravity is still:</p>
+<ol type="1">
+<li>Bitcoin Core and wallet/node primitives.</li>
+<li>Lightning infrastructure and payment protocols.</li>
+<li>Cashu and Fedimint.</li>
+<li>Nostr as identity, distribution, messaging, and wallet-connect fabric.</li>
+<li>Merchant rails such as BTCPay Server, LNbits, Alby Hub, and Boltz.</li>
+</ol>
+<p>The strongest adjacent layer is censorship-resistant communications and publishing that can pair naturally with Bitcoin:</p>
+<ul>
+<li>White Noise</li>
+<li>Signal</li>
+<li>SimpleX</li>
+<li>Matrix</li>
+<li>Bitchat</li>
+<li>Nowhere</li>
+<li>Keet</li>
+</ul>
+<p>Supporting sovereignty infrastructure also matters, but it should not distract from the Bitcoin-first roadmap:</p>
+<ul>
+<li>GPG / OpenPGP</li>
+<li>mesh-llm</li>
+<li>Crabbox</li>
+<li>RSA-based tooling as a sub-surface, not a product track</li>
+</ul>
+<h2 id="1-bitcoin-monetary-stack">1. Bitcoin Monetary Stack</h2>
+<h3 id="base-layer-and-wallet-primitives">Base-layer and wallet primitives</h3>
+<table>
+<thead>
+<tr>
+<th>Project / protocol</th>
+<th>Why it matters</th>
+<th>Skill angle</th>
+<th>Priority</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://bitcoincore.org/">Bitcoin Core</a></td>
+<td>Root of trust for sovereign Bitcoin operations.</td>
+<td>Node setup, health checks, RPC, descriptors, PSBT, release verification, Tor.</td>
+<td><code>Build now</code></td>
+</tr>
+<tr>
+<td><a href="https://bitcoindevkit.org/">Bitcoin Dev Kit</a></td>
+<td>Best builder surface for scriptable wallet flows.</td>
+<td>Wallet scaffolding, descriptor ops, tx building, recovery flows.</td>
+<td><code>Build soon</code></td>
+</tr>
+<tr>
+<td><a href="https://github.com/bitcoin-core/HWI">HWI</a></td>
+<td>Standard bridge to hardware wallets.</td>
+<td>Device discovery, sign flows, multisig setup review.</td>
+<td><code>Build soon</code></td>
+</tr>
+<tr>
+<td><a href="https://silentpayments.xyz/">Silent Payments</a></td>
+<td>Important privacy upgrade for static receive identifiers.</td>
+<td>Identifier generation, compatibility checks, receive guidance.</td>
+<td><code>Watch closely</code></td>
+</tr>
+<tr>
+<td><a href="https://payjoin.org/">Payjoin</a></td>
+<td>Practical spending privacy improvement.</td>
+<td>Compatibility checks, merchant receive flows, fallback logic.</td>
+<td><code>Watch closely</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="lightning-nodes-sdks-and-payment-protocols">Lightning nodes, SDKs, and payment protocols</h3>
+<table>
+<thead>
+<tr>
+<th>Project / protocol</th>
+<th>Why it matters</th>
+<th>Skill angle</th>
+<th>Priority</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://docs.lightning.engineering/lightning-network-tools/lnd">LND</a></td>
+<td>Common Lightning backend in wallets and services.</td>
+<td>Install, channels, invoices, payments, backups, watchtowers.</td>
+<td><code>Build now</code></td>
+</tr>
+<tr>
+<td><a href="https://docs.corelightning.org/">Core Lightning</a></td>
+<td>Very strong UNIX-style automation surface.</td>
+<td>Node provisioning, plugin ops, BOLT 12, remote admin.</td>
+<td><code>Build now</code></td>
+</tr>
+<tr>
+<td><a href="https://lightningdevkit.org/">Lightning Dev Kit</a></td>
+<td>Best fit for agent-built Lightning apps.</td>
+<td>App scaffolding, storage, routing, embedded Lightning.</td>
+<td><code>Build soon</code></td>
+</tr>
+<tr>
+<td><a href="https://github.com/lnurl/luds">LNURL</a></td>
+<td>Still the main Lightning glue layer.</td>
+<td>Parse, resolve, pay, withdraw, auth, fallback handling.</td>
+<td><code>Build now</code></td>
+</tr>
+<tr>
+<td><a href="https://bolt12.org/">BOLT 12</a></td>
+<td>Reusable payment requests and better receiver privacy.</td>
+<td>Offer generation, compatibility detection, fallback logic.</td>
+<td><code>Build soon</code></td>
+</tr>
+<tr>
+<td><a href="https://docs.boltz.exchange/">Boltz</a></td>
+<td>Core bridge between on-chain and Lightning.</td>
+<td>Swap quoting, swap execution, restore/refund handling.</td>
+<td><code>Build soon</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="ecash-and-federated-custody">Ecash and federated custody</h3>
+<table>
+<thead>
+<tr>
+<th>Project / protocol</th>
+<th>Why it matters</th>
+<th>Skill angle</th>
+<th>Priority</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://docs.cashu.space/">Cashu</a></td>
+<td>Best current private bearer-payment primitive on Bitcoin.</td>
+<td>Mint discovery, mint risk scoring, send/receive/redeem flows.</td>
+<td><code>Build now</code></td>
+</tr>
+<tr>
+<td><a href="https://fedimint.org/">Fedimint</a></td>
+<td>Makes Bitcoin UX more social and community-custodial.</td>
+<td>Federation join/recovery, guardian ops, invite parsing.</td>
+<td><code>Build now</code></td>
+</tr>
+<tr>
+<td><a href="https://www.fedi.xyz/">Fedi</a></td>
+<td>Most visible consumer packaging of Fedimint ideas.</td>
+<td>Onboarding, mini-app support, chat + payments playbooks.</td>
+<td><code>Build soon</code></td>
+</tr>
+<tr>
+<td><a href="https://www.minibits.cash/">Minibits</a></td>
+<td>Shows where ecash, Nostr, and mobile UX converge.</td>
+<td>Wallet ops, Nutzaps, NWC wiring, mint migration.</td>
+<td><code>Watch closely</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="merchant-and-operational-rails">Merchant and operational rails</h3>
+<table>
+<thead>
+<tr>
+<th>Project / protocol</th>
+<th>Why it matters</th>
+<th>Skill angle</th>
+<th>Priority</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://docs.btcpayserver.org/">BTCPay Server</a></td>
+<td>Canonical non-custodial merchant stack.</td>
+<td>Deployment, stores, Greenfield API, POS, reconciliation.</td>
+<td><code>Build now</code></td>
+</tr>
+<tr>
+<td><a href="https://docs.lnbits.org/">LNbits</a></td>
+<td>Great experimentation and wallet-partition layer.</td>
+<td>Wallet provisioning, extensions, vouchers, paywalls, APIs.</td>
+<td><code>Build soon</code></td>
+</tr>
+<tr>
+<td><a href="https://guides.getalby.com/developer-guide/developer-guide/nostr-wallet-connect-api">Alby Hub / NWC tooling</a></td>
+<td>Lowers the barrier to programmable wallet access.</td>
+<td>NWC setup, budgeted permissions, app registration.</td>
+<td><code>Build now</code></td>
+</tr>
+<tr>
+<td><a href="https://blink.sv/en/about">Blink</a></td>
+<td>Important for merchant onboarding and circular economies.</td>
+<td>Merchant flows, POS support, onboarding playbooks.</td>
+<td><code>Build soon</code></td>
+</tr>
+<tr>
+<td><a href="https://aquawallet.io/">AQUA</a></td>
+<td>Relevant for Bitcoin + Liquid + stablecoin mobility.</td>
+<td>Cross-rail guidance and recovery/support flows.</td>
+<td><code>Watch closely</code></td>
+</tr>
+<tr>
+<td><a href="https://blog.zeusln.com/about/">ZEUS</a></td>
+<td>Strong node-control and self-custody surface.</td>
+<td>Node pairing, NWC, swaps, advanced wallet ops.</td>
+<td><code>Build soon</code></td>
+</tr>
+<tr>
+<td><a href="https://acinq.co/blog/phoenix-splicing-update">Phoenix</a></td>
+<td>Excellent self-custodial Lightning UX reference.</td>
+<td>Liquidity explanation, splice flows, user support.</td>
+<td><code>Build soon</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="2-nostr-as-the-coordination-fabric">2. Nostr as the Coordination Fabric</h2>
+<p>Nostr is no longer just a social protocol. It is the main identity and coordination layer around Lightning-native money, wallet delegation, creator payments, and censorship-resistant distribution.</p>
+<table>
+<thead>
+<tr>
+<th>Project / protocol</th>
+<th>Why it matters</th>
+<th>Skill angle</th>
+<th>Priority</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/nostr-protocol/nips">Nostr</a></td>
+<td>Identity, events, relays, and distribution all converge here.</td>
+<td>Key management, relay ops, profile setup, posting, DM flows.</td>
+<td><code>Build now</code></td>
+</tr>
+<tr>
+<td><a href="https://docs.nwc.dev/">NIP-47 / Nostr Wallet Connect</a></td>
+<td>The cleanest agent surface in the stack.</td>
+<td>Payment delegation, invoice creation, pay, balance, revoke.</td>
+<td><code>Build now</code></td>
+</tr>
+<tr>
+<td><a href="https://github.com/nostr-protocol/nips">NIP-46 / Nostr Connect</a></td>
+<td>Safer remote signing for Nostr operations.</td>
+<td>Signer delegation and constrained signing policies.</td>
+<td><code>Build soon</code></td>
+</tr>
+<tr>
+<td><a href="https://github.com/nostr-protocol/nips">NIP-57 zaps</a></td>
+<td>Social Lightning UX that already works in production.</td>
+<td>Zap setup, creator workflows, wallet wiring.</td>
+<td><code>Build soon</code></td>
+</tr>
+<tr>
+<td><a href="https://github.com/nostr-protocol/nips">NIP-60 / NIP-61</a></td>
+<td>Cashu wallet events and Nutzaps point to Nostr-native money flows.</td>
+<td>Ecash sync, mint recommendations, Nutzap send/receive.</td>
+<td><code>Watch closely</code></td>
+</tr>
+<tr>
+<td><a href="https://damus.io/">Damus</a>, <a href="https://primal.net/join/">Primal</a>, <a href="https://github.com/vitorpamplona/amethyst">Amethyst</a></td>
+<td>These are the real user surfaces.</td>
+<td>Onboarding, key safety, wallet hookup, relay management.</td>
+<td><code>Build soon</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="3-private-comms-and-resilient-publishing">3. Private Comms and Resilient Publishing</h2>
+<h3 id="high-priority-adjacent-tools">High-priority adjacent tools</h3>
+<table>
+<thead>
+<tr>
+<th>Product</th>
+<th>Why it matters</th>
+<th>Fit with Freedom Skills</th>
+<th>Priority</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://signal.org/blog/phone-number-privacy-usernames/">Signal</a></td>
+<td>Still the most usable secure messenger for normal people.</td>
+<td>Important baseline and already skillable via <code>signal-cli</code>.</td>
+<td><code>Build now</code></td>
+</tr>
+<tr>
+<td><a href="https://github.com/simplex-chat/simplex-chat">SimpleX</a></td>
+<td>Strong metadata-minimizing modern messenger.</td>
+<td>Very good bot and CLI surface; strong activist fit.</td>
+<td><code>Build now</code></td>
+</tr>
+<tr>
+<td><a href="https://matrix.org/">Matrix</a> / <a href="https://element.io/">Element</a></td>
+<td>Best open ecosystem for communities, bots, and bridges.</td>
+<td>Excellent automation fit for rooms, moderation, bridges, and ops.</td>
+<td><code>Build now</code></td>
+</tr>
+<tr>
+<td><a href="https://delta.chat/">Delta Chat</a></td>
+<td>Strong “meet people where they are” comms layer.</td>
+<td>Good for email-native communities, bots, and mini-apps.</td>
+<td><code>Build soon</code></td>
+</tr>
+<tr>
+<td><a href="https://www.whitenoise.chat/">White Noise</a></td>
+<td>Private messaging on open protocols already close to Nostr.</td>
+<td>Strong watchlist item for private comms inside the Bitcoin/Nostr orbit.</td>
+<td><code>Build soon</code></td>
+</tr>
+<tr>
+<td><a href="https://hostednowhere.com/">Nowhere</a></td>
+<td>Censorship-resistant sites encoded into URLs, with Nostr rails for live features.</td>
+<td>Better fit for resilient publishing, stores, petitions, and drops than for everyday chat.</td>
+<td><code>Watch closely</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="specialist-or-watchlist-tools">Specialist or watchlist tools</h3>
+<table>
+<thead>
+<tr>
+<th>Product</th>
+<th>Why it matters</th>
+<th>Freedom Skills judgment</th>
+<th>Priority</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/permissionlesstech/bitchat">Bitchat</a></td>
+<td>Offline Bluetooth mesh plus Nostr-based internet reach.</td>
+<td>Strong protest/disaster story, but still app-centric and security-sensitive.</td>
+<td><code>Watch closely</code></td>
+</tr>
+<tr>
+<td><a href="https://keet.io/">Keet</a></td>
+<td>Philosophically aligned P2P comms.</td>
+<td>Useful reference, but weaker Bitcoin/Nostr tie than White Noise or Bitchat.</td>
+<td><code>Watchlist</code></td>
+</tr>
+<tr>
+<td><a href="https://getsession.org/">Session</a></td>
+<td>Anonymity-oriented messaging.</td>
+<td>Buildable enough to experiment with, but lower priority than Signal/SimpleX/Matrix.</td>
+<td><code>Watchlist</code></td>
+</tr>
+<tr>
+<td><a href="https://briarproject.org/">Briar</a></td>
+<td>Strong internet-shutdown and Android activist fit.</td>
+<td>Mission fit is high, but automation surface looks weak today.</td>
+<td><code>Watchlist</code></td>
+</tr>
+<tr>
+<td><a href="https://cwtch.im/">Cwtch</a></td>
+<td>Metadata-conscious niche messenger.</td>
+<td>Interesting, but niche and not a first-wave product target.</td>
+<td><code>Watchlist</code></td>
+</tr>
+<tr>
+<td><a href="https://jami.net/">Jami</a></td>
+<td>Long-running P2P comms project.</td>
+<td>Worth understanding, not worth prioritizing for skills first.</td>
+<td><code>Watchlist</code></td>
+</tr>
+<tr>
+<td><a href="https://meshtastic.org/">Meshtastic</a></td>
+<td>Real offline/disaster communications layer.</td>
+<td>Strong adjacent fit for activists and community operations.</td>
+<td><code>Build soon</code></td>
+</tr>
+<tr>
+<td><a href="https://censorship.no/">Ceno</a>, <a href="https://www.torproject.org/">Tor</a>, <a href="https://psiphon.ca/">Psiphon</a></td>
+<td>Critical anti-censorship access stack.</td>
+<td>Important context for resilient publishing and distribution skills.</td>
+<td><code>Build soon</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="4-supporting-sovereignty-infrastructure">4. Supporting Sovereignty Infrastructure</h2>
+<table>
+<thead>
+<tr>
+<th>Tooling</th>
+<th>Why it matters</th>
+<th>Judgment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://gnupg.org/index.en.html">GPG / OpenPGP</a></td>
+<td>Signed releases, operator comms, software provenance, archive integrity.</td>
+<td>Yes, this should become a candidate Freedom Skill.</td>
+</tr>
+<tr>
+<td>RSA-based tooling</td>
+<td>Legacy crypto primitive still present in real systems.</td>
+<td>Not a standalone skill. Fold it into <code>gpg-openpgp</code> or tightly-scoped OpenSSL operations.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/Mesh-LLM/mesh-llm">mesh-llm</a></td>
+<td>Sovereign/shared compute for agents with an OpenAI-compatible API.</td>
+<td>Useful support infrastructure for Freedom Skills, not a core product track.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/openclaw/crabbox">Crabbox</a></td>
+<td>Agent-friendly ephemeral compute and test boxes.</td>
+<td>Useful support infrastructure, not freedom tech itself.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="5-recommended-build-order">5. Recommended Build Order</h2>
+<h3 id="first-wave">First wave</h3>
+<ol type="1">
+<li><code>nostr-ops</code></li>
+<li><code>nwc-wallet</code></li>
+<li><code>btcpay-greenfield</code></li>
+<li><code>bitcoin-core-readonly</code></li>
+<li><code>lnd-ops</code></li>
+<li><code>core-lightning-ops</code></li>
+<li><code>cashu-cli</code></li>
+<li><code>fedimint-client</code></li>
+<li><code>signal-cli</code></li>
+<li><code>simplex-bot</code></li>
+<li><code>matrix-community-ops</code></li>
+</ol>
+<h3 id="second-wave">Second wave</h3>
+<ol type="1">
+<li><code>lnbits</code></li>
+<li><code>zeus-helper</code></li>
+<li><code>phoenix-support</code></li>
+<li><code>gpg-openpgp</code></li>
+<li><code>boltz-swaps</code></li>
+<li><code>white-noise-core</code></li>
+<li><code>meshtastic-ops</code></li>
+</ol>
+<h3 id="watchlist">Watchlist</h3>
+<ol type="1">
+<li><code>nowhere</code></li>
+<li><code>bitchat</code></li>
+<li><code>keet</code></li>
+<li><code>session</code></li>
+<li><code>briar</code></li>
+<li><code>mesh-llm</code></li>
+<li><code>crabbox</code></li>
+</ol>
+<h2 id="6-bottom-line">6. Bottom Line</h2>
+<p>If Freedom Skills wants a sharp thesis, it should stay centered on:</p>
+<ul>
+<li>sovereign Bitcoin operations</li>
+<li>programmable Lightning and wallet-connect flows</li>
+<li>ecash and federated money</li>
+<li>Nostr as the social, identity, and payments coordination layer</li>
+<li>practical private communications and resilient publishing that complement that stack</li>
+</ul>
+<p>That keeps the project coherent. It also prevents the roadmap from drifting into “all privacy tools everywhere” instead of building the highest-leverage skills first.</p>
+    <div class="mpe-end"></div>
+  </article>
+</main>
+  </body>
+</html>
