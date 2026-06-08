@@ -5,3 +5,6 @@
 # Python bytecode
 __pycache__/
 *.py[cod]
+**/__pycache__/
+**/.pytest_cache/
+**/node_modules/
