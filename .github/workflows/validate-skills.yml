@@ -22,6 +22,8 @@ jobs:
 
       - name: Validate touched skills
         shell: bash
+        env:
+          STRICT_SKILLS_REF: "1"
         run: |
           set -euo pipefail
           base_sha="${{ github.event.pull_request.base.sha }}"
