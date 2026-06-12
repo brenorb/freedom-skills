@@ -1,0 +1,4 @@
+interface:
+  display_name: "nostr-vpn"
+  short_description: "Nostr VPN CLI for mesh setup, invites, and diagnostics"
+  default_prompt: "Use $nostr-vpn to inspect local Nostr VPN state, create or import invites, manage sessions and services, and troubleshoot `nvpn` safely without exposing secrets."
