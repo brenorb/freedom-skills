@@ -1,0 +1,4 @@
+interface:
+  display_name: "filepizza"
+  short_description: "Share local files through public FilePizza"
+  default_prompt: "Use $filepizza to create, inspect, and stop public file.pizza uploads for local files through the bundled Playwright wrapper."
