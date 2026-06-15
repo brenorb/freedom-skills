@@ -1,0 +1,4 @@
+interface:
+  display_name: "Bitcoin PIR"
+  short_description: "Private Bitcoin address UTXO lookups"
+  default_prompt: "Use $bitcoin-pir to look up the current UTXOs for one or more Bitcoin addresses through the public Bitcoin PIR servers."
