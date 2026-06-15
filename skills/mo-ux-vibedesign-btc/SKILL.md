@@ -12,7 +12,7 @@ Tell them about your app and they will take you through a full design review fro
 
 From there, they will produce a low-fidelity wireframe showing the suggested changes, then a high-fidelity mockup in your app's own visual style so you can see what it could actually look like. They will also run a playful benchmark exploration to show you what your best screen could look like if you pushed the design further. At the end, you get a ready-to-use GitHub issue you can drop straight into your repo and hand to your team.
 
-Every stage produces a real downloadable file. Nothing is summarised or skipped.
+Every stage produces a real file saved in the workspace or task output directory. Nothing is summarised or skipped.
 
 Execute each stage fully before moving to the next. Do not skip stages. Do not summarise — produce the full output for each stage. After completing each stage, state which stage was just completed and what comes next, then pause and wait for the user to confirm before proceeding.
 
@@ -87,7 +87,7 @@ The goal is copy that feels like a calm, clear conversation. Simple words. Short
 
 Also apply the privacy first lens throughout. Ask whether any copy or flow leaks information the user might not want to share. Ask whether there are any moments where the user might feel surveilled or tracked. Ask whether the language is empowering or whether it makes the user feel dependent on the app. And ask whether an activist in a high risk country would feel safe using this.
 
-Deliver the review as a downloadable `.md` file named `ux-review-[app-name].md`. No dashes of any kind in the copy, including em dashes, en dashes, hyphens in prose, and dashes used as separators. Use commas, colons, or rewrite the sentence instead.
+Write the review as a `.md` file named `ux-review-[app-name].md` in the workspace or task output directory. No dashes of any kind in the copy, including em dashes, en dashes, hyphens in prose, and dashes used as separators. Use commas, colons, or rewrite the sentence instead.
 
 The review file structure:
 
@@ -124,28 +124,33 @@ The review file structure:
 
 After the review is confirmed, produce a low-fidelity mockup showing the suggested changes visually. This is a wireframe-level output, not a polished design. The goal is to show the structure and copy changes clearly before any visual styling is applied.
 
-Generate the mockup by writing a self-contained HTML file at `/home/claude/mockup.html` and rendering it to PNG using Playwright with a transparent background. Save the output as `/mnt/user-data/outputs/[app-name]-lofi-mockups.png`.
+Generate the mockup by writing a self-contained HTML file to a writable temporary path in the current environment, then render it to PNG using Playwright with a transparent background. Save the output as `[app-name]-lofi-mockups.png` in a user visible workspace or task output directory.
 
-Use this exact rendering snippet:
+Use this rendering pattern, adapting the file paths to the current environment:
 
 ```python
+from pathlib import Path
 from playwright.sync_api import sync_playwright
+
+html_path = Path("mockup.html").resolve()
+png_path = Path("[app-name]-lofi-mockups.png").resolve()
+
 with sync_playwright() as p:
     browser = p.chromium.launch()
     page = browser.new_page(viewport={'width': 900, 'height': 600})
-    page.goto('file:///home/claude/mockup.html')
+    page.goto(html_path.as_uri())
     page.wait_for_timeout(500)
-    page.screenshot(path='/mnt/user-data/outputs/[app-name]-lofi-mockups.png', full_page=True, omit_background=True)
+    page.screenshot(path=str(png_path), full_page=True, omit_background=True)
     browser.close()
 ```
 
-Layout: screens side by side in a single row, separated by thin vertical divider lines. Screen titles above each phone in small grey text. Annotation bullets below each phone.
+Layout: screens side by side in a single row, separated by thin vertical divider lines. Screen titles above each frame in small grey text. Annotation bullets below each frame.
 
-Phone frame: 200px wide, rounded corners at 32px, dark border at hex 2a2a2a, background hex 111. A small notch bar centred at the top. Box shadow for depth.
+Frame: for mobile, use a phone frame 200px wide, with rounded corners at 32px, dark border at hex 2a2a2a, background hex 111, a small notch bar centred at the top, and box shadow for depth. For desktop, use a browser or application window frame with appropriate desktop chrome and proportions.
 
 Screen contents: all UI elements are HTML divs styled as rounded rectangles. Use amber hex F5A300 for the wordmark block and primary button. Use transparent with a dark border for secondary buttons. Use very dark grey blocks for copy placeholders and education lines. Render short real-text labels inside primary buttons and status lines only. Use the system sans-serif font stack.
 
-Annotations: below each phone, list key changes as short lines. Each line starts with a small amber filled circle as a bullet. Each annotation line sits on a dark background at hex 1a1a1a with white text at hex ffffff. Font size 13px. Border radius 6px. Padding 6px 8px. The dark background must wrap each annotation line individually, not the whole block, so each line is its own dark pill. This ensures annotations are always readable regardless of what is behind them.
+Annotations: below each frame, list key changes as short lines. Each line starts with a small amber filled circle as a bullet. Each annotation line sits on a dark background at hex 1a1a1a with white text at hex ffffff. Font size 13px. Border radius 6px. Padding 6px 8px. The dark background must wrap each annotation line individually, not the whole block, so each line is its own dark pill. This ensures annotations are always readable regardless of what is behind them.
 
 Background: transparent via omit_background=True in Playwright. No background colour on the body element.
 
@@ -166,7 +171,7 @@ Begin by analysing the app's existing visual design language across five dimensi
 
 State explicitly which visual principles are being applied and why before producing the screens.
 
-Produce the output as a single high-quality HTML file. Each screen must be rendered as a realistic iPhone frame at 375 by 812 pixels with a status bar, notch, and where relevant a tab bar. Each screen must show real, populated content with no placeholder text. Include a screen label above each phone showing the screen number, screen name, and one sentence on the key design decision. Screen labels must sit on a dark background at hex 1a1a1a with white text at hex ffffff, font size 13px, border radius 6px, padding 6px 10px. Below all screens include a summary table mapping each screen to the findings it addresses. The summary table must use a dark background at hex 1a1a1a with white text at hex ffffff so it is always readable.
+Produce the output as a single high-quality HTML file. For mobile apps, render each screen as a realistic iPhone frame at 375 by 812 pixels with a status bar, notch, and where relevant a tab bar. For desktop apps, render each screen as a browser or application window frame at 1280 by 800 pixels, with appropriate desktop chrome and layout conventions. Each screen must show real, populated content with no placeholder text. Include a screen label above each frame showing the screen number, screen name, and one sentence on the key design decision. Screen labels must sit on a dark background at hex 1a1a1a with white text at hex ffffff, font size 13px, border radius 6px, padding 6px 10px. Below all screens include a summary table mapping each screen to the findings it addresses. The summary table must use a dark background at hex 1a1a1a with white text at hex ffffff so it is always readable.
 
 Visual principles to follow regardless of app style:
 - Colour is used only for meaning, never decoration
@@ -175,7 +180,7 @@ Visual principles to follow regardless of app style:
 - Every interactive element has a clear, obvious affordance
 - Fulfilled or expired states are visually distinct from active ones
 
-Output the full HTML as a downloadable file named `[app-name]-hifi-mockup.html`.
+Write the full HTML as a file named `[app-name]-hifi-mockup.html` in the workspace or task output directory.
 
 ---
 
@@ -199,7 +204,7 @@ Encourage the team to call out things they love, things that feel wrong, and thi
 
 After the workshop is complete, package the key findings into a GitHub issue the team can take back and act on immediately.
 
-Deliver it as a downloadable `.md` file named `github-issue-[app-name].md`. No dashes of any kind in the copy.
+Write it as a `.md` file named `github-issue-[app-name].md` in the workspace or task output directory. No dashes of any kind in the copy.
 
 ```
 Title: UX: [screen name] [main opportunity]
