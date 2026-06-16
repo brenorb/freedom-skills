@@ -2,7 +2,7 @@
 set -euo pipefail
 
 if [[ $# -lt 1 || $# -gt 2 ]]; then
-  echo "Usage: $0 <audio-or-url> [destination]" >&2
+  echo "Usage: $0 <media-file-or-url> [destination]" >&2
   exit 1
 fi
 
