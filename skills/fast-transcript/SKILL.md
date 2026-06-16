@@ -19,16 +19,16 @@ fscript --help
 2. For questions, summaries, note-taking, quote-finding, and general information extraction, call `fscript` directly with no diarization:
 
 ```bash
-fscript "<media-or-url>" - --text=plain -D
+fscript "<media-or-url>" --stdout --text=plain -D
 fscript "<media-or-url>" "/tmp/transcript.txt" --text=plain -D
 ```
 
-This standard path keeps the transcript focused on content instead of speaker labels.
+Use `--stdout` when you want printed output and a file path when you want a saved transcript. Keep `-D` because `--text` changes the output format, while `-D` disables the default diarization path.
 
 3. If you need timestamps while still staying in the no-diarization workflow, call `fscript` directly:
 
 ```bash
-fscript "<media-or-url>" - --text=timestamps -D
+fscript "<media-or-url>" --stdout --text=timestamps -D
 ```
 
 4. Read the transcript, answer the user, and only keep the transcript on disk when it helps with follow-up work.
@@ -38,7 +38,7 @@ fscript "<media-or-url>" - --text=timestamps -D
 Only opt in to diarization when the task depends on speaker identity, turn-taking, or quotes attributed to different people.
 
 ```bash
-fscript "<media-or-url>" - --speakers=timestamps -d
+fscript "<media-or-url>" --stdout --speakers=timestamps -d
 ```
 
 Examples:
