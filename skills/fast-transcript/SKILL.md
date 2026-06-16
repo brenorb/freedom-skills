@@ -1,13 +1,48 @@
 ---
 name: fast-transcript
-description: Use this skill when the user wants to transcribe or inspect audio or video with fast-transcript via `fscript`, including local files and remote URLs such as social media links. Prefer text output for facts, summaries, and notes. Use diarization only when speaker attribution matters.
+description: Use this skill when the user wants to transcribe or inspect audio or video with fast-transcript via `fscript`, including local files and remote URLs such as social media links. It can also do diarization.
 ---
 
 # fast-transcript
 
 Use the local `fscript` CLI for transcript-first analysis of media.
 
-## Onboarding
+
+## Default workflow
+
+1. For questions, summaries, note-taking, quote-finding, and general information extraction, use text output:
+
+```bash
+fscript "<media-or-url>" --stdout --text
+fscript "<media-or-url>" "/tmp/transcript.txt" --text
+```
+
+Use `--stdout` when you want printed output and a file path when you want a saved transcript. `--text` keeps timestamps but removes speaker labels. In current upstream `fscript`, text modes do not run diarization.
+
+2. If you want to remove timestamps, switch to plain text:
+
+```bash
+fscript "<media-or-url>" --stdout --text=plain
+```
+
+3. If you need speaker attribution, use diarization:
+
+```bash
+fscript "<media-or-url>" --stdout
+```
+
+4. Read the transcript, answer the user, and only keep the transcript on disk when it helps with follow-up work.
+
+5. Only check availability or open help when there is a real reason:
+
+```bash
+command -v fscript
+fscript --version
+```
+
+Use these checks on first-session failures, when `fscript` is missing from `PATH`, or when you need to confirm flags. Do not run them mechanically before every transcription.
+
+5.1 Installation
 
 Install with Homebrew:
 
@@ -30,36 +65,6 @@ uv tool install fscript
 
 First use downloads the ASR model automatically. Remote URLs also rely on `yt-dlp`, so make sure `yt-dlp` is on `PATH` or available via `uvx yt-dlp`.
 
-## Default workflow
-
-1. For questions, summaries, note-taking, quote-finding, and general information extraction, use text output:
-
-```bash
-fscript "<media-or-url>" --stdout --text
-fscript "<media-or-url>" "/tmp/transcript.txt" --text
-```
-
-Use `--stdout` when you want printed output and a file path when you want a saved transcript. `--text` keeps timestamps but removes speaker labels. In current upstream `fscript`, text modes do not run diarization.
-
-2. If you want to remove timestamps, switch to plain text:
-
-```bash
-fscript "<media-or-url>" --stdout --text=plain
-```
-
-3. Read the transcript, answer the user, and only keep the transcript on disk when it helps with follow-up work.
-
-4. Only check availability or open help when there is a real reason:
-
-```bash
-command -v fscript
-fscript --version
-```
-
-Use these checks on first-session failures, when `fscript` is missing from `PATH`, or when you need to confirm flags. Do not run them mechanically before every transcription.
-
-If your installed release supports it, `--text=compact` is the single-string text variant.
-
 ## When to use diarization
 
 Only opt in to diarization when the task depends on speaker identity, turn-taking, or quotes attributed to different people.
@@ -76,10 +81,9 @@ Examples:
 
 ## Defaults
 
-- Prefer `--text` for information retrieval.
+- Prefer `--text` for faster general information retrieval.
 - Prefer stdout for quick one-off analysis and a file path for longer transcripts you will revisit.
 - Use `--text=plain` if timestamps are noise.
-- Use `-D` only when you explicitly want a faster no-diarization run outside text mode.
 - Diarization is slower; only enable it when speaker attribution matters.
 
 ## Remote media notes
