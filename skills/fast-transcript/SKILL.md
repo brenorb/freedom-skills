@@ -19,8 +19,8 @@ fscript --help
 2. For questions, summaries, note-taking, quote-finding, and general information extraction, use the bundled wrapper:
 
 ```bash
-bash skills/fast-transcript/scripts/fscript_info.sh "<media-file-or-url>"
-bash skills/fast-transcript/scripts/fscript_info.sh "<media-file-or-url>" "/tmp/transcript.txt"
+bash skills/fast-transcript/scripts/fscript_info.sh "<media-or-url>"
+bash skills/fast-transcript/scripts/fscript_info.sh "<media-or-url>" "/tmp/transcript.txt"
 ```
 
 This standard path runs `fscript` with `--text=plain -D` so the transcript stays focused on content instead of speaker labels.
@@ -28,7 +28,7 @@ This standard path runs `fscript` with `--text=plain -D` so the transcript stays
 3. If you need timestamps while still staying in the no-diarization workflow, call `fscript` directly:
 
 ```bash
-fscript "<media-file-or-url>" - --text=timestamps -D
+fscript "<media-or-url>" - --text=timestamps -D
 ```
 
 4. Read the transcript, answer the user, and only keep the transcript on disk when it helps with follow-up work.
@@ -38,7 +38,7 @@ fscript "<media-file-or-url>" - --text=timestamps -D
 Only opt in to diarization when the task depends on speaker identity, turn-taking, or quotes attributed to different people.
 
 ```bash
-fscript "<media-file-or-url>" - --speakers=timestamps -d
+fscript "<media-or-url>" - --speakers=timestamps -d
 ```
 
 Examples:
