@@ -16,14 +16,14 @@ command -v fscript
 fscript --help
 ```
 
-2. For questions, summaries, note-taking, quote-finding, and general information extraction, use the bundled wrapper:
+2. For questions, summaries, note-taking, quote-finding, and general information extraction, call `fscript` directly with no diarization:
 
 ```bash
-bash skills/fast-transcript/scripts/fscript_info.sh "<media-or-url>"
-bash skills/fast-transcript/scripts/fscript_info.sh "<media-or-url>" "/tmp/transcript.txt"
+fscript "<media-or-url>" - --text=plain -D
+fscript "<media-or-url>" "/tmp/transcript.txt" --text=plain -D
 ```
 
-This standard path runs `fscript` with `--text=plain -D` so the transcript stays focused on content instead of speaker labels.
+This standard path keeps the transcript focused on content instead of speaker labels.
 
 3. If you need timestamps while still staying in the no-diarization workflow, call `fscript` directly:
 
