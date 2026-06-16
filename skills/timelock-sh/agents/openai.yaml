@@ -1,0 +1,4 @@
+interface:
+  display_name: "Timelock.sh"
+  short_description: "Time-lock files with timelock.sh"
+  default_prompt: "Use $timelock-sh to encrypt this file so it unlocks at 2026-07-01T12:00Z."
