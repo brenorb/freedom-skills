@@ -11,19 +11,16 @@ Leave interactive TUI flows out of scope unless the user explicitly asks for the
 
 ## Default workflow
 
-1. Check whether `nostr` is installed and whether any local account exists:
-
-```bash
-command -v nostr
-nostr version --json
-nostr accounts --json
-```
-
-2. If the binary is missing, or `nostr accounts --json` reports no account, read `references/onboarding.md`.
-3. Before any write action, inspect the current account and relay state, then resolve the exact account that should be used:
+1. Confirm the account context first:
 
 ```bash
 nostr switch --json
+```
+
+2. If that fails because `nostr` is missing or no account is configured yet, read `references/onboarding.md`.
+3. Before any write action, inspect the relay state for the account you intend to use:
+
+```bash
 nostr relays --json
 ```
 
@@ -71,6 +68,7 @@ nostr follow alice --account bot-account --json
 ## Gotchas
 
 - The command name is `nostr`, not `nostr-cli`.
+- `nostr switch --json` is the quickest check that both the binary and at least one local account are available.
 - `nostr accounts --json` exits non-zero with `No accounts found. Run 'nostr login' to create one.` when no account exists yet.
 - `nostr relays --json` also fails until an account is set up.
 - `nostr switch --json` is a safe way to list local accounts before choosing an explicit `--account` for a write.

@@ -126,3 +126,11 @@ nostr update --json
 ```
 
 Do not run `nostr update` unless the user explicitly asked to update the CLI.
+
+## Full docs
+
+If the user needs the complete upstream command surface or examples beyond this skill:
+
+- CLI overview and usage examples: `https://github.com/xdamman/nostr-cli/blob/main/README.md`
+- Full command reference: `https://github.com/xdamman/nostr-cli/blob/main/docs/COMMANDS.md`
+- Project repo: `https://github.com/xdamman/nostr-cli`

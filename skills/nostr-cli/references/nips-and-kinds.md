@@ -253,3 +253,11 @@ Good to recognize when relay behavior gets weird, but not a first-class workflow
 
 - If the user wants to post, reply, DM, follow, or publish long-form content, prefer the dedicated `nostr` command.
 - If the user wants custom tags, unusual event kinds, or protocol-level control, use `nostr event new`.
+
+## Complete references
+
+If the user needs the full protocol index instead of this practical subset:
+
+- Full NIP index: `https://github.com/nostr-protocol/nips`
+- Rendered NIP docs: `https://nips.nostr.com/`
+- Basic protocol and event structure: `https://github.com/nostr-protocol/nips/blob/master/01.md`
