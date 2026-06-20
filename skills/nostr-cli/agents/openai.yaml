@@ -1,0 +1,4 @@
+interface:
+  display_name: "nostr-cli"
+  short_description: "Terminal Nostr client for non-interactive social and bot flows"
+  default_prompt: "Use $nostr-cli to inspect accounts, manage relays, read profiles, draft posts, send DMs and replies, manage follows, and publish to Nostr safely with confirmation before external actions."
