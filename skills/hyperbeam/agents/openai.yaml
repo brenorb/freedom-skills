@@ -1,0 +1,4 @@
+interface:
+  display_name: "Hyperbeam"
+  short_description: "Encrypted 1:1 byte pipe over Hyperswarm"
+  default_prompt: "Use $hyperbeam to set up a one-shot encrypted pipe, file transfer, or tar stream over Hyperbeam."
