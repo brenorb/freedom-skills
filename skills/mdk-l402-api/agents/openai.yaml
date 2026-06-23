@@ -1,0 +1,4 @@
+interface:
+  display_name: "MDK L402 API"
+  short_description: "Build paid APIs with Money Dev Kit L402."
+  default_prompt: "Use $mdk-l402-api to protect this API route with Money Dev Kit L402 payments."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "MDK Replit Checkout"
+  short_description: "Integrate Money Dev Kit checkout in Replit."
+  default_prompt: "Use $mdk-replit-checkout to add Money Dev Kit checkout to this Replit app."
