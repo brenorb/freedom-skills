@@ -20,6 +20,8 @@ Objetivo inicial: identificar tecnologias adjacentes ao Bitcoin, carteiras/ecoss
   - inventario das superficies de automacao, skills existentes, MCPs, CLIs, SDKs e lacunas de empacotamento mais promissoras para o projeto
 - [human-rights-freedom-tech-brainstorm.md](./human-rights-freedom-tech-brainstorm.md)
   - brainstorm em ingles de skills adicionais para ativistas, defensores de direitos humanos e usuarios de freedom tech, com destaque para ideias promissoras e o recorte FOSS vs nao tecnico
+- [mission-oriented-roadmap.md](./mission-oriented-roadmap.md)
+  - roadmap orientado por missao: acesso a informacao, preservacao, comunicacao segura, dinheiro soberano, operacao offline e camadas futuras de resiliencia
 
 ## 1. Tecnologias adjacentes ao Bitcoin
 
