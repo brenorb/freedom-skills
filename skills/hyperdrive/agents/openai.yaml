@@ -1,0 +1,4 @@
+interface:
+  display_name: "Hyperdrive"
+  short_description: "P2P file bundle wrapper for Hyperdrive"
+  default_prompt: "Use $hyperdrive to create, populate, inspect, or mirror a Hyperdrive bundle with the local wrapper script."

@@ -1,2 +1,4 @@
 .specstory
 .cursorindexingignore
+**/node_modules/
+**/__pycache__/

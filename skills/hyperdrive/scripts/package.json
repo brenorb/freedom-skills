@@ -1,0 +1,13 @@
+{
+  "name": "freedom-skills-hyperdrive-wrapper",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Local wrapper CLI for Hyperdrive skill workflows",
+  "license": "MIT",
+  "dependencies": {
+    "corestore": "7.10.1",
+    "hypercore-id-encoding": "1.3.0",
+    "hyperdrive": "13.3.2",
+    "hyperswarm": "4.17.0"
+  }
+}
