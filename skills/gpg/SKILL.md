@@ -9,23 +9,7 @@ Use the local `gpg` binary for OpenPGP encryption, decryption, signatures, and k
 
 ## Default workflow
 
-1. Check whether `gpg` is installed and whether the local keyring already has the keys you need:
-
-```bash
-command -v gpg
-gpg --version
-gpg --list-keys --keyid-format long
-gpg --list-secret-keys --keyid-format long
-```
-
-2. If `gpg` is missing, the user needs a new keypair, or the user needs import or pinentry help, read `references/onboarding.md`.
-3. Before importing a new key, trusting a key, or encrypting to a key from the network, inspect the exact fingerprint:
-
-```bash
-gpg --list-keys --with-colons --fingerprint "alice@example.com"
-```
-
-4. Use the direct CLI for common work:
+1. Start with the command that directly matches the user's goal:
 
 ```bash
 gpg --armor --export "Alice Example <alice@example.com>" > alice.pub.asc
@@ -33,6 +17,20 @@ gpg --batch --yes --trust-model always --armor --output secret.txt.asc --encrypt
 gpg --batch --yes --output secret.txt --decrypt secret.txt.asc
 gpg --batch --yes --armor --output release.tar.gz.sig --detach-sign release.tar.gz
 gpg --verify release.tar.gz.sig release.tar.gz
+```
+
+2. Before importing a new key, trusting a key, or encrypting to a key from the network, inspect the exact fingerprint:
+
+```bash
+gpg --list-keys --with-colons --fingerprint "alice@example.com"
+```
+
+3. If the action fails because `gpg` is missing, the keyring is missing the right key, the user needs a new keypair, or pinentry is blocking sign or decrypt, read `references/onboarding.md`.
+4. If you need a broader view of the local keyring before choosing a target key, inspect it directly:
+
+```bash
+gpg --list-keys --keyid-format long
+gpg --list-secret-keys --keyid-format long
 ```
 
 5. If the user asks for raw command patterns beyond the defaults here, read `references/commands.md`.
