@@ -9,25 +9,28 @@ Use the local `nvpn` CLI from Nostr VPN for private mesh VPN setup, pairing, ses
 
 ## Default workflow
 
-1. Check whether `nvpn` is installed and inspect the local state with structured output first:
+1. Start with the command that matches the user's goal:
 
 ```bash
-command -v nvpn
-nvpn version --json
+nvpn create-invite
+nvpn import-invite 'nvpn://invite/...'
+nvpn start --connect
+nvpn start --daemon --connect
 nvpn status --json
-nvpn service status --json
+nvpn doctor --json
 ```
 
-2. If the binary is missing, the user needs first-time setup, or there is no usable local config/network yet, read `references/onboarding.md`.
+2. If that fails because `nvpn` is missing, the local config is not initialized yet, or there is no usable network state, read `references/onboarding.md`.
 3. Prefer the invite flow over manual config editing when joining or sharing a mesh:
 
 ```bash
-nvpn init
 nvpn create-invite
 nvpn import-invite 'nvpn://invite/...'
+nvpn invite-broadcast --duration-secs 900
+nvpn discover --accept --json
 ```
 
-4. For one-off sessions, run in the foreground. For persistent background use, run the daemon flow:
+4. For session control, use the foreground path for one-off work and the daemon or service path for persistent use:
 
 ```bash
 nvpn start --connect
@@ -35,12 +38,14 @@ nvpn start --daemon --connect
 nvpn stop
 nvpn pause
 nvpn resume
+sudo nvpn service install
 ```
 
-5. For inspection and troubleshooting, prefer read-oriented commands before changing config:
+5. For inspection and troubleshooting, prefer read-oriented commands before changing config or routes:
 
 ```bash
 nvpn status --json
+nvpn service status --json
 nvpn ip --peer --json
 nvpn whois 100.64.0.2 --json
 nvpn ping 100.64.0.2
