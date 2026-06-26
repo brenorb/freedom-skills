@@ -18,7 +18,7 @@ from pathlib import Path
 
 
 REPO_ROOT = Path(__file__).resolve().parents[3]
-STATE_ROOT = Path.home() / ".cache" / "freedom-skills" / "filepizza"
+STATE_ROOT = Path.home() / ".cache" / "freedom-skills" / "p2p-transfer-filepizza"
 RUNTIME_DIR = STATE_ROOT / "runtime"
 UPLOADS_DIR = STATE_ROOT / "uploads"
 SEED_SCRIPT = Path(__file__).with_name("filepizza_seed.js")
@@ -70,7 +70,7 @@ def tmux_available() -> bool:
 
 
 def tmux_session_name(upload_id: str) -> str:
-    return f"filepizza_{upload_id}"
+    return f"p2p_transfer_filepizza_{upload_id}"
 
 
 def is_tmux_session_alive(session_name: str | None) -> bool:

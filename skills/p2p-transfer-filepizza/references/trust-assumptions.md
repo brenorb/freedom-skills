@@ -1,4 +1,4 @@
-# filepizza trust assumptions
+# p2p-transfer-filepizza trust assumptions
 
 Read this file when the sharing context is high-risk: dissidents, human rights advocates, whistleblowers, journalists under surveillance, or users facing state repression.
 

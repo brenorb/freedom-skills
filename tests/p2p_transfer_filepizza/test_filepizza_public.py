@@ -15,7 +15,7 @@ import pytest
 MODULE_PATH = (
     pathlib.Path(__file__).resolve().parents[2]
     / "skills"
-    / "filepizza"
+    / "p2p-transfer-filepizza"
     / "scripts"
     / "filepizza_public.py"
 )
@@ -41,7 +41,7 @@ def test_get_upload_paths_uses_expected_suffixes() -> None:
 
 
 def test_tmux_session_name_is_stable() -> None:
-    assert filepizza_public.tmux_session_name("abc123") == "filepizza_abc123"
+    assert filepizza_public.tmux_session_name("abc123") == "p2p_transfer_filepizza_abc123"
 
 
 def test_merge_upload_state_reads_worker_state(tmp_path: pathlib.Path, monkeypatch: pytest.MonkeyPatch) -> None:
@@ -69,10 +69,12 @@ def test_merge_upload_state_uses_tmux_session_when_launcher_is_tmux(
         "state_path": str(state_path),
         "status": "starting",
         "launcher": "tmux",
-        "tmux_session": "filepizza_abc",
+        "tmux_session": "p2p_transfer_filepizza_abc",
     }
     monkeypatch.setattr(filepizza_public, "is_pid_alive", lambda pid: False)
-    monkeypatch.setattr(filepizza_public, "is_tmux_session_alive", lambda session_name: session_name == "filepizza_abc")
+    monkeypatch.setattr(
+        filepizza_public, "is_tmux_session_alive", lambda session_name: session_name == "p2p_transfer_filepizza_abc"
+    )
 
     merged = filepizza_public.merge_upload_state(manifest)
 

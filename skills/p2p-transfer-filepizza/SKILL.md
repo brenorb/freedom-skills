@@ -1,9 +1,9 @@
 ---
-name: filepizza
+name: p2p-transfer-filepizza
 description: Use this skill when the user wants to share a local file through the public https://file.pizza site without relying on a normal upload API, especially for one-off large files where a temporary peer-to-peer link is acceptable and a local seeding process can stay online.
 ---
 
-# filepizza
+# P2P Transfer FilePizza
 
 Use the public `file.pizza` website through a bundled local automation wrapper. This skill is for the hosted public site only, not a self-hosted server.
 
@@ -13,7 +13,7 @@ Use the public `file.pizza` website through a bundled local automation wrapper. 
 2. Start the upload through the bundled wrapper:
 
 ```bash
-python3 skills/filepizza/scripts/filepizza_public.py upload /absolute/path/to/file
+python3 skills/p2p-transfer-filepizza/scripts/filepizza_public.py upload /absolute/path/to/file
 ```
 
 3. If `tmux` is available, the wrapper should prefer running the seeding worker in a persistent detached tmux session automatically. If `tmux` is unavailable, it should fall back to its normal detached background process.
@@ -21,14 +21,14 @@ python3 skills/filepizza/scripts/filepizza_public.py upload /absolute/path/to/fi
 5. If the user asks whether an upload is still alive, inspect it with:
 
 ```bash
-python3 skills/filepizza/scripts/filepizza_public.py list
-python3 skills/filepizza/scripts/filepizza_public.py status <upload_id>
+python3 skills/p2p-transfer-filepizza/scripts/filepizza_public.py list
+python3 skills/p2p-transfer-filepizza/scripts/filepizza_public.py status <upload_id>
 ```
 
 6. If the user wants to stop seeding, or the transfer is no longer needed, stop it explicitly:
 
 ```bash
-python3 skills/filepizza/scripts/filepizza_public.py stop <upload_id>
+python3 skills/p2p-transfer-filepizza/scripts/filepizza_public.py stop <upload_id>
 ```
 
 7. If the user needs raw operational notes or troubleshooting patterns beyond this workflow, read `references/commands.md`.
