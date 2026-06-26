@@ -5,6 +5,7 @@ Read this file only when the user needs raw `gip` and `git+pear://` command patt
 ## Inspect local setup
 
 ```bash
+command -v bare
 command -v gip
 command -v git-remote-git+pear
 gip list --json
