@@ -1,0 +1,4 @@
+interface:
+  display_name: "MDK Next.js Checkout"
+  short_description: "Integrate Money Dev Kit checkout in Next.js."
+  default_prompt: "Use $mdk-nextjs-checkout to add Money Dev Kit checkout to this Next.js app."

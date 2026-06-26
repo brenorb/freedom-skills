@@ -1,0 +1,4 @@
+interface:
+  display_name: "MDK MCP"
+  short_description: "Connect agents to the Money Dev Kit MCP."
+  default_prompt: "Use $mdk-mcp to connect this agent to the Money Dev Kit MCP server."

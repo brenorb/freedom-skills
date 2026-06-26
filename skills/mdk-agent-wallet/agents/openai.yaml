@@ -1,0 +1,4 @@
+interface:
+  display_name: "MDK Agent Wallet"
+  short_description: "Use the Money Dev Kit agent wallet CLI."
+  default_prompt: "Use $mdk-agent-wallet to send, receive, or inspect Lightning payments for this agent."
