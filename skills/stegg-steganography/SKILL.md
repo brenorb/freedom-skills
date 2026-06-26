@@ -9,30 +9,37 @@ Use the published `stegg` package through `uvx` as the default path. Keep the wo
 
 ## Default workflow
 
-1. Check the runtime and the actual published entrypoints:
-
-```bash
-uvx stegg --help
-uvx --with 'stegg[crypto]' stegg info-cmd
-```
-
-2. For real secrets, prefer a file payload and pre-encrypt it with another tool before embedding. If the user only wants a quick demo, `--text` is acceptable. For higher-risk work, read `references/threat-model.md` before encoding.
-3. Prefer a lossless carrier the user controls directly, usually PNG. Keep the original carrier untouched and write to a new output path.
-4. Encode with `uvx`:
+1. Start with the command that matches the user's goal. For encoding, prefer a file payload and pre-encrypt it with another tool before embedding. If the user only wants a quick demo, `--text` is acceptable. For higher-risk work, read `references/threat-model.md` before encoding.
+2. Prefer a lossless carrier the user controls directly, usually PNG. Keep the original carrier untouched and write to a new output path.
+3. Encode with `uvx`:
 
 ```bash
 uvx stegg encode-cmd -i carrier.png -f payload.bin -o stego.png -q
 uvx stegg encode-cmd -i carrier.png -f payload.bin -o stego.png -s randomized --seed 12345 -q
 ```
 
-5. Decode immediately to verify the round trip before the file is shared:
+4. Decode immediately to verify the round trip before the file is shared:
 
 ```bash
 uvx stegg decode-cmd -i stego.png -q
 uvx stegg decode-cmd -i stego.png -o extracted.bin -q
 ```
 
-6. If the user asks for raw command variants, crypto mode, or troubleshooting patterns, read `references/commands.md`.
+5. For recovery or inspection tasks, start directly with decode against the suspect image:
+
+```bash
+uvx stegg decode-cmd -i suspicious.png -q
+uvx stegg decode-cmd -i suspicious.png -o extracted.bin -q
+```
+
+6. Only if the direct action fails, or the environment is genuinely uncertain, check the published entrypoints and crypto availability:
+
+```bash
+uvx stegg --help
+uvx --with 'stegg[crypto]' stegg info-cmd
+```
+
+7. If the user asks for raw command variants, crypto mode, or troubleshooting patterns, read `references/commands.md`.
 
 ## Defaults
 
