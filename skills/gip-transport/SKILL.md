@@ -45,6 +45,7 @@ gip add git+pear://<key>/my-repo
 6. Only fall back to setup checks or onboarding when the first useful command fails because Gip is missing, the remote helper is missing, or the local environment is otherwise uncertain. In that case:
 
 ```bash
+command -v bare
 command -v gip
 command -v git-remote-git+pear
 gip list --json
@@ -77,6 +78,7 @@ Then read `references/onboarding.md`.
 
 - This is not 1:1 with Git hosting. The push, fetch, and clone verbs stay familiar, but remote creation and availability are separate concerns.
 - `gip new` creates the P2P remote in local Gip storage under `~/.gip`; it does not initialize or replace the working tree in the current directory.
+- The published `gip` CLI runs via the `bare` runtime. If `bare` is not installed or not on `PATH`, commands can fail with `env: bare: No such file or directory`.
 - `git+pear://` remotes only work when `git-remote-git+pear` is installed and on `PATH`.
 - If nobody is online seeding the repo, clone and fetch can stall or fail until a seeder comes back.
 - `gip seed` is a long-lived availability process, not a one-shot publish step.

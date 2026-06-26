@@ -7,29 +7,34 @@ Read this file only when `gip` or `git-remote-git+pear` is missing, `gip list --
 ```bash
 command -v git
 command -v npm
+command -v bare
 command -v gip
 command -v git-remote-git+pear
 gip list --json
 ```
 
 If `gip` or `git-remote-git+pear` is missing, that is a normal pre-install state.
+If `gip` exists but fails with `env: bare: No such file or directory`, `bare` is missing from `PATH`.
 
 ## Install
 
-Install the published package globally:
+Install the runtime first, then the published package globally:
 
 ```bash
+npm install -g bare
 npm install -g gip-transport
 ```
 
-That global install should provide both of these binaries:
+That should provide all three of these binaries:
 
+- `bare`
 - `gip`
 - `git-remote-git+pear`
 
 Then verify:
 
 ```bash
+command -v bare
 command -v gip
 command -v git-remote-git+pear
 gip
