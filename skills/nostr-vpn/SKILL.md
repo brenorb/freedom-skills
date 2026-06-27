@@ -1,6 +1,6 @@
 ---
 name: nostr-vpn
-description: Use this skill when Codex needs to work with the local `nvpn` command from Nostr VPN for private mesh VPN workflows: install/setup, identity and config initialization, invite creation/import, LAN pairing, session control, service management, peer inspection, diagnostics, and exit-node or route settings.
+description: "Use this skill when Codex needs to work with the local `nvpn` command from Nostr VPN for private mesh VPN workflows: install/setup, identity and config initialization, invite creation/import, LAN pairing, session control, service management, peer inspection, diagnostics, and exit-node or route settings."
 ---
 
 # nostr-vpn
