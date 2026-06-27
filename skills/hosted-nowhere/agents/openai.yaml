@@ -1,0 +1,4 @@
+interface:
+  display_name: "Hosted Nowhere"
+  short_description: "Create Hosted Nowhere sites"
+  default_prompt: "Use $hosted-nowhere to create or update a Hosted Nowhere forum, event, fundraiser, store, petition, message, drop, or art site."
