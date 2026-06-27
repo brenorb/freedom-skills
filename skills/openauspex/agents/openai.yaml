@@ -1,0 +1,4 @@
+interface:
+  display_name: "openauspex"
+  short_description: "Nostr warrant canaries with Bitcoin freshness and OpenTimestamps"
+  default_prompt: "Use $openauspex to bootstrap, publish, inspect, verify, monitor, and automate OpenAuspex warrant canaries safely with the auspex CLI."
