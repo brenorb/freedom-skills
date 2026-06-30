@@ -47,29 +47,9 @@ metadata:
       - api
       - debugging
 ---
-
-# API Debugging
-
-## When to Use
-
-- The user is debugging an API integration.
-- A request is failing with auth, validation, schema, or transport errors.
-- You need to compare expected request/response behavior with observed behavior.
-
-## Procedure
-
-1. Identify the failing endpoint, request shape, and auth method.
-2. Reproduce the failure with the smallest possible request.
-3. Compare the observed response to the API documentation and expected schema.
-4. Isolate whether the failure is caused by auth, payload shape, headers, rate limits, or server behavior.
-5. Propose the smallest fix and verify it with a repeat request.
-
-## Verification
-
-- The minimal reproduction succeeds or fails in an understood way.
-- The root cause is stated explicitly.
-- The proposed fix is tied to the actual observed failure.
 ```
+
+This example is intentionally frontmatter-only. The point here is to show the recommended metadata split, not to prescribe a full skill body structure.
 
 ## Why This Format Is Best
 
