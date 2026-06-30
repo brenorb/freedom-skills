@@ -4,10 +4,12 @@
 
 The best default is a split model:
 
-- Keep `SKILL.md` frontmatter minimal and portable.
-- Put descriptive metadata such as `version`, `author`, `homepage`, and `repository` under `metadata`.
-- Put host-specific behavior in a namespaced metadata block or, when the host supports it, a sidecar manifest.
-- Prefer sidecar manifests over frontmatter for UI-only or dependency-only configuration when the platform explicitly supports that pattern.
+1. Treat top-level frontmatter as a portability surface, not a dumping ground.
+2. Keep `name` and `description` mandatory.
+3. Keep `license`, `compatibility`, and `allowed-tools` top-level only when they are actually meaningful.
+4. Move `version`, `author`, `homepage`, and `repository` under `metadata`.
+5. Put vendor-specific config under `metadata.<vendor>` unless the host offers a proper sidecar manifest.
+6. Prefer sidecar manifests for UI, dependency, and invocation policy when possible.
 
 This gives you the best tradeoff between:
 
@@ -48,8 +50,6 @@ metadata:
       - debugging
 ---
 ```
-
-This example is intentionally frontmatter-only. The point here is to show the recommended metadata split, not to prescribe a full skill body structure.
 
 ## Why This Format Is Best
 
@@ -327,17 +327,8 @@ Implication:
 
 ## Final Recommendation
 
-If you want one convention that holds up well across toolchains:
-
-1. Treat top-level frontmatter as a portability surface, not a dumping ground.
-2. Keep `name` and `description` mandatory.
-3. Keep `license`, `compatibility`, and `allowed-tools` top-level only when they are actually meaningful.
-4. Move `version`, `author`, `homepage`, and `repository` under `metadata`.
-5. Put vendor-specific config under `metadata.<vendor>` unless the host offers a proper sidecar manifest.
-6. Prefer sidecar manifests for UI, dependency, and invocation policy when possible.
-
 In short:
 
-- `version` belongs in `metadata` by default.
-- `author`, `homepage`, and `repository` also belong in `metadata` by default.
+- Keep `SKILL.md` frontmatter minimal and portable.
+- Put descriptive metadata such as `version`, `author`, `homepage`, and `repository` under `metadata`.
 - Top-level frontmatter should stay as small as possible unless you are optimizing for one specific runtime instead of portability.
