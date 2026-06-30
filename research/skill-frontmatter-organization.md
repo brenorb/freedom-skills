@@ -208,7 +208,7 @@ This keeps the skill document focused on what the model should know, while the h
 
 ### 1. Agent Skills Spec (`agentskills.io`)
 
-Source: [Specification](https://agentskills.io/specification)
+Source: Specification[^1]
 
 Findings:
 
@@ -224,11 +224,7 @@ Implication:
 
 ### 2. OpenAI
 
-Sources:
-
-- [Codex skills docs](https://developers.openai.com/codex/skills)
-- [OpenAI skills repo](https://github.com/openai/skills)
-- [OpenAI `agents/openai.yaml` reference](https://github.com/openai/skills/blob/main/skills/.system/skill-creator/references/openai_yaml.md)
+Sources: Codex skills docs[^2], OpenAI skills repo[^3], and the `agents/openai.yaml` reference[^4]
 
 Findings:
 
@@ -244,11 +240,7 @@ Implication:
 
 ### 3. Anthropic / Claude / Claude Code
 
-Sources:
-
-- [Anthropic skills repo](https://github.com/anthropics/skills)
-- [Claude Code skills docs](https://code.claude.com/docs/en/skills)
-- [Anthropic validation issue on unexpected frontmatter keys](https://github.com/anthropics/skills/issues/37)
+Sources: Anthropic skills repo[^5], Claude Code skills docs[^6], and the Anthropic validation issue on unexpected frontmatter keys[^7]
 
 Findings:
 
@@ -267,7 +259,7 @@ Implication:
 
 ### 4. Hermes
 
-Source: [Hermes skills docs](https://hermes-agent.nousresearch.com/docs/user-guide/features/skills)
+Source: Hermes skills docs[^8]
 
 Findings:
 
@@ -283,7 +275,7 @@ Implication:
 
 ### 5. GitHub Copilot Skills
 
-Source: [GitHub Copilot skill docs](https://docs.github.com/en/copilot/how-tos/copilot-on-github/customize-copilot/customize-cloud-agent/add-skills)
+Source: GitHub Copilot skill docs[^9]
 
 Findings:
 
@@ -299,7 +291,7 @@ Implication:
 
 ### 6. OpenClaw / ClawHub
 
-Source: [OpenClaw skill format](https://github.com/openclaw/clawhub/blob/main/docs/skill-format.md)
+Source: OpenClaw skill format[^10]
 
 Findings:
 
@@ -332,3 +324,16 @@ In short:
 - Keep `SKILL.md` frontmatter minimal and portable.
 - Put descriptive metadata such as `version`, `author`, `homepage`, and `repository` under `metadata`.
 - Top-level frontmatter should stay as small as possible unless you are optimizing for one specific runtime instead of portability.
+
+## Sources
+
+[^1]: <https://agentskills.io/specification>
+[^2]: <https://developers.openai.com/codex/skills>
+[^3]: <https://github.com/openai/skills>
+[^4]: <https://github.com/openai/skills/blob/main/skills/.system/skill-creator/references/openai_yaml.md>
+[^5]: <https://github.com/anthropics/skills>
+[^6]: <https://code.claude.com/docs/en/skills>
+[^7]: <https://github.com/anthropics/skills/issues/37>
+[^8]: <https://hermes-agent.nousresearch.com/docs/user-guide/features/skills>
+[^9]: <https://docs.github.com/en/copilot/how-tos/copilot-on-github/customize-copilot/customize-cloud-agent/add-skills>
+[^10]: <https://github.com/openclaw/clawhub/blob/main/docs/skill-format.md>
