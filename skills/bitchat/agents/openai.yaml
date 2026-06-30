@@ -1,0 +1,4 @@
+interface:
+  display_name: "BitChat"
+  short_description: "Use the BitChat mesh CLI."
+  default_prompt: "Use $bitchat to install or operate the BitChat CLI for local mesh, DM, geohash, or daemon tasks."
