@@ -16,10 +16,11 @@ def test_message_skill_mentions_core_commands():
     assert "nowhere update <message-fragment-or-url>" in text
     assert "nowhere sign <message>" in text
     assert "nowhere verify <message>" in text
+    assert "nowhere message tip methods" in text
+    assert "nowhere message tip invoice" in text
 
 
-def test_message_skill_mentions_builder_only_scope():
+def test_message_skill_mentions_current_scope():
     text = SKILL_PATH.read_text()
-    assert "builder-only in the CLI today" in text
     assert "relay-backed inbox or reply flow" in text
-
+    assert "only works for the Lightning entry encoded in tag `l`" in text
