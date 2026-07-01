@@ -1,0 +1,29 @@
+{
+  "mode": "auto",
+  "model": "nationaldesignstudio/rampart",
+  "heuristicsOnly": false,
+  "failOpen": false,
+  "sessionDir": ".rampart-sessions",
+  "allowMissingSession": true,
+  "clearSession": false,
+  "keepLabels": ["CITY", "STATE", "ZIP_CODE"],
+  "aliases": {},
+  "skipKeys": [
+    "model",
+    "id",
+    "tool_call_id",
+    "url",
+    "image_url",
+    "file_id",
+    "encrypted_content"
+  ],
+  "responseSkipKeys": [
+    "id",
+    "tool_call_id",
+    "url",
+    "image_url",
+    "file_id",
+    "data",
+    "encrypted_content"
+  ]
+}

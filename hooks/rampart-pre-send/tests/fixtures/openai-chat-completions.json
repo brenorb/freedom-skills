@@ -1,0 +1,54 @@
+{
+  "model": "gpt-4.1",
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are a privacy-preserving assistant."
+    },
+    {
+      "role": "user",
+      "content": [
+        {
+          "type": "text",
+          "text": "My email is alice@example.com and my phone is 415-555-1212."
+        },
+        {
+          "type": "image_url",
+          "image_url": {
+            "url": "https://example.com/uploads/alice@example.com.png"
+          }
+        }
+      ]
+    },
+    {
+      "role": "assistant",
+      "tool_calls": [
+        {
+          "id": "call_123",
+          "type": "function",
+          "function": {
+            "name": "lookup_contact",
+            "arguments": "{\"email\":\"alice@example.com\",\"notes\":\"SSN 123-45-6789\"}"
+          }
+        }
+      ]
+    }
+  ],
+  "tools": [
+    {
+      "type": "function",
+      "function": {
+        "name": "lookup_contact",
+        "description": "Find a contact record using the provided query string.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "query": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  ]
+}

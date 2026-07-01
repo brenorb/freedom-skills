@@ -1,0 +1,31 @@
+{
+  "model": "gpt-5",
+  "input": [
+    {
+      "role": "user",
+      "content": [
+        {
+          "type": "input_text",
+          "text": "Email alice@example.com and SSN 123-45-6789."
+        },
+        {
+          "type": "input_image",
+          "image_url": "https://example.com/screenshots/alice@example.com.png"
+        }
+      ]
+    },
+    {
+      "role": "assistant",
+      "content": [
+        {
+          "type": "output_text",
+          "text": "Please confirm the callback number 415-555-1212."
+        }
+      ]
+    }
+  ],
+  "previous_response_id": "resp_123456",
+  "reasoning": {
+    "effort": "medium"
+  }
+}

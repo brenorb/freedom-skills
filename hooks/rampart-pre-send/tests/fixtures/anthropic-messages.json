@@ -1,0 +1,54 @@
+{
+  "model": "claude-sonnet-4",
+  "system": "You help the user safely redact sensitive details before sending a message.",
+  "messages": [
+    {
+      "role": "user",
+      "content": [
+        {
+          "type": "text",
+          "text": "My phone is 415-555-1212 and my email is alice@example.com."
+        },
+        {
+          "type": "image",
+          "source": {
+            "type": "base64",
+            "media_type": "image/png",
+            "data": "YWxpY2VAZXhhbXBsZS5jb20="
+          }
+        }
+      ]
+    },
+    {
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_use",
+          "id": "toolu_01",
+          "name": "lookup_contact",
+          "input": {
+            "query": "alice@example.com",
+            "notes": "SSN 123-45-6789"
+          }
+        }
+      ]
+    }
+  ],
+  "tools": [
+    {
+      "name": "lookup_contact",
+      "description": "Look up a contact in the local database.",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "user_id": "user_123"
+  }
+}

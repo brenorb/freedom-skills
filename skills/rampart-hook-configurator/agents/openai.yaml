@@ -1,0 +1,4 @@
+interface:
+  display_name: "Rampart Hook Configurator"
+  short_description: "Tune the paired Rampart pre-send and post-send hooks for safe LLM routing"
+  default_prompt: "Use $rampart-hook-configurator to help me wire and tune the Rampart hooks, decide what the model should still see such as URLs, and verify that pre-send redaction and post-send reveal work end to end."

@@ -1,0 +1,23 @@
+{
+  "name": "freedom-skills-rampart-hooks",
+  "version": "0.1.0",
+  "description": "Portable pre-send and post-send hooks for redacting outbound text with National Design Studio Rampart and rehydrating placeholders on the way back.",
+  "type": "module",
+  "bin": {
+    "rampart-pre-send": "./rampart-pre-send.mjs",
+    "rampart-post-send": "./rampart-post-send.mjs"
+  },
+  "scripts": {
+    "test": "node --test --test-concurrency=1 ./tests/*.test.mjs",
+    "demo:e2e": "node ./tests/e2e-transcript.mjs"
+  },
+  "dependencies": {
+    "@huggingface/transformers": "3.7.5",
+    "@nationaldesignstudio/rampart": "0.1.2"
+  },
+  "allowScripts": {
+    "sharp@0.34.5": true,
+    "onnxruntime-node@1.21.0": true,
+    "protobufjs@7.6.4": true
+  }
+}
