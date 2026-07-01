@@ -22,5 +22,6 @@ def test_store_skill_covers_checkout_and_seller_flows():
     assert "nowhere store checkout quote" in text
     assert "nowhere store checkout begin" in text
     assert "nowhere store orders" in text
+    assert "nowhere store orders <store> --secret nsec1... --csv" in text
     assert "nowhere store verify" in text
     assert "nowhere store status publish" in text

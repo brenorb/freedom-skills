@@ -36,8 +36,9 @@ Start with the `nowhere` subcommand that directly matches the request. Prefer `-
 1. Publish buyer orders with `nowhere store order <store> --input order.json --json` when the task already has a fully assembled order payload.
 2. Decrypt a receipt with `nowhere store receipt decrypt --input receipt.json --secret nsec1... --json`
 3. Fetch seller-visible orders with `nowhere store orders <store> --secret nsec1... --json`
-4. Verify payments or receipts with `nowhere store verify <store> --input receipt.json --secret nsec1... --json`
-5. Manage inventory/status with:
+4. Export seller-visible orders as CSV with `nowhere store orders <store> --secret nsec1... --csv`
+5. Verify payments or receipts with `nowhere store verify <store> --input receipt.json --secret nsec1... --json`
+6. Manage inventory/status with:
    - `nowhere store status publish <store> --input status.json --secret nsec1... --json`
    - `nowhere store status fetch <store> --json`
 
@@ -54,5 +55,6 @@ Start with the `nowhere` subcommand that directly matches the request. Prefer `-
 - `store checkout quote` is the safest preflight because it resolves shipping, discounts, buyer-field requirements, country rules, payment methods, and inventory gating from the live store data.
 - `store checkout begin` publishes the order immediately. Do not call it just to inspect possibilities.
 - `store order` expects wire-format cent fields. `store checkout begin` handles that assembly for you.
+- `store orders --csv` is a seller export flow. Use JSON when the next step is another agent or script.
 - When tag `k` enables inventory, a missing status payload can block checkout.
 - Use repeated `--relay` flags when the task needs explicit relay targeting for tests or isolated environments.
