@@ -1,2 +1,3 @@
 .specstory
 .cursorindexingignore
+__pycache__/

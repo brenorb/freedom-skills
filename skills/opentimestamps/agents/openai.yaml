@@ -1,0 +1,4 @@
+interface:
+  display_name: "OpenTimestamps"
+  short_description: "Bitcoin-backed file timestamping"
+  default_prompt: "Use $opentimestamps to timestamp this file, inspect the .ots proof, or verify it against Bitcoin-backed attestations."
