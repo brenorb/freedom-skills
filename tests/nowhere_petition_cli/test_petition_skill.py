@@ -16,10 +16,10 @@ def test_petition_skill_mentions_builder_and_signing_commands():
     assert "nowhere petition sign" in text
     assert "nowhere petition count" in text
     assert "nowhere petition signatures" in text
+    assert "nowhere petition signatures <petition> --secret nsec1... --csv" in text
 
 
 def test_petition_skill_mentions_validation_behavior():
     text = SKILL_PATH.read_text()
     assert "required signer fields" in text
     assert "country restrictions" in text
-

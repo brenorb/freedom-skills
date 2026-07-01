@@ -29,6 +29,7 @@ Start with the `nowhere` subcommand that directly matches the request. Prefer `-
 2. Confirm the fragment decodes as `petition` with `inspect`.
 3. Use `petition sign` to publish signer data. Omit `--secret` only when the task explicitly wants anonymous signing.
 4. Use `petition count` for public progress and `petition signatures` only when the owner secret is available and the task needs the decrypted signer list.
+5. Export signer data as CSV with `nowhere petition signatures <petition> --secret nsec1... --csv` when the task needs a spreadsheet-style handoff.
 
 ## Inputs To Prepare
 
@@ -41,4 +42,4 @@ Start with the `nowhere` subcommand that directly matches the request. Prefer `-
 - Petition sites are owner-key-sensitive. Without the real owner key, you cannot later decrypt signer data with `petition signatures`.
 - `petition sign` now enforces the petition's own required signer fields and country restrictions before publishing.
 - `petition signatures` is owner-only because the website encrypts signer payloads to the petition pubkey.
-
+- `petition signatures --csv` skips failed decryptions and is for export, not for downstream structured automation.
