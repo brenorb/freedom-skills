@@ -352,6 +352,116 @@ def test_compare_snapshots_uses_nearest_when_both_timestamps_supplied(monkeypatc
     assert result["right"]["timestamp"] == "20260102120000"
 
 
+def test_resolve_compare_pair_retries_via_cdx_when_availability_collapses(monkeypatch):
+    calls = []
+
+    def fake_nearest(url, timestamp, timeout=60, prefer_cdx=False):
+        calls.append((timestamp, prefer_cdx))
+        if not prefer_cdx:
+            return {
+                "input_url": url,
+                "archived_url": "https://web.archive.org/web/20180427130634/https://example.com/",
+                "timestamp": "20180427130634",
+                "status": "200",
+                "available": True,
+                "requested_timestamp": timestamp,
+                "source": "availability_api",
+            }
+        if timestamp == "20180427130634":
+            return {
+                "input_url": url,
+                "archived_url": "https://web.archive.org/web/20180427130634/https://example.com/",
+                "timestamp": "20180427130634",
+                "status": "200",
+                "available": True,
+                "requested_timestamp": timestamp,
+                "source": "cdx_api",
+            }
+        return {
+            "input_url": url,
+            "archived_url": "https://web.archive.org/web/20181115172501/http://example.com:80/",
+            "timestamp": "20181115172501",
+            "status": "302",
+            "available": True,
+            "requested_timestamp": timestamp,
+            "source": "cdx_api",
+        }
+
+    monkeypatch.setattr(wayback_archive, "get_nearest_snapshot", fake_nearest)
+
+    left, right = wayback_archive.resolve_compare_pair(
+        "http://example.com/",
+        "20180427130634",
+        "20181115172501",
+    )
+
+    assert left["timestamp"] == "20180427130634"
+    assert right["timestamp"] == "20181115172501"
+    assert calls == [
+        ("20180427130634", False),
+        ("20181115172501", False),
+        ("20180427130634", True),
+        ("20181115172501", True),
+    ]
+
+
+def test_resolve_compare_pair_raises_when_both_timestamps_still_collapse(monkeypatch):
+    monkeypatch.setattr(
+        wayback_archive,
+        "get_nearest_snapshot",
+        lambda url, timestamp, timeout=60, prefer_cdx=False: {
+            "input_url": url,
+            "archived_url": "https://web.archive.org/web/20180427130634/https://example.com/",
+            "timestamp": "20180427130634",
+            "status": "200",
+            "available": True,
+            "requested_timestamp": timestamp,
+            "source": "cdx_api" if prefer_cdx else "availability_api",
+        },
+    )
+
+    with pytest.raises(wayback_archive.WaybackArchiveError) as exc_info:
+        wayback_archive.resolve_compare_pair(
+            "http://example.com/",
+            "20180427130634",
+            "20181115172501",
+        )
+
+    assert "both resolved to the same snapshot" in str(exc_info.value)
+
+
+def test_resolve_compare_pair_surfaces_cdx_disambiguation_failure(monkeypatch):
+    calls = {"count": 0}
+
+    def fake_nearest(url, timestamp, timeout=60, prefer_cdx=False):
+        if not prefer_cdx:
+            return {
+                "input_url": url,
+                "archived_url": "https://web.archive.org/web/20180427130634/https://example.com/",
+                "timestamp": "20180427130634",
+                "status": "200",
+                "available": True,
+                "requested_timestamp": timestamp,
+                "source": "availability_api",
+            }
+        calls["count"] += 1
+        raise wayback_archive.WaybackArchiveError("CDX endpoint unavailable after 3 attempt(s): HTTP Error 503: Service Unavailable")
+
+    monkeypatch.setattr(wayback_archive, "get_nearest_snapshot", fake_nearest)
+
+    with pytest.raises(wayback_archive.WaybackArchiveError) as exc_info:
+        wayback_archive.resolve_compare_pair(
+            "http://example.com/",
+            "20180427130634",
+            "20181115172501",
+        )
+
+    message = str(exc_info.value)
+    assert "Availability API resolved both requested timestamps to the same snapshot" in message
+    assert "CDX fallback could not disambiguate them" in message
+    assert calls["count"] == 1
+
+
 def test_read_url_file_skips_comments_and_blank_lines(tmp_path):
     path = tmp_path / "urls.txt"
     path.write_text(

@@ -266,12 +266,19 @@ def find_nearest_in_history(entries: list[dict], requested_timestamp: str) -> di
     }
 
 
-def get_nearest_snapshot(url: str, timestamp: str, *, timeout: int = DEFAULT_TIMEOUT) -> dict:
-    snapshot = get_available_snapshot(url, timestamp=timestamp, timeout=timeout)
-    if snapshot:
-        snapshot["requested_timestamp"] = timestamp
-        snapshot["source"] = "availability_api"
-        return snapshot
+def get_nearest_snapshot(
+    url: str,
+    timestamp: str,
+    *,
+    timeout: int = DEFAULT_TIMEOUT,
+    prefer_cdx: bool = False,
+) -> dict:
+    if not prefer_cdx:
+        snapshot = get_available_snapshot(url, timestamp=timestamp, timeout=timeout)
+        if snapshot:
+            snapshot["requested_timestamp"] = timestamp
+            snapshot["source"] = "availability_api"
+            return snapshot
 
     history = get_history(url, timeout=timeout)
     if not history:
@@ -280,6 +287,29 @@ def get_nearest_snapshot(url: str, timestamp: str, *, timeout: int = DEFAULT_TIM
     snapshot["requested_timestamp"] = timestamp
     snapshot["source"] = "cdx_api"
     return snapshot
+
+
+def resolve_compare_pair(url: str, from_timestamp: str, to_timestamp: str, *, timeout: int = DEFAULT_TIMEOUT) -> tuple[dict, dict]:
+    left = get_nearest_snapshot(url, from_timestamp, timeout=timeout)
+    right = get_nearest_snapshot(url, to_timestamp, timeout=timeout)
+
+    if from_timestamp != to_timestamp and left["timestamp"] == right["timestamp"]:
+        try:
+            left = get_nearest_snapshot(url, from_timestamp, timeout=timeout, prefer_cdx=True)
+            right = get_nearest_snapshot(url, to_timestamp, timeout=timeout, prefer_cdx=True)
+        except WaybackArchiveError as exc:
+            raise WaybackArchiveError(
+                f"Availability API resolved both requested timestamps to the same snapshot for {url}, and CDX fallback could not disambiguate them: {exc}. "
+                "Try again later or inspect history once CDX is responsive."
+            ) from exc
+
+    if from_timestamp != to_timestamp and left["timestamp"] == right["timestamp"]:
+        raise WaybackArchiveError(
+            f"Requested timestamps {from_timestamp} and {to_timestamp} both resolved to the same snapshot {left['timestamp']} for {url}. "
+            "Try different timestamps or inspect history first."
+        )
+
+    return left, right
 
 
 def choose_compare_pair(entries: list[dict]) -> tuple[dict, dict]:
@@ -302,8 +332,7 @@ def compare_snapshots(
     timeout: int = DEFAULT_TIMEOUT,
 ) -> dict:
     if from_timestamp and to_timestamp:
-        left = get_nearest_snapshot(url, from_timestamp, timeout=timeout)
-        right = get_nearest_snapshot(url, to_timestamp, timeout=timeout)
+        left, right = resolve_compare_pair(url, from_timestamp, to_timestamp, timeout=timeout)
         return {
             "input_url": url,
             "comparison_mode": "nearest_to_requested_timestamps",
