@@ -33,8 +33,6 @@ python3 skills/wayback-archive/scripts/wayback_archive.py batch-save \
   --input /absolute/path/to/urls.txt
 ```
 
-5. If the user wants raw `curl` patterns or API notes instead of the wrapper, read `references/commands.md`.
-
 ## Defaults
 
 - Prefer the bundled wrapper over handwritten `curl` because it handles redirects, structured JSON output, and a retry path through the official availability API.
@@ -53,5 +51,7 @@ python3 skills/wayback-archive/scripts/wayback_archive.py batch-save \
 
 - The official lookup API is `https://archive.org/wayback/available?url=...`.
 - The save path is `https://web.archive.org/save/<url>` and commonly answers with a redirect to the archived snapshot.
+- Raw save example: `curl -I "https://web.archive.org/save/https://example.com"`.
+- Raw availability example: `curl "https://archive.org/wayback/available?url=https://example.com"`.
 - Some sites still fail to archive because of crawler, SSL, or server-side restrictions.
 - A returned archive URL can point to an existing close snapshot when the save fallback path is used after a save attempt fails.
