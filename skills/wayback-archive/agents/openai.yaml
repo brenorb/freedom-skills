@@ -1,0 +1,4 @@
+interface:
+  display_name: "wayback-archive"
+  short_description: "Archive live webpages in Wayback Machine and inspect snapshot availability"
+  default_prompt: "Use $wayback-archive to save a webpage into the Internet Archive Wayback Machine, check whether a URL is already archived, or batch-save a list of URLs with the bundled wrapper."
