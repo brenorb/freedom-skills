@@ -35,6 +35,8 @@ USER_AGENT = "wayback-archive-skill/1.0"
 DEFAULT_TIMEOUT = 60
 DEFAULT_POLL_ATTEMPTS = 6
 DEFAULT_POLL_INTERVAL = 5.0
+CDX_RETRY_ATTEMPTS = 3
+CDX_RETRY_BACKOFF_SECONDS = 2.0
 TIMESTAMP_RE = re.compile(r"/web/(\d{14})/")
 CDX_FIELDS = ["urlkey", "timestamp", "original", "mimetype", "statuscode", "digest", "length"]
 
@@ -98,6 +100,12 @@ def parse_wayback_timestamp(timestamp: str) -> datetime:
     return datetime.strptime(timestamp, "%Y%m%d%H%M%S")
 
 
+def is_retryable_cdx_error(exc: Exception) -> bool:
+    if isinstance(exc, HTTPError):
+        return 500 <= exc.code < 600
+    return isinstance(exc, (URLError, TimeoutError))
+
+
 def fetch_json(url: str, timeout: int = DEFAULT_TIMEOUT) -> dict:
     request = urllib.request.Request(
         url,
@@ -139,18 +147,26 @@ def get_history(
     to_timestamp: str | None = None,
     timeout: int = DEFAULT_TIMEOUT,
 ) -> list[dict]:
-    try:
-        text = fetch_text(
-            build_cdx_url(
-                url,
-                limit=limit,
-                from_timestamp=from_timestamp,
-                to_timestamp=to_timestamp,
-            ),
-            timeout=timeout,
-        )
-    except (HTTPError, URLError) as exc:
-        raise WaybackArchiveError(f"Unable to retrieve snapshot history for {url}: {exc}") from exc
+    cdx_url = build_cdx_url(
+        url,
+        limit=limit,
+        from_timestamp=from_timestamp,
+        to_timestamp=to_timestamp,
+    )
+    last_exc: Exception | None = None
+    for attempt in range(CDX_RETRY_ATTEMPTS):
+        try:
+            text = fetch_text(cdx_url, timeout=timeout)
+            break
+        except (HTTPError, URLError, TimeoutError) as exc:
+            last_exc = exc
+            if not is_retryable_cdx_error(exc) or attempt + 1 >= CDX_RETRY_ATTEMPTS:
+                raise WaybackArchiveError(
+                    f"Unable to retrieve snapshot history for {url}: CDX endpoint unavailable after {attempt + 1} attempt(s): {exc}"
+                ) from exc
+            time.sleep(CDX_RETRY_BACKOFF_SECONDS * (attempt + 1))
+    else:  # pragma: no cover
+        raise WaybackArchiveError(f"Unable to retrieve snapshot history for {url}: {last_exc}")
     entries = parse_cdx_response(text)
     for entry in entries:
         entry["archived_url"] = build_snapshot_url(entry["original"], entry["timestamp"])
@@ -296,7 +312,12 @@ def compare_snapshots(
             "right": right,
         }
 
-    history = get_history(url, timeout=timeout)
+    try:
+        history = get_history(url, timeout=timeout)
+    except WaybackArchiveError as exc:
+        raise WaybackArchiveError(
+            f"Unable to auto-select snapshots for comparison for {url}: {exc}. Try again later or rerun compare with --from-timestamp and --to-timestamp."
+        ) from exc
     left, right = choose_compare_pair(history)
     return {
         "input_url": url,

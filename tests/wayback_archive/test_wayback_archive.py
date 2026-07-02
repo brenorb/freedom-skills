@@ -6,6 +6,8 @@ import sys
 from pathlib import Path
 from urllib.error import HTTPError
 
+import pytest
+
 
 def load_module():
     module_path = (
@@ -132,6 +134,26 @@ def test_get_history_adds_archived_urls(monkeypatch):
             "archived_url": "https://web.archive.org/web/20260101120000/https://example.com",
         }
     ]
+
+
+def test_get_history_retries_retryable_cdx_errors(monkeypatch):
+    calls = {"count": 0}
+    sleeps = []
+
+    def fake_fetch_text(url, timeout=60):
+        calls["count"] += 1
+        if calls["count"] < 3:
+            raise HTTPError(url, 503, "Service Unavailable", {}, io.BytesIO(b""))
+        return "com,example)/ 20260101120000 https://example.com text/html 200 AAAA 123\n"
+
+    monkeypatch.setattr(wayback_archive, "fetch_text", fake_fetch_text)
+    monkeypatch.setattr(wayback_archive.time, "sleep", lambda seconds: sleeps.append(seconds))
+
+    result = wayback_archive.get_history("https://example.com")
+
+    assert calls["count"] == 3
+    assert sleeps == [2.0, 4.0]
+    assert result[0]["timestamp"] == "20260101120000"
 
 
 def test_save_once_uses_final_redirect_url(monkeypatch):
@@ -284,6 +306,26 @@ def test_compare_snapshots_uses_history_when_timestamps_not_supplied(monkeypatch
     assert result["left"]["timestamp"] == "20260101120000"
     assert result["right"]["timestamp"] == "20260102120000"
     assert result["changes_url"] == "https://web.archive.org/web/changes/https://example.com"
+
+
+def test_compare_snapshots_auto_selection_surfaces_actionable_error(monkeypatch):
+    monkeypatch.setattr(
+        wayback_archive,
+        "get_history",
+        lambda url, timeout=60: (_ for _ in ()).throw(
+            wayback_archive.WaybackArchiveError(
+                "Unable to retrieve snapshot history for https://example.com: CDX endpoint unavailable after 3 attempt(s): HTTP Error 503: Service Unavailable"
+            )
+        ),
+    )
+
+    with pytest.raises(wayback_archive.WaybackArchiveError) as exc_info:
+        wayback_archive.compare_snapshots("https://example.com")
+
+    message = str(exc_info.value)
+    assert "auto-select snapshots for comparison" in message
+    assert "--from-timestamp" in message
+    assert "--to-timestamp" in message
 
 
 def test_compare_snapshots_uses_nearest_when_both_timestamps_supplied(monkeypatch):

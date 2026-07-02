@@ -56,6 +56,7 @@ python3 skills/wayback-archive/scripts/wayback_archive.py compare https://exampl
 ```
 
 - Treat this auto-selection mode as best-effort. It depends on the CDX history endpoint being responsive.
+- The wrapper retries transient CDX failures a few times, but this mode can still fail when the CDX endpoint is unavailable.
 
 8. If the user already knows the two times they care about, compare the nearest snapshots to those requested timestamps:
 
@@ -92,6 +93,7 @@ python3 skills/wayback-archive/scripts/wayback_archive.py compare \
 - The save path is `https://web.archive.org/save/<url>` and commonly answers with a redirect to the archived snapshot.
 - `compare` returns a `changes_url` for the built-in Wayback comparison UI and also returns two concrete snapshot URLs.
 - `compare <url>` without explicit timestamps is an auto-selection mode built on CDX history and can fail when the CDX endpoint is slow, reset, or unavailable.
+- `history` and auto-selection `compare` retry transient CDX `5xx`, timeout, and connection-reset failures a few times before returning an error.
 - `compare --from-timestamp ... --to-timestamp ...` is the recommended mode because it can often succeed through `nearest` lookups even when free-form history lookup is unreliable.
 - Raw save example: `curl -I "https://web.archive.org/save/https://example.com"`.
 - Raw availability example: `curl "https://archive.org/wayback/available?url=https://example.com"`.
