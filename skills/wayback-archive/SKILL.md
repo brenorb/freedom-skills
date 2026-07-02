@@ -19,6 +19,8 @@ python3 skills/wayback-archive/scripts/wayback_archive.py save https://example.c
 - `archived_url` is the permanent Wayback snapshot URL.
 - `timestamp` is the 14-digit Wayback capture timestamp when available.
 - `source` shows whether the result came directly from the save endpoint or from the availability lookup fallback.
+- If the goal is simply to obtain a stable archived URL, an existing snapshot returned by the availability fallback is acceptable.
+- If the goal is to force a fresh capture now, inspect `timestamp` and do not assume `save` created a new snapshot unless the returned time is actually new.
 
 3. Check whether a URL is already archived without submitting a new save:
 
@@ -55,3 +57,4 @@ python3 skills/wayback-archive/scripts/wayback_archive.py batch-save \
 - Raw availability example: `curl "https://archive.org/wayback/available?url=https://example.com"`.
 - Some sites still fail to archive because of crawler, SSL, or server-side restrictions.
 - A returned archive URL can point to an existing close snapshot when the save fallback path is used after a save attempt fails.
+- This skill treats `save` as successful when it can return a usable archived snapshot, even if that snapshot already existed before the current request.
