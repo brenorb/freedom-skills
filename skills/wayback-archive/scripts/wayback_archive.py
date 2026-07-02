@@ -5,6 +5,9 @@ Wayback Machine archiving helper.
 Usage:
     python3 skills/wayback-archive/scripts/wayback_archive.py save https://example.com
     python3 skills/wayback-archive/scripts/wayback_archive.py available https://example.com
+    python3 skills/wayback-archive/scripts/wayback_archive.py history https://example.com
+    python3 skills/wayback-archive/scripts/wayback_archive.py nearest https://example.com --timestamp 20260101120000
+    python3 skills/wayback-archive/scripts/wayback_archive.py compare https://example.com
     python3 skills/wayback-archive/scripts/wayback_archive.py batch-save --input /tmp/urls.txt
 
 All output is structured JSON. No dependencies beyond Python stdlib.
@@ -19,17 +22,21 @@ import sys
 import time
 import urllib.parse
 import urllib.request
+from datetime import datetime
 from pathlib import Path
 from urllib.error import HTTPError, URLError
 
 
 SAVE_BASE_URL = "https://web.archive.org/save/"
 AVAILABLE_API_URL = "https://archive.org/wayback/available?url="
+CDX_API_URL = "https://web.archive.org/cdx/search/cdx?url="
+WAYBACK_CHANGES_BASE_URL = "https://web.archive.org/web/changes/"
 USER_AGENT = "wayback-archive-skill/1.0"
 DEFAULT_TIMEOUT = 60
 DEFAULT_POLL_ATTEMPTS = 6
 DEFAULT_POLL_INTERVAL = 5.0
 TIMESTAMP_RE = re.compile(r"/web/(\d{14})/")
+CDX_FIELDS = ["urlkey", "timestamp", "original", "mimetype", "statuscode", "digest", "length"]
 
 
 class WaybackArchiveError(RuntimeError):
@@ -55,11 +62,40 @@ def build_available_url(url: str, timestamp: str | None = None) -> str:
     return query
 
 
+def build_cdx_url(
+    url: str,
+    *,
+    limit: int | None = None,
+    from_timestamp: str | None = None,
+    to_timestamp: str | None = None,
+) -> str:
+    query = CDX_API_URL + urllib.parse.quote(url, safe="")
+    if limit is not None:
+        query += "&limit=" + urllib.parse.quote(str(limit), safe="")
+    if from_timestamp:
+        query += "&from=" + urllib.parse.quote(from_timestamp, safe="")
+    if to_timestamp:
+        query += "&to=" + urllib.parse.quote(to_timestamp, safe="")
+    return query
+
+
+def build_changes_url(url: str) -> str:
+    return WAYBACK_CHANGES_BASE_URL + quote_target(url)
+
+
+def build_snapshot_url(url: str, timestamp: str) -> str:
+    return f"https://web.archive.org/web/{timestamp}/{url}"
+
+
 def extract_timestamp(archived_url: str | None) -> str | None:
     if not archived_url:
         return None
     match = TIMESTAMP_RE.search(archived_url)
     return match.group(1) if match else None
+
+
+def parse_wayback_timestamp(timestamp: str) -> datetime:
+    return datetime.strptime(timestamp, "%Y%m%d%H%M%S")
 
 
 def fetch_json(url: str, timeout: int = DEFAULT_TIMEOUT) -> dict:
@@ -71,8 +107,61 @@ def fetch_json(url: str, timeout: int = DEFAULT_TIMEOUT) -> dict:
         return json.loads(response.read().decode("utf-8"))
 
 
+def fetch_text(url: str, timeout: int = DEFAULT_TIMEOUT) -> str:
+    request = urllib.request.Request(
+        url,
+        headers={"User-Agent": USER_AGENT},
+    )
+    with urllib.request.urlopen(request, timeout=timeout) as response:
+        return response.read().decode("utf-8")
+
+
+def parse_cdx_response(text: str) -> list[dict]:
+    entries = []
+    for raw_line in text.splitlines():
+        line = raw_line.strip()
+        if not line:
+            continue
+        parts = line.split(" ")
+        if len(parts) < len(CDX_FIELDS):
+            continue
+        values = parts[: len(CDX_FIELDS)]
+        entry = dict(zip(CDX_FIELDS, values, strict=True))
+        entries.append(entry)
+    return entries
+
+
+def get_history(
+    url: str,
+    *,
+    limit: int | None = None,
+    from_timestamp: str | None = None,
+    to_timestamp: str | None = None,
+    timeout: int = DEFAULT_TIMEOUT,
+) -> list[dict]:
+    try:
+        text = fetch_text(
+            build_cdx_url(
+                url,
+                limit=limit,
+                from_timestamp=from_timestamp,
+                to_timestamp=to_timestamp,
+            ),
+            timeout=timeout,
+        )
+    except (HTTPError, URLError) as exc:
+        raise WaybackArchiveError(f"Unable to retrieve snapshot history for {url}: {exc}") from exc
+    entries = parse_cdx_response(text)
+    for entry in entries:
+        entry["archived_url"] = build_snapshot_url(entry["original"], entry["timestamp"])
+    return entries
+
+
 def get_available_snapshot(url: str, timestamp: str | None = None, timeout: int = DEFAULT_TIMEOUT) -> dict | None:
-    payload = fetch_json(build_available_url(url, timestamp=timestamp), timeout=timeout)
+    try:
+        payload = fetch_json(build_available_url(url, timestamp=timestamp), timeout=timeout)
+    except (HTTPError, URLError):
+        return None
     closest = payload.get("archived_snapshots", {}).get("closest")
     if not closest or not closest.get("available") or not closest.get("url"):
         return None
@@ -141,6 +230,96 @@ def save_url(
     raise WaybackArchiveError(f"Unable to obtain an archived snapshot for {url}")
 
 
+def find_nearest_in_history(entries: list[dict], requested_timestamp: str) -> dict:
+    if not entries:
+        raise WaybackArchiveError("No archived snapshots available")
+
+    requested_dt = parse_wayback_timestamp(requested_timestamp)
+
+    def distance(entry: dict) -> tuple[float, datetime]:
+        entry_dt = parse_wayback_timestamp(entry["timestamp"])
+        return (abs((entry_dt - requested_dt).total_seconds()), entry_dt)
+
+    best = min(entries, key=distance)
+    return {
+        "input_url": best["original"],
+        "archived_url": best["archived_url"],
+        "timestamp": best["timestamp"],
+        "status": best.get("statuscode"),
+        "available": True,
+    }
+
+
+def get_nearest_snapshot(url: str, timestamp: str, *, timeout: int = DEFAULT_TIMEOUT) -> dict:
+    snapshot = get_available_snapshot(url, timestamp=timestamp, timeout=timeout)
+    if snapshot:
+        snapshot["requested_timestamp"] = timestamp
+        snapshot["source"] = "availability_api"
+        return snapshot
+
+    history = get_history(url, timeout=timeout)
+    if not history:
+        raise WaybackArchiveError(f"Unable to find a snapshot near {timestamp} for {url}")
+    snapshot = find_nearest_in_history(history, timestamp)
+    snapshot["requested_timestamp"] = timestamp
+    snapshot["source"] = "cdx_api"
+    return snapshot
+
+
+def choose_compare_pair(entries: list[dict]) -> tuple[dict, dict]:
+    if len(entries) < 2:
+        raise WaybackArchiveError("compare requires at least two archived snapshots")
+
+    latest = entries[-1]
+    for candidate in reversed(entries[:-1]):
+        if candidate.get("digest") != latest.get("digest"):
+            return candidate, latest
+
+    return entries[-2], latest
+
+
+def compare_snapshots(
+    url: str,
+    *,
+    from_timestamp: str | None = None,
+    to_timestamp: str | None = None,
+    timeout: int = DEFAULT_TIMEOUT,
+) -> dict:
+    if from_timestamp and to_timestamp:
+        left = get_nearest_snapshot(url, from_timestamp, timeout=timeout)
+        right = get_nearest_snapshot(url, to_timestamp, timeout=timeout)
+        return {
+            "input_url": url,
+            "comparison_mode": "nearest_to_requested_timestamps",
+            "changes_url": build_changes_url(url),
+            "left": left,
+            "right": right,
+        }
+
+    history = get_history(url, timeout=timeout)
+    left, right = choose_compare_pair(history)
+    return {
+        "input_url": url,
+        "comparison_mode": "latest_different_digest" if left.get("digest") != right.get("digest") else "latest_two_snapshots",
+        "changes_url": build_changes_url(url),
+        "left": {
+            "timestamp": left["timestamp"],
+            "archived_url": left["archived_url"],
+            "digest": left.get("digest"),
+            "status": left.get("statuscode"),
+            "original": left.get("original"),
+        },
+        "right": {
+            "timestamp": right["timestamp"],
+            "archived_url": right["archived_url"],
+            "digest": right.get("digest"),
+            "status": right.get("statuscode"),
+            "original": right.get("original"),
+        },
+        "history_count": len(history),
+    }
+
+
 def batch_save(
     urls: list[str],
     *,
@@ -197,6 +376,28 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
     available_parser.add_argument("--timestamp")
     available_parser.add_argument("--timeout", type=int, default=DEFAULT_TIMEOUT)
 
+    history_parser = subparsers.add_parser("history", help="List archived snapshots for a URL.")
+    history_parser.add_argument("url")
+    history_parser.add_argument("--limit", type=int)
+    history_parser.add_argument("--from-timestamp")
+    history_parser.add_argument("--to-timestamp")
+    history_parser.add_argument("--timeout", type=int, default=DEFAULT_TIMEOUT)
+
+    nearest_parser = subparsers.add_parser(
+        "nearest",
+        aliases=["at"],
+        help="Find the snapshot nearest a requested timestamp.",
+    )
+    nearest_parser.add_argument("url")
+    nearest_parser.add_argument("--timestamp", required=True)
+    nearest_parser.add_argument("--timeout", type=int, default=DEFAULT_TIMEOUT)
+
+    compare_parser = subparsers.add_parser("compare", help="Select two snapshots to compare.")
+    compare_parser.add_argument("url")
+    compare_parser.add_argument("--from-timestamp")
+    compare_parser.add_argument("--to-timestamp")
+    compare_parser.add_argument("--timeout", type=int, default=DEFAULT_TIMEOUT)
+
     batch_parser = subparsers.add_parser("batch-save", help="Save multiple URLs.")
     batch_parser.add_argument("urls", nargs="*")
     batch_parser.add_argument("--input", type=Path)
@@ -229,6 +430,44 @@ def main(argv: list[str] | None = None) -> int:
             "available": bool(snapshot),
             "snapshot": snapshot,
         }
+        json_dump(payload)
+        return 0
+
+    if args.command == "history":
+        entries = get_history(
+            args.url,
+            limit=args.limit,
+            from_timestamp=args.from_timestamp,
+            to_timestamp=args.to_timestamp,
+            timeout=args.timeout,
+        )
+        payload = {
+            "mode": "history",
+            "input_url": args.url,
+            "count": len(entries),
+            "snapshots": entries,
+        }
+        json_dump(payload)
+        return 0
+
+    if args.command in {"nearest", "at"}:
+        snapshot = get_nearest_snapshot(args.url, args.timestamp, timeout=args.timeout)
+        payload = {
+            "mode": "nearest",
+            "input_url": args.url,
+            "snapshot": snapshot,
+        }
+        json_dump(payload)
+        return 0
+
+    if args.command == "compare":
+        payload = compare_snapshots(
+            args.url,
+            from_timestamp=args.from_timestamp,
+            to_timestamp=args.to_timestamp,
+            timeout=args.timeout,
+        )
+        payload["mode"] = "compare"
         json_dump(payload)
         return 0
 
