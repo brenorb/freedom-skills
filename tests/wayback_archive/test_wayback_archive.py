@@ -51,6 +51,20 @@ def test_extract_timestamp_returns_capture_id():
     assert wayback_archive.extract_timestamp(url) == "20260702020209"
 
 
+def test_validate_wayback_timestamp_rejects_non_14_digit_input():
+    with pytest.raises(wayback_archive.WaybackArchiveError) as exc_info:
+        wayback_archive.validate_wayback_timestamp("nope", "--timestamp")
+
+    assert "14-digit Wayback timestamp" in str(exc_info.value)
+
+
+def test_validate_wayback_timestamp_rejects_impossible_calendar_values():
+    with pytest.raises(wayback_archive.WaybackArchiveError) as exc_info:
+        wayback_archive.validate_wayback_timestamp("20261301120000", "--timestamp")
+
+    assert "real calendar timestamp" in str(exc_info.value)
+
+
 def test_build_lookup_urls_adds_https_variant_for_http_input():
     assert wayback_archive.build_lookup_urls("http://example.com/path?x=1") == [
         "http://example.com/path?x=1",
@@ -571,3 +585,26 @@ def test_read_url_file_skips_comments_and_blank_lines(tmp_path):
         "https://example.com",
         "https://example.org",
     ]
+
+
+def test_read_url_file_raises_structured_error_for_missing_file(tmp_path):
+    path = tmp_path / "missing.txt"
+
+    with pytest.raises(wayback_archive.WaybackArchiveError) as exc_info:
+        wayback_archive.read_url_file(path)
+
+    assert "Unable to read URL input file" in str(exc_info.value)
+
+
+def test_main_compare_requires_both_explicit_timestamps():
+    with pytest.raises(wayback_archive.WaybackArchiveError) as exc_info:
+        wayback_archive.main(
+            [
+                "compare",
+                "https://example.com",
+                "--from-timestamp",
+                "20260101120000",
+            ]
+        )
+
+    assert "requires both --from-timestamp and --to-timestamp together" in str(exc_info.value)

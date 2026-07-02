@@ -38,6 +38,7 @@ DEFAULT_POLL_INTERVAL = 5.0
 CDX_RETRY_ATTEMPTS = 3
 CDX_RETRY_BACKOFF_SECONDS = 2.0
 TIMESTAMP_RE = re.compile(r"/web/(\d{14})/")
+TIMESTAMP_INPUT_RE = re.compile(r"^\d{14}$")
 CDX_FIELDS = ["urlkey", "timestamp", "original", "mimetype", "statuscode", "digest", "length"]
 
 
@@ -109,6 +110,20 @@ def extract_timestamp(archived_url: str | None) -> str | None:
 
 def parse_wayback_timestamp(timestamp: str) -> datetime:
     return datetime.strptime(timestamp, "%Y%m%d%H%M%S")
+
+
+def validate_wayback_timestamp(timestamp: str, option_name: str) -> str:
+    if not TIMESTAMP_INPUT_RE.fullmatch(timestamp):
+        raise WaybackArchiveError(
+            f"Invalid {option_name} value {timestamp!r}. Expected a 14-digit Wayback timestamp in YYYYMMDDhhmmss format."
+        )
+    try:
+        parse_wayback_timestamp(timestamp)
+    except ValueError as exc:
+        raise WaybackArchiveError(
+            f"Invalid {option_name} value {timestamp!r}. Expected a real calendar timestamp in YYYYMMDDhhmmss format."
+        ) from exc
+    return timestamp
 
 
 def is_retryable_cdx_error(exc: Exception) -> bool:
@@ -465,8 +480,13 @@ def batch_save(
 
 
 def read_url_file(path: Path) -> list[str]:
+    try:
+        raw_text = path.read_text(encoding="utf-8")
+    except OSError as exc:
+        raise WaybackArchiveError(f"Unable to read URL input file {path}: {exc}") from exc
+
     urls = []
-    for raw_line in path.read_text(encoding="utf-8").splitlines():
+    for raw_line in raw_text.splitlines():
         line = raw_line.strip()
         if not line or line.startswith("#"):
             continue
@@ -536,7 +556,8 @@ def main(argv: list[str] | None = None) -> int:
         return 0
 
     if args.command == "available":
-        snapshot = get_available_snapshot(args.url, timestamp=args.timestamp, timeout=args.timeout)
+        timestamp = validate_wayback_timestamp(args.timestamp, "--timestamp") if args.timestamp else None
+        snapshot = get_available_snapshot(args.url, timestamp=timestamp, timeout=args.timeout)
         payload = {
             "mode": "available",
             "input_url": args.url,
@@ -547,11 +568,13 @@ def main(argv: list[str] | None = None) -> int:
         return 0
 
     if args.command == "history":
+        from_timestamp = validate_wayback_timestamp(args.from_timestamp, "--from-timestamp") if args.from_timestamp else None
+        to_timestamp = validate_wayback_timestamp(args.to_timestamp, "--to-timestamp") if args.to_timestamp else None
         entries = get_history(
             args.url,
             limit=args.limit,
-            from_timestamp=args.from_timestamp,
-            to_timestamp=args.to_timestamp,
+            from_timestamp=from_timestamp,
+            to_timestamp=to_timestamp,
             timeout=args.timeout,
         )
         payload = {
@@ -564,7 +587,8 @@ def main(argv: list[str] | None = None) -> int:
         return 0
 
     if args.command in {"nearest", "at"}:
-        snapshot = get_nearest_snapshot(args.url, args.timestamp, timeout=args.timeout)
+        timestamp = validate_wayback_timestamp(args.timestamp, "--timestamp")
+        snapshot = get_nearest_snapshot(args.url, timestamp, timeout=args.timeout)
         payload = {
             "mode": "nearest",
             "input_url": args.url,
@@ -574,10 +598,14 @@ def main(argv: list[str] | None = None) -> int:
         return 0
 
     if args.command == "compare":
+        if bool(args.from_timestamp) != bool(args.to_timestamp):
+            raise WaybackArchiveError("compare requires both --from-timestamp and --to-timestamp together, or neither of them")
+        from_timestamp = validate_wayback_timestamp(args.from_timestamp, "--from-timestamp") if args.from_timestamp else None
+        to_timestamp = validate_wayback_timestamp(args.to_timestamp, "--to-timestamp") if args.to_timestamp else None
         payload = compare_snapshots(
             args.url,
-            from_timestamp=args.from_timestamp,
-            to_timestamp=args.to_timestamp,
+            from_timestamp=from_timestamp,
+            to_timestamp=to_timestamp,
             timeout=args.timeout,
         )
         payload["mode"] = "compare"
