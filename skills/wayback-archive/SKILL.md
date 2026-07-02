@@ -78,6 +78,7 @@ python3 skills/wayback-archive/scripts/wayback_archive.py compare \
 - Prefer `nearest` or its alias `at` when the user is asking for the version closest to a known date.
 - Prefer `compare` with explicit `--from-timestamp` and `--to-timestamp` when the user wants to inspect how a page changed over time reliably.
 - Prefer batch-save from a file when the user gives a long URL list.
+- For `nearest` and explicit-timestamp `compare`, the wrapper will probe both `http` and `https` variants before giving up because Wayback lookup APIs sometimes disagree about the canonical scheme.
 
 ## Safety rules
 
@@ -95,6 +96,7 @@ python3 skills/wayback-archive/scripts/wayback_archive.py compare \
 - `compare <url>` without explicit timestamps is an auto-selection mode built on CDX history and can fail when the CDX endpoint is slow, reset, or unavailable.
 - `history` and auto-selection `compare` retry transient CDX `5xx`, timeout, and connection-reset failures a few times before returning an error.
 - `compare --from-timestamp ... --to-timestamp ...` is the recommended mode because it can often succeed through `nearest` lookups even when free-form history lookup is unreliable.
+- When explicit timestamps are provided, the wrapper first tries the availability API, then an exact-timestamp CDX lookup, and only then falls back to scanning full history for the nearest snapshot.
 - Raw save example: `curl -I "https://web.archive.org/save/https://example.com"`.
 - Raw availability example: `curl "https://archive.org/wayback/available?url=https://example.com"`.
 - Raw history example: `curl "https://web.archive.org/cdx/search/cdx?url=https://example.com"`.

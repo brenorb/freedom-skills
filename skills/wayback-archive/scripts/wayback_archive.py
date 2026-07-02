@@ -89,6 +89,17 @@ def build_snapshot_url(url: str, timestamp: str) -> str:
     return f"https://web.archive.org/web/{timestamp}/{url}"
 
 
+def build_lookup_urls(url: str) -> list[str]:
+    candidates = [url]
+    parsed = urllib.parse.urlsplit(url)
+    if parsed.scheme in {"http", "https"}:
+        alternate_scheme = "https" if parsed.scheme == "http" else "http"
+        alternate_url = urllib.parse.urlunsplit(parsed._replace(scheme=alternate_scheme))
+        if alternate_url not in candidates:
+            candidates.append(alternate_url)
+    return candidates
+
+
 def extract_timestamp(archived_url: str | None) -> str | None:
     if not archived_url:
         return None
@@ -190,6 +201,19 @@ def get_available_snapshot(url: str, timestamp: str | None = None, timeout: int 
     }
 
 
+def get_available_snapshot_with_variants(
+    url: str,
+    *,
+    timestamp: str | None = None,
+    timeout: int = DEFAULT_TIMEOUT,
+) -> dict | None:
+    for candidate_url in build_lookup_urls(url):
+        snapshot = get_available_snapshot(candidate_url, timestamp=timestamp, timeout=timeout)
+        if snapshot:
+            return snapshot
+    return None
+
+
 def save_once(url: str, timeout: int = DEFAULT_TIMEOUT) -> dict | None:
     request = urllib.request.Request(
         build_save_url(url),
@@ -266,6 +290,31 @@ def find_nearest_in_history(entries: list[dict], requested_timestamp: str) -> di
     }
 
 
+def get_exact_snapshot_from_cdx(url: str, timestamp: str, *, timeout: int = DEFAULT_TIMEOUT) -> dict | None:
+    last_error: WaybackArchiveError | None = None
+    for candidate_url in build_lookup_urls(url):
+        try:
+            entries = get_history(
+                candidate_url,
+                from_timestamp=timestamp,
+                to_timestamp=timestamp,
+                timeout=timeout,
+            )
+        except WaybackArchiveError as exc:
+            last_error = exc
+            continue
+        if not entries:
+            continue
+        snapshot = find_nearest_in_history(entries, timestamp)
+        snapshot["requested_timestamp"] = timestamp
+        snapshot["source"] = "cdx_api"
+        return snapshot
+
+    if last_error is not None:
+        raise last_error
+    return None
+
+
 def get_nearest_snapshot(
     url: str,
     timestamp: str,
@@ -274,19 +323,33 @@ def get_nearest_snapshot(
     prefer_cdx: bool = False,
 ) -> dict:
     if not prefer_cdx:
-        snapshot = get_available_snapshot(url, timestamp=timestamp, timeout=timeout)
+        snapshot = get_available_snapshot_with_variants(url, timestamp=timestamp, timeout=timeout)
         if snapshot:
             snapshot["requested_timestamp"] = timestamp
             snapshot["source"] = "availability_api"
             return snapshot
 
-    history = get_history(url, timeout=timeout)
-    if not history:
-        raise WaybackArchiveError(f"Unable to find a snapshot near {timestamp} for {url}")
-    snapshot = find_nearest_in_history(history, timestamp)
-    snapshot["requested_timestamp"] = timestamp
-    snapshot["source"] = "cdx_api"
-    return snapshot
+    exact_snapshot = get_exact_snapshot_from_cdx(url, timestamp, timeout=timeout)
+    if exact_snapshot:
+        return exact_snapshot
+
+    last_error: WaybackArchiveError | None = None
+    for candidate_url in build_lookup_urls(url):
+        try:
+            history = get_history(candidate_url, timeout=timeout)
+        except WaybackArchiveError as exc:
+            last_error = exc
+            continue
+        if not history:
+            continue
+        snapshot = find_nearest_in_history(history, timestamp)
+        snapshot["requested_timestamp"] = timestamp
+        snapshot["source"] = "cdx_api"
+        return snapshot
+
+    if last_error is not None:
+        raise last_error
+    raise WaybackArchiveError(f"Unable to find a snapshot near {timestamp} for {url}")
 
 
 def resolve_compare_pair(url: str, from_timestamp: str, to_timestamp: str, *, timeout: int = DEFAULT_TIMEOUT) -> tuple[dict, dict]:

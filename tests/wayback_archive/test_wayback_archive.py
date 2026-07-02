@@ -51,6 +51,13 @@ def test_extract_timestamp_returns_capture_id():
     assert wayback_archive.extract_timestamp(url) == "20260702020209"
 
 
+def test_build_lookup_urls_adds_https_variant_for_http_input():
+    assert wayback_archive.build_lookup_urls("http://example.com/path?x=1") == [
+        "http://example.com/path?x=1",
+        "https://example.com/path?x=1",
+    ]
+
+
 def test_get_available_snapshot_returns_none_when_missing(monkeypatch):
     monkeypatch.setattr(wayback_archive, "fetch_json", lambda url, timeout=60: {"archived_snapshots": {}})
     assert wayback_archive.get_available_snapshot("https://example.com") is None
@@ -81,6 +88,25 @@ def test_get_available_snapshot_returns_closest_snapshot(monkeypatch):
         "status": "200",
         "available": True,
     }
+
+
+def test_get_available_snapshot_with_variants_tries_alternate_scheme(monkeypatch):
+    def fake_available(url, timestamp=None, timeout=60):
+        if url == "http://example.com":
+            return None
+        return {
+            "input_url": url,
+            "archived_url": "https://web.archive.org/web/20260702020209/https://example.com/",
+            "timestamp": "20260702020209",
+            "status": "200",
+            "available": True,
+        }
+
+    monkeypatch.setattr(wayback_archive, "get_available_snapshot", fake_available)
+
+    result = wayback_archive.get_available_snapshot_with_variants("http://example.com")
+
+    assert result["input_url"] == "https://example.com"
 
 
 def test_parse_cdx_response_parses_snapshot_rows():
@@ -239,7 +265,8 @@ def test_get_nearest_snapshot_uses_requested_timestamp(monkeypatch):
 
 
 def test_get_nearest_snapshot_falls_back_to_cdx_history(monkeypatch):
-    monkeypatch.setattr(wayback_archive, "get_available_snapshot", lambda url, timestamp=None, timeout=60: None)
+    monkeypatch.setattr(wayback_archive, "get_available_snapshot_with_variants", lambda url, timestamp=None, timeout=60: None)
+    monkeypatch.setattr(wayback_archive, "get_exact_snapshot_from_cdx", lambda url, timestamp, timeout=60: None)
     monkeypatch.setattr(
         wayback_archive,
         "get_history",
@@ -262,6 +289,33 @@ def test_get_nearest_snapshot_falls_back_to_cdx_history(monkeypatch):
     result = wayback_archive.get_nearest_snapshot("https://example.com", "20260101120000")
 
     assert result["timestamp"] == "20251231120000"
+    assert result["source"] == "cdx_api"
+
+
+def test_get_nearest_snapshot_prefers_exact_cdx_match_before_full_history(monkeypatch):
+    monkeypatch.setattr(wayback_archive, "get_available_snapshot_with_variants", lambda url, timestamp=None, timeout=60: None)
+    monkeypatch.setattr(
+        wayback_archive,
+        "get_exact_snapshot_from_cdx",
+        lambda url, timestamp, timeout=60: {
+            "input_url": "https://example.com",
+            "archived_url": "https://web.archive.org/web/20260101115900/https://example.com/",
+            "timestamp": "20260101115900",
+            "status": "200",
+            "available": True,
+            "requested_timestamp": timestamp,
+            "source": "cdx_api",
+        },
+    )
+    monkeypatch.setattr(
+        wayback_archive,
+        "get_history",
+        lambda url, timeout=60: (_ for _ in ()).throw(AssertionError("full history should not be queried")),
+    )
+
+    result = wayback_archive.get_nearest_snapshot("http://example.com", "20260101120000")
+
+    assert result["timestamp"] == "20260101115900"
     assert result["source"] == "cdx_api"
 
 
@@ -460,6 +514,50 @@ def test_resolve_compare_pair_surfaces_cdx_disambiguation_failure(monkeypatch):
     assert "Availability API resolved both requested timestamps to the same snapshot" in message
     assert "CDX fallback could not disambiguate them" in message
     assert calls["count"] == 1
+
+
+def test_compare_snapshots_uses_variant_and_exact_cdx_for_explicit_timestamps(monkeypatch):
+    def fake_available_variants(url, timestamp=None, timeout=60):
+        if timestamp == "20180427130634":
+            return {
+                "input_url": "https://example.com",
+                "archived_url": "https://web.archive.org/web/20180427130634/https://example.com/",
+                "timestamp": "20180427130634",
+                "status": "200",
+                "available": True,
+            }
+        return None
+
+    def fake_exact_snapshot(url, timestamp, timeout=60):
+        if timestamp == "20181115172501":
+            return {
+                "input_url": "http://example.com:80/",
+                "archived_url": "https://web.archive.org/web/20181115172501/http://example.com:80/",
+                "timestamp": "20181115172501",
+                "status": "302",
+                "available": True,
+                "requested_timestamp": timestamp,
+                "source": "cdx_api",
+            }
+        return None
+
+    monkeypatch.setattr(wayback_archive, "get_available_snapshot_with_variants", fake_available_variants)
+    monkeypatch.setattr(wayback_archive, "get_exact_snapshot_from_cdx", fake_exact_snapshot)
+    monkeypatch.setattr(
+        wayback_archive,
+        "get_history",
+        lambda url, timeout=60: (_ for _ in ()).throw(AssertionError("full history should not be queried")),
+    )
+
+    result = wayback_archive.compare_snapshots(
+        "http://example.com/",
+        from_timestamp="20180427130634",
+        to_timestamp="20181115172501",
+    )
+
+    assert result["left"]["timestamp"] == "20180427130634"
+    assert result["right"]["timestamp"] == "20181115172501"
+    assert result["right"]["source"] == "cdx_api"
 
 
 def test_read_url_file_skips_comments_and_blank_lines(tmp_path):
