@@ -70,7 +70,11 @@ async function main() {
   const page = await browser.newPage();
   await page.goto(FILEPIZZA_URL, { waitUntil: "domcontentloaded" });
   await page.setInputFiles('input[type="file"]', resolvedFilePath);
-  await page.getByRole("button", { name: "Start" }).click();
+  if (typeof page.locator === "function") {
+    await page.locator("#start-button").click();
+  } else {
+    await page.getByRole("button", { name: "Start" }).click();
+  }
 
   const links = await waitForLinks(page);
   const longUrl = links.find((value) => value.split("/").length > 5) || links[0];

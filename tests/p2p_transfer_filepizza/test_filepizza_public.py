@@ -574,6 +574,15 @@ exports.chromium = {{
         return {{
           goto: async (url, options) => log("goto", {{ url, options }}),
           setInputFiles: async (selector, filePath) => log("setInputFiles", {{ selector, filePath }}),
+          locator: (selector) => {{
+            log("locator", {{ selector }});
+            return {{
+              click: async () => {{
+                log("locatorClick", {{ selector }});
+                if (clickError) throw new Error(clickError);
+              }},
+            }};
+          }},
           getByRole: (role, options) => {{
             log("getByRole", {{ role, options }});
             return {{
@@ -665,8 +674,13 @@ def test_filepizza_seed_writes_state_tracks_actions_and_exits_cleanly_on_sigterm
             for entry in actions
         )
         assert any(
-            entry["event"] == "getByRole"
-            and entry["payload"] == {"role": "button", "options": {"name": "Start"}}
+            entry["event"] == "locator"
+            and entry["payload"] == {"selector": "#start-button"}
+            for entry in actions
+        )
+        assert any(
+            entry["event"] == "locatorClick"
+            and entry["payload"] == {"selector": "#start-button"}
             for entry in actions
         )
 
