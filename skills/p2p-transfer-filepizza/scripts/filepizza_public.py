@@ -5,54 +5,16 @@ from __future__ import annotations
 import argparse
 import json
 import os
-import secrets
+import re
 import shutil
-import signal
 import subprocess
 import sys
-import time
-from dataclasses import dataclass
-from datetime import datetime, timezone
 from pathlib import Path
 
 
-REPO_ROOT = Path(__file__).resolve().parents[3]
-STATE_ROOT = Path.home() / ".cache" / "freedom-skills" / "p2p-transfer-filepizza"
-RUNTIME_DIR = STATE_ROOT / "runtime"
+PACKAGE_SPEC = os.environ.get("FILEPIZZA_CLI_SPEC", "filepizza-cli@0.1.0")
+STATE_ROOT = Path.home() / ".cache" / "filepizza-cli"
 UPLOADS_DIR = STATE_ROOT / "uploads"
-SEED_SCRIPT = Path(__file__).with_name("filepizza_seed.js")
-TMUX_RUNNER = Path(__file__).with_name("filepizza_tmux_runner.py")
-
-
-@dataclass(frozen=True)
-class UploadPaths:
-    upload_id: str
-    manifest_path: Path
-    state_path: Path
-    log_path: Path
-
-
-def utc_now() -> str:
-    return datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
-
-
-def create_upload_id(now: datetime | None = None) -> str:
-    now = now or datetime.now(timezone.utc)
-    return now.strftime("%Y%m%d-%H%M%S") + "-" + secrets.token_hex(4)
-
-
-def get_upload_paths(upload_id: str) -> UploadPaths:
-    return UploadPaths(
-        upload_id=upload_id,
-        manifest_path=UPLOADS_DIR / f"{upload_id}.json",
-        state_path=UPLOADS_DIR / f"{upload_id}.state.json",
-        log_path=UPLOADS_DIR / f"{upload_id}.log",
-    )
-
-
-def ensure_directories() -> None:
-    RUNTIME_DIR.mkdir(parents=True, exist_ok=True)
-    UPLOADS_DIR.mkdir(parents=True, exist_ok=True)
 
 
 def require_binary(name: str) -> None:
@@ -61,52 +23,34 @@ def require_binary(name: str) -> None:
     raise RuntimeError(f"Required binary not found in PATH: {name}")
 
 
-def run(cmd: list[str], *, cwd: Path | None = None) -> None:
-    subprocess.run(cmd, cwd=str(cwd) if cwd else None, check=True)
-
-
-def tmux_available() -> bool:
-    return shutil.which("tmux") is not None
-
-
-def tmux_session_name(upload_id: str) -> str:
-    return f"p2p_transfer_filepizza_{upload_id}"
-
-
-def is_tmux_session_alive(session_name: str | None) -> bool:
-    if not session_name or not tmux_available():
-        return False
-    result = subprocess.run(
-        ["tmux", "has-session", "-t", session_name],
-        capture_output=True,
-        text=True,
-    )
-    return result.returncode == 0
-
-
 def ensure_runtime() -> None:
     require_binary("node")
     require_binary("npm")
 
-    package_json = RUNTIME_DIR / "package.json"
-    node_modules = RUNTIME_DIR / "node_modules" / "playwright"
-    chromium_marker = RUNTIME_DIR / ".chromium-installed"
 
-    if not package_json.exists():
-        run(["npm", "init", "-y"], cwd=RUNTIME_DIR)
-    if not node_modules.exists():
-        run(["npm", "install", "playwright"], cwd=RUNTIME_DIR)
-    if not chromium_marker.exists():
-        run(["npx", "playwright", "install", "chromium"], cwd=RUNTIME_DIR)
-        chromium_marker.write_text("ok\n")
+def snake_case_key(key: str) -> str:
+    return re.sub(r"(?<!^)(?=[A-Z])", "_", key).lower()
+
+
+def normalize_value(value: object) -> object:
+    if isinstance(value, dict):
+        return {snake_case_key(str(key)): normalize_value(item) for key, item in value.items()}
+    if isinstance(value, list):
+        return [normalize_value(item) for item in value]
+    return value
+
+
+def normalize_manifest(payload: dict[str, object]) -> dict[str, object]:
+    normalized = dict(normalize_value(payload))
+    if "file_path" in normalized and "file" not in normalized:
+        normalized["file"] = normalized["file_path"]
+    if "upload_id" in normalized and "id" not in normalized:
+        normalized["id"] = normalized["upload_id"]
+    return normalized
 
 
 def read_json(path: Path) -> dict[str, object]:
     return json.loads(path.read_text())
-
-
-def write_json(path: Path, payload: dict[str, object]) -> None:
-    path.write_text(json.dumps(payload, indent=2) + "\n")
 
 
 def is_pid_alive(pid: int | None) -> bool:
@@ -119,151 +63,65 @@ def is_pid_alive(pid: int | None) -> bool:
     return True
 
 
-def tail_text(path: Path, limit: int = 20) -> list[str]:
-    if not path.exists():
-        return []
-    lines = path.read_text(errors="replace").splitlines()
-    return lines[-limit:]
-
-
-def merge_upload_state(manifest: dict[str, object]) -> dict[str, object]:
+def materialize_manifest_status(manifest: dict[str, object]) -> dict[str, object]:
     result = dict(manifest)
-    state_path = Path(str(manifest["state_path"]))
-    if state_path.exists():
-        result.update(read_json(state_path))
     pid = result.get("pid")
-    pid_alive = is_pid_alive(int(pid)) if isinstance(pid, int) else False
-    tmux_alive = is_tmux_session_alive(str(result.get("tmux_session"))) if result.get("launcher") == "tmux" else False
-    alive = pid_alive or tmux_alive
+    alive = is_pid_alive(int(pid)) if isinstance(pid, int) else False
     result["alive"] = alive
     if result.get("status") == "seeding" and not alive:
         result["status"] = "stopped"
     return result
 
 
-def wait_for_share_links(paths: UploadPaths, timeout_s: int = 180) -> dict[str, object]:
-    deadline = time.time() + timeout_s
-    while time.time() < deadline:
-        if paths.state_path.exists():
-            data = read_json(paths.state_path)
-            if data.get("short_url") and data.get("long_url"):
-                return data
-        time.sleep(1)
-    log_lines = "\n".join(tail_text(paths.log_path))
-    raise RuntimeError("Timed out waiting for FilePizza share links.\n" + log_lines.strip())
+def run_filepizza_cli(args: list[str]) -> dict[str, object]:
+    ensure_runtime()
+    result = subprocess.run(
+        ["npx", "--yes", PACKAGE_SPEC, *args],
+        capture_output=True,
+        text=True,
+    )
+    if result.returncode != 0:
+        error_text = result.stderr.strip() or result.stdout.strip() or f"filepizza-cli failed with exit code {result.returncode}"
+        raise RuntimeError(error_text)
+    try:
+        payload = json.loads(result.stdout)
+    except json.JSONDecodeError as exc:
+        raise RuntimeError(f"filepizza-cli returned invalid JSON: {exc}") from exc
+    if not isinstance(payload, dict):
+        raise RuntimeError("filepizza-cli returned a non-object JSON payload")
+    return payload
 
 
 def start_upload(file_path: Path) -> dict[str, object]:
-    ensure_directories()
-    ensure_runtime()
-
     resolved = file_path.expanduser().resolve()
     if not resolved.exists() or not resolved.is_file():
         raise RuntimeError(f"Local file not found: {resolved}")
-
-    upload_id = create_upload_id()
-    paths = get_upload_paths(upload_id)
-    manifest = {
-        "ok": True,
-        "upload_id": upload_id,
-        "file": str(resolved),
-        "state_path": str(paths.state_path),
-        "log_path": str(paths.log_path),
-        "status": "starting",
-        "started_at": utc_now(),
-    }
-    write_json(paths.manifest_path, manifest)
-
-    if tmux_available():
-        session_name = tmux_session_name(upload_id)
-        paths.log_path.write_text("")
-        subprocess.run(
-            [
-                "tmux",
-                "new-session",
-                "-d",
-                "-s",
-                session_name,
-                sys.executable,
-                str(TMUX_RUNNER),
-                str(RUNTIME_DIR),
-                str(paths.log_path),
-                str(SEED_SCRIPT),
-                str(resolved),
-                str(paths.state_path),
-                upload_id,
-            ],
-            check=True,
-        )
-        manifest["launcher"] = "tmux"
-        manifest["tmux_session"] = session_name
-    else:
-        with paths.log_path.open("w") as log_file:
-            process = subprocess.Popen(
-                ["node", str(SEED_SCRIPT), str(resolved), str(paths.state_path), upload_id],
-                cwd=str(RUNTIME_DIR),
-                stdout=log_file,
-                stderr=subprocess.STDOUT,
-                start_new_session=True,
-                text=True,
-            )
-        manifest["launcher"] = "subprocess"
-        manifest["pid"] = process.pid
-    write_json(paths.manifest_path, manifest)
-
-    state = wait_for_share_links(paths)
-    result = merge_upload_state(read_json(paths.manifest_path))
-    result.update(state)
-    write_json(paths.manifest_path, result)
-    return result
+    return normalize_manifest(run_filepizza_cli(["share", str(resolved)]))
 
 
 def load_manifest(upload_id: str) -> dict[str, object]:
-    paths = get_upload_paths(upload_id)
-    if not paths.manifest_path.exists():
+    manifest_path = UPLOADS_DIR / f"{upload_id}.json"
+    if not manifest_path.exists():
         raise RuntimeError(f"Unknown upload_id: {upload_id}")
-    return read_json(paths.manifest_path)
+    return read_json(manifest_path)
 
 
 def list_uploads() -> list[dict[str, object]]:
-    ensure_directories()
-    uploads = []
+    if not UPLOADS_DIR.exists():
+        return []
+    uploads: list[dict[str, object]] = []
     for path in sorted(UPLOADS_DIR.glob("*.json"), reverse=True):
-        if path.name.endswith(".state.json"):
-            continue
-        uploads.append(merge_upload_state(read_json(path)))
+        manifest = materialize_manifest_status(load_manifest(path.stem))
+        uploads.append(normalize_manifest(manifest))
     return uploads
 
 
 def status_upload(upload_id: str) -> dict[str, object]:
-    return merge_upload_state(load_manifest(upload_id))
+    return normalize_manifest(run_filepizza_cli(["status", upload_id]))
 
 
 def stop_upload(upload_id: str) -> dict[str, object]:
-    manifest = load_manifest(upload_id)
-    pid = manifest.get("pid")
-    if manifest.get("launcher") == "tmux":
-        session_name = str(manifest.get("tmux_session") or "")
-        if is_tmux_session_alive(session_name):
-            subprocess.run(["tmux", "kill-session", "-t", session_name], check=True)
-            deadline = time.time() + 10
-            while time.time() < deadline and is_tmux_session_alive(session_name):
-                time.sleep(0.25)
-        if isinstance(pid, int) and is_pid_alive(pid):
-            os.kill(pid, signal.SIGTERM)
-            deadline = time.time() + 10
-            while time.time() < deadline and is_pid_alive(pid):
-                time.sleep(0.25)
-    else:
-        if isinstance(pid, int) and is_pid_alive(pid):
-            os.kill(pid, signal.SIGTERM)
-            deadline = time.time() + 10
-            while time.time() < deadline and is_pid_alive(pid):
-                time.sleep(0.25)
-    result = merge_upload_state(manifest)
-    result["status"] = "stopped"
-    write_json(Path(str(manifest["manifest_path"])) if "manifest_path" in manifest else get_upload_paths(upload_id).manifest_path, result)
-    return result
+    return normalize_manifest(run_filepizza_cli(["stop", upload_id]))
 
 
 def build_parser() -> argparse.ArgumentParser:

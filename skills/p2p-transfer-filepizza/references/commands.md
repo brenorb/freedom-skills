@@ -13,12 +13,12 @@ Example result:
 ```json
 {
   "ok": true,
-  "upload_id": "20260610-120000-ab12cd34",
+  "upload_id": "share_01JZ7J3MYTQ4X4QH2M2M6N6T7K",
   "short_url": "https://file.pizza/download/abcd1234",
   "long_url": "https://file.pizza/download/pepperoni/mushroom/olive/basil",
-  "launcher": "tmux",
-  "tmux_session": "p2p_transfer_filepizza_20260610-120000-ab12cd34",
+  "file": "/absolute/path/to/file",
   "pid": 43152,
+  "alive": true,
   "status": "seeding"
 }
 ```
@@ -27,25 +27,32 @@ Example result:
 
 ```bash
 python3 skills/p2p-transfer-filepizza/scripts/filepizza_public.py list
-python3 skills/p2p-transfer-filepizza/scripts/filepizza_public.py status 20260610-120000-ab12cd34
+python3 skills/p2p-transfer-filepizza/scripts/filepizza_public.py status share_01JZ7J3MYTQ4X4QH2M2M6N6T7K
 ```
 
 ## Stop seeding
 
 ```bash
-python3 skills/p2p-transfer-filepizza/scripts/filepizza_public.py stop 20260610-120000-ab12cd34
+python3 skills/p2p-transfer-filepizza/scripts/filepizza_public.py stop share_01JZ7J3MYTQ4X4QH2M2M6N6T7K
 ```
 
 ## Operational notes
 
-- Runtime state lives under `~/.cache/freedom-skills/p2p-transfer-filepizza/`.
-- Upload logs are saved there as `*.log`.
-- If `tmux` is installed, the wrapper prefers a detached tmux session automatically and records the session name in the manifest JSON.
-- The wrapper keeps a headless browser process alive so the public link stays usable.
-- If Node, npm, or the browser runtime are missing, the wrapper bootstraps them on first use.
+- The Python wrapper delegates to `npx --yes filepizza-cli@0.1.0 ...` by default.
+- You can override the package spec with `FILEPIZZA_CLI_SPEC`, for example `FILEPIZZA_CLI_SPEC=filepizza-cli@0.1.1`.
+- Runtime state lives under `~/.cache/filepizza-cli/uploads/`.
+- `list` reads local manifest JSON from that cache directory and marks uploads `alive` by checking whether the recorded pid still exists.
+- The wrapper requires `node` and `npm` in `PATH`.
+- The first run may spend extra time downloading the npm package into the local npm cache.
 
 ## Troubleshooting
 
-- If a manual upload fails in Arc, retry in Chrome. Browser-specific WebRTC or site-compatibility quirks can matter.
-- If the wrapper returns no links, inspect the saved `*.log` file for the upload under `~/.cache/freedom-skills/p2p-transfer-filepizza/uploads/`.
+- If `upload` fails before doing network work, confirm the file path exists locally and is a regular file.
+- If the wrapper reports a missing binary, install `node` and `npm` or fix `PATH`.
+- If `npx` returns an error, rerun the same command directly to inspect the upstream CLI behavior:
+
+```bash
+npx --yes filepizza-cli@0.1.0 share /absolute/path/to/file
+```
+
 - If an upload looks alive but the link does not work, confirm the seeding process is still running with `status` or `list`.
