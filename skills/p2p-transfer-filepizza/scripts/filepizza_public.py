@@ -6,7 +6,6 @@ import argparse
 import json
 import os
 import secrets
-import shlex
 import shutil
 import signal
 import subprocess
@@ -22,6 +21,7 @@ STATE_ROOT = Path.home() / ".cache" / "freedom-skills" / "p2p-transfer-filepizza
 RUNTIME_DIR = STATE_ROOT / "runtime"
 UPLOADS_DIR = STATE_ROOT / "uploads"
 SEED_SCRIPT = Path(__file__).with_name("filepizza_seed.js")
+TMUX_RUNNER = Path(__file__).with_name("filepizza_tmux_runner.py")
 
 
 @dataclass(frozen=True)
@@ -176,21 +176,23 @@ def start_upload(file_path: Path) -> dict[str, object]:
 
     if tmux_available():
         session_name = tmux_session_name(upload_id)
-        command = " ".join(
-            [
-                f"cd {shlex.quote(str(RUNTIME_DIR))}",
-                "&&",
-                "node",
-                shlex.quote(str(SEED_SCRIPT)),
-                shlex.quote(str(resolved)),
-                shlex.quote(str(paths.state_path)),
-                shlex.quote(upload_id),
-                f">> {shlex.quote(str(paths.log_path))} 2>&1",
-            ]
-        )
         paths.log_path.write_text("")
         subprocess.run(
-            ["tmux", "new-session", "-d", "-s", session_name, "sh", "-lc", command],
+            [
+                "tmux",
+                "new-session",
+                "-d",
+                "-s",
+                session_name,
+                sys.executable,
+                str(TMUX_RUNNER),
+                str(RUNTIME_DIR),
+                str(paths.log_path),
+                str(SEED_SCRIPT),
+                str(resolved),
+                str(paths.state_path),
+                upload_id,
+            ],
             check=True,
         )
         manifest["launcher"] = "tmux"
