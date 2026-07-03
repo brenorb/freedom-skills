@@ -53,6 +53,15 @@ uvx --from 'git+https://github.com/NVIDIA/SkillSpector.git' \
 ```
 
 5. Interpret the report before acting on it. Separate real workflow and supply-chain risks from scanner noise.
+
+## Usage notes
+
+- Use `--recursive` when the input path is a directory of many skills like `./skills`.
+- Use `--no-llm` for CI and quick repo-wide checks.
+- Use the provider that matches the user's chosen login session or API subscription.
+- Use the direct `uvx --from 'git+https://github.com/NVIDIA/SkillSpector.git'` form when the goal is one-off or low-frequency use.
+- Use a per-skill loop when you need baseline suppressions to gate CI reliably.
+
 ## Interpretation rules
 
 - Do not accept a `HIGH` or `DO_NOT_INSTALL` verdict blindly. Read the issue list and inspect the flagged file.
