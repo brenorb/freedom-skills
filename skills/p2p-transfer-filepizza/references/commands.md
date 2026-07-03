@@ -5,7 +5,7 @@ Read this file only when the default workflow in `SKILL.md` is not enough.
 ## Upload a file
 
 ```bash
-python3 skills/p2p-transfer-filepizza/scripts/filepizza_public.py upload /absolute/path/to/file
+npx --yes filepizza-cli@0.1.0 share /absolute/path/to/file
 ```
 
 Example result:
@@ -13,46 +13,54 @@ Example result:
 ```json
 {
   "ok": true,
-  "upload_id": "share_01JZ7J3MYTQ4X4QH2M2M6N6T7K",
-  "short_url": "https://file.pizza/download/abcd1234",
-  "long_url": "https://file.pizza/download/pepperoni/mushroom/olive/basil",
-  "file": "/absolute/path/to/file",
+  "uploadId": "20260703-203624-c1c0361e",
+  "filePath": "/absolute/path/to/file",
+  "fileName": "example.zip",
   "pid": 43152,
-  "alive": true,
-  "status": "seeding"
+  "status": "seeding",
+  "startedAt": "2026-07-03T20:36:25.588Z",
+  "updatedAt": "2026-07-03T20:36:27.163Z",
+  "peerId": "dd7769bc-c402-460c-b886-67e3b3ea1366",
+  "shortSlug": "abcd1234",
+  "longSlug": "pepperoni/mushroom/olive/basil",
+  "shortUrl": "https://file.pizza/download/abcd1234",
+  "longUrl": "https://file.pizza/download/pepperoni/mushroom/olive/basil",
+  "alive": true
 }
 ```
 
-## Inspect active and past uploads
+## Inspect one upload
 
 ```bash
-python3 skills/p2p-transfer-filepizza/scripts/filepizza_public.py list
-python3 skills/p2p-transfer-filepizza/scripts/filepizza_public.py status share_01JZ7J3MYTQ4X4QH2M2M6N6T7K
+npx --yes filepizza-cli@0.1.0 status 20260703-203624-c1c0361e
 ```
 
 ## Stop seeding
 
 ```bash
-python3 skills/p2p-transfer-filepizza/scripts/filepizza_public.py stop share_01JZ7J3MYTQ4X4QH2M2M6N6T7K
+npx --yes filepizza-cli@0.1.0 stop 20260703-203624-c1c0361e
+```
+
+## Inspect cached manifests manually
+
+The upstream CLI does not expose `list`. If you need to inspect cached local state:
+
+```bash
+ls ~/.cache/filepizza-cli/uploads
+python3 -m json.tool ~/.cache/filepizza-cli/uploads/<upload_id>.json
 ```
 
 ## Operational notes
 
-- The Python wrapper delegates to `npx --yes filepizza-cli@0.1.0 ...` by default.
-- You can override the package spec with `FILEPIZZA_CLI_SPEC`, for example `FILEPIZZA_CLI_SPEC=filepizza-cli@0.1.1`.
+- The skill intentionally invokes the published package directly: `npx --yes filepizza-cli@0.1.0 ...`.
 - Runtime state lives under `~/.cache/filepizza-cli/uploads/`.
-- `list` reads local manifest JSON from that cache directory and marks uploads `alive` by checking whether the recorded pid still exists.
-- The wrapper requires `node` and `npm` in `PATH`.
+- The CLI requires `node` and `npm` in `PATH`.
 - The first run may spend extra time downloading the npm package into the local npm cache.
+- `status` and `stop` operate on the upload identifier returned by `share`.
 
 ## Troubleshooting
 
-- If `upload` fails before doing network work, confirm the file path exists locally and is a regular file.
-- If the wrapper reports a missing binary, install `node` and `npm` or fix `PATH`.
-- If `npx` returns an error, rerun the same command directly to inspect the upstream CLI behavior:
-
-```bash
-npx --yes filepizza-cli@0.1.0 share /absolute/path/to/file
-```
-
-- If an upload looks alive but the link does not work, confirm the seeding process is still running with `status` or `list`.
+- If `share` fails before doing network work, confirm the file path exists locally and is a regular file.
+- If `npx` reports a missing binary, install `node` and `npm` or fix `PATH`.
+- If `npx` returns an error, rerun the same command directly and inspect stderr.
+- If an upload looks alive but the link does not work, confirm the seeding process is still running with `status`.

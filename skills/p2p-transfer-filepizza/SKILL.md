@@ -5,31 +5,30 @@ description: Use this skill when the user wants to share a local file through th
 
 # P2P Transfer FilePizza
 
-Use the public `file.pizza` service through the local wrapper CLI. This skill is for the hosted public service only, not a self-hosted server.
+Use the published `filepizza-cli` npm package directly against the public `file.pizza` service. This skill is for the hosted public service only, not a self-hosted server.
 
-The supported interface for agents is the local wrapper CLI and its JSON output. The wrapper delegates to the published `filepizza-cli` npm package through `npx`, so agents should not operate the `file.pizza` UI directly.
+The supported interface for agents is the upstream CLI invoked through `npx`. Agents should not operate the `file.pizza` UI directly.
 
 ## Default workflow
 
 1. Confirm the file path exists locally.
-2. Start the upload through the wrapper:
+2. Start the upload directly through the published CLI:
 
 ```bash
-python3 skills/p2p-transfer-filepizza/scripts/filepizza_public.py upload /absolute/path/to/file
+npx --yes filepizza-cli@0.1.0 share /absolute/path/to/file
 ```
 
-3. Read the JSON result and use the returned `short_url` or `long_url`.
+3. Read the JSON result and use the returned `shortUrl` or `longUrl`.
 4. If the user asks whether an upload is still alive, inspect it with:
 
 ```bash
-python3 skills/p2p-transfer-filepizza/scripts/filepizza_public.py list
-python3 skills/p2p-transfer-filepizza/scripts/filepizza_public.py status <upload_id>
+npx --yes filepizza-cli@0.1.0 status <upload_id>
 ```
 
 5. If the user wants to stop seeding, or the transfer is no longer needed, stop it explicitly:
 
 ```bash
-python3 skills/p2p-transfer-filepizza/scripts/filepizza_public.py stop <upload_id>
+npx --yes filepizza-cli@0.1.0 stop <upload_id>
 ```
 
 6. If the user needs raw operational notes or troubleshooting patterns beyond this workflow, read `references/commands.md`.
@@ -37,9 +36,8 @@ python3 skills/p2p-transfer-filepizza/scripts/filepizza_public.py stop <upload_i
 
 ## Defaults
 
-- Prefer the wrapper over ad hoc browser automation or manual UI operation.
-- Prefer the wrapper as the only supported agent interface. Do not model the website UI itself as the product surface.
-- Prefer the default published package path unless the user explicitly needs a different `FILEPIZZA_CLI_SPEC`.
+- Prefer the published CLI over ad hoc browser automation or manual UI operation.
+- Prefer the pinned package version shown in this skill unless the user explicitly wants a different release.
 - Prefer the public site workflow only for files that are acceptable to expose to a third-party web app at the browser-JavaScript trust level.
 - Prefer the short URL for user-facing sharing and the long URL for logging or debugging.
 - Prefer keeping exactly one seeding process per upload alive until the recipient confirms they have the file.
@@ -58,5 +56,6 @@ python3 skills/p2p-transfer-filepizza/scripts/filepizza_public.py stop <upload_i
 - `file.pizza` does not expose a normal REST upload API. This skill relies on the programmatic `filepizza-cli` package, which speaks the public FilePizza protocol directly.
 - The first run may take longer because `npx --yes` may need to fetch the pinned npm package into the local npm cache.
 - Runtime state and upload manifests live under `~/.cache/filepizza-cli/uploads/`, not under this repo.
-- The wrapper requires local `node` and `npm` in `PATH`.
+- The direct CLI exposes `share`, `status`, and `stop`. It does not expose a `list` subcommand.
+- The CLI requires local `node` and `npm` in `PATH`.
 - Large files still depend on WebRTC behavior; success is not as deterministic as a server-side object store.
