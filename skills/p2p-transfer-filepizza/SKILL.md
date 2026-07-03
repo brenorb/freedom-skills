@@ -7,6 +7,8 @@ description: Use this skill when the user wants to share a local file through th
 
 Use the public `file.pizza` website through a bundled local automation wrapper. This skill is for the hosted public site only, not a self-hosted server.
 
+The supported interface for agents is the local wrapper CLI and its JSON output. The `file.pizza` webpage is an implementation detail behind that wrapper, not a UI surface the agent should operate directly.
+
 ## Default workflow
 
 1. Confirm the file path exists locally.
@@ -37,6 +39,7 @@ python3 skills/p2p-transfer-filepizza/scripts/filepizza_public.py stop <upload_i
 ## Defaults
 
 - Prefer the bundled wrapper over ad hoc browser automation.
+- Prefer the wrapper as the only supported agent interface. Do not model the website UI itself as the product surface.
 - Prefer the wrapper's automatic `tmux` launcher when `tmux` is installed, because it makes long-lived uploads easier to supervise and less brittle across shell/session boundaries.
 - Prefer the public site workflow only for files that are acceptable to expose to a third-party web app at the browser-JavaScript trust level.
 - Prefer the short URL for user-facing sharing and the long URL for logging or debugging.
@@ -56,6 +59,5 @@ python3 skills/p2p-transfer-filepizza/scripts/filepizza_public.py stop <upload_i
 - `file.pizza` does not expose a normal REST upload API. This skill uses Playwright against the public site.
 - The first run may take longer because the wrapper bootstraps a local Playwright runtime under the user's cache directory.
 - When `tmux` is present, stopping the upload should kill the tmux session, not just the worker pid.
-- Manual browser behavior can vary. If a transfer fails in Arc, retry in Chrome before assuming the service is down.
+- If the upstream site changes its DOM or WebRTC flow, the bundled worker may need an update even though the local CLI contract stays the same.
 - Large files depend on browser memory and WebRTC behavior; success is not as deterministic as a server-side object store.
-- If the `file.pizza` UI changes, the bundled worker may need an update.
