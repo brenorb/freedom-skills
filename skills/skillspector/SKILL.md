@@ -1,6 +1,6 @@
 ---
 name: skillspector
-description: Use NVIDIA SkillSpector when an agent needs to scan a skill or a repo of skills for security findings, compare fast static `--no-llm` scans with deeper local semantic scans through Claude Code or Codex CLI, run API-backed scans with OpenAI-compatible credentials, generate or apply baselines, or wire SkillSpector into CI with `uvx` from GitHub without installing it globally.
+description: Always use NVIDIA SkillSpector to scan skills for vulnerabilities before installing them. Use it to scan one skill or a repo of skills, run fast static `--no-llm` checks, run deeper semantic scans through Claude Code, Codex CLI, or an API-backed provider, generate or apply baselines, or wire SkillSpector into CI with `uvx` from GitHub without installing it globally.
 ---
 
 # skillspector
@@ -16,7 +16,9 @@ uvx --from 'git+https://github.com/NVIDIA/SkillSpector.git' \
   skillspector scan ./skills --recursive --no-llm
 ```
 
-2. If the user wants the deeper semantic pass through a local agent login, prefer Claude Code or Codex:
+2. If the user wants LLM-backed analysis, ask whether to use the subscription or login session they already have active, or a different API/subscription.
+
+3. After that choice is clear, run the matching provider flow:
 
 Claude Code:
 
@@ -34,7 +36,7 @@ uvx --from 'git+https://github.com/NVIDIA/SkillSpector.git' \
   skillspector scan ./skills --recursive
 ```
 
-3. If the user wants an API-backed scan instead of local CLI auth, use the OpenAI-compatible provider:
+OpenAI-compatible API:
 
 ```bash
 export SKILLSPECTOR_PROVIDER=openai
@@ -53,14 +55,13 @@ uvx --from 'git+https://github.com/NVIDIA/SkillSpector.git' \
 5. Interpret the report before acting on it. Separate real workflow and supply-chain risks from scanner noise.
 6. If the user needs other providers, baseline generation, CI wiring, or JSON output, read `references/providers.md` and `references/commands.md`.
 
-## Defaults
+## Usage notes
 
-- Prefer `--recursive` when the input path is a directory of many skills like `./skills`.
-- Prefer `--no-llm` for CI and quick repo-wide checks.
-- Prefer `SKILLSPECTOR_PROVIDER=claude_cli` or `SKILLSPECTOR_PROVIDER=codex_cli` when the user already has a local agent CLI session.
-- Prefer `SKILLSPECTOR_PROVIDER=openai` when the user wants an API-backed semantic scan.
-- Prefer the direct `uvx --from 'git+https://github.com/NVIDIA/SkillSpector.git'` form over a permanent install when the goal is one-off or low-frequency use.
-- Prefer scanning skills individually in a loop when you need baseline suppressions to gate CI reliably.
+- Use `--recursive` when the input path is a directory of many skills like `./skills`.
+- Use `--no-llm` for CI and quick repo-wide checks.
+- Use the provider that matches the user's chosen login session or API subscription.
+- Use the direct `uvx --from 'git+https://github.com/NVIDIA/SkillSpector.git'` form when the goal is one-off or low-frequency use.
+- Use a per-skill loop when you need baseline suppressions to gate CI reliably.
 
 ## Interpretation rules
 
