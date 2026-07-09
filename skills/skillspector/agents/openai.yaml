@@ -1,0 +1,4 @@
+interface:
+  display_name: "skillspector"
+  short_description: "Scan one skill or a whole skills repo with NVIDIA SkillSpector via uvx"
+  default_prompt: "Use $skillspector to scan a skill or a repo of skills with NVIDIA SkillSpector, run a quick static `--no-llm` pass, do a deeper local semantic scan with `SKILLSPECTOR_PROVIDER=codex_cli`, or generate/apply a baseline for CI."
