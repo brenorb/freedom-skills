@@ -1,4 +1,4 @@
-import { access, readFile } from 'node:fs/promises';
+import { access, readFile, stat } from 'node:fs/promises';
 import { constants } from 'node:fs';
 import { spawnSync } from 'node:child_process';
 import { dirname, resolve } from 'node:path';
@@ -40,7 +40,9 @@ const localReferences = [...html.matchAll(/(?:src|href|data)="([^"#?]+)"/g)]
 
 for (const reference of new Set(localReferences)) {
   try {
-    await access(resolve(here, reference), constants.R_OK);
+    const target = resolve(here, reference);
+    await access(target, constants.R_OK);
+    expect((await stat(target)).isFile(), `Local reference must resolve to a file: ${reference}`);
   } catch {
     failures.push(`Broken local reference: ${reference}`);
   }
