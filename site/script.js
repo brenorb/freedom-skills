@@ -135,6 +135,10 @@
   }
 
   function openCommandDialog() {
+    if (dialog.open) {
+      commandSearch.focus();
+      return;
+    }
     renderCommands();
     if (typeof dialog.showModal === "function") {
       dialog.showModal();
