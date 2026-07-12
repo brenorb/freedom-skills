@@ -68,11 +68,13 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--red); outline-o
 }
 
 .masthead { position: relative; z-index: 5; }
+.masthead::after { content: ""; position: absolute; left: 0; bottom: -1px; width: calc(var(--journey-progress, 0) * 1%); border-bottom: 2px solid var(--red); transition: width .08s linear; }
 .masthead nav { margin-left: auto; display: flex; gap: clamp(1rem, 3vw, 2.5rem); }
 .masthead a, footer a { text-decoration: none; }
 .masthead nav a { position: relative; }
 .masthead nav a::after { content: ""; position: absolute; left: 0; right: 100%; bottom: -.25rem; border-bottom: 1px solid var(--red); transition: right .25s ease; }
 .masthead nav a:hover::after { right: 0; }
+.masthead nav a[aria-current="location"] { color: var(--red); }
 
 .wordmark { display: inline-flex; align-items: center; gap: .65rem; font-family: var(--display); font-size: .86rem; letter-spacing: .06em; }
 .compass { display: grid; place-items: center; width: 1.8rem; height: 1.8rem; color: var(--paper-bright); background: var(--red); border-radius: 50%; font-size: .8rem; }
@@ -154,6 +156,7 @@ h2 { margin: 0; color: var(--blue); font-size: clamp(3.2rem, 6vw, 6.5rem); line-
 .route-filter:hover span, .route-filter.is-active span { color: var(--paper); }
 .filter-status { max-width: 1250px; min-height: 1.5rem; margin: .7rem auto 0; color: var(--muted); font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; }
 .no-js .filter-status { display: none; }
+.no-js .atlas-controls { display: none; }
 
 .territory { position: relative; max-width: 1250px; margin: 3rem auto 0; border-top: 2px solid var(--blue); }
 .territory::before { content: ""; position: absolute; top: 0; bottom: 0; left: 4.15rem; border-left: 1px dashed var(--red); pointer-events: none; }
