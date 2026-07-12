@@ -23,6 +23,17 @@ body {
   font-family: Georgia, "Times New Roman", serif;
 }
 
+body::before {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  pointer-events: none;
+  content: "";
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.16'/%3E%3C/svg%3E");
+  opacity: .09;
+  mix-blend-mode: multiply;
+}
+
 a { color: inherit; }
 
 .skip-link {
@@ -98,6 +109,9 @@ h1 em { color: var(--orange); font-style: italic; }
 
 .hero-figure { position: relative; padding: 3rem; overflow: hidden; color: var(--paper); background: var(--olive); }
 .route-map { position: relative; min-height: 500px; margin-top: 2rem; border: 1px solid rgba(232,224,201,.44); }
+.route-map::before, .route-map::after { position: absolute; content: "+"; color: rgba(232,224,201,.6); font: 1rem "Courier New", monospace; }
+.route-map::before { top: -.65rem; left: -.35rem; }
+.route-map::after { right: -.35rem; bottom: -.65rem; }
 .route-node { position: absolute; z-index: 2; display: grid; place-items: center; width: 7rem; height: 7rem; border: 2px solid var(--paper); font: 700 .8rem/1.25 "Courier New", monospace; text-align: center; text-transform: uppercase; }
 .route-source { top: 3rem; left: 2rem; border-radius: 50%; }
 .route-skill { top: 12rem; right: 2.5rem; color: var(--ink); background: var(--paper); transform: rotate(3deg); }
@@ -187,6 +201,11 @@ footer { display: flex; justify-content: space-between; max-width: var(--max); m
 
 :focus-visible { outline: 3px solid var(--orange); outline-offset: 3px; }
 
+.has-reveal .manual-section,
+.has-reveal .contribute { opacity: 0; transform: translateY(24px); }
+.has-reveal .manual-section.is-visible,
+.has-reveal .contribute.is-visible { opacity: 1; transform: translateY(0); transition: opacity .65s ease, transform .65s ease; }
+
 @media (hover: hover) {
   .button { transition: transform .18s ease, box-shadow .18s ease; }
   .button:hover { transform: translate(-3px, -3px); box-shadow: 3px 3px 0 var(--ink); }
@@ -195,8 +214,9 @@ footer { display: flex; justify-content: space-between; max-width: var(--max); m
 
 @media (max-width: 800px) {
   .menu-toggle { display: block; border: 1px solid var(--ink); padding: .6rem .8rem; background: transparent; font: 700 .72rem "Courier New", monospace; text-transform: uppercase; }
-  nav { position: absolute; top: 100%; right: 1rem; left: 1rem; display: none; padding: 1rem; border: 1px solid var(--ink); background: var(--paper); flex-direction: column; align-items: stretch; }
-  nav[data-open="true"] { display: flex; }
+  nav { position: absolute; top: 100%; right: 1rem; left: 1rem; padding: 1rem; border: 1px solid var(--ink); background: var(--paper); flex-direction: column; align-items: stretch; }
+  .js nav { display: none; }
+  .js nav[data-open="true"] { display: flex; }
   nav a { padding: .6rem; }
   .hero { grid-template-columns: 1fr; }
   .hero-figure { min-height: 620px; }
@@ -231,4 +251,5 @@ footer { display: flex; justify-content: space-between; max-width: var(--max); m
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
+  *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
 }
