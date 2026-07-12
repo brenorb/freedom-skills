@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Freedom Skills is an open atlas of portable, safer workflows for Bitcoin, Nostr, privacy tools, research, and preservation.">
+  <meta name="theme-color" content="#f2e4c5">
+  <title>Freedom Skills — An atlas for practical autonomy</title>
+  <link rel="stylesheet" href="styles.css">
+  <script>document.documentElement.className='js'</script>
+</head>
+<body>
+  <a class="skip-link" href="#atlas">Skip to the atlas</a>
+
+  <header class="masthead">
+    <a class="wordmark" href="#top" aria-label="Freedom Skills home">
+      <span class="compass" aria-hidden="true">✦</span>
+      <span>Freedom Skills</span>
+    </a>
+    <nav aria-label="Primary navigation">
+      <a href="#atlas">The atlas</a>
+      <a href="#principles">Trust</a>
+      <a href="#contribute">Contribute</a>
+    </nav>
+    <a class="repository-link" href="https://github.com/HRF/freedom-skills">View repository <span aria-hidden="true">↗</span></a>
+  </header>
+
+  <main id="top">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="eyebrow">Field atlas · edition 01</p>
+        <h1 id="hero-title">Routes to<br><em>practical autonomy</em></h1>
+        <p class="lede">An open library that turns complex freedom technologies into portable, agent-ready journeys—for people who need to communicate, transact, research, and preserve information on their own terms.</p>
+        <div class="hero-actions">
+          <a class="primary-action" href="#atlas">Open the atlas <span aria-hidden="true">↓</span></a>
+          <a href="#how-it-travels">How skills travel</a>
+        </div>
+      </div>
+
+      <div class="hero-map" aria-label="An illustrated compass showing six routes through the Freedom Skills atlas">
+        <svg viewBox="0 0 620 620" role="img" aria-labelledby="compass-title compass-desc">
+          <title id="compass-title">The Freedom Skills compass</title>
+          <desc id="compass-desc">Six lines radiate from an open center toward communication, money, privacy, preservation, research, and product design.</desc>
+          <defs>
+            <path id="ring-path" d="M310,310 m-238,0 a238,238 0 1,1 476,0 a238,238 0 1,1 -476,0"/>
+          </defs>
+          <circle class="map-wash" cx="310" cy="310" r="278"/>
+          <circle class="map-ring ring-one" cx="310" cy="310" r="238"/>
+          <circle class="map-ring" cx="310" cy="310" r="176"/>
+          <circle class="map-ring" cx="310" cy="310" r="74"/>
+          <g class="longitude" aria-hidden="true">
+            <path d="M310 32v556M32 310h556M113 113l394 394M507 113L113 507"/>
+          </g>
+          <g class="route-lines" aria-hidden="true">
+            <path d="M310 310 C258 238 214 170 168 91"/>
+            <path d="M310 310 C365 224 412 166 462 92"/>
+            <path d="M310 310 C403 287 482 274 558 252"/>
+            <path d="M310 310 C386 374 429 437 472 520"/>
+            <path d="M310 310 C256 403 222 464 173 530"/>
+            <path d="M310 310 C224 323 147 341 65 374"/>
+          </g>
+          <g class="landmarks" aria-hidden="true">
+            <circle cx="168" cy="91" r="7"/><circle cx="462" cy="92" r="7"/>
+            <circle cx="558" cy="252" r="7"/><circle cx="472" cy="520" r="7"/>
+            <circle cx="173" cy="530" r="7"/><circle cx="65" cy="374" r="7"/>
+          </g>
+          <path class="needle" d="M310 147l22 141 141 22-141 22-22 141-22-141-141-22 141-22z"/>
+          <circle class="center" cx="310" cy="310" r="34"/>
+          <text class="center-mark" x="310" y="319" text-anchor="middle">FS</text>
+          <g class="map-labels">
+            <text x="167" y="68" text-anchor="middle">COMMUNICATE</text>
+            <text x="465" y="68" text-anchor="middle">TRANSACT</text>
+            <text x="559" y="229" text-anchor="end">PROTECT</text>
+            <text x="480" y="548" text-anchor="middle">PRESERVE</text>
+            <text x="171" y="558" text-anchor="middle">RESEARCH</text>
+            <text x="61" y="401">DESIGN</text>
+          </g>
+        </svg>
+        <p class="plate-caption"><span>Plate I</span> A map is not the territory. It is a way to begin.</p>
+      </div>
+    </section>
+
+    <section class="orientation" aria-label="Project orientation">
+      <p class="section-number">00 / Orientation</p>
+      <blockquote>“Make freedom technologies as convenient to use as mainstream apps—without making convenience depend on centralized, data-extracting services.”</blockquote>
+      <p>Free and open tools exist. The hard part is crossing the distance between an unfamiliar interface and a safe, repeatable outcome. Freedom Skills maps that distance.</p>
+    </section>
+
+    <section class="atlas" id="atlas" aria-labelledby="atlas-title">
+      <div class="section-heading">
+        <div>
+          <p class="section-number">01 / The living atlas</p>
+          <h2 id="atlas-title">Choose a route</h2>
+        </div>
+        <p>Fifteen landmarks across six routes. Select a legend entry to trace one path, or explore the whole territory.</p>
+      </div>
+
+      <div class="atlas-controls" aria-label="Filter atlas by route">
+        <button class="route-filter is-active" type="button" data-route="all" aria-pressed="true"><i></i>All routes <span>15</span></button>
+        <button class="route-filter" type="button" data-route="communication" aria-pressed="false"><i></i>Communication <span>2</span></button>
+        <button class="route-filter" type="button" data-route="money" aria-pressed="false"><i></i>Money <span>5</span></button>
+        <button class="route-filter" type="button" data-route="privacy" aria-pressed="false"><i></i>Privacy <span>3</span></button>
+        <button class="route-filter" type="button" data-route="preservation" aria-pressed="false"><i></i>Preservation <span>2</span></button>
+        <button class="route-filter" type="button" data-route="research" aria-pressed="false"><i></i>Research <span>2</span></button>
+        <button class="route-filter" type="button" data-route="product" aria-pressed="false"><i></i>Product <span>1</span></button>
+      </div>
+      <p class="filter-status" id="filter-status" role="status" aria-live="polite">Showing all 15 landmarks.</p>
+
+      <div class="territory" id="territory">
+        <div class="route-region" data-route="communication">
+          <header><span class="route-index">A</span><div><h3>The Relay Coast</h3><p>Speak, publish, and coordinate across open or private channels.</p></div></header>
+          <ol class="landmark-list">
+            <li><a href="../skills/nostr-cli/"><b>nostr-cli</b><span>Nostr accounts, relays, posts, replies, DMs, follows, and long-form publishing.</span><small>Open social protocol</small></a></li>
+            <li><a href="../skills/signal-cli/"><b>signal-cli</b><span>Private Signal messages, attachments, contacts, groups, setup, and troubleshooting.</span><small>Private messaging</small></a></li>
+          </ol>
+        </div>
+
+        <div class="route-region" data-route="money">
+          <header><span class="route-index">B</span><div><h3>The Lightning Passage</h3><p>Move value and build paid digital services without custodial detours.</p></div></header>
+          <ol class="landmark-list">
+            <li><a href="../skills/mdk-agent-wallet/"><b>mdk-agent-wallet</b><span>Self-custodial agent wallets for Lightning payments, balances, history, and L402 access.</span><small>Agent wallet</small></a></li>
+            <li><a href="../skills/mdk-l402-api/"><b>mdk-l402-api</b><span>Paid Next.js or Express APIs using HTTP 402 and Lightning payment flows.</span><small>Paid APIs</small></a></li>
+            <li><a href="../skills/mdk-mcp/"><b>mdk-mcp</b><span>Connect coding agents to Money Dev Kit MCP servers and account resources.</span><small>Agent connection</small></a></li>
+            <li><a href="../skills/mdk-nextjs-checkout/"><b>mdk-nextjs-checkout</b><span>Lightning checkout for Next.js App Router applications.</span><small>Next.js payments</small></a></li>
+            <li><a href="../skills/mdk-replit-checkout/"><b>mdk-replit-checkout</b><span>Lightning checkout for Replit Vite, React, and Express applications.</span><small>Replit payments</small></a></li>
+          </ol>
+        </div>
+
+        <div class="route-region" data-route="privacy">
+          <header><span class="route-index">C</span><div><h3>The Shelter Range</h3><p>Inspect what you install, reduce exposure, and release files on your clock.</p></div></header>
+          <ol class="landmark-list">
+            <li><a href="../skills/rampart-hook-configurator/"><b>rampart-hook-configurator</b><span>Configure and verify paired hooks that reduce sensitive-data exposure.</span><small>Data boundaries</small></a></li>
+            <li><a href="../skills/skillspector/"><b>skillspector</b><span>Security-scan individual skills or entire repositories before installation.</span><small>Skill inspection</small></a></li>
+            <li><a href="../skills/timelock-sh/"><b>timelock-sh</b><span>Time-lock, inspect, and decrypt files with a local wrapper around timelock.sh.</span><small>Timed release</small></a></li>
+          </ol>
+        </div>
+
+        <div class="route-region" data-route="preservation">
+          <header><span class="route-index">D</span><div><h3>The Memory Archipelago</h3><p>Send without a warehouse. Preserve what may otherwise disappear.</p></div></header>
+          <ol class="landmark-list">
+            <li><a href="../skills/p2p-transfer-filepizza/"><b>p2p-transfer-filepizza</b><span>Share local files through temporary peer-to-peer FilePizza links.</span><small>Peer-to-peer sharing</small></a></li>
+            <li><a href="../skills/wayback-archive/"><b>wayback-archive</b><span>Archive webpages, check snapshots, and create stable citation links.</span><small>Web preservation</small></a></li>
+          </ol>
+        </div>
+
+        <div class="route-region" data-route="research">
+          <header><span class="route-index">E</span><div><h3>The Observatory</h3><p>Turn public signals and recorded media into useful evidence.</p></div></header>
+          <ol class="landmark-list">
+            <li><a href="../skills/domain-intel/"><b>domain-intel</b><span>Passive domain reconnaissance: subdomains, certificates, WHOIS, DNS, and availability.</span><small>Passive OSINT</small></a></li>
+            <li><a href="../skills/fast-transcript/"><b>fast-transcript</b><span>Transcribe and inspect local or remote audio and video, with optional diarization.</span><small>Media research</small></a></li>
+          </ol>
+        </div>
+
+        <div class="route-region" data-route="product">
+          <header><span class="route-index">F</span><div><h3>The Workshop Quarter</h3><p>Make Bitcoin products legible, humane, and safer to navigate.</p></div></header>
+          <ol class="landmark-list">
+            <li><a href="../skills/mo-ux-vibedesign-btc/"><b>mo-ux-vibedesign-btc</b><span>Senior Bitcoin UX reviews spanning interviews, copy, flows, wireframes, mockups, and benchmarks.</span><small>Bitcoin product design</small></a></li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <section class="portability" id="how-it-travels" aria-labelledby="travel-title">
+      <div class="travel-illustration" aria-hidden="true">
+        <span class="seal">SKILL<br><b>✦</b><br>PORTABLE</span>
+        <div class="travel-line"></div>
+        <span class="destination">agent<br>workspace</span>
+      </div>
+      <div class="travel-copy">
+        <p class="section-number">02 / How knowledge travels</p>
+        <h2 id="travel-title">Pack the route,<br>not just the destination.</h2>
+        <p>An Agent Skill is a portable package of instructions and resources. At its heart is a <code>SKILL.md</code>; alongside it can travel scripts, references, templates, and tests.</p>
+        <ol>
+          <li><b>Discover</b><span>A compatible agent reads compact metadata and recognizes when a skill applies.</span></li>
+          <li><b>Load</b><span>Detailed guidance enters context only when it is relevant to the task.</span></li>
+          <li><b>Act with context</b><span>The workflow carries prerequisites, commands, caveats, and trust assumptions with it.</span></li>
+        </ol>
+        <p class="standard-note">Built on the open <a href="https://agentskills.io">Agent Skills standard <span aria-hidden="true">↗</span></a></p>
+      </div>
+    </section>
+
+    <section class="principles" id="principles" aria-labelledby="principles-title">
+      <div class="principles-intro">
+        <p class="section-number">03 / Trust boundary</p>
+        <h2 id="principles-title">A useful map marks the cliffs.</h2>
+        <p>Convenience is not permission. Skills should make critical assumptions visible and keep the human in control of consequential actions.</p>
+      </div>
+      <dl>
+        <div><dt>Inspect before installing</dt><dd>Review workflows and scan skill packages. Know what code, services, and permissions are involved.</dd></div>
+        <div><dt>Secrets stay secret</dt><dd>Credentials, wallet mnemonics, private keys, and sensitive data belong in appropriate local or server-side storage—not source control.</dd></div>
+        <div><dt>Consent before consequence</dt><dd>Publishing, messaging, paying, and other external actions should remain explicit and intentional.</dd></div>
+        <div><dt>Caveats travel too</dt><dd>A good skill documents prerequisites, failure modes, privacy tradeoffs, and trust assumptions beside the happy path.</dd></div>
+      </dl>
+    </section>
+
+    <section class="contribute" id="contribute" aria-labelledby="contribute-title">
+      <p class="section-number">04 / Uncharted territory</p>
+      <div class="contribute-grid">
+        <h2 id="contribute-title">Help draw the<br><em>next route.</em></h2>
+        <div>
+          <p>Freedom Skills is an open-source community project. Propose a tool, improve a workflow, add scripts or references, write tests, or report what the map gets wrong.</p>
+          <p>A useful contribution explains the workflow, intended users, prerequisites, safety assumptions, and relevant tests or examples.</p>
+          <a class="primary-action light" href="https://github.com/HRF/freedom-skills">Explore the repository <span aria-hidden="true">↗</span></a>
+        </div>
+      </div>
+      <p class="coordinates">15 landmarks · 6 routes · one open atlas</p>
+    </section>
+  </main>
+
+  <footer>
+    <a class="wordmark" href="#top"><span class="compass" aria-hidden="true">✦</span><span>Freedom Skills</span></a>
+    <p>Practical routes through freedom technology.</p>
+    <p>Open source · Built for human agency</p>
+  </footer>
+  <script src="script.js" defer></script>
+</body>
+</html>
