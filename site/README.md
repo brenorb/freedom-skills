@@ -7,14 +7,14 @@ A dependency-free static landing page for Freedom Skills. The visual system trea
 From the repository root:
 
 ```sh
-python3 -m http.server 8000 -d site
+python3 -m http.server 8000
 ```
 
-Then open `http://localhost:8000`.
+Then open `http://localhost:8000/site/`. Serving the repository root keeps the relative links to individual skills working.
 
 ## Structure
 
-- `index.html` — semantic content, inline network graphic, and all 14 primary skill routes
+- `index.html` — semantic content, inline network graphic, and all 15 skill routes
 - `styles.css` — responsive cyan/amber-on-ink system, motion, and reduced-motion handling
 - `script.js` — navigation, copy feedback, skill filters, network inspection, and viewport reveals
 
