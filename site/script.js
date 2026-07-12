@@ -1,3 +1,5 @@
+document.documentElement.classList.add('js');
+
 const menuButton = document.querySelector('.menu-toggle');
 const navigation = document.querySelector('#primary-nav');
 
@@ -51,3 +53,21 @@ document.addEventListener('keydown', (event) => {
     menuButton.focus();
   }
 });
+
+const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+if (!reducedMotion && 'IntersectionObserver' in window) {
+  document.documentElement.classList.add('has-reveal');
+  const revealObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { rootMargin: '0px 0px -10% 0px', threshold: 0.08 });
+
+  document.querySelectorAll('.manual-section, .contribute').forEach((section) => {
+    revealObserver.observe(section);
+  });
+}
