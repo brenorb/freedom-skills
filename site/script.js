@@ -242,6 +242,7 @@
   setupFilters();
   setupTrust();
   setupMagnetics();
+  if (reducedMotion.matches) document.querySelectorAll('video').forEach((video) => video.pause());
   createEmberField(document.querySelector('#ember-field'));
   createEmberField(document.querySelector('#commons-field'), {
     density: 7000,
