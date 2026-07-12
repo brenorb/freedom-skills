@@ -78,6 +78,74 @@ h1 em { position: relative; color: var(--blue); font-style: normal; text-shadow:
 .manifesto { display: grid; grid-template-columns: 1fr 1fr; gap: 8vw; padding: clamp(4rem, 10vw, 9rem) clamp(1rem, 8vw, 9rem); background: var(--yellow); border-bottom: var(--line); font: 900 clamp(2rem, 5vw, 5rem)/.98 Impact, sans-serif; text-transform: uppercase; }
 .manifesto-answer { color: var(--blue); transform: rotate(2deg); text-shadow: 3px 3px 0 var(--red); }
 
+.section-heading { display: grid; grid-template-columns: 1fr 1.5fr 1fr; gap: 2rem; align-items: end; margin-bottom: 3rem; }
+.section-heading h2, .portable h2, .safety h2, .contribute h2 { margin-bottom: 0; font: 900 clamp(3rem, 7vw, 7rem)/.85 Impact, Haettenschweiler, sans-serif; text-transform: uppercase; }
+.section-heading > p:last-child { max-width: 32rem; font-size: 1.05rem; font-weight: 700; }
+.skill-shelf { padding: clamp(4rem, 9vw, 8rem) clamp(1rem, 5vw, 5rem); border-bottom: var(--line); }
+.filter-bar { display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: 2.5rem; }
+.filter { border: var(--line); border-radius: 0; padding: .55rem .8rem; background: transparent; color: inherit; font: 900 .78rem/1 "Courier New", monospace; text-transform: uppercase; cursor: pointer; }
+.filter:hover, .filter.active { background: var(--ink); color: var(--paper); }
+.skill-list { border-top: var(--line); }
+.skill-strip { position: relative; display: grid; grid-template-columns: 4rem 1fr auto; gap: clamp(1rem, 4vw, 4rem); align-items: center; min-height: 150px; padding: 1.5rem; border-bottom: var(--line); isolation: isolate; transition: color 180ms ease; }
+.skill-strip::before { content: ""; position: absolute; z-index: -1; inset: 0; right: 100%; transition: right 220ms ease; }
+.skill-strip.blue::before { background: var(--blue); }
+.skill-strip.red::before { background: var(--red); }
+.skill-strip.yellow::before { background: var(--yellow); }
+.skill-strip:hover::before, .skill-strip:focus-within::before { right: 0; }
+.skill-strip.blue:hover, .skill-strip.red:hover, .skill-strip.blue:focus-within, .skill-strip.red:focus-within { color: var(--paper-light); }
+.skill-strip[hidden] { display: none; }
+.skill-strip .number { align-self: start; font: 900 1.4rem/1 "Courier New", monospace; }
+.skill-strip h3 { margin: .2rem 0 .4rem; font: 900 clamp(1.8rem, 4vw, 3.8rem)/.9 Impact, sans-serif; letter-spacing: .02em; }
+.skill-strip p { max-width: 760px; margin-bottom: 0; }
+.skill-strip .category { font-size: .68rem; }
+.skill-strip > a { padding: .5rem 0; font-weight: 900; text-transform: uppercase; text-underline-offset: 4px; white-space: nowrap; }
+.filter-status { margin: 1rem 0 0; font: 700 .75rem/1.4 "Courier New", monospace; text-transform: uppercase; }
+
+.portable { display: grid; grid-template-columns: 1.1fr .9fr; min-height: 700px; border-bottom: var(--line); }
+.portable-poster { position: relative; overflow: hidden; padding: clamp(4rem, 8vw, 8rem) clamp(1rem, 7vw, 7rem); background: var(--blue); color: var(--paper-light); }
+.portable-poster::after { content: "PORTABLE"; position: absolute; right: -2rem; bottom: -1rem; color: var(--red); opacity: .75; font: 900 clamp(5rem, 13vw, 13rem)/.7 Impact, sans-serif; transform: rotate(-8deg); }
+.portable-poster h2 { position: relative; z-index: 1; margin: 2rem 0; color: var(--yellow); text-shadow: 5px 4px 0 var(--red); }
+.portable-poster > p:not(.kicker) { position: relative; z-index: 1; max-width: 44rem; font-size: 1.2rem; font-weight: 700; }
+code { padding: .05em .3em; background: var(--paper); color: var(--ink); font-family: "Courier New", monospace; }
+.standard-note { margin-top: 3rem; font-family: "Courier New", monospace; font-size: .9rem !important; }
+.print-process { display: grid; grid-template-rows: repeat(4, 1fr); margin: 0; padding: 0; list-style: none; }
+.print-process li { display: grid; grid-template-columns: 5rem 1fr; gap: 1rem; align-items: center; padding: 2rem clamp(1rem, 5vw, 4rem); border-bottom: var(--line); }
+.print-process li:last-child { border-bottom: 0; }
+.print-process li:nth-child(1) { background: var(--yellow); }
+.print-process li:nth-child(3) { background: var(--red); color: var(--paper-light); }
+.print-process span { display: grid; place-items: center; width: 3.8rem; aspect-ratio: 1; border: var(--line); border-radius: 50%; background: var(--paper-light); color: var(--ink); font: 900 2rem/1 Impact, sans-serif; }
+.print-process strong { font: 900 1.6rem/1 Impact, sans-serif; text-transform: uppercase; letter-spacing: .03em; }
+.print-process p { margin: .4rem 0 0; max-width: 27rem; }
+
+.safety { display: grid; grid-template-columns: .8fr 1.2fr; gap: clamp(3rem, 9vw, 9rem); padding: clamp(5rem, 11vw, 10rem) clamp(1rem, 8vw, 9rem); background: var(--ink); color: var(--paper); border-bottom: var(--line); }
+.safety-title-wrap { position: relative; }
+.safety h2 { color: var(--paper); text-shadow: 5px 4px 0 var(--blue); }
+.stamp-small { position: absolute; top: -3rem; right: -1rem; display: grid; place-items: center; width: 100px; aspect-ratio: 1; border: 4px double var(--yellow); border-radius: 50%; color: var(--yellow); font: 900 .8rem/1.1 "Courier New", monospace; text-align: center; transform: rotate(9deg); }
+.safety-copy .lead { color: var(--yellow); font: 900 clamp(1.5rem, 3vw, 2.6rem)/1.08 "Trebuchet MS", sans-serif; }
+.safety ul { padding: 0; list-style: none; border-top: 1px solid var(--paper); }
+.safety li { padding: 1.2rem 0; border-bottom: 1px solid var(--paper); font-size: 1rem; }
+.safety li strong { color: var(--red); text-transform: uppercase; }
+.hook-note { margin-top: 2rem; padding: 1rem; border: 2px dashed var(--yellow); font: 700 .82rem/1.5 "Courier New", monospace; }
+
+.contribute { position: relative; overflow: hidden; padding: clamp(5rem, 10vw, 9rem) clamp(1rem, 8vw, 9rem); background: var(--red); border-bottom: var(--line); }
+.contribute h2 { max-width: 900px; margin: 1rem 0 2rem; color: var(--paper); }
+.contribute h2 em { color: var(--yellow); font-style: normal; text-shadow: 5px 4px 0 var(--blue); }
+.contribute-lead { max-width: 760px; font-size: 1.3rem; font-weight: 800; }
+.contribution-fold { display: grid; grid-template-columns: 1fr 1fr; max-width: 1000px; margin: 4rem auto 0; border: var(--line); background: var(--paper-light); box-shadow: 12px 12px 0 var(--blue); transform: rotate(-1deg); }
+.contribution-fold > div { padding: clamp(1.5rem, 5vw, 4rem); }
+.contribution-fold > div + div { border-left: var(--line); }
+.contribution-fold h3 { font: 900 1.7rem/1 Impact, sans-serif; text-transform: uppercase; }
+.contribution-fold ul { padding-left: 1.2rem; font-weight: 700; }
+.pull-tab { display: flex; flex-direction: column; justify-content: space-between; background: var(--yellow); }
+.pull-tab p { font: 900 clamp(2rem, 5vw, 4.5rem)/.83 Impact, sans-serif; color: var(--blue); text-shadow: 3px 2px 0 var(--red); }
+.confetti i { position: absolute; display: block; width: 40px; height: 15px; background: var(--yellow); transform: rotate(20deg); }
+.confetti i:nth-child(1) { top: 7%; left: 4%; }.confetti i:nth-child(2) { top: 14%; right: 8%; background: var(--blue); transform: rotate(-30deg); }.confetti i:nth-child(3) { top: 48%; right: 3%; }.confetti i:nth-child(4) { bottom: 8%; left: 6%; background: var(--blue); transform: rotate(65deg); }.confetti i:nth-child(5) { bottom: 22%; right: 15%; transform: rotate(-60deg); }
+
+footer { display: grid; grid-template-columns: 1fr 1fr 1fr; align-items: end; gap: 2rem; padding: 3rem clamp(1rem, 5vw, 5rem); background: var(--paper); }
+.footer-mark { font-size: 1.7rem; }
+footer p { margin: 0; font-weight: 700; }
+.colophon { text-align: right; font: 700 .65rem/1.5 "Courier New", monospace; }
+
 @media (max-width: 760px) {
   .masthead { min-height: 74px; }
   .menu-button { display: block; }
@@ -94,6 +162,16 @@ h1 em { position: relative; color: var(--blue); font-style: normal; text-shadow:
   .sun { width: 220px; height: 220px; }
   .margin-note { display: none; }
   .manifesto { grid-template-columns: 1fr; }
+  .section-heading { grid-template-columns: 1fr; }
+  .skill-strip { grid-template-columns: 2.5rem 1fr; }
+  .skill-strip > a { grid-column: 2; }
+  .portable, .safety { grid-template-columns: 1fr; }
+  .portable-poster::after { font-size: 6rem; }
+  .stamp-small { right: 0; }
+  .contribution-fold { grid-template-columns: 1fr; box-shadow: 7px 7px 0 var(--blue); }
+  .contribution-fold > div + div { border-left: 0; border-top: var(--line); }
+  footer { grid-template-columns: 1fr; }
+  .colophon { text-align: left; }
 }
 
 @media (prefers-reduced-motion: reduce) {
