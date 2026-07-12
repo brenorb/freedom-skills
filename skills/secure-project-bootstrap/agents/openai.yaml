@@ -1,0 +1,4 @@
+interface:
+  display_name: "Secure Project Bootstrap"
+  short_description: "Start a project with simple, privacy-conscious security defaults"
+  default_prompt: "Use $secure-project-bootstrap to help me start this project with the minimum secure setup, clear next steps, and avoidable risks called out."
