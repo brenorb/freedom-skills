@@ -19,6 +19,7 @@
 
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
+::selection { color: var(--ink); background: var(--sun); }
 body {
   margin: 0;
   color: var(--ink);
@@ -149,6 +150,11 @@ h2 { font-size: clamp(50px, 5.2vw, 84px); margin: 0; }
 .skill p:last-child { font-size: 12px; line-height: 1.5; color: #47665a; margin: 0; max-width: 275px; }
 .skill > a { align-self: start; text-decoration: none; font-size: 18px; }
 .noscript-note { padding: 15px; background: var(--sun); }
+.no-js .path-controls, .no-js .route-status { display: none; }
+
+@supports not (backdrop-filter: blur(1px)) {
+  .hero-message { background: rgba(255, 254, 245, .96); }
+}
 
 .portable { background: linear-gradient(115deg, #cce8ec, #eff6d7 72%); min-height: 760px; display: grid; grid-template-columns: 1fr 1fr; overflow: hidden; }
 .portable-window { position: relative; display: grid; place-items: center; min-height: 700px; background: linear-gradient(165deg, rgba(255,255,255,.6), transparent 45%); border-right: 1px solid rgba(20,51,41,.15); }
