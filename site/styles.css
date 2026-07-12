@@ -343,10 +343,18 @@ footer > a:last-child { justify-self: end; color: var(--mint); font-size: .72rem
   .site-header { padding: 1rem 1.25rem; }
   .header-cta { font-size: .62rem; }
   .wordmark { font-size: 1rem; }
-  .hero { min-height: 940px; padding-top: 8.5rem; }
+  .hero { min-height: auto; padding-top: 8.5rem; padding-bottom: 5.5rem; }
   h1 { font-size: clamp(3.75rem, 17vw, 5.4rem); }
   .hero-intro { font-size: 1rem; }
-  .hero-poster { right: 50%; width: 220px; transform: translateX(50%) rotate(3.5deg); }
+  .hero-poster {
+    position: relative;
+    top: auto;
+    right: auto;
+    bottom: auto;
+    width: min(220px, calc(100% - 2rem));
+    margin: 4rem auto 2rem;
+    transform: rotate(3.5deg);
+  }
   .welcome, .program-header, .travel-section, .trust-section { grid-template-columns: 1fr; }
   .section-stamp { display: none; }
   .welcome > p, .trust-promises { grid-column: auto; }
