@@ -45,6 +45,7 @@ Freedom Skills follows the open [Agent Skills standard](https://agentskills.io).
 
 | Skill | What it enables |
 |---|---|
+| [`unbroker`](skills/unbroker/) | Find and remove personal information from data brokers and people-search sites, with consent-gated automation, guided human steps, and recurring rechecks. |
 | [`rampart-hook-configurator`](skills/rampart-hook-configurator/) | Install, configure, tune, and verify the paired Rampart hooks for reducing sensitive-data exposure in agent workflows. |
 | [`skillspector`](skills/skillspector/) | Security scans for individual skills or skill repositories before installation. |
 | [`timelock-sh`](skills/timelock-sh/) | Time-locking, inspecting, and decrypting files with `timelock.sh`. |
