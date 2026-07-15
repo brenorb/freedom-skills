@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Freedom Skills is an open field library of agent-ready workflows for Bitcoin, Nostr, privacy, resilience, and the open web.">
+  <title>Freedom Skills — Field Manual</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to field manual</a>
+  <header class="site-header">
+    <a class="wordmark" href="#top" aria-label="Freedom Skills home">
+      <span class="wordmark-mark" aria-hidden="true">FS</span>
+      <span>Freedom Skills</span>
+    </a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">Index</button>
+    <nav id="primary-nav" aria-label="Primary navigation">
+      <a href="#brief">Brief</a>
+      <a href="#procedure">Procedure</a>
+      <a href="#inventory">Inventory</a>
+      <a href="#protocol">Protocol</a>
+      <a class="nav-cta" href="https://github.com/brenorb/freedom-skills">Open repository ↗</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="top" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="eyebrow">Open field library · issue 01</p>
+        <h1 id="hero-title">Practical operating knowledge for <em>freedom technology.</em></h1>
+        <p class="lede">Portable skills help AI agents navigate Bitcoin, Nostr, privacy tools, and the open web—with the procedures, guardrails, and caveats intact.</p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="#inventory">Inspect the inventory</a>
+          <a class="button button-secondary" href="#procedure">Read the procedure</a>
+        </div>
+      </div>
+      <div class="hero-figure" aria-label="Diagram showing raw tools becoming usable agent workflows">
+        <div class="figure-label">Operational diagram / 01</div>
+        <div class="route-map" aria-hidden="true">
+          <span class="route-node route-source">Raw<br>tool</span>
+          <span class="route-line route-line-a"></span>
+          <span class="route-node route-skill">Skill<br>file</span>
+          <span class="route-line route-line-b"></span>
+          <span class="route-node route-agent">Agent<br>action</span>
+          <span class="route-note">context + procedure + safety</span>
+        </div>
+        <p class="figure-caption"><strong>Objective:</strong> reduce friction without surrendering user agency.</p>
+      </div>
+    </section>
+
+    <section class="brief manual-section" id="brief" aria-labelledby="brief-title">
+      <div class="section-index"><span>01</span><p>Mission brief</p></div>
+      <div class="section-body brief-grid">
+        <div>
+          <p class="eyebrow">The friction is operational</p>
+          <h2 id="brief-title">Good tools are not enough. People need a usable route through them.</h2>
+        </div>
+        <div class="brief-copy">
+          <p>Open technologies can help people communicate, transact, preserve information, and coordinate with greater autonomy. Yet each tool arrives with its own interface, vocabulary, setup, and security assumptions.</p>
+          <p>Freedom Skills packages that hard-won knowledge into portable, agent-ready workflows. A compatible agent can recognize the task, load the relevant instructions, use the right tools, and surface the decisions that still belong to the human.</p>
+          <div class="margin-note">
+            <span aria-hidden="true">✳</span>
+            <p><strong>Design constraint</strong><br>Convenience should not require centralized, data-extracting services.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="procedure manual-section" id="procedure" aria-labelledby="procedure-title">
+      <div class="section-index"><span>02</span><p>Operating procedure</p></div>
+      <div class="section-body">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Portable by construction</p>
+            <h2 id="procedure-title">One small file opens the right field kit.</h2>
+          </div>
+          <p>An Agent Skill is a folder built around <code>SKILL.md</code>. Metadata helps compatible agents discover it; detailed instructions load only when the task calls for them.</p>
+        </div>
+        <ol class="procedure-list">
+          <li>
+            <span class="step-number">A</span>
+            <div><h3>Place</h3><p>Copy or clone a skill folder into the compatible agent’s skills directory.</p></div>
+            <code>skills/&lt;skill-name&gt;/</code>
+          </li>
+          <li>
+            <span class="step-number">B</span>
+            <div><h3>Discover</h3><p>The agent reads compact metadata to know when the skill is relevant.</p></div>
+            <code>name + description</code>
+          </li>
+          <li>
+            <span class="step-number">C</span>
+            <div><h3>Load</h3><p>When triggered, it reads the full workflow and only the resources the job needs.</p></div>
+            <code>SKILL.md → references/</code>
+          </li>
+          <li>
+            <span class="step-number">D</span>
+            <div><h3>Operate</h3><p>Scripts, checks, guardrails, and user confirmations guide real execution.</p></div>
+            <code>act → verify → report</code>
+          </li>
+        </ol>
+        <p class="standard-note">Built around the open <a href="https://agentskills.io">Agent Skills standard ↗</a></p>
+      </div>
+    </section>
+
+    <section class="inventory manual-section" id="inventory" aria-labelledby="inventory-title">
+      <div class="section-index"><span>03</span><p>Capability inventory</p></div>
+      <div class="section-body">
+        <div class="section-heading inventory-heading">
+          <div>
+            <p class="eyebrow">15 skills / 6 sectors</p>
+            <h2 id="inventory-title">Select the operation, not the app.</h2>
+          </div>
+          <div class="filter-panel" role="group" aria-label="Filter skills by sector">
+            <button class="filter is-active" type="button" data-filter="all" aria-pressed="true">All / 15</button>
+            <button class="filter" type="button" data-filter="comms" aria-pressed="false">Comms</button>
+            <button class="filter" type="button" data-filter="money" aria-pressed="false">Money</button>
+            <button class="filter" type="button" data-filter="safety" aria-pressed="false">Safety</button>
+            <button class="filter" type="button" data-filter="sharing" aria-pressed="false">Sharing</button>
+            <button class="filter" type="button" data-filter="research" aria-pressed="false">Research</button>
+            <button class="filter" type="button" data-filter="product" aria-pressed="false">Product</button>
+          </div>
+        </div>
+        <p class="filter-status" aria-live="polite">Showing all 15 field kits.</p>
+        <div class="skill-grid">
+          <a class="skill-card" data-category="comms" href="../skills/nostr-cli/">
+            <span class="skill-code">COM–01</span><span class="skill-arrow" aria-hidden="true">↗</span>
+            <h3>nostr-cli</h3><p>Accounts, relays, profiles, notes, replies, DMs, follows, and long-form publishing.</p><span class="skill-tag">Communication</span>
+          </a>
+          <a class="skill-card" data-category="comms" href="../skills/signal-cli/">
+            <span class="skill-code">COM–02</span><span class="skill-arrow" aria-hidden="true">↗</span>
+            <h3>signal-cli</h3><p>Private messages and attachments, contacts, groups, setup, and troubleshooting.</p><span class="skill-tag">Communication</span>
+          </a>
+          <a class="skill-card" data-category="money" href="../skills/mdk-agent-wallet/">
+            <span class="skill-code">PAY–01</span><span class="skill-arrow" aria-hidden="true">↗</span>
+            <h3>mdk-agent-wallet</h3><p>Self-custodial Lightning payments, balances, payment history, and L402 access.</p><span class="skill-tag">Money</span>
+          </a>
+          <a class="skill-card" data-category="money" href="../skills/mdk-l402-api/">
+            <span class="skill-code">PAY–02</span><span class="skill-arrow" aria-hidden="true">↗</span>
+            <h3>mdk-l402-api</h3><p>Paid Next.js or Express APIs using HTTP 402 and Lightning payment flows.</p><span class="skill-tag">Money</span>
+          </a>
+          <a class="skill-card" data-category="money" href="../skills/mdk-mcp/">
+            <span class="skill-code">PAY–03</span><span class="skill-arrow" aria-hidden="true">↗</span>
+            <h3>mdk-mcp</h3><p>Connections between coding agents and Money Dev Kit MCP servers.</p><span class="skill-tag">Money</span>
+          </a>
+          <a class="skill-card" data-category="money" href="../skills/mdk-nextjs-checkout/">
+            <span class="skill-code">PAY–04</span><span class="skill-arrow" aria-hidden="true">↗</span>
+            <h3>mdk-nextjs-checkout</h3><p>Lightning checkout for Next.js App Router applications.</p><span class="skill-tag">Money</span>
+          </a>
+          <a class="skill-card" data-category="money" href="../skills/mdk-replit-checkout/">
+            <span class="skill-code">PAY–05</span><span class="skill-arrow" aria-hidden="true">↗</span>
+            <h3>mdk-replit-checkout</h3><p>Lightning checkout for Replit Vite, React, and Express applications.</p><span class="skill-tag">Money</span>
+          </a>
+          <a class="skill-card" data-category="safety" href="../skills/rampart-hook-configurator/">
+            <span class="skill-code">SAFE–01</span><span class="skill-arrow" aria-hidden="true">↗</span>
+            <h3>rampart-hook-configurator</h3><p>Install, tune, and verify hooks that reduce sensitive-data exposure.</p><span class="skill-tag">Safety</span>
+          </a>
+          <a class="skill-card" data-category="safety" href="../skills/skillspector/">
+            <span class="skill-code">SAFE–02</span><span class="skill-arrow" aria-hidden="true">↗</span>
+            <h3>skillspector</h3><p>Security scans for individual skills or complete skill repositories.</p><span class="skill-tag">Safety</span>
+          </a>
+          <a class="skill-card" data-category="safety" href="../skills/timelock-sh/">
+            <span class="skill-code">SAFE–03</span><span class="skill-arrow" aria-hidden="true">↗</span>
+            <h3>timelock-sh</h3><p>Time-lock, inspect, and decrypt files with a scheduled UTC release.</p><span class="skill-tag">Resilience</span>
+          </a>
+          <a class="skill-card" data-category="sharing" href="../skills/p2p-transfer-filepizza/">
+            <span class="skill-code">SHR–01</span><span class="skill-arrow" aria-hidden="true">↗</span>
+            <h3>p2p-transfer-filepizza</h3><p>Share local files through temporary peer-to-peer FilePizza links.</p><span class="skill-tag">Sharing</span>
+          </a>
+          <a class="skill-card" data-category="sharing" href="../skills/wayback-archive/">
+            <span class="skill-code">SHR–02</span><span class="skill-arrow" aria-hidden="true">↗</span>
+            <h3>wayback-archive</h3><p>Archive webpages, inspect snapshots, and create stable citation links.</p><span class="skill-tag">Preservation</span>
+          </a>
+          <a class="skill-card" data-category="research" href="../skills/domain-intel/">
+            <span class="skill-code">RES–01</span><span class="skill-arrow" aria-hidden="true">↗</span>
+            <h3>domain-intel</h3><p>Passive subdomain, certificate, WHOIS, DNS, and availability checks.</p><span class="skill-tag">Research</span>
+          </a>
+          <a class="skill-card" data-category="research" href="../skills/fast-transcript/">
+            <span class="skill-code">RES–02</span><span class="skill-arrow" aria-hidden="true">↗</span>
+            <h3>fast-transcript</h3><p>Transcribe and inspect local or remote audio and video media.</p><span class="skill-tag">Media</span>
+          </a>
+          <a class="skill-card" data-category="product" href="../skills/mo-ux-vibedesign-btc/">
+            <span class="skill-code">DEV–01</span><span class="skill-arrow" aria-hidden="true">↗</span>
+            <h3>mo-ux-vibedesign-btc</h3><p>Senior Bitcoin UX review from interviews and copy to mockups and issues.</p><span class="skill-tag">Product</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="protocol manual-section" id="protocol" aria-labelledby="protocol-title">
+      <div class="section-index"><span>04</span><p>Safety protocol</p></div>
+      <div class="section-body protocol-grid">
+        <div class="protocol-intro">
+          <p class="eyebrow">Human remains in command</p>
+          <h2 id="protocol-title">Instructions improve judgment. They do not erase risk.</h2>
+          <p>Freedom technologies often handle identity, money, private communication, and public records. Every workflow should make its operating boundary legible.</p>
+          <a class="button button-primary" href="https://github.com/brenorb/freedom-skills">Review the source ↗</a>
+        </div>
+        <div class="checklist" aria-label="Safety checklist">
+          <div><span aria-hidden="true">□</span><p><strong>Inspect before install</strong>Read the skill, bundled scripts, prerequisites, and network behavior.</p></div>
+          <div><span aria-hidden="true">□</span><p><strong>Keep secrets server-side</strong>Never commit mnemonics, access tokens, private keys, or account credentials.</p></div>
+          <div><span aria-hidden="true">□</span><p><strong>Confirm irreversible action</strong>Sending money, publishing, messaging, and changing accounts warrant explicit human intent.</p></div>
+          <div><span aria-hidden="true">□</span><p><strong>Verify the result</strong>Check exit codes, receipts, remote state, and timestamps. A command running is not proof of success.</p></div>
+        </div>
+      </div>
+      <div class="stamp" aria-hidden="true"><span>OPEN</span>INSPECTABLE<br>MODIFIABLE</div>
+    </section>
+
+    <section class="contribute" aria-labelledby="contribute-title">
+      <p class="eyebrow">Field reports wanted</p>
+      <h2 id="contribute-title">Found a better route?</h2>
+      <p>Propose a workflow, improve a guardrail, add a test, or document the edge case you wish someone had warned you about.</p>
+      <div class="hero-actions">
+        <a class="button button-primary" href="https://github.com/brenorb/freedom-skills">Contribute on GitHub ↗</a>
+        <a class="button button-secondary" href="https://agentskills.io">Read the standard ↗</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Freedom Skills / open-source operating knowledge</p>
+    <a href="#top">Return to top ↑</a>
+  </footer>
+</body>
+</html>
