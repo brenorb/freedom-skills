@@ -1,0 +1,4 @@
+interface:
+  display_name: "BitChat"
+  short_description: "Operate BitChat mesh, DMs, and geohash channels"
+  default_prompt: "Use $bitchat to install or operate BitChat for mesh chat, DMs, geohash channels, or daemon workflows."
