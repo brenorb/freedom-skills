@@ -1,14 +1,13 @@
-# nostr-vpn onboarding
+# Nostr VPN onboarding
 
-Read this file only when `nvpn` is missing, the user needs first-time setup, or the local config/network state is not usable yet.
+Read this file only when `nvpn` is missing, the user needs first-time setup, or the local config/network state is not usable yet. Resolve the executable first using `references/command-discovery.md`.
 
 ## Verify the local state
 
 ```bash
-command -v nvpn
-nvpn version --json
-nvpn status --json
-nvpn service status --json
+"$NVPN" version --json
+"$NVPN" status --json
+"$NVPN" service status --json
 ```
 
 `nvpn` stores config in the OS config directory by default:
@@ -23,7 +22,7 @@ nvpn service status --json
 
 ```bash
 cargo install nvpn
-nvpn version --json
+"$NVPN" version --json
 ```
 
 ### Prebuilt releases
@@ -33,70 +32,76 @@ Official release artifacts live at:
 - `https://github.com/mmalmi/nostr-vpn/releases/latest`
 - `https://git.iris.to/#/npub1xdhnr9mrv47kkrn95k6cwecearydeh8e895990n3acntwvmgk2dsdeeycm/nostr-vpn?tab=releases`
 
-Apple Silicon macOS, Linux x64, Windows x64, and Android arm64 have release artifacts. Intel macOS is source-only.
+Release availability is platform- and architecture-specific. Check the current release notes before choosing an artifact. If the desktop app is already installed, first look for its bundled CLI using `references/command-discovery.md` instead of installing a second copy.
 
 ## Create or join a network
 
 Initialize local identity and config:
 
 ```bash
-nvpn init
+"$NVPN" init
 ```
 
-Create an invite for the active network:
+Request access to a network and show a terminal QR:
 
 ```bash
-nvpn create-invite
+"$NVPN" join-request
 ```
 
-Join from an invite:
+For a non-interactive request, print only the link:
 
 ```bash
-nvpn import-invite 'nvpn://invite/...'
+"$NVPN" join-request --no-wait --no-qr
 ```
 
-For nearby-device pairing on the same LAN:
+For manual joining with values received from an admin:
 
 ```bash
-nvpn invite-broadcast --duration-secs 900
-nvpn discover --accept --json
+"$NVPN" join-manual \
+  --admin-device-id ADMIN_DEVICE_ID \
+  --network-id NETWORK_ID \
+  --json
 ```
+
+Some releases have older invite/broadcast command names. Run `"$NVPN" --help` and follow the installed binary's interface.
 
 ## Start the VPN
 
 Foreground session:
 
 ```bash
-nvpn start --connect
+"$NVPN" start --connect
 ```
 
 Background daemon:
 
 ```bash
-nvpn start --daemon --connect
-nvpn status --json
-nvpn stop
+"$NVPN" start --daemon --connect
+"$NVPN" status --json
+"$NVPN" stop
 ```
 
 Persistent OS-managed service:
 
 ```bash
-sudo nvpn service install
-nvpn service status --json
+sudo "$NVPN" service install
+"$NVPN" service status --json
 ```
 
-On Windows, run `nvpn service install` from an elevated shell instead of using `sudo`.
+On Windows, run the service command from an elevated PowerShell instead of using `sudo`.
 
 ## First troubleshooting checks
 
 ```bash
-nvpn status --json
-nvpn ip --peer --json
-nvpn doctor --json
+"$NVPN" status --json
+"$NVPN" ip --peer --json
+"$NVPN" doctor --json
 ```
 
 If tunnel creation fails on macOS, retry with elevation:
 
 ```bash
-sudo nvpn start --connect
+sudo "$NVPN" start --connect
 ```
+
+Do not expose join links, QR codes, identity keys, private keys, or diagnostic bundles in chat or public issue reports.
