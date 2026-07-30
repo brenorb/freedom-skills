@@ -1,0 +1,4 @@
+interface:
+  display_name: "Test a Napplet"
+  short_description: "Verify napplets before publishing"
+  default_prompt: "Use $test-napplet to verify this napplet before publishing it."

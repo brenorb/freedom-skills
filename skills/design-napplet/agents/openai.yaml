@@ -1,0 +1,4 @@
+interface:
+  display_name: "Design a Napplet"
+  short_description: "Plan safe, conformant napplet architectures"
+  default_prompt: "Use $design-napplet to turn this napplet idea into a build-ready spec."
