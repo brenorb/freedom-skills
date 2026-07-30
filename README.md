@@ -54,6 +54,7 @@ Freedom Skills follows the open [Agent Skills standard](https://agentskills.io).
 
 | Skill | What it enables |
 |---|---|
+| [`blossom-storage`](skills/blossom-storage/) | Uploading, downloading, verifying, mirroring, and recovering Blossom blobs through the Rust `blossom-cli`. |
 | [`p2p-transfer-filepizza`](skills/p2p-transfer-filepizza/) | Sharing local files through temporary peer-to-peer links with FilePizza. |
 | [`nsyte-static-sites`](skills/nsyte-static-sites/) | Building, validating, and deploying static websites to Nostr nsites with nsyte, local relay and Blossom services, and `nsite.lol` handoff URLs. |
 | [`wayback-archive`](skills/wayback-archive/) | Archiving webpages, checking snapshots, creating stable citation links, and batch archiving URLs. |
