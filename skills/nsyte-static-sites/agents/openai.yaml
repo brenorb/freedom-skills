@@ -1,0 +1,4 @@
+interface:
+  display_name: "nsyte Static Sites"
+  short_description: "Deploy static sites to Nostr"
+  default_prompt: "Use $nsyte-static-sites to build and deploy this static site as an nsite."
