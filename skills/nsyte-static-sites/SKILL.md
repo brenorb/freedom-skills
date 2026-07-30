@@ -1,6 +1,10 @@
 ---
 name: nsyte-static-sites
-description: "Build, validate, and deploy static websites as Nostr nsites with the nsyte CLI. Use for static HTML, CSS, JavaScript, and asset sites that should be published through a local Nostr relay on port 4870, optionally a local Blossom server on port 24243, and handed off through an npub.nsite.lol URL or QR code. Do not use for server-side applications, APIs, databases, or other non-static deployments."
+description: Build, validate, and deploy static websites as Nostr nsites with the nsyte CLI. Use for static HTML, CSS, JavaScript, and asset sites that should be published through a local Nostr relay on port 4870, optionally a local Blossom server on port 24243, and handed off through an npub.nsite.lol URL or QR code. Do not use for server-side applications, APIs, databases, or other non-static deployments.
+metadata:
+  version: "0.1.0"
+  repository: "https://github.com/sandwichfarm/nsyte"
+  homepage: "https://nsyte.run"
 ---
 
 # nsyte Static Sites
