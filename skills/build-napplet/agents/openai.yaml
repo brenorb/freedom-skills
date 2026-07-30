@@ -1,0 +1,4 @@
+interface:
+  display_name: "Build a Napplet"
+  short_description: "Implement sandboxed Nostr napplets safely"
+  default_prompt: "Use $build-napplet to implement this napplet from its design spec."

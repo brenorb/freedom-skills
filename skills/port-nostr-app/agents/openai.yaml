@@ -1,0 +1,4 @@
+interface:
+  display_name: "Port a Nostr App"
+  short_description: "Migrate Nostr apps into napplet boundaries"
+  default_prompt: "Use $port-nostr-app to plan this Nostr app migration into a napplet."
