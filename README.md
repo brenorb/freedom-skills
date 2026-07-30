@@ -55,7 +55,6 @@ Freedom Skills follows the open [Agent Skills standard](https://agentskills.io).
 | Skill | What it enables |
 |---|---|
 | [`p2p-transfer-filepizza`](skills/p2p-transfer-filepizza/) | Sharing local files through temporary peer-to-peer links with FilePizza. |
-| [`nsyte-static-sites`](skills/nsyte-static-sites/) | Building, validating, and deploying static websites to Nostr nsites with nsyte, local relay and Blossom services, and `nsite.lol` handoff URLs. |
 | [`wayback-archive`](skills/wayback-archive/) | Archiving webpages, checking snapshots, creating stable citation links, and batch archiving URLs. |
 
 ### Research and media
@@ -70,9 +69,9 @@ Freedom Skills follows the open [Agent Skills standard](https://agentskills.io).
 | Skill | What it enables |
 |---|---|
 | [`mo-ux-vibedesign-btc`](skills/mo-ux-vibedesign-btc/) | Senior Bitcoin UX reviews covering interviews, copy, flows, wireframes, mockups, and benchmarks. |
+| [`make-napplet`](skills/make-napplet/) | **Entrypoint** for creating a complete napplet end to end from one prompt using the other skills. |
 | [`design-napplet`](skills/design-napplet/) | Plan safe, conformant sandboxed Nostr napplets before implementation. |
 | [`build-napplet`](skills/build-napplet/) | Implement napplets with NAP boundaries, OUTBOX-first events, and single-file builds. |
-| [`make-napplet`](skills/make-napplet/) | Create a complete napplet end to end from one prompt. |
 | [`port-nostr-app`](skills/port-nostr-app/) | Map an existing Nostr web app into napplet boundaries for migration. |
 | [`test-napplet`](skills/test-napplet/) | Run conformance and safety checks before publishing a napplet. |
 
