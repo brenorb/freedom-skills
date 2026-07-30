@@ -1,4 +1,0 @@
-interface:
-  display_name: "Make a Napplet"
-  short_description: "Create a complete napplet from one prompt"
-  default_prompt: "Use $make-napplet to create this complete napplet end to end."

@@ -2,10 +2,9 @@
 name: test-napplet
 description: Use to verify a napplet before publishing - run protocol conformance with the @napplet/conformance-cli runner (real Chromium, reference shell), interpret failures, confirm OUTBOX-first boundaries, the single-file artifact, runtime guard, and CI wiring. Run after build-napplet, before shipping.
 metadata:
-  version: "0.3.0"
-  package: "@napplet/skills"
+  version: "0.1.0"
   repository: "https://github.com/napplet/web"
-  source: "https://github.com/napplet/web/tree/03ad65b66413e5798536ef48695ffc4c2508f2c3/packages/skills/skills/test-napplet"
+  homepage: "https://napplet.run"
 ---
 
 # Testing a Napplet

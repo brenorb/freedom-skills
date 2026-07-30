@@ -2,10 +2,9 @@
 name: build-napplet
 description: Use when writing a napplet (sandboxed Nostr iframe app) - Vite setup, the NIP-5A manifest plugin, runtime-injected window.napplet, the @napplet/sdk API for every current package-implemented NAP domain, OUTBOX-first event access, relay as explicit escape hatch, optional NAP-KEYS shortcuts/keybindings, post-injection optional-domain fallback checks, and the single-file artifact rule. Pairs with design-napplet (plan first), port-nostr-app (for migrations), and test-napplet (verify before publish).
 metadata:
-  version: "0.3.0"
-  package: "@napplet/skills"
+  version: "0.1.0"
   repository: "https://github.com/napplet/web"
-  source: "https://github.com/napplet/web/tree/03ad65b66413e5798536ef48695ffc4c2508f2c3/packages/skills/skills/build-napplet"
+  homepage: "https://napplet.run"
 ---
 
 # Building a Napplet
