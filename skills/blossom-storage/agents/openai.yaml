@@ -1,0 +1,4 @@
+interface:
+  display_name: "Blossom Storage"
+  short_description: "Upload, verify, mirror, and recover Blossom blobs"
+  default_prompt: "Use $blossom-storage to upload, verify, mirror, or recover a file through Blossom servers."
