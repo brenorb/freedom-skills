@@ -2,10 +2,9 @@
 name: make-napplet
 description: Use when a user asks to create, build, implement, prototype, or port a complete napplet in one prompt. Orchestrates the napplet skills end to end, covers every current package-implemented NAP domain, keeps normal social reads and publishes OUTBOX-first, routes shortcuts/keybindings to NAP-KEYS, and treats NAP-RELAY as an explicit escape hatch only.
 metadata:
-  version: "0.3.0"
-  package: "@napplet/skills"
+  version: "0.1.0"
   repository: "https://github.com/napplet/web"
-  source: "https://github.com/napplet/web/tree/03ad65b66413e5798536ef48695ffc4c2508f2c3/packages/skills/skills/make-napplet"
+  homepage: "https://napplet.run"
 ---
 
 # Making A Napplet End To End

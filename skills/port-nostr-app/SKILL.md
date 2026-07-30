@@ -2,10 +2,9 @@
 name: port-nostr-app
 description: Use when converting an existing Nostr web app into a napplet - audit app-owned relay, signing, storage, network, media, keyboard shortcuts, and routing layers; map each feature to a current package-implemented NAP boundary; default social reads and publishes to NAP-OUTBOX, not NAP-RELAY; then hand a clean build spec to design-napplet/build-napplet.
 metadata:
-  version: "0.3.0"
-  package: "@napplet/skills"
+  version: "0.1.0"
   repository: "https://github.com/napplet/web"
-  source: "https://github.com/napplet/web/tree/03ad65b66413e5798536ef48695ffc4c2508f2c3/packages/skills/skills/port-nostr-app"
+  homepage: "https://napplet.run"
 ---
 
 # Porting A Nostr App To A Napplet

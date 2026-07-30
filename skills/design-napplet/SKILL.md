@@ -2,10 +2,9 @@
 name: design-napplet
 description: Use FIRST when planning a napplet (sandboxed Nostr iframe app), before writing code - turns an app idea into a concrete build spec covering every current package-implemented NAP domain, required vs optional shell domains, sandbox/loading constraints, OUTBOX-first event routing, and a responsive layout that survives any viewport from full-screen to a tiny widget.
 metadata:
-  version: "0.3.0"
-  package: "@napplet/skills"
+  version: "0.1.0"
   repository: "https://github.com/napplet/web"
-  source: "https://github.com/napplet/web/tree/03ad65b66413e5798536ef48695ffc4c2508f2c3/packages/skills/skills/design-napplet"
+  homepage: "https://napplet.run"
 ---
 
 # Designing a Napplet
