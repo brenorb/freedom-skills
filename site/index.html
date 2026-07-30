@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Freedom Skills is an open library of portable, agent-ready workflows for Bitcoin, Nostr, privacy, publishing, research, and human-rights technology.">
+  <title>Freedom Press — tools people can actually use</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to the press</a>
+  <header class="masthead" data-header>
+    <a class="wordmark" href="#top" aria-label="Freedom Press, home">
+      <span>FREEDOM</span><span>SKILLS</span>
+    </a>
+    <button class="menu-button" type="button" aria-expanded="false" aria-controls="site-nav">
+      <span class="menu-open">Menu +</span><span class="menu-close">Close ×</span>
+    </button>
+    <nav id="site-nav" class="site-nav" aria-label="Main navigation">
+      <a href="#skills">Skill shelf</a>
+      <a href="#how">How it travels</a>
+      <a href="#safety">Safety notes</a>
+      <a href="#contribute">Make a page</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="top" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="issue-label">OPEN EDITION · ISSUE 001</p>
+        <h1 id="hero-title">Tools for freedom.<br><em>Instructions for action.</em></h1>
+        <p class="hero-deck">An open library that turns Bitcoin, Nostr, privacy tools, and other freedom technologies into practical workflows AI agents can carry—and people can inspect.</p>
+        <div class="hero-actions">
+          <a class="press-button ink-blue" href="#skills">Browse the edition <span aria-hidden="true">↓</span></a>
+          <a class="text-link" href="#contribute">Add your ink →</a>
+        </div>
+      </div>
+      <div class="hero-print" aria-hidden="true">
+        <div class="sun"></div>
+        <div class="sheet sheet-back">USE<br>THE<br>TOOLS</div>
+        <div class="sheet sheet-front"><span>SHARE</span><span>VERIFY</span><span>REMIX</span></div>
+        <div class="stamp">OPEN<br>SOURCE</div>
+      </div>
+      <p class="margin-note note-one">Built for developers, activists, researchers &amp; human-rights defenders.</p>
+    </section>
+
+    <section class="manifesto" aria-label="Project idea">
+      <p>Freedom technology should not require a private dictionary, five setup guides, and blind trust.</p>
+      <p class="manifesto-answer">So we print the missing instructions.</p>
+    </section>
+
+    <section class="skill-shelf" id="skills" aria-labelledby="skills-title">
+      <header class="section-heading">
+        <p class="kicker">THE CURRENT EDITION</p>
+        <h2 id="skills-title">15 skills.<br>Six workbenches.</h2>
+        <p>Pick a task, open the instructions, and keep the caveats in view. Every skill is a real folder in the repository.</p>
+      </header>
+
+      <div class="filter-bar" role="group" aria-label="Filter skills by workbench">
+        <button type="button" class="filter active" data-filter="all" aria-pressed="true">All 15</button>
+        <button type="button" class="filter" data-filter="communicate" aria-pressed="false">Communicate</button>
+        <button type="button" class="filter" data-filter="money" aria-pressed="false">Money</button>
+        <button type="button" class="filter" data-filter="safety" aria-pressed="false">Safety</button>
+        <button type="button" class="filter" data-filter="sharing" aria-pressed="false">Share</button>
+        <button type="button" class="filter" data-filter="research" aria-pressed="false">Research</button>
+        <button type="button" class="filter" data-filter="product" aria-pressed="false">Build</button>
+      </div>
+
+      <div class="skill-list" aria-live="polite">
+        <article class="skill-strip blue" data-category="communicate"><span class="number">01</span><div><p class="category">COMMUNICATION</p><h3>nostr-cli</h3><p>Set up accounts, manage relays, publish posts and long-form notes, send DMs, and work with follow graphs.</p></div><a href="../skills/nostr-cli/" aria-label="Open nostr-cli skill">Open ↗</a></article>
+        <article class="skill-strip red" data-category="communicate"><span class="number">02</span><div><p class="category">COMMUNICATION</p><h3>signal-cli</h3><p>Send private Signal messages and attachments; inspect accounts, contacts, groups, setup, and troubleshooting.</p></div><a href="../skills/signal-cli/" aria-label="Open signal-cli skill">Open ↗</a></article>
+        <article class="skill-strip yellow" data-category="money"><span class="number">03</span><div><p class="category">MONEY</p><h3>mdk-agent-wallet</h3><p>Use a self-custodial agent wallet for Lightning balances, payments, history, receiving, and L402 access.</p></div><a href="../skills/mdk-agent-wallet/" aria-label="Open mdk-agent-wallet skill">Open ↗</a></article>
+        <article class="skill-strip blue" data-category="money"><span class="number">04</span><div><p class="category">MONEY</p><h3>mdk-l402-api</h3><p>Build paid Next.js or Express APIs with HTTP 402 and Money Dev Kit Lightning flows.</p></div><a href="../skills/mdk-l402-api/" aria-label="Open mdk-l402-api skill">Open ↗</a></article>
+        <article class="skill-strip red" data-category="money"><span class="number">05</span><div><p class="category">MONEY</p><h3>mdk-mcp</h3><p>Connect coding agents to Money Dev Kit MCP servers for account, app, checkout, and docs operations.</p></div><a href="../skills/mdk-mcp/" aria-label="Open mdk-mcp skill">Open ↗</a></article>
+        <article class="skill-strip yellow" data-category="money"><span class="number">06</span><div><p class="category">MONEY</p><h3>mdk-nextjs-checkout</h3><p>Add Money Dev Kit Lightning checkout to Next.js App Router projects.</p></div><a href="../skills/mdk-nextjs-checkout/" aria-label="Open mdk-nextjs-checkout skill">Open ↗</a></article>
+        <article class="skill-strip blue" data-category="money"><span class="number">07</span><div><p class="category">MONEY</p><h3>mdk-replit-checkout</h3><p>Add Lightning checkout to Replit projects using Vite, React, and Express.</p></div><a href="../skills/mdk-replit-checkout/" aria-label="Open mdk-replit-checkout skill">Open ↗</a></article>
+        <article class="skill-strip red" data-category="safety"><span class="number">08</span><div><p class="category">PRIVACY + SAFETY</p><h3>rampart-hook-configurator</h3><p>Configure and verify hooks that reduce sensitive-data exposure in agent workflows.</p></div><a href="../skills/rampart-hook-configurator/" aria-label="Open rampart-hook-configurator skill">Open ↗</a></article>
+        <article class="skill-strip yellow" data-category="safety"><span class="number">09</span><div><p class="category">PRIVACY + SAFETY</p><h3>skillspector</h3><p>Scan individual skills or whole skill repositories for vulnerabilities before installation.</p></div><a href="../skills/skillspector/" aria-label="Open skillspector skill">Open ↗</a></article>
+        <article class="skill-strip blue" data-category="safety"><span class="number">10</span><div><p class="category">RESILIENCE</p><h3>timelock-sh</h3><p>Time-lock, inspect, and decrypt local files with timelock.sh.</p></div><a href="../skills/timelock-sh/" aria-label="Open timelock-sh skill">Open ↗</a></article>
+        <article class="skill-strip red" data-category="sharing"><span class="number">11</span><div><p class="category">SHARING</p><h3>p2p-transfer-filepizza</h3><p>Share local files through temporary peer-to-peer FilePizza links while a local seed stays online.</p></div><a href="../skills/p2p-transfer-filepizza/" aria-label="Open p2p-transfer-filepizza skill">Open ↗</a></article>
+        <article class="skill-strip yellow" data-category="sharing"><span class="number">12</span><div><p class="category">PRESERVATION</p><h3>wayback-archive</h3><p>Archive webpages, check snapshots, create stable citation links, and batch-save URLs.</p></div><a href="../skills/wayback-archive/" aria-label="Open wayback-archive skill">Open ↗</a></article>
+        <article class="skill-strip blue" data-category="research"><span class="number">13</span><div><p class="category">RESEARCH</p><h3>domain-intel</h3><p>Run passive domain reconnaissance across subdomains, SSL, WHOIS, DNS, and availability.</p></div><a href="../skills/domain-intel/" aria-label="Open domain-intel skill">Open ↗</a></article>
+        <article class="skill-strip red" data-category="research"><span class="number">14</span><div><p class="category">MEDIA</p><h3>fast-transcript</h3><p>Transcribe and inspect local audio, video, and supported remote media with fscript.</p></div><a href="../skills/fast-transcript/" aria-label="Open fast-transcript skill">Open ↗</a></article>
+        <article class="skill-strip yellow" data-category="product"><span class="number">15</span><div><p class="category">PRODUCT + UX</p><h3>mo-ux-vibedesign-btc</h3><p>Run senior Bitcoin UX reviews spanning interviews, copy, flows, wireframes, mockups, and benchmarks.</p></div><a href="../skills/mo-ux-vibedesign-btc/" aria-label="Open mo-ux-vibedesign-btc skill">Open ↗</a></article>
+      </div>
+      <p class="filter-status" data-filter-status>Showing all 15 skills.</p>
+    </section>
+
+    <section class="portable" id="how" aria-labelledby="portable-title">
+      <div class="portable-poster">
+        <p class="kicker">PACK ONCE · CARRY WIDELY</p>
+        <h2 id="portable-title">A skill is a small press kit for an agent.</h2>
+        <p>At minimum, it contains a <code>SKILL.md</code>. It can also carry scripts, references, templates, and other resources. Compatible agents read the metadata, recognize when the skill applies, then load the detailed workflow only when needed.</p>
+        <p class="standard-note">Built on the open <a href="https://agentskills.io">Agent Skills standard ↗</a></p>
+      </div>
+      <ol class="print-process">
+        <li><span>1</span><div><strong>Discover</strong><p>The agent sees a compact name and task description.</p></div></li>
+        <li><span>2</span><div><strong>Load</strong><p>Detailed instructions arrive only when the task matches.</p></div></li>
+        <li><span>3</span><div><strong>Act with context</strong><p>Scripts and references support a repeatable workflow.</p></div></li>
+        <li><span>4</span><div><strong>Move the folder</strong><p>The package travels between compatible agents without rewriting the know-how.</p></div></li>
+      </ol>
+    </section>
+
+    <section class="safety" id="safety" aria-labelledby="safety-title">
+      <div class="safety-title-wrap">
+        <p class="stamp-small">READ<br>BEFORE<br>RUNNING</p>
+        <h2 id="safety-title">Convenient<br>doesn’t mean<br>careless.</h2>
+      </div>
+      <div class="safety-copy">
+        <p class="lead">Each workflow should surface prerequisites, trust assumptions, and irreversible steps—not hide them behind a friendly command.</p>
+        <ul>
+          <li><strong>Inspect first.</strong> Skills are plain-text instructions. Read them and scan third-party skills before installing.</li>
+          <li><strong>Keep people in the loop.</strong> Posting, sending, paying, deleting, and publishing deserve explicit intent.</li>
+          <li><strong>Protect secrets.</strong> Private keys, mnemonics, credentials, contact data, and sensitive files require careful handling.</li>
+          <li><strong>Know the boundary.</strong> Peer-to-peer, hosted, and archival services carry different metadata and availability tradeoffs.</li>
+        </ul>
+        <p class="hook-note">Also in the repo: a portable Rampart pre-send / post-send hook pair for redacting selected personal information before model requests and restoring placeholders in replies.</p>
+      </div>
+    </section>
+
+    <section class="contribute" id="contribute" aria-labelledby="contribute-title">
+      <div class="confetti" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+      <p class="kicker">COMMUNITY PRINT TABLE</p>
+      <h2 id="contribute-title">This edition needs<br><em>your fingerprints.</em></h2>
+      <p class="contribute-lead">Propose a skill for a freedom technology. Improve a workflow. Add a script, a reference, a test, or a sharp safety note. Contributions arrive through pull requests.</p>
+      <div class="contribution-fold">
+        <div>
+          <h3>A useful contribution says:</h3>
+          <ul><li>what the workflow does</li><li>who it is for</li><li>what it requires</li><li>what could go wrong</li><li>how we can test it</li></ul>
+        </div>
+        <div class="pull-tab">
+          <p>FORK<br>WRITE<br>TEST<br>OPEN A PR</p>
+          <a class="press-button ink-red" href="../README.md#community-and-contributing">Read the contributor note <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <a class="wordmark footer-mark" href="#top"><span>FREEDOM</span><span>SKILLS</span></a>
+    <p>Open instructions for open tools.<br>Print, inspect, improve, repeat.</p>
+    <p class="colophon">NO TRACKERS · NO EXTERNAL FONTS · NO RUNTIME DEPENDENCIES<br>Freedom Press concept · 2026</p>
+  </footer>
+  <script src="script.js" defer></script>
+</body>
+</html>
