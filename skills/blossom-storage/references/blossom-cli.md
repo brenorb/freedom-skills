@@ -1,20 +1,31 @@
 # Rust Blossom CLI reference
 
-This skill uses [`MonumentalSystems/blossom-rs`](https://github.com/MonumentalSystems/blossom-rs)'s `blossom-cli` crate as its backend.
+This skill uses [`MonumentalSystems/blossom-rs`](https://github.com/MonumentalSystems/blossom-rs)'s `blossom-cli` crate as its backend. The bundled Python package is only an `uvx` launcher; the Rust client remains an external executable.
 
 ## Installation and versioning
 
-Install a pinned release rather than tracking an unreviewed moving target:
+The skill wrapper installs a pinned release rather than tracking an unreviewed moving target. To run the wrapper from this checkout:
 
 ```bash
-cargo install blossom-cli --version 0.5.6
+uvx --from ./skills/blossom-storage/uvx blossom --version
 ```
 
-Before relying on a newer release, inspect its help and release notes:
+The wrapper resolves the Rust binary in this order:
+
+1. `BLOSSOM_RUST_CLI_BIN`, when set.
+2. An existing `blossom-cli` executable on `PATH`.
+3. The versioned cache under `BLOSSOM_CLI_CACHE_DIR` or the platform cache directory.
+4. `cargo install blossom-cli --version 0.5.6 --locked` into its cache.
+
+Set `BLOSSOM_CLI_NO_INSTALL=1` to make missing Rust tooling fail fast. Set `BLOSSOM_CLI_CACHE_DIR` to keep the downloaded binary in a controlled location.
+
+The repository includes an optional E2E test for an existing server. Set `BLOSSOM_E2E_SERVER` and `BLOSSOM_E2E_SECRET_KEY`, then run `pytest -m e2e`. It uses a unique temporary blob and removes it after the lifecycle check; without these variables the test is skipped.
+
+Before relying on a newer Rust release, inspect its help and release notes:
 
 ```bash
-blossom-cli --version
-blossom-cli --help
+uvx --from ./skills/blossom-storage/uvx blossom --version
+uvx --from ./skills/blossom-storage/uvx blossom --help
 ```
 
 The CLI is part of a larger Rust workspace that also contains a Blossom library and server. Keep the skill dependent on the client binary only; do not install or run the server unless the user explicitly asks for local infrastructure.
@@ -25,16 +36,16 @@ The documented command surface includes:
 
 | Operation | Command shape | Notes |
 |---|---|---|
-| Generate a test key | `blossom-cli keygen` | Do not use this to replace the user's established signer without confirmation. |
-| Upload | `blossom-cli upload FILE` | Authenticated; returns a blob descriptor. |
-| Download | `blossom-cli download SHA256 [OUTPUT]` | May write to a file or stdout depending on arguments. |
-| Check existence | `blossom-cli exists SHA256` | Prefer JSON output for automation. |
-| Delete | `blossom-cli delete SHA256 --yes` | Destructive; confirmation is required before `--yes`. |
-| List | `blossom-cli list PUBKEY` | Listing support depends on the server. |
-| Mirror | `blossom-cli mirror URL` | Copies a remote blob into the selected server. |
-| Inspect server | `blossom-cli status` | Use for connectivity and server information. |
+| Generate a test key | `uvx ... blossom keygen` | Do not use this to replace the user's established signer without confirmation. |
+| Upload | `uvx ... blossom upload FILE` | Authenticated; returns a blob descriptor. |
+| Download | `uvx ... blossom download SHA256 [OUTPUT]` | May write to a file or stdout depending on arguments. |
+| Check existence | `uvx ... blossom exists SHA256` | Prefer JSON output for automation. |
+| Delete | `uvx ... blossom delete SHA256 --yes` | Destructive; confirmation is required before `--yes`. |
+| List | `uvx ... blossom list PUBKEY` | Listing support depends on the server. |
+| Mirror | `uvx ... blossom mirror URL` | Copies a remote blob into the selected server. |
+| Inspect server | `uvx ... blossom status` | Use for connectivity and server information. |
 
-Global options include a server selector, an authentication key option, and `--format json|text` in current releases. Confirm exact placement with `blossom-cli --help` because the CLI is under active development.
+Global options include a server selector, an authentication key option, and `--format json|text` in current releases. Confirm exact placement with `uvx --from ./skills/blossom-storage/uvx blossom --help` because the Rust CLI is under active development.
 
 ## Important defaults
 
