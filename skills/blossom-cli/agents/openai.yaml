@@ -1,0 +1,4 @@
+interface:
+  display_name: "Blossom CLI"
+  short_description: "Store and recover files across Blossom servers"
+  default_prompt: "Use $blossom-cli to upload, verify, mirror, or recover a file through Blossom servers."
