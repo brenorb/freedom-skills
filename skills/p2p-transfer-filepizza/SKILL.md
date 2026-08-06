@@ -5,39 +5,59 @@ description: Use this skill when the user wants to share a local file through th
 
 # P2P Transfer FilePizza
 
-Use the public `file.pizza` website through a bundled local automation wrapper. This skill is for the hosted public site only, not a self-hosted server.
+Use the published `filepizza-cli` npm package directly against the public `file.pizza` service. This skill is for the hosted public service only, not a self-hosted server.
+
+The supported interface for agents is the upstream CLI invoked through `npx`. Agents should not operate the `file.pizza` UI directly.
 
 ## Default workflow
 
 1. Confirm the file path exists locally.
-2. Start the upload through the bundled wrapper:
+2. Start the upload directly through the published CLI:
 
 ```bash
-python3 skills/p2p-transfer-filepizza/scripts/filepizza_public.py upload /absolute/path/to/file
+npx --yes filepizza-cli@0.1.0 share /absolute/path/to/file
 ```
 
-3. If `tmux` is available, the wrapper should prefer running the seeding worker in a persistent detached tmux session automatically. If `tmux` is unavailable, it should fall back to its normal detached background process.
-4. Read the JSON result and use the returned `short_url` or `long_url`.
-5. If the user asks whether an upload is still alive, inspect it with:
+3. Read the JSON result and use the returned `shortUrl` or `longUrl`.
+4. If the user asks whether an upload is still alive, inspect it with:
 
 ```bash
-python3 skills/p2p-transfer-filepizza/scripts/filepizza_public.py list
-python3 skills/p2p-transfer-filepizza/scripts/filepizza_public.py status <upload_id>
+npx --yes filepizza-cli@0.1.0 status <upload_id>
 ```
 
-6. If the user wants to stop seeding, or the transfer is no longer needed, stop it explicitly:
+5. If the user wants to stop seeding, or the transfer is no longer needed, stop it explicitly:
 
 ```bash
-python3 skills/p2p-transfer-filepizza/scripts/filepizza_public.py stop <upload_id>
+npx --yes filepizza-cli@0.1.0 stop <upload_id>
 ```
 
-7. If the user needs raw operational notes or troubleshooting patterns beyond this workflow, read `references/commands.md`.
-8. If the file or sharing context is politically sensitive, adversarial, or related to dissidents, activists, journalists, or human rights work, read `references/trust-assumptions.md` before recommending `file.pizza`.
+6. If the file or sharing context is politically sensitive, adversarial, or related to dissidents, activists, journalists, or human rights work, read `references/trust-assumptions.md` before recommending `file.pizza`.
+
+Example `share` result:
+
+```json
+{
+  "ok": true,
+  "uploadId": "20260703-203624-c1c0361e",
+  "filePath": "/absolute/path/to/file",
+  "fileName": "example.zip",
+  "pid": 43152,
+  "status": "seeding",
+  "startedAt": "2026-07-03T20:36:25.588Z",
+  "updatedAt": "2026-07-03T20:36:27.163Z",
+  "peerId": "dd7769bc-c402-460c-b886-67e3b3ea1366",
+  "shortSlug": "abcd1234",
+  "longSlug": "pepperoni/mushroom/olive/basil",
+  "shortUrl": "https://file.pizza/download/abcd1234",
+  "longUrl": "https://file.pizza/download/pepperoni/mushroom/olive/basil",
+  "alive": true
+}
+```
 
 ## Defaults
 
-- Prefer the bundled wrapper over ad hoc browser automation.
-- Prefer the wrapper's automatic `tmux` launcher when `tmux` is installed, because it makes long-lived uploads easier to supervise and less brittle across shell/session boundaries.
+- Prefer the published CLI over ad hoc browser automation or manual UI operation.
+- Prefer the pinned package version shown in this skill unless the user explicitly wants a different release.
 - Prefer the public site workflow only for files that are acceptable to expose to a third-party web app at the browser-JavaScript trust level.
 - Prefer the short URL for user-facing sharing and the long URL for logging or debugging.
 - Prefer keeping exactly one seeding process per upload alive until the recipient confirms they have the file.
@@ -53,9 +73,22 @@ python3 skills/p2p-transfer-filepizza/scripts/filepizza_public.py stop <upload_i
 
 ## Gotchas
 
-- `file.pizza` does not expose a normal REST upload API. This skill uses Playwright against the public site.
-- The first run may take longer because the wrapper bootstraps a local Playwright runtime under the user's cache directory.
-- When `tmux` is present, stopping the upload should kill the tmux session, not just the worker pid.
-- Manual browser behavior can vary. If a transfer fails in Arc, retry in Chrome before assuming the service is down.
-- Large files depend on browser memory and WebRTC behavior; success is not as deterministic as a server-side object store.
-- If the `file.pizza` UI changes, the bundled worker may need an update.
+- `file.pizza` does not expose a normal REST upload API. This skill relies on the programmatic `filepizza-cli` package, which speaks the public FilePizza protocol directly.
+- The first run may take longer because `npx --yes` may need to fetch the pinned npm package into the local npm cache.
+- Runtime state and upload manifests live under `~/.cache/filepizza-cli/uploads/`, not under this repo.
+- The direct CLI exposes `share`, `status`, and `stop`. It does not expose a `list` subcommand.
+- The CLI requires local `node` and `npm` in `PATH`.
+- Large files still depend on WebRTC behavior; success is not as deterministic as a server-side object store.
+
+## Troubleshooting
+
+- If `share` fails before doing network work, confirm the file path exists locally and is a regular file.
+- If `npx` reports a missing binary, install `node` and `npm` or fix `PATH`.
+- If `npx` returns an error, rerun the same command directly and inspect stderr.
+- If an upload looks alive but the link does not work, confirm the seeding process is still running with `status`.
+- If you need to inspect cached local state manually, use:
+
+```bash
+ls ~/.cache/filepizza-cli/uploads
+python3 -m json.tool ~/.cache/filepizza-cli/uploads/<upload_id>.json
+```
