@@ -1,0 +1,4 @@
+interface:
+  display_name: "Ark VTXO Inspector"
+  short_description: "Inspect Ark VTXO hex in the Second Labs browser decoder"
+  default_prompt: "Use $ark-vtxo-inspector to decode this Ark VTXO, explain the exit chain and signatures, and open or share the public Second Labs inspector link."
