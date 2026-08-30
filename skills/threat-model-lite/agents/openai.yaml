@@ -1,0 +1,4 @@
+interface:
+  display_name: "Threat Model Lite"
+  short_description: "Run a fast, plain-language threat review with practical mitigations"
+  default_prompt: "Use $threat-model-lite to map the main risks in this situation, explain them in plain language, and give me the highest-value fixes first."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Private Comms Guide"
+  short_description: "Help non-technical users choose and configure safer communication tools."
+  default_prompt: "Use $private-comms-setup to recommend a safer communication setup for a non-technical person. Choose one practical tool, explain the tradeoffs clearly, and walk through the few settings that matter."
