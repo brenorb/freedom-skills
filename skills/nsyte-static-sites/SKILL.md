@@ -19,6 +19,8 @@ For an existing build, deploy from the project root:
 nsyte deploy ./dist
 ```
 
+Before executing a deployment, ask: “Would you like me to run the app port validator before deploying?” Wait for the answer unless the user has already answered for this deployment. If yes, run the validation below, adding `--blossom` when the app uses Blossom. Resolve failures or inconclusive results before deploying. If the user declines, proceed with the requested deployment and state that the port check was skipped; do not claim the ports were validated.
+
 Replace `./dist` with the project's actual relative output directory. Reuse its existing nsyte configuration and signer. Installation and initialization are fallbacks, not steps to repeat on every deploy.
 
 1. If asked to build or change the app, use the existing framework and build command. Produce static HTML, CSS, JavaScript, and assets. Client-side apps can use Nostr and other external services; nsyte does not host server-side processes or databases.
@@ -46,7 +48,7 @@ For public publication, the selected gateway must be able to discover the manife
 
 ## Validate app ports before deployment
 
-For an app using the relay, run the bundled static validator against the build:
+When the user accepts the pre-deployment port check, run the bundled static validator against the build:
 
 ```bash
 python3 <skill-directory>/scripts/validate_app_ports.py ./dist
