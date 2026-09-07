@@ -19,7 +19,7 @@ For an existing build, deploy from the project root:
 nsyte deploy ./dist
 ```
 
-Before executing a deployment, ask: “Would you like me to run the app port validator before deploying?” Wait for the answer unless the user has already answered for this deployment. If yes, run the validation below, adding `--blossom` when the app uses Blossom. Resolve failures or inconclusive results before deploying. If the user declines, proceed with the requested deployment and state that the port check was skipped; do not claim the ports were validated.
+Before every deployment, run the bundled port validator proactively against the final build. Do not ask permission for this check. Resolve failures or inspect inconclusive results before publishing; never insert unused URLs to make the check pass.
 
 Replace `./dist` with the project's actual relative output directory. Reuse its existing nsyte configuration and signer. Installation and initialization are fallbacks, not steps to repeat on every deploy.
 
@@ -48,17 +48,41 @@ For public publication, the selected gateway must be able to discover the manife
 
 ## Validate app ports before deployment
 
-When the user accepts the pre-deployment port check, run the bundled static validator against the build:
+Always run the bundled static validator against the final build before deployment:
 
 ```bash
 python3 <skill-directory>/scripts/validate_app_ports.py ./dist
 ```
 
-When the app uses Blossom, add `--blossom` to require HTTP(S) endpoint evidence on port `24243` as well. Resolve `<skill-directory>` to this installed skill's directory. Skip this connection check for plain static pages that use neither service.
+When the app uses Blossom, add `--blossom` to require HTTP(S) endpoint evidence on port `24243` as well. Resolve `<skill-directory>` to this installed skill's directory. For an app with no relay functionality, use `--no-relay`; this still runs the build check and flags conflicting literal WebSocket ports. Add `--blossom` whenever the app uses Blossom, independently of relay use. Select these options from the app functionality, never simply to silence a failure.
 
 The script checks literal URLs in built HTML, JavaScript, and JSON. It requires a WebSocket URL on `4870` and flags other literal WebSocket ports. It prints file/line evidence without endpoint credentials, returning 0 for matching static evidence, 1 for missing/conflicting evidence, or 2 for an unreadable/invalid build.
 
 This is not a runtime proof: comments or unused code can contain matching URLs, and computed/injected URLs may be unresolved. Other WebSocket services need manual review. HTTP URLs cannot be classified as Blossom automatically, so `--blossom` requires a matching URL but cannot rule out additional Blossom endpoints. Confirm the actual relay connection and, when applicable, an upload/download request in browser network tools. Do not bypass a failed check by inserting unused URLs.
+
+## Named URLs, like Envelope
+
+For a URL whose subdomain ends with a chosen site name, publish a named site:
+
+```bash
+nsyte deploy ./dist --name envelope
+```
+
+Use the same name for dry runs, updates, and downloads. Choose a new name for a new site; reusing a publisher/name pair updates that existing site. Names have 1–13 lowercase letters, digits, or hyphens and cannot end in a hyphen. The equivalent saved configuration is `"id": "envelope"` in `.nsite/config.json`.
+
+This produces a kind-35128 manifest with `d=envelope`. On nsite.lol the URL is `https://<public-key-base36><name>.nsite.lol/`: the public key is encoded as exactly 50 lowercase base36 characters, padded with leading zeros. The suffix is the site identifier, not a mined vanity key or a purchased domain. Reuse the URL reported by the CLI and verify it.
+
+Envelope's public deployment demonstrates this mapping:
+`https://1nywmkqmtwmbl188q8gggxw8vjp62phce9ujzga9cdgtikqd2oenvelope.nsite.lol/`.
+Its manifest has `d=envelope`; the preceding 50 characters encode the publisher's public key. Do not reuse that publisher or overwrite that site for a test.
+
+If the CLI does not print the named URL, calculate it from the manifest's **public** hex key (never a private key):
+
+```bash
+node -e 'const [key,name]=process.argv.slice(1); if(!/^[0-9a-f]{64}$/i.test(key)||!/^[a-z0-9-]{1,13}$/.test(name)||name.endsWith("-"))process.exit(1); console.log("https://"+BigInt("0x"+key).toString(36).padStart(50,"0")+name+".nsite.lol/")' <public-key-hex> <site-name>
+```
+
+See upstream [named-site encoding](https://github.com/sandwichfarm/nsyte/blob/main/src/lib/nip5a.ts) for the format.
 
 ## Setup when needed
 
@@ -73,6 +97,10 @@ For a new project, initialize once:
 ```bash
 nsyte init
 ```
+
+Run `init` in an interactive terminal (PTY); its prompts can loop when launched without one. Finish selecting the publisher, site name, relay URLs, and Blossom URLs. A generated private key is printed once and is not saved as a usable signer by initialization: retain it securely outside the build, never in a public artifact or commit. Prefer the existing bunker flow for normal use.
+
+Before the first deploy, ensure destinations are nonempty. In nsyte 0.27.2, `--use-fallbacks` does not fix an empty required server list. Set explicit selected relay/server URLs in the config or via `--relays` and `--servers`. `--non-interactive` still needs a configured signer; use `--prompt-sec` in a PTY when supplying a key interactively. Inspect partial server failures and verify retrieval before reporting success.
 
 Configure the selected publication relays, Blossom servers, and signer in `.nsite/config.json`. Prefer an existing NIP-46 bunker; keep credentials out of command arguments and build files. Use the configured signer or `--prompt-sec` when needed. After configuration changes, `nsyte validate` checks structure, not network reachability.
 
@@ -91,4 +119,4 @@ For a first end-to-end acceptance test or suspected storage corruption, download
 nsyte download --pubkey <publisher-npub> --relays <relay-url> --servers <blossom-url> --output ./verification
 ```
 
-Substitute the actual destinations and include the same `--name` for a named site. See [validation notes](references/validation.md) for tested behavior and the remaining live-publication check. Command options were checked with nsyte 0.27.2; consult `nsyte deploy --help` or the [deploy reference](https://nsyte.run/docs/usage/commands/deploy) when versions differ.
+Substitute the actual destinations and include the same `--name` for a named site. Command options were checked with nsyte 0.27.2; consult `nsyte deploy --help` or the [deploy reference](https://nsyte.run/docs/usage/commands/deploy) when versions differ.

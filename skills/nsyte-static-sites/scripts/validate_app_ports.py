@@ -7,7 +7,7 @@ import re
 from urllib.parse import urlsplit
 
 
-def validate(build, blossom=False):
+def validate(build, blossom=False, no_relay=False):
     if not build.is_dir() or not (build / "index.html").is_file():
         raise ValueError("Expected a build directory containing index.html")
     evidence = {"relay": [], "blossom": []}
@@ -40,7 +40,7 @@ def validate(build, blossom=False):
                     errors.append(f"{location}: WebSocket URL does not use port 4870")
             elif port == 24243:
                 evidence["blossom"].append(location)
-    if not evidence["relay"]:
+    if not evidence["relay"] and not no_relay:
         errors.append("No literal ws/wss endpoint on port 4870 found")
     if blossom and not evidence["blossom"]:
         errors.append("Blossom requested: no literal http/https endpoint on port 24243 found")
@@ -54,9 +54,10 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("build", type=Path)
     parser.add_argument("--blossom", action="store_true", help="Require a Blossom endpoint on port 24243")
+    parser.add_argument("--no-relay", action="store_true", help="App has no relay functionality; still inspect any literal WebSocket URLs")
     args = parser.parse_args()
     try:
-        result = validate(args.build, args.blossom)
+        result = validate(args.build, args.blossom, args.no_relay)
     except (OSError, UnicodeError, ValueError) as error:
         parser.exit(2, f"Cannot validate build: {error}\n")
     print(json.dumps(result, indent=2))
