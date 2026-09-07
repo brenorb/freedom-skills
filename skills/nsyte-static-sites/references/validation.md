@@ -11,8 +11,10 @@ disposable signing key, `dist/index.html`, and `dist/style.css`.
   The workflow therefore uses a relative path and checks manifest contents.
 - Omitting Blossom servers failed with `Servers configuration is missing or empty`.
 
-No real publication was completed: the example services on ports 4870 and 24243
-were unavailable. A dry run does not establish upload, relay acceptance,
+No real publication was completed. The earlier test tried unavailable local
+services on ports 4870 and 24243 as publication destinations. The supplied
+instructions describe those ports as app connections; their absence does not
+block deployment to other configured destinations. A dry run does not establish upload, relay acceptance,
 independent retrieval, or public gateway access. Those remain required before
 declaring this workflow verified end to end.
 
