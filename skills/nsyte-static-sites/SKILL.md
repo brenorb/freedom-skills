@@ -9,55 +9,40 @@ metadata:
 
 # nsyte Static Sites
 
-Use nsyte to publish a static site to the Nostr network. An nsite is not a conventional web server: its files are content-addressed blobs, usually stored on Blossom servers, and a signed Nostr manifest maps URL paths to those files. Gateways resolve the site from the publisher's npub.
-
-This skill covers static sites only. Client-side JavaScript is allowed, including browser code that talks to a Nostr relay. Server-side rendering, API routes, server actions, databases, private backends, and processes that must stay running are out of scope. If the requested app needs those capabilities, stop and explain that it must be made static first.
+Publish static websites with the [nsyte CLI](https://nsyte.run/). An [nsite](https://nsite.run/) stores browser files on Blossom servers and publishes signed Nostr events mapping site paths to those files.
 
 ## Default workflow
 
-For a built site in an already configured project:
+For an existing build, deploy from the project root:
 
 ```bash
 nsyte deploy ./dist
 ```
 
-Run from the project root, replace `./dist` with the actual relative build directory, and reuse the existing signer and destinations. Install or initialize only when needed.
+Replace `./dist` with the project's actual relative output directory. Reuse its existing nsyte configuration and signer. Installation and initialization are fallbacks, not steps to repeat on every deploy.
 
-1. If the build is missing or stale, run the project's existing build command. Inspect HTML, CSS, JavaScript, and assets. Exclude secrets, credentials, `.env` files, and private data. Client-side code may call external services; server-side code requires separate hosting.
-2. For a first publication or changed destination, preview before uploading:
+1. If asked to build or change the app, use the existing framework and build command. Produce static HTML, CSS, JavaScript, and assets. Client-side apps can use Nostr and other external services; nsyte does not host server-side processes or databases.
+2. When the app needs Nostr or Blossom, configure its runtime connections as described below. A static page needs neither connection in its application code.
+3. Build and preview the output using the project's preview command, or `nsyte serve --dir ./dist`. Check the entry page and referenced assets. Deploy the output directory, not the repository or credentials.
+4. For a first publication or changed build/destination, inspect a preview:
 
    ```bash
    nsyte deploy ./dist --dry-run
    ```
 
-   Check the reported file count and manifest paths/hashes against the build. Stop if expected files are absent, even when the command returns success. Deployment scans for secrets by default; do not disable that scan. For a separate check use `nsyte scan ./dist`.
-3. Deploy the build using the command above. For a single-page app that needs a fallback, use `nsyte deploy ./dist --fallback index.html` and verify nested routes afterward.
-4. Inspect upload and relay results. Record the publisher's public key, destinations, and site name when using `--name`. Report failed uploads or rejected events explicitly.
-5. Download into a fresh directory with a separate read operation:
+   Confirm the expected file count and manifest paths. Then run the deploy command above. Keep the default secrets scan enabled. For a single-page app requiring a fallback, use `nsyte deploy ./dist --fallback index.html` and check a nested route afterward.
+5. Inspect the upload and relay results, then open the published site and check assets and relevant interactions. Return the URL and any remaining verification failure. For a root site, `https://<publisher-npub>.nsite.lol/` is a candidate gateway URL; verify it before calling the site accessible. Named-site URLs depend on the gateway.
 
-   ```bash
-   nsyte download --pubkey <publisher-npub> --relays <relay-url> --servers <blossom-url> --output ./verification
-   ```
+## App connections: relay :4870 and Blossom :24243
 
-   Replace placeholders with actual deployment values; include the same `--name` for a named site. Compare SHA-256 hashes of downloaded HTML and assets against the build. Do not overwrite an existing directory.
-6. For public publication, open the gateway from another client and verify HTML, assets, and routes. For a root site, `https://<publisher-npub>.nsite.lol/` is a candidate URL, not proof of availability. Named-site addressing depends on the gateway. Deliver a verified URL or state which verification failed.
+The supplied app-building instructions call for a relay on port `4870` and, when the app uses Blossom, a server on port `24243`. Treat these as connections used by the app at runtime. Resolve the host and protocol from the target environment or existing app configuration; the port alone is not a complete URL.
 
-## Public versus local publication
+- Preserve these ports when building for that environment. Keep endpoint URLs configurable so another environment can supply its own services.
+- Use loopback only when the target browser is meant to access services on its own device. In a deployed app, `127.0.0.1` refers to the visitor's device, not the developer's computer.
+- Respect browser HTTPS/WebSocket and cross-origin restrictions when verifying connections. Test the app in the intended browser or client.
+- Do not copy these ports into `.nsite/config.json` merely because the app uses them. App runtime connections and the CLI's publication destinations are separate settings; they may share services only when explicitly configured that way.
 
-A public gateway must discover the manifest and retrieve its blobs. Use the project's selected, publicly reachable relays and Blossom servers for public publication. Do not silently add fallback destinations or publish unrelated profile metadata.
-
-For an explicitly local test, existing services might use this configuration:
-
-```json
-{
-  "relays": ["ws://127.0.0.1:4870"],
-  "servers": ["http://127.0.0.1:24243"]
-}
-```
-
-These are example endpoints, not services supplied by the skill. Use them only when running. A deployment exclusively to loopback addresses is local: an external gateway cannot reach those services. Waiting for propagation does not fix that. Public access needs reachable destinations and discovery, or explicitly configured replication.
-
-Myco is an optional client for opening the verified URL. If a QR code is requested, generate it locally from that URL.
+For public publication, the selected gateway must be able to discover the manifest and fetch the blobs. Reuse the project's publication relays and Blossom servers; do not silently substitute services. Loopback-only publication requires a local client or a configured replication arrangement for external access.
 
 ## Setup when needed
 
@@ -67,19 +52,27 @@ If nsyte is missing, install from the official source:
 curl -fsSL https://nsyte.run/get/install.sh | bash
 ```
 
-See the [installation documentation](https://nsyte.run/docs/installation) if this fails. For a new project, run `nsyte init` once and configure the selected destinations in `.nsite/config.json`. Prefer an existing NIP-46 bunker. Keep credentials out of command arguments, logs, and build files; use the configured signer or `--prompt-sec` when needed.
+For a new project, initialize once:
 
-Run `nsyte validate` after configuration changes. It validates structure, not network reachability. Deployment needs a Blossom destination and a relay; a local Blossom server is unnecessary when another server is configured.
+```bash
+nsyte init
+```
 
-For preview use the project's existing command or `nsyte serve --dir ./dist`.
+Configure the selected publication relays, Blossom servers, and signer in `.nsite/config.json`. Prefer an existing NIP-46 bunker; keep credentials out of command arguments and build files. Use the configured signer or `--prompt-sec` when needed. After configuration changes, `nsyte validate` checks structure, not network reachability.
 
-## Verified behavior and troubleshooting
+See the [installation guide](https://nsyte.run/docs/installation) if setup fails.
 
-Command options and a two-file dry run were checked with **nsyte 0.27.2**; see [validation notes](references/validation.md).
+## Troubleshooting
 
-- **Empty manifest:** in the tested version, an absolute deploy path was joined to the working directory, finding zero files while returning success. Use a project-relative path and inspect file counts and manifest entries.
-- **Missing assets:** check filename casing, base paths, and build contents.
-- **Failed publication:** check configured services and signer errors. `nsyte status` and `nsyte debug` help diagnose problems; neither replaces retrieving files and opening the gateway.
-- **Secret detected:** stop, remove it from the build, and rotate it if exposed. Rebuild before publishing.
+- **Zero files despite success:** nsyte 0.27.2 was observed joining an absolute deployment path to the current directory and emitting an empty manifest. Use a relative path and inspect the file count.
+- **Page works but app does not:** inspect runtime relay/Blossom connections separately from the upload result. Check endpoint host, protocol, browser restrictions, and service availability.
+- **Missing assets or routes:** check casing, base paths, build contents, and the SPA fallback.
+- **Failed publication:** inspect signer and configured destination errors; `nsyte status` or `nsyte debug` can help. Do not treat a constructed URL as a successful deployment.
 
-Consult the [deploy reference](https://nsyte.run/docs/usage/commands/deploy) for current options. When the installed version differs, check relevant flags with `nsyte deploy --help`.
+For a first end-to-end acceptance test or suspected storage corruption, download into a fresh directory and compare HTML/asset hashes with the build:
+
+```bash
+nsyte download --pubkey <publisher-npub> --relays <relay-url> --servers <blossom-url> --output ./verification
+```
+
+Substitute the actual destinations and include the same `--name` for a named site. See [validation notes](references/validation.md) for tested behavior and the remaining live-publication check. Command options were checked with nsyte 0.27.2; consult `nsyte deploy --help` or the [deploy reference](https://nsyte.run/docs/usage/commands/deploy) when versions differ.
