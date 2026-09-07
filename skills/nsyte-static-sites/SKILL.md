@@ -25,6 +25,7 @@ Deploy the static build from the project root, using its existing configuration 
    ```
 
    Add `--no-relay` if the app has no relay functionality; add `--blossom` whenever it uses Blossom. Resolve `<skill-directory>` to this skill's location.
+   On failure, follow the JSON `errors` and `next_action`; reported locations/ports omit URL credentials.
 3. Run `nsyte deploy ./dist --dry-run`; confirm the file count and paths. Use a relative build path: nsyte 0.27.2 can produce an empty manifest from an absolute path. Keep the secrets scan enabled.
 4. Deploy, then open the public URL and test assets and interactions. Report upload/relay failures and anything unverified. For an SPA, add `--fallback index.html` and test a nested route.
 

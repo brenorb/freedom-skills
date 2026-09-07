@@ -1,5 +1,8 @@
 import importlib.util
+import json
 from pathlib import Path
+import subprocess
+import sys
 
 script = Path(__file__).resolve().parents[2] / "skills/nsyte-static-sites/scripts/validate_app_ports.py"
 spec = importlib.util.spec_from_file_location("app_ports", script)
@@ -26,3 +29,17 @@ def test_build_endpoint_checks(tmp_path):
     assert module.validate(tmp_path)["ok"]
     app.write_text('new WebSocket("ws://localhost:99999");')
     assert not module.validate(tmp_path)["ok"]
+
+
+def test_cli_explains_blossom_port_failure_without_leaking_url(tmp_path):
+    (tmp_path / "index.html").write_text('<script src="app.js"></script>')
+    (tmp_path / "app.js").write_text('fetch("https://user:secret@blob.example/private?token=hidden");')
+    run = subprocess.run([sys.executable, str(script), str(tmp_path), "--no-relay", "--blossom"],
+                         capture_output=True, text=True)
+    assert run.returncode == 1
+    result = json.loads(run.stdout)
+    assert not result["ok"]
+    assert "app.js:1 (port 443)" in result["errors"][0]
+    assert "24243" in result["errors"][0] and "Keep --blossom" in result["errors"][0]
+    assert result["next_action"].startswith("STOP: do not deploy.")
+    assert all(secret not in run.stdout for secret in ("user", "secret", "blob.example", "private", "hidden"))
