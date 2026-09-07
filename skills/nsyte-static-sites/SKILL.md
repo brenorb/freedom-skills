@@ -44,6 +44,20 @@ The supplied app-building instructions call for a relay on port `4870` and, when
 
 For public publication, the selected gateway must be able to discover the manifest and fetch the blobs. Reuse the project's publication relays and Blossom servers; do not silently substitute services. Loopback-only publication requires a local client or a configured replication arrangement for external access.
 
+## Validate app ports before deployment
+
+For an app using the relay, run the bundled static validator against the build:
+
+```bash
+python3 <skill-directory>/scripts/validate_app_ports.py ./dist
+```
+
+When the app uses Blossom, add `--blossom` to require HTTP(S) endpoint evidence on port `24243` as well. Resolve `<skill-directory>` to this installed skill's directory. Skip this connection check for plain static pages that use neither service.
+
+The script checks literal URLs in built HTML, JavaScript, and JSON. It requires a WebSocket URL on `4870` and flags other literal WebSocket ports. It prints file/line evidence without endpoint credentials, returning 0 for matching static evidence, 1 for missing/conflicting evidence, or 2 for an unreadable/invalid build.
+
+This is not a runtime proof: comments or unused code can contain matching URLs, and computed/injected URLs may be unresolved. Other WebSocket services need manual review. HTTP URLs cannot be classified as Blossom automatically, so `--blossom` requires a matching URL but cannot rule out additional Blossom endpoints. Confirm the actual relay connection and, when applicable, an upload/download request in browser network tools. Do not bypass a failed check by inserting unused URLs.
+
 ## Setup when needed
 
 If nsyte is missing, install from the official source:
