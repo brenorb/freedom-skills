@@ -13,6 +13,8 @@ Publish static websites with the [nsyte CLI](https://nsyte.run/). An [nsite](htt
 
 ## Default workflow
 
+When changing a site that is already published, read [Update an existing nsite](references/update.md) first. It covers preserving the URL and testing new Nostr/Blossom interactions.
+
 For an existing build, deploy from the project root:
 
 ```bash
@@ -40,6 +42,7 @@ Replace `./dist` with the project's actual relative output directory. Reuse its 
 The supplied app-building instructions call for a relay on port `4870` and, when the app uses Blossom, a server on port `24243`. Treat these as connections used by the app at runtime. Resolve the host and protocol from the target environment or existing app configuration; the port alone is not a complete URL.
 
 - Preserve these ports when building for that environment. Keep endpoint URLs configurable so another environment can supply its own services.
+- If a required runtime service is unavailable, report the missing endpoint and stop deployment of that feature. A reachable service on another port does not satisfy the requirement. Manual review may resolve computed URLs or unrelated WebSockets; it does not waive a confirmed port mismatch.
 - Use loopback only when the target browser is meant to access services on its own device. In a deployed app, `127.0.0.1` refers to the visitor's device, not the developer's computer.
 - Respect browser HTTPS/WebSocket and cross-origin restrictions when verifying connections. Test the app in the intended browser or client.
 - Do not copy these ports into `.nsite/config.json` merely because the app uses them. App runtime connections and the CLI's publication destinations are separate settings; they may share services only when explicitly configured that way.
