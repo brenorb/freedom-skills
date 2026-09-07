@@ -12,6 +12,7 @@ def validate(build, blossom=False, no_relay=False):
         raise ValueError("Expected a build directory containing index.html")
     evidence = {"relay": [], "blossom": []}
     errors = []
+    http_candidates = []
     # Literal scanning cannot determine which code runs or resolve computed URLs.
     pattern = re.compile(r'''(?:wss?|https?)://[^\s\"'`<>\\]+''')
     for path in sorted(build.rglob("*")):
@@ -37,14 +38,29 @@ def validate(build, blossom=False, no_relay=False):
                 if port == 4870:
                     evidence["relay"].append(location)
                 else:
-                    errors.append(f"{location}: WebSocket URL does not use port 4870")
-            elif port == 24243:
-                evidence["blossom"].append(location)
+                    actual = port if port is not None else (443 if url.scheme == "wss" else 80)
+                    errors.append(f"{location}: WebSocket uses port {actual}; expected 4870. "
+                                  "Configure a reachable relay on 4870 and rebuild.")
+            else:
+                actual = port if port is not None else (443 if url.scheme == "https" else 80)
+                http_candidates.append(f"{location} (port {actual})")
+                if port == 24243:
+                    evidence["blossom"].append(location)
     if not evidence["relay"] and not no_relay:
-        errors.append("No literal ws/wss endpoint on port 4870 found")
+        errors.append("No literal ws/wss endpoint on port 4870 found. Configure the runtime relay "
+                      "and rebuild; use --no-relay only if the app has no relay functionality.")
     if blossom and not evidence["blossom"]:
-        errors.append("Blossom requested: no literal http/https endpoint on port 24243 found")
+        observed = ", ".join(http_candidates) or "none"
+        errors.append("Blossom requires port 24243; no matching literal endpoint found. "
+                      f"HTTP(S) candidates (not necessarily Blossom): {observed}. "
+                      "Configure a reachable Blossom service on 24243 and rebuild. "
+                      "Port 443 is not a substitute. Keep --blossom while the app uses Blossom.")
     return {"ok": not errors, "evidence": evidence, "errors": errors,
+            "next_action": ("STOP: do not deploy. Fix the errors and rerun with the same required flags. "
+                            "For computed URLs, verify the actual runtime port manually. "
+                            "If the required service is unavailable, report that blocker; "
+                            "do not remove flags or add unused URLs to pass."
+                            if errors else "Verify actual runtime connections before deployment."),
             "scope": "Static URL evidence only: verify actual connections in the browser. "
                      "All literal WebSocket URLs are treated as relay candidates. "
                      "HTTP URLs cannot be classified as Blossom automatically."}
