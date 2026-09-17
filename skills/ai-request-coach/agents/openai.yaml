@@ -1,0 +1,4 @@
+interface:
+  display_name: "AI Request Coach"
+  short_description: "Turn rough ideas into clear, safe prompts for AI tools"
+  default_prompt: "Use $ai-request-coach to rewrite my rough idea into a concise, safe prompt I can paste into an AI assistant."
