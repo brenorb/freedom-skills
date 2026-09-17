@@ -10,7 +10,7 @@ Freedom Skills packages that knowledge into reusable, agent-ready workflows. Ins
 
 The goal is to make freedom technologies as convenient to use as mainstream apps, without making convenience depend on centralized, data-extracting services.
 
-![From raw tools to tested skills, guided use, safer action, and human-rights work](assets/00-raw-tools-to-human-rights.png)
+![From raw tools to tested skills, guided use, safer action, and sensitive workflows](assets/00-raw-tools-to-human-rights.png)
 
 Freedom technologies can help people communicate, transact, preserve information, and coordinate with greater autonomy. By making these tools easier for agents to understand and operate, Freedom Skills aims to reduce the practical barriers that keep them out of reach for developers, researchers, and people working in sensitive contexts.
 
