@@ -1,6 +1,6 @@
 ---
 name: threat-model-lite
-description: Use this skill when the user needs a fast, practical threat model in plain language instead of a formal security exercise. It fits activists, non-technical operators, and guided safety reviews where the goal is to spot the most likely harms and choose realistic mitigations.
+description: Use this skill when the user needs a fast, practical threat model in plain language instead of a formal security exercise. It fits non-technical operators and guided safety reviews where the goal is to spot the most likely harms and choose realistic mitigations.
 ---
 
 # Threat Model Lite

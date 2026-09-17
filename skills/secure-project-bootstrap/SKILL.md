@@ -1,6 +1,6 @@
 ---
 name: secure-project-bootstrap
-description: Use this skill when the user wants to start a new project with safer defaults from day one. It fits non-technical users, activists, and small teams who need a guided setup that reduces avoidable security and privacy mistakes without turning into enterprise process.
+description: Use this skill when the user wants to start a new project with safer defaults from day one. It fits non-technical users and small teams who need a guided setup that reduces avoidable security and privacy mistakes without turning into enterprise process.
 ---
 
 # Secure Project Bootstrap

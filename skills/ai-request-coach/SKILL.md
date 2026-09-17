@@ -1,6 +1,6 @@
 ---
 name: ai-request-coach
-description: Use this skill when the user has a rough idea, messy draft, or high-stakes task and needs help turning it into a clear, safe request for an AI assistant. It is especially useful for non-technical users, activists, and guided workflows where privacy, scope control, and plain language matter.
+description: Use this skill when the user has a rough idea, messy draft, or high-stakes task and needs help turning it into a clear, safe request for an AI assistant. It is especially useful for non-technical users and guided workflows where privacy, scope control, and plain language matter.
 ---
 
 # AI Request Coach
