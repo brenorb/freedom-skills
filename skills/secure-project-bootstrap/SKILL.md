@@ -43,4 +43,4 @@ Step-by-step next actions
 - Do not publish, deploy, invite collaborators, or connect third-party services without explicit user confirmation.
 - Do not put secrets, tokens, recovery codes, or personal data into the repo.
 - Do not recommend complex hardening that the user is unlikely to maintain.
-- If the project touches vulnerable people, location data, finances, or legal exposure, slow down and make the risk tradeoffs explicit.
+- If the project touches sensitive information, location data, finances, or legal exposure, slow down and make the risk tradeoffs explicit.
