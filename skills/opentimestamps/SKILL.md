@@ -1,6 +1,10 @@
 ---
 name: opentimestamps
 description: Use this skill when the user wants to timestamp a local file with OpenTimestamps or opentimestamps.org, generate or inspect a `.ots` proof, upgrade a pending proof, or verify that a file digest was attested in Bitcoin from the command line or the public website.
+compatibility: Requires Python 3 and the official OpenTimestamps client via `ots`, `uvx`, or `uv`; network access is needed for calendar submission and proof upgrades.
+metadata:
+  version: "0.1.0"
+  repository: "https://github.com/opentimestamps/opentimestamps-client"
 ---
 
 # OpenTimestamps
