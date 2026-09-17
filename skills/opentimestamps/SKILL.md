@@ -11,7 +11,9 @@ metadata:
 
 Use the bundled wrapper around the official OpenTimestamps client to stamp local files, inspect `.ots` proofs, upgrade them when remote calendars have new attestations, and verify them against Bitcoin-backed timestamps.
 
-## Default workflow
+## Available operations
+
+Choose only the operation the user requested. These commands are independent; do not run stamping, inspection, upgrading and verification as a fixed sequence.
 
 1. Stamp the local file with the bundled wrapper:
 
@@ -55,7 +57,7 @@ python3 skills/opentimestamps/scripts/opentimestamps.py verify \
 
 7. If the user needs raw `ots` commands, browser instructions, or Bitcoin-node-specific details, read `references/commands.md`.
 
-## Defaults
+## Operational preferences
 
 - Prefer the bundled wrapper over raw `ots` calls because it returns structured JSON and falls back to `uvx --from opentimestamps-client ots` when a persistent `ots` install is missing.
 - Prefer storing the `.ots` file beside the original file and keeping the bytes unchanged after stamping.
