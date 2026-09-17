@@ -1,6 +1,6 @@
 # threat model notes for stegg
 
-Read this file before using steganography for users facing state repression, cartel violence, organized crime retaliation, or other adversaries with device seizure, traffic monitoring, or content inspection capabilities.
+Read this file before using steganography in high-risk contexts involving device seizure, traffic monitoring, or content inspection capabilities.
 
 ## What steganography is good for
 
