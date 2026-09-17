@@ -1,6 +1,6 @@
 ---
 name: stegg-steganography
-description: "Use this skill when Codex needs local steganography with ST3GG via `uvx`: hiding or recovering text or files in image carriers, triaging suspicious stego images, or guiding cautious encode/decode workflows for activists, dissidents, or other users operating in adversarial environments."
+description: "Use this skill when Codex needs local steganography with ST3GG via `uvx`: hiding or recovering text or files in image carriers, triaging suspicious stego images, or guiding cautious encode/decode workflows for users operating in adversarial environments."
 ---
 
 # stegg-steganography
