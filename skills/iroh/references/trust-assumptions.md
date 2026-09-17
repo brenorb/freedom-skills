@@ -1,6 +1,6 @@
 # iroh trust assumptions
 
-Read this file when the user wants to use iroh in a high-risk context: dissidents, journalists, whistleblowers, human-rights defenders, politically exposed organizers, or anyone whose peer graph, location, or infrastructure choices could create real harm.
+Read this file when the user wants to use iroh in a high-risk context where peer graph, location, or infrastructure choices could create real harm.
 
 ## Core trust model
 
