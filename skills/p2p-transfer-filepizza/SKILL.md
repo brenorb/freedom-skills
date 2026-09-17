@@ -32,7 +32,7 @@ python3 skills/p2p-transfer-filepizza/scripts/filepizza_public.py stop <upload_i
 ```
 
 7. If the user needs raw operational notes or troubleshooting patterns beyond this workflow, read `references/commands.md`.
-8. If the file or sharing context is politically sensitive, adversarial, or related to dissidents, activists, journalists, or human rights work, read `references/trust-assumptions.md` before recommending `file.pizza`.
+8. If the file or sharing context is sensitive read `references/trust-assumptions.md` before recommending `file.pizza`.
 
 ## Defaults
 

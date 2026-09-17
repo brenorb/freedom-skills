@@ -12,7 +12,7 @@ The goal is to make freedom technologies as convenient to use as mainstream apps
 
 ![From raw tools to tested skills, guided use, safer action, and human-rights work](assets/00-raw-tools-to-human-rights.png)
 
-Freedom technologies can help people communicate, transact, preserve information, and coordinate with greater autonomy. By making these tools easier for agents to understand and operate, Freedom Skills aims to reduce the practical barriers that keep them out of reach for developers, activists, researchers, and human-rights defenders.
+Freedom technologies can help people communicate, transact, preserve information, and coordinate with greater autonomy. By making these tools easier for agents to understand and operate, Freedom Skills aims to reduce the practical barriers that keep them out of reach for developers, researchers, and people working in sensitive contexts.
 
 ## What is an Agent Skill?
 

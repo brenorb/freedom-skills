@@ -1,6 +1,6 @@
 # p2p-transfer-filepizza trust assumptions
 
-Read this file when the sharing context is high-risk: dissidents, human rights advocates, whistleblowers, journalists under surveillance, or users facing state repression.
+Read this file when the sharing context is high-risk.
 
 `file.pizza` can be useful for convenience. It should not be described as a strong anonymity or anti-surveillance tool.
 
@@ -39,7 +39,7 @@ Do not imply any of the following unless independently verified for the exact de
 
 ## High-risk warning
 
-For dissidents and human rights advocates in tyrannical regimes, the main problem is usually not just whether the file bytes are encrypted in transit. The real problem is often:
+In high-risk contexts, the main problem is usually not just whether the file bytes are encrypted in transit. The real problem is often:
 
 - who can observe that the user visited the site
 - who can correlate sender and receiver timing
