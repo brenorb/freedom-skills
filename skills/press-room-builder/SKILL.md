@@ -5,7 +5,7 @@ description: Organize a lightweight, source-linked press room with key facts, ti
 
 # Press Room Builder
 
-Make it easy for a journalist to verify and use the right material without
+Make it easy for the intended audience to verify and use the right material without
 exposing sources or publishing stale claims.
 
 ## Workflow
