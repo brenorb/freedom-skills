@@ -76,7 +76,7 @@ cargo run --release --bin iroh-relay --features server -- --help
 
 6. If the user needs more exact command patterns, environment notes, or relay details, read `references/commands.md`.
 
-7. If the sharing or connectivity context is high-risk, surveillance-sensitive, or politically exposed, read `references/trust-assumptions.md` before recommending public relays or publishing endpoint information.
+7. If the sharing or connectivity context is high-risk or surveillance-sensitive, read `references/trust-assumptions.md` before recommending public relays or publishing endpoint information.
 
 ## Defaults
 
