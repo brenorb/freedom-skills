@@ -54,6 +54,7 @@ Freedom Skills follows the open [Agent Skills standard](https://agentskills.io).
 
 | Skill | What it enables |
 |---|---|
+| [`blossom-cli`](skills/blossom-cli/) | Uploading, downloading, verifying, mirroring, and recovering files across Blossom servers. |
 | [`p2p-transfer-filepizza`](skills/p2p-transfer-filepizza/) | Sharing local files through temporary peer-to-peer links with FilePizza. |
 | [`wayback-archive`](skills/wayback-archive/) | Archiving webpages, checking snapshots, creating stable citation links, and batch archiving URLs. |
 
