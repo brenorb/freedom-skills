@@ -1,0 +1,14 @@
+{
+  "name": "@freedom-skills/miniscript-skill",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test:js": "node --test tests/test_compile_policy.mjs",
+    "test:py": "uv run --project . --group dev pytest -q",
+    "test": "npm run test:js && npm run test:py"
+  },
+  "dependencies": {
+    "@bitcoinerlab/miniscript": "^2.0.0",
+    "@bitcoinerlab/miniscript-policies": "^1.1.0"
+  }
+}
