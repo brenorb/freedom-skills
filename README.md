@@ -30,6 +30,7 @@ Freedom Skills follows the open [Agent Skills standard](https://agentskills.io).
 |---|---|
 | [`bitchat`](skills/bitchat/) | BitChat Bluetooth mesh, direct messages, daemon receiving, geohash channels, and location-scoped messaging. |
 | [`nostr-cli`](skills/nostr-cli/) | Nostr account setup, relay management, profiles, posts, replies, DMs, follows, and long-form publishing. |
+| [`nihao`](skills/nihao/) | Nostr identity setup and health checks, with optional Cashu wallet configuration. |
 | [`signal-cli`](skills/signal-cli/) | Private Signal messages and attachments, account and contact inspection, group workflows, setup, and troubleshooting. |
 
 ### Money and payments
