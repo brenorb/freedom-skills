@@ -1,0 +1,13 @@
+{
+  "pubkey": "npub1p4xdd2wpjdwy33quyx4gpa6395pd64x0hsnyuxe855arvvv55deq938rr5",
+  "name": "Archive Board",
+  "description": "Disposable torrent-sharing example.",
+  "tags": [
+    {"key": "i", "value": "1"},
+    {"key": "H", "value": "0"},
+    {"key": "V", "value": null},
+    {"key": "b", "value": null},
+    {"key": "F", "value": null},
+    {"key": "q", "value": "docs"}
+  ]
+}

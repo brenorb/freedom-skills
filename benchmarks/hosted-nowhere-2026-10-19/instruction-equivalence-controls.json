@@ -1,0 +1,89 @@
+{
+  "validator_sha256": "9220474cc7dd38cd50d03051a93a4c187b70531b5d54fd78c84786a7d8c44a4d",
+  "source_batches": [
+    "final-v6",
+    "final-v7",
+    "final-v8",
+    "final-v9",
+    "final-v9-clarified"
+  ],
+  "target_batch": "final-v12",
+  "controls": [
+    {
+      "control": "Reviewed unchanged message instructions",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "control": "Changed trace invalidates attestation",
+      "expected": false,
+      "actual": false
+    },
+    {
+      "control": "Unknown dynamic read requires fresh run",
+      "expected": false,
+      "actual": false
+    },
+    {
+      "control": "Different target invalidates attestation",
+      "expected": false,
+      "actual": false
+    },
+    {
+      "control": "Loaded changed Art content rejects reuse",
+      "expected": false,
+      "actual": false
+    },
+    {
+      "control": "Loaded changed Petition content rejects reuse",
+      "expected": false,
+      "actual": false
+    },
+    {
+      "control": "Unchanged Art reference from v7 remains eligible",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "control": "Actual direct instruction read cannot be omitted",
+      "expected": false,
+      "actual": false
+    },
+    {
+      "control": "Unchanged Petition reference from v8 remains eligible",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "control": "Changed Forum read cannot be hidden by claiming only root read",
+      "expected": false,
+      "actual": false
+    },
+    {
+      "control": "Loaded changed Forum content rejects reuse",
+      "expected": false,
+      "actual": false
+    },
+    {
+      "control": "Unchanged Forum reference from v9 remains eligible",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "control": "Unchanged quoted N15 instructions remain eligible",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "control": "Loaded changed Chat content rejects reuse",
+      "expected": false,
+      "actual": false
+    },
+    {
+      "control": "Actual changed Chat read cannot be omitted",
+      "expected": false,
+      "actual": false
+    }
+  ],
+  "all_expected_outcomes_match": true
+}

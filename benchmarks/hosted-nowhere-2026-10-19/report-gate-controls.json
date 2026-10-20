@@ -1,0 +1,11 @@
+{
+  "expected_base_row_pass": true,
+  "actual_base_row_pass": true,
+  "expected_incomplete_replay_pass": false,
+  "actual_incomplete_replay_pass": false,
+  "incomplete_attempt_retained": true,
+  "all_match": true,
+  "reporter_sha256": "64262f8194cfa83a9715e4f5ce7f934d9c8838ae57e81a9bb4ee5a53633e0185",
+  "oracle_sha256": "5d46cdf42242b22fccb2cc7a1d78a71876a5a748996e3438367f243b31bee838",
+  "fixture": "Real final-v7 Luna N05 metadata and frozen skill copied into temporary isolated report fixtures; actual evidence regraded by current oracle, no model outputs modified."
+}

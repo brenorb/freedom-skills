@@ -1,0 +1,55 @@
+{
+  "checked_at": "2026-10-20T00:47:53.243Z",
+  "scope": "Independent isolated Chrome route/title checks only; not complete browser workflows for every builder.",
+  "routes": [
+    {
+      "app": "message",
+      "url": "https://hostednowhere.com/create/message",
+      "status": 200,
+      "title": "Create Message · Nowhere"
+    },
+    {
+      "app": "drop",
+      "url": "https://hostednowhere.com/create/drop",
+      "status": 200,
+      "title": "Create Drop · Nowhere"
+    },
+    {
+      "app": "event",
+      "url": "https://hostednowhere.com/create/event",
+      "status": 200,
+      "title": "Create Event · Nowhere"
+    },
+    {
+      "app": "fundraiser",
+      "url": "https://hostednowhere.com/create/fundraiser",
+      "status": 200,
+      "title": "Create Fundraiser · Nowhere"
+    },
+    {
+      "app": "petition",
+      "url": "https://hostednowhere.com/create/petition",
+      "status": 200,
+      "title": "Create Petition · Nowhere"
+    },
+    {
+      "app": "forum",
+      "url": "https://hostednowhere.com/create/forum",
+      "status": 200,
+      "title": "Create Forum · Nowhere"
+    },
+    {
+      "app": "art",
+      "url": "https://hostednowhere.com/create/art",
+      "status": 200,
+      "title": "Create Art · Nowhere"
+    },
+    {
+      "app": "store",
+      "url": "https://hostednowhere.com/create/store",
+      "status": 200,
+      "title": "Create Store · Nowhere"
+    }
+  ],
+  "all_match": true
+}

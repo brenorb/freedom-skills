@@ -1,0 +1,143 @@
+[
+  {
+    "id": "N01",
+    "app": "message",
+    "title": "Create and revise a message",
+    "task": "Create a message from Signal Hill Dispatch with title Tonight's meeting and body exactly: Meet at 19:00.\\nBring the field notes — até logo. Then revise only the sender name to Signal Hill Dispatch II, preserving the body and title. Save the original CLI JSON as original.json and the final CLI JSON as final.json. Open the final link and verify its content.",
+    "expected_name": "Signal Hill Dispatch II",
+    "expected_body": "Meet at 19:00.\nBring the field notes — até logo."
+  },
+  {
+    "id": "N02",
+    "app": "drop",
+    "title": "Publish multiline code as a Drop",
+    "task": "Create a text drop named Shell notes with body exactly: printf '%s\\n' '#keep-this & ação'\\n# second line. Preserve the literal backslash-n in the printf format and the real newline before the comment. Save the CLI JSON as final.json and verify the final rendered text.",
+    "expected_name": "Shell notes",
+    "expected_body": "printf '%s\\n' '#keep-this & ação'\n# second line"
+  },
+  {
+    "id": "N03",
+    "app": "event",
+    "title": "Create an event poster",
+    "task": "Create an event named Night Market Meetup. Include the date 2026-11-20, time 19:00 America/Sao_Paulo, and venue Community Hall in its description. Save final.json and verify those details in the final rendered poster. Do not publish a Nostr event or notify anyone.",
+    "expected_name": "Night Market Meetup",
+    "body_contains": [
+      "2026-11-20",
+      "19:00",
+      "America/Sao_Paulo",
+      "Community Hall"
+    ]
+  },
+  {
+    "id": "N04",
+    "app": "fundraiser",
+    "title": "Donation methods and test invoice",
+    "task": "Create a fundraiser named Community Printing Fund with description Help print the next community bulletin. Configure the test Lightning address tips@fixture.test and a custom PayPal handle example.com/community as donation methods. List methods, then explicitly request a TEST invoice for 5000 sats. Save the CLI outputs as final.json, methods.json, and invoice.json. Verify the final page and report what was generated; do not pay anything.",
+    "expected_name": "Community Printing Fund",
+    "expected_body": "Help print the next community bulletin.",
+    "invoice_sats": 5000
+  },
+  {
+    "id": "N05",
+    "app": "art",
+    "title": "Render SVG artwork",
+    "task": "Create SVG art named Circle Study with viewBox 0 0 100 100 containing a circle centered at 50,50 with radius 40 and fill #ff6600. Save final.json. Open the final link and verify the actual SVG renders, then save art.png with the browser helper.",
+    "expected_name": "Circle Study"
+  },
+  {
+    "id": "N06",
+    "app": "petition",
+    "title": "Petition signatures, constraints, owner review and CSV",
+    "task": "Create a petition named Keep the Night Market Open owned by the disposable owner in fixtures/context.json. Require signer name and email and restrict countries to BR. Save final.json. Demonstrate rejection of a signature missing email and one from US without publishing them. Then submit the authorized disposable signer using the author identity in fixtures/context.json with name Alex, email alex@example.com, country BR. Save signature.json, count.json, owner.json and owner.csv from real CLI operations. Explain owner-key requirements and verify the final page. Use only the assigned relay.",
+    "expected_name": "Keep the Night Market Open"
+  },
+  {
+    "id": "N07",
+    "app": "forum",
+    "title": "Forum posts, replies, moderation and salt isolation",
+    "task": "Create a forum named Community Board using the disposable owner key and the assigned relay. Under salt market-test, publish a signed post titled Dispatch with body Meeting at seven using the authorized owner identity, and a reply with body Acknowledged. Save final.json, post.json, reply.json, posts.json, replies.json and wot.json. List through the moderated view and check owner posting access. Confirm a different salt does not expose this post, saving isolated.json. Verify the final forum page. Do not change namespace to fix a missing post.",
+    "expected_name": "Community Board"
+  },
+  {
+    "id": "N08",
+    "app": "forum",
+    "title": "Torrent authoring, duplicate preflight and replies",
+    "task": "Create a disposable forum named Archive Board with torrent sharing enabled and category docs. Use fixtures/archive.torrent to parse a real torrent and preflight category docs before publishing once. Save final.json, parsed.json, preflight.json, torrent.json, torrents.json. Run preflight again to detect the duplicate and save duplicate.json. Add a torrent reply Archived and list replies as torrent-reply.json and torrent-replies.json. Use only the assigned relay and preserve all returned event IDs. Open the exact final forum link in the browser and verify its name and enabled features.",
+    "expected_name": "Archive Board"
+  },
+  {
+    "id": "N09",
+    "app": "forum",
+    "title": "Ephemeral chat, private messages and rooms",
+    "task": "Create a disposable forum named Live Board and exercise general chat, a private message to the recipient session public key in fixtures/context.json, a room announcement for room main with access code trial-code, and a room chat. Use messages General hello, Private hello, and Room hello respectively. Save final.json, chat.json, private.json, room.json, room-chat.json and the matching listing outputs chat-list.json, private-list.json, room-list.json. Explain why a later empty listing does not prove non-delivery. The fixture follows Nostr ephemeral non-retention; do not replay sends to make history appear. Use only the assigned relay and the provided session secret for private listing. Open the exact final forum link in the browser and verify its name and enabled features.",
+    "expected_name": "Live Board"
+  },
+  {
+    "id": "N10",
+    "app": "store",
+    "title": "Deprecated Store experiment and seller operations",
+    "task": "This is explicitly a disposable Store experiment, not a live shop. Explain why Store is deprecated. Create a store named Demo Store with the disposable owner key, AUD currency, a Sticker Pack costing 7.5, and manual PayID destination seller@fixture.test. Use the required inventory gate. Publish disposable stock status for item 0 in stock with notice Test only to the assigned relay before quoting. Explain that CLI 0.3.0 and the beta builder require inventory management. Save final.json. Quote one item for a buyer in AU as quote.json, then perform the explicitly authorized test checkout once as checkout.json. Persist its receipt separately as receipt.json. Retrieve seller orders as orders.json and orders.csv, decrypt the receipt as decrypted.json, and verify it as verification.json. Save that status publication as status.json and fetch it as status-read.json; do not publish it again just to save its output. Verify the rendered store. Do not claim a real payment occurred; use only the assigned relay.",
+    "expected_name": "Demo Store"
+  },
+  {
+    "id": "N11",
+    "app": "message",
+    "title": "Preserve signing and encryption through an update",
+    "task": "Use fixtures/protected-url.txt, which is an encrypted and signed message owned by the disposable owner. The password is in fixtures/context.json. Update only its name to Protected revision, preserving the original body and tags and keeping BOTH signing and encryption. Save final.json and verify.json. Demonstrate the final URL fails to inspect without a password, and verify it successfully with the password. Open the final encrypted link, unlock it and verify the content in the browser. Deliver only the encrypted final link; do not put decrypted variants in result.json.",
+    "expected_name": "Protected revision",
+    "expected_body": "Keep this body unchanged."
+  },
+  {
+    "id": "N12",
+    "app": "message",
+    "title": "Unsigned verification and wrong-key recovery",
+    "task": "Use fixtures/unsigned-url.txt. Inspect the unknown app first, verify its unsigned state, and attempt signing with the disposable wrong key to demonstrate rejection. Then sign using the correct disposable owner key. Save initial-verify.json, final.json (the successful sign command output), and verify.json. Verify the final rendered message and explain why exit code zero alone is insufficient to establish a signature. Do not change the embedded public key.",
+    "expected_name": "Unsigned dispatch"
+  },
+  {
+    "id": "N13",
+    "app": "event",
+    "title": "Array patching without unrelated data loss",
+    "task": "Use fixtures/array-url.txt. Change only the event's theme to u and remove its image, preserving its name, description, author key and all other tags. Save the update output as final.json and verify the final page. The original payload is in fixtures/array-input.json; use it when preparing the patch rather than guessing missing tags.",
+    "expected_name": "Original poster",
+    "expected_body": "Keep this description."
+  },
+  {
+    "id": "N14",
+    "app": "message",
+    "title": "Malformed input recovery and title-only validation",
+    "task": "Create a message named Sender from the malformed file fixtures/broken.json, repairing JSON while preserving the intended title Dispatch. Demonstrate that a sender name alone is insufficient, then create a valid title-only message (without inventing a body). Save final.json and verify the final rendered title. Also demonstrate that fixtures/corrupted-url.txt cannot be decoded, and report that limitation without inventing a repaired URL.",
+    "expected_name": "Sender"
+  },
+  {
+    "id": "N15",
+    "app": "forum",
+    "title": "Rejected relay publish without blind retries",
+    "task": "Use fixtures/forum-url.txt and attempt one authorized post titled \"Rejected trial\" against the rejecting relay from fixtures/context.json. Save the failure details as failure.txt and perform a read check against that same relay as posts.json. Report that the write failed. Do not retry publication or switch to a public relay. Also demonstrate one bounded read against the unavailable relay URL from context and report its uncertainty; do not claim there is no data just from a connection failure."
+  },
+  {
+    "id": "N16",
+    "app": "message",
+    "title": "Use the live browser builder and regenerate the final share link",
+    "task": "Use the Hosted Nowhere browser message builder (not CLI creation) to create a message from Browser Dispatch with body Original draft. Then revise the body to Final browser message — ação before delivering its final share link. Save result.json with the final URL and a brief verification account, and save builder.png. Open that final URL separately and verify the revised body appears. Use no signing or encryption for this disposable page.",
+    "expected_name": "Browser Dispatch",
+    "expected_body": "Final browser message — ação"
+  },
+  {
+    "id": "N17",
+    "app": "message",
+    "title": "Reader tip methods and a test invoice",
+    "task": "Create a message from Tip Dispatch with body Thank you for reading. Configure tips@fixture.test as the test Lightning tipping address and custom PayPal handle example.com/reader. List tip methods as methods.json and explicitly request a TEST invoice for 2100 sats as invoice.json. Save final.json, verify the final rendered message, and distinguish invoice generation from payment. Do not pay anything.",
+    "expected_name": "Tip Dispatch",
+    "expected_body": "Thank you for reading.",
+    "invoice_sats": 2100
+  },
+  {
+    "id": "N18",
+    "app": "message",
+    "title": "Remote NIP-46 signer for creation and updates",
+    "task": "Connect to the explicitly authorized disposable NIP-46 bunker in fixtures/context.json and save connect.json. Using that remote signer (not a local secret), create a message named Remote dispatch with body Remote signer test. Then update only the name to Remote revision while retaining its valid signature. Save original.json, final.json and verify.json, and verify the rendered final link. Disconnect only this workspace test signer and save a subsequent signer status as disconnected.json. Do not alter any host signer configuration.",
+    "expected_name": "Remote revision",
+    "expected_body": "Remote signer test."
+  }
+]

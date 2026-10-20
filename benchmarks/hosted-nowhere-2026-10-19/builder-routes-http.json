@@ -1,0 +1,46 @@
+{
+  "checked_at": "2026-10-20T00:46:57.648308+00:00",
+  "scope": "Live HTTP route/title checks only; not a complete browser workflow for each builder.",
+  "routes": [
+    {
+      "app": "message",
+      "url": "https://hostednowhere.com/create/message",
+      "error": "HTTP Error 403: Forbidden"
+    },
+    {
+      "app": "drop",
+      "url": "https://hostednowhere.com/create/drop",
+      "error": "HTTP Error 403: Forbidden"
+    },
+    {
+      "app": "event",
+      "url": "https://hostednowhere.com/create/event",
+      "error": "HTTP Error 403: Forbidden"
+    },
+    {
+      "app": "fundraiser",
+      "url": "https://hostednowhere.com/create/fundraiser",
+      "error": "HTTP Error 403: Forbidden"
+    },
+    {
+      "app": "petition",
+      "url": "https://hostednowhere.com/create/petition",
+      "error": "HTTP Error 403: Forbidden"
+    },
+    {
+      "app": "forum",
+      "url": "https://hostednowhere.com/create/forum",
+      "error": "HTTP Error 403: Forbidden"
+    },
+    {
+      "app": "art",
+      "url": "https://hostednowhere.com/create/art",
+      "error": "HTTP Error 403: Forbidden"
+    },
+    {
+      "app": "store",
+      "url": "https://hostednowhere.com/create/store",
+      "error": "HTTP Error 403: Forbidden"
+    }
+  ]
+}

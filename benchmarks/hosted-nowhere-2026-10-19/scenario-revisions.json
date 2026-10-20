@@ -1,0 +1,7 @@
+{
+  "N15": {
+    "source_story_sha256": "bd3fa5b02abe249d99b380401eda3aa56003e2681bdc63af355dff1ef13cd7ae",
+    "target_story_sha256": "b16698e3d5224f392789043d9a6c8c9898f223f984e20dd7cca14b7dbee6f67e",
+    "reason": "The original unquoted title boundary was ambiguous: two fresh Haiku sessions treated against the rejecting relay as title text. Quote Rejected trial explicitly. Only raw task wording changes; expected behavior and assertions do not. Retest N15 freshly on all three models; retain prior attempts without presenting them as identical-prompt outcomes."
+  }
+}
