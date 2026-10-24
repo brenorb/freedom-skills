@@ -69,6 +69,7 @@ Freedom Skills follows the open [Agent Skills standard](https://agentskills.io).
 
 | Skill | What it enables |
 |---|---|
+| [`wavelength-sdk`](skills/wavelength-sdk/) | Routes web, React Native, API, and CLI integrations for Lightning Labs’ self-custodial Wavelength wallet SDK to its canonical upstream repository. |
 | [`mo-ux-vibedesign-btc`](skills/mo-ux-vibedesign-btc/) | Senior Bitcoin UX reviews covering interviews, copy, flows, wireframes, mockups, and benchmarks. |
 | [`make-napplet`](skills/make-napplet/) | **Entrypoint** for creating a complete napplet end to end from one prompt using the other skills. |
 | [`design-napplet`](skills/design-napplet/) | Plan safe, conformant sandboxed Nostr napplets before implementation. |
