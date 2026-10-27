@@ -1,0 +1,17 @@
+[project]
+name = "freedom-skills-miniscript"
+version = "0.1.0"
+description = "Bundled Miniscript helpers for the Freedom Skills miniscript skill."
+readme = "SKILL.md"
+requires-python = ">=3.12"
+dependencies = [
+  "sympy>=1.14.0"
+]
+
+[dependency-groups]
+dev = [
+  "pytest>=8.4.2"
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
