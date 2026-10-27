@@ -87,9 +87,9 @@ Freedom Skills follows the open [Agent Skills standard](https://agentskills.io).
 The Napplet guidance is adapted from [`napplet/web`](https://github.com/napplet/web/tree/6c4dafd20142cade5a51ae049beecfef7c8f7c2e/skills)
 at upstream commit `6c4dafd20142cade5a51ae049beecfef7c8f7c2e` (CLI `0.13.0`,
 SDK `0.30.0`). Each canonical skill records its source and license in
-frontmatter. Freedom Skills uses its own `0.2.0` version, retains project
-metadata, and documents the old entrypoints as aliases. Do not use unmerged
-upstream proposal APIs as implementation dependencies.
+frontmatter. Freedom Skills uses its own `0.2.0` version and retains project
+metadata. Do not use unmerged upstream proposal APIs as implementation
+dependencies.
 
 ## Hooks
 
