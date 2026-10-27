@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "study_id": "2026-10-18-baseline",
+  "skill": "btcdeb",
+  "kind": "output_quality_baseline_and_manual_revision",
+  "status": "historical_completed",
+  "legacy_path": "benchmarks/btcdeb-2026-10-18",
+  "models": {
+    "luna": {
+      "runner": "codex",
+      "model": "gpt-6-luna",
+      "effort": "high"
+    },
+    "haiku": {
+      "runner": "claude",
+      "model": "haiku",
+      "actual_provider_model": "claude-haiku-4-5-20251001"
+    },
+    "qwen": {
+      "runner": "omp",
+      "model": "splash/incoai/Qwen3.8-27B-Splash"
+    }
+  },
+  "limits": {
+    "wall_seconds": 240,
+    "tool_calls": 64,
+    "claude_max_turns": 24,
+    "qwen_context_window": 32768,
+    "qwen_output_tokens_per_request": 4096
+  },
+  "conditions": [
+    "skill-offline",
+    "offline-no-skill",
+    "web-no-skill"
+  ],
+  "automatic_inference": false,
+  "promotion": "manual v2 retained",
+  "final_data_access": "GEPA final inputs remain evaluator-only and are not exported",
+  "raw_evidence": "artifacts.json",
+  "metrics": "results.json",
+  "protocol_source_sha256": "fb19ce81b2b4c626b7d5aa575f5580cdcc10729006b584069e41017195bf2e19",
+  "retained_runtime_skill": {
+    "path": "skills/btcdeb",
+    "files": {
+      "SKILL.md": "3538ca2860d355446832aee03e0a44458812030115e14fce90816d879473030a",
+      "references/taproot.md": "09f870f7132d113545d1832a91b349dbed99396d831e6a670b6c11f299153d94",
+      "references/authoring.md": "48f9cf976b2aff4055fa41c7a966490ab8fffb68d7fc2e9167fcca9c5c0ac58a",
+      "references/execution.md": "282bf2a7bf2eed549c2a3ed3dacf36484321cb4835e49552ab5d00e1868093f8",
+      "references/runtime.md": "d021291a8e024c81f83ad1fa125fee720eac96136b207a3291eb6305f898dd95",
+      "references/transactions.md": "48954e3df64f92e7d70d1d04e2bb54ad028f8f905b2a93e1560d1bd23f17d44c"
+    }
+  },
+  "evaluated_package_snapshots": {
+    "skill-v1": {
+      "SKILL.md": "8d9f25326d666f025aaa98ecba760c0cd6b1e537149b1cdbc34b3fc681f9a4bd",
+      "references/taproot.md": "09f870f7132d113545d1832a91b349dbed99396d831e6a670b6c11f299153d94",
+      "references/authoring.md": "6b36ff9fe3fe69dd8787f5534b174a80fefb3da01f21883ad42cb97b90caee94",
+      "references/execution.md": "282bf2a7bf2eed549c2a3ed3dacf36484321cb4835e49552ab5d00e1868093f8",
+      "references/runtime.md": "d021291a8e024c81f83ad1fa125fee720eac96136b207a3291eb6305f898dd95",
+      "references/transactions.md": "48954e3df64f92e7d70d1d04e2bb54ad028f8f905b2a93e1560d1bd23f17d44c"
+    },
+    "skill-v2": {
+      "SKILL.md": "8d9f25326d666f025aaa98ecba760c0cd6b1e537149b1cdbc34b3fc681f9a4bd",
+      "references/taproot.md": "09f870f7132d113545d1832a91b349dbed99396d831e6a670b6c11f299153d94",
+      "references/authoring.md": "48f9cf976b2aff4055fa41c7a966490ab8fffb68d7fc2e9167fcca9c5c0ac58a",
+      "references/execution.md": "282bf2a7bf2eed549c2a3ed3dacf36484321cb4835e49552ab5d00e1868093f8",
+      "references/runtime.md": "d021291a8e024c81f83ad1fa125fee720eac96136b207a3291eb6305f898dd95",
+      "references/transactions.md": "48954e3df64f92e7d70d1d04e2bb54ad028f8f905b2a93e1560d1bd23f17d44c"
+    }
+  },
+  "source_semantics": "Each cohort uses its recorded package snapshot; retained runtime is not substituted into older runs.",
+  "protocol_path_semantics": "Byte-identical historical protocol. Paths refer to original legacy layout; no automatic restart or final unsealing authorized."
+}

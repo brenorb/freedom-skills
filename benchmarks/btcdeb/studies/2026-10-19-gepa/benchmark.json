@@ -1,0 +1,1854 @@
+{
+  "schema_version": 1,
+  "groups": [
+    {
+      "split": "diagnostic",
+      "model": "haiku",
+      "condition": "596e1a22fad99939",
+      "records": 2,
+      "admitted_evaluable": 0,
+      "reviewed": 0,
+      "completed": 0,
+      "seconds_all": {
+        "n_observed": 0,
+        "n_missing": 0,
+        "sum_observed": null,
+        "median_observed": null
+      },
+      "seconds_successful": {
+        "n_observed": 0,
+        "n_missing": 0,
+        "sum_observed": null,
+        "median_observed": null
+      },
+      "usage_lower_bound_records": 0,
+      "usage": {
+        "input_tokens": {
+          "n_observed": 0,
+          "n_missing": 0,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "cached_input_tokens": {
+          "n_observed": 0,
+          "n_missing": 0,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "cache_write_tokens": {
+          "n_observed": 0,
+          "n_missing": 0,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "output_tokens": {
+          "n_observed": 0,
+          "n_missing": 0,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "reasoning_tokens": {
+          "n_observed": 0,
+          "n_missing": 0,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "total_tokens": {
+          "n_observed": 0,
+          "n_missing": 0,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "uncached_input_plus_output": {
+          "n_observed": 0,
+          "n_missing": 0,
+          "sum_observed": null,
+          "median_observed": null
+        }
+      }
+    },
+    {
+      "split": "diagnostic",
+      "model": "haiku",
+      "condition": "6d9c569ab919c384",
+      "records": 2,
+      "admitted_evaluable": 0,
+      "reviewed": 0,
+      "completed": 0,
+      "seconds_all": {
+        "n_observed": 0,
+        "n_missing": 0,
+        "sum_observed": null,
+        "median_observed": null
+      },
+      "seconds_successful": {
+        "n_observed": 0,
+        "n_missing": 0,
+        "sum_observed": null,
+        "median_observed": null
+      },
+      "usage_lower_bound_records": 0,
+      "usage": {
+        "input_tokens": {
+          "n_observed": 0,
+          "n_missing": 0,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "cached_input_tokens": {
+          "n_observed": 0,
+          "n_missing": 0,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "cache_write_tokens": {
+          "n_observed": 0,
+          "n_missing": 0,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "output_tokens": {
+          "n_observed": 0,
+          "n_missing": 0,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "reasoning_tokens": {
+          "n_observed": 0,
+          "n_missing": 0,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "total_tokens": {
+          "n_observed": 0,
+          "n_missing": 0,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "uncached_input_plus_output": {
+          "n_observed": 0,
+          "n_missing": 0,
+          "sum_observed": null,
+          "median_observed": null
+        }
+      }
+    },
+    {
+      "split": "diagnostic",
+      "model": "haiku",
+      "condition": "7fc94f7f33c35612",
+      "records": 2,
+      "admitted_evaluable": 0,
+      "reviewed": 0,
+      "completed": 0,
+      "seconds_all": {
+        "n_observed": 0,
+        "n_missing": 0,
+        "sum_observed": null,
+        "median_observed": null
+      },
+      "seconds_successful": {
+        "n_observed": 0,
+        "n_missing": 0,
+        "sum_observed": null,
+        "median_observed": null
+      },
+      "usage_lower_bound_records": 0,
+      "usage": {
+        "input_tokens": {
+          "n_observed": 0,
+          "n_missing": 0,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "cached_input_tokens": {
+          "n_observed": 0,
+          "n_missing": 0,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "cache_write_tokens": {
+          "n_observed": 0,
+          "n_missing": 0,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "output_tokens": {
+          "n_observed": 0,
+          "n_missing": 0,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "reasoning_tokens": {
+          "n_observed": 0,
+          "n_missing": 0,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "total_tokens": {
+          "n_observed": 0,
+          "n_missing": 0,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "uncached_input_plus_output": {
+          "n_observed": 0,
+          "n_missing": 0,
+          "sum_observed": null,
+          "median_observed": null
+        }
+      }
+    },
+    {
+      "split": "diagnostic",
+      "model": "haiku",
+      "condition": "9ea675f687f539c2",
+      "records": 4,
+      "admitted_evaluable": 0,
+      "reviewed": 0,
+      "completed": 0,
+      "seconds_all": {
+        "n_observed": 0,
+        "n_missing": 0,
+        "sum_observed": null,
+        "median_observed": null
+      },
+      "seconds_successful": {
+        "n_observed": 0,
+        "n_missing": 0,
+        "sum_observed": null,
+        "median_observed": null
+      },
+      "usage_lower_bound_records": 0,
+      "usage": {
+        "input_tokens": {
+          "n_observed": 0,
+          "n_missing": 0,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "cached_input_tokens": {
+          "n_observed": 0,
+          "n_missing": 0,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "cache_write_tokens": {
+          "n_observed": 0,
+          "n_missing": 0,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "output_tokens": {
+          "n_observed": 0,
+          "n_missing": 0,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "reasoning_tokens": {
+          "n_observed": 0,
+          "n_missing": 0,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "total_tokens": {
+          "n_observed": 0,
+          "n_missing": 0,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "uncached_input_plus_output": {
+          "n_observed": 0,
+          "n_missing": 0,
+          "sum_observed": null,
+          "median_observed": null
+        }
+      }
+    },
+    {
+      "split": "diagnostic",
+      "model": "qwen",
+      "condition": "596e1a22fad99939",
+      "records": 2,
+      "admitted_evaluable": 0,
+      "reviewed": 0,
+      "completed": 0,
+      "seconds_all": {
+        "n_observed": 0,
+        "n_missing": 0,
+        "sum_observed": null,
+        "median_observed": null
+      },
+      "seconds_successful": {
+        "n_observed": 0,
+        "n_missing": 0,
+        "sum_observed": null,
+        "median_observed": null
+      },
+      "usage_lower_bound_records": 0,
+      "usage": {
+        "input_tokens": {
+          "n_observed": 0,
+          "n_missing": 0,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "cached_input_tokens": {
+          "n_observed": 0,
+          "n_missing": 0,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "cache_write_tokens": {
+          "n_observed": 0,
+          "n_missing": 0,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "output_tokens": {
+          "n_observed": 0,
+          "n_missing": 0,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "reasoning_tokens": {
+          "n_observed": 0,
+          "n_missing": 0,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "total_tokens": {
+          "n_observed": 0,
+          "n_missing": 0,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "uncached_input_plus_output": {
+          "n_observed": 0,
+          "n_missing": 0,
+          "sum_observed": null,
+          "median_observed": null
+        }
+      }
+    },
+    {
+      "split": "diagnostic",
+      "model": "qwen",
+      "condition": "6d9c569ab919c384",
+      "records": 2,
+      "admitted_evaluable": 0,
+      "reviewed": 0,
+      "completed": 0,
+      "seconds_all": {
+        "n_observed": 0,
+        "n_missing": 0,
+        "sum_observed": null,
+        "median_observed": null
+      },
+      "seconds_successful": {
+        "n_observed": 0,
+        "n_missing": 0,
+        "sum_observed": null,
+        "median_observed": null
+      },
+      "usage_lower_bound_records": 0,
+      "usage": {
+        "input_tokens": {
+          "n_observed": 0,
+          "n_missing": 0,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "cached_input_tokens": {
+          "n_observed": 0,
+          "n_missing": 0,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "cache_write_tokens": {
+          "n_observed": 0,
+          "n_missing": 0,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "output_tokens": {
+          "n_observed": 0,
+          "n_missing": 0,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "reasoning_tokens": {
+          "n_observed": 0,
+          "n_missing": 0,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "total_tokens": {
+          "n_observed": 0,
+          "n_missing": 0,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "uncached_input_plus_output": {
+          "n_observed": 0,
+          "n_missing": 0,
+          "sum_observed": null,
+          "median_observed": null
+        }
+      }
+    },
+    {
+      "split": "diagnostic",
+      "model": "qwen",
+      "condition": "7fc94f7f33c35612",
+      "records": 2,
+      "admitted_evaluable": 0,
+      "reviewed": 0,
+      "completed": 0,
+      "seconds_all": {
+        "n_observed": 0,
+        "n_missing": 0,
+        "sum_observed": null,
+        "median_observed": null
+      },
+      "seconds_successful": {
+        "n_observed": 0,
+        "n_missing": 0,
+        "sum_observed": null,
+        "median_observed": null
+      },
+      "usage_lower_bound_records": 0,
+      "usage": {
+        "input_tokens": {
+          "n_observed": 0,
+          "n_missing": 0,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "cached_input_tokens": {
+          "n_observed": 0,
+          "n_missing": 0,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "cache_write_tokens": {
+          "n_observed": 0,
+          "n_missing": 0,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "output_tokens": {
+          "n_observed": 0,
+          "n_missing": 0,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "reasoning_tokens": {
+          "n_observed": 0,
+          "n_missing": 0,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "total_tokens": {
+          "n_observed": 0,
+          "n_missing": 0,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "uncached_input_plus_output": {
+          "n_observed": 0,
+          "n_missing": 0,
+          "sum_observed": null,
+          "median_observed": null
+        }
+      }
+    },
+    {
+      "split": "diagnostic",
+      "model": "qwen",
+      "condition": "9ea675f687f539c2",
+      "records": 4,
+      "admitted_evaluable": 0,
+      "reviewed": 0,
+      "completed": 0,
+      "seconds_all": {
+        "n_observed": 0,
+        "n_missing": 0,
+        "sum_observed": null,
+        "median_observed": null
+      },
+      "seconds_successful": {
+        "n_observed": 0,
+        "n_missing": 0,
+        "sum_observed": null,
+        "median_observed": null
+      },
+      "usage_lower_bound_records": 0,
+      "usage": {
+        "input_tokens": {
+          "n_observed": 0,
+          "n_missing": 0,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "cached_input_tokens": {
+          "n_observed": 0,
+          "n_missing": 0,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "cache_write_tokens": {
+          "n_observed": 0,
+          "n_missing": 0,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "output_tokens": {
+          "n_observed": 0,
+          "n_missing": 0,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "reasoning_tokens": {
+          "n_observed": 0,
+          "n_missing": 0,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "total_tokens": {
+          "n_observed": 0,
+          "n_missing": 0,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "uncached_input_plus_output": {
+          "n_observed": 0,
+          "n_missing": 0,
+          "sum_observed": null,
+          "median_observed": null
+        }
+      }
+    },
+    {
+      "split": "search-validation",
+      "model": "haiku",
+      "condition": "37e5b2a3cc8977eb",
+      "records": 4,
+      "admitted_evaluable": 4,
+      "reviewed": 4,
+      "completed": 3,
+      "seconds_all": {
+        "n_observed": 4,
+        "n_missing": 0,
+        "sum_observed": 247.38923641500878,
+        "median_observed": 70.15227343699371
+      },
+      "seconds_successful": {
+        "n_observed": 3,
+        "n_missing": 0,
+        "sum_observed": 176.53079187401454,
+        "median_observed": 69.44610233299318
+      },
+      "usage_lower_bound_records": 2,
+      "usage": {
+        "input_tokens": {
+          "n_observed": 4,
+          "n_missing": 0,
+          "sum_observed": 804898,
+          "median_observed": 213777.0
+        },
+        "cached_input_tokens": {
+          "n_observed": 4,
+          "n_missing": 0,
+          "sum_observed": 705997,
+          "median_observed": 186570.0
+        },
+        "cache_write_tokens": {
+          "n_observed": 4,
+          "n_missing": 0,
+          "sum_observed": 65170,
+          "median_observed": 17849.5
+        },
+        "output_tokens": {
+          "n_observed": 4,
+          "n_missing": 0,
+          "sum_observed": 24095,
+          "median_observed": 6727.5
+        },
+        "reasoning_tokens": {
+          "n_observed": 4,
+          "n_missing": 0,
+          "sum_observed": 9493,
+          "median_observed": 2136.5
+        },
+        "total_tokens": {
+          "n_observed": 4,
+          "n_missing": 0,
+          "sum_observed": 828993,
+          "median_observed": 221421.5
+        },
+        "uncached_input_plus_output": {
+          "n_observed": 4,
+          "n_missing": 0,
+          "sum_observed": 122996,
+          "median_observed": 34851.5
+        }
+      }
+    },
+    {
+      "split": "search-validation",
+      "model": "haiku",
+      "condition": "596e1a22fad99939",
+      "records": 4,
+      "admitted_evaluable": 4,
+      "reviewed": 4,
+      "completed": 3,
+      "seconds_all": {
+        "n_observed": 4,
+        "n_missing": 0,
+        "sum_observed": 277.7965470009949,
+        "median_observed": 67.8759467919881
+      },
+      "seconds_successful": {
+        "n_observed": 3,
+        "n_missing": 0,
+        "sum_observed": 219.58759929201915,
+        "median_observed": 77.54294587500044
+      },
+      "usage_lower_bound_records": 3,
+      "usage": {
+        "input_tokens": {
+          "n_observed": 4,
+          "n_missing": 0,
+          "sum_observed": 776038,
+          "median_observed": 190127.5
+        },
+        "cached_input_tokens": {
+          "n_observed": 4,
+          "n_missing": 0,
+          "sum_observed": 684981,
+          "median_observed": 164584.0
+        },
+        "cache_write_tokens": {
+          "n_observed": 4,
+          "n_missing": 0,
+          "sum_observed": 56108,
+          "median_observed": 13885.0
+        },
+        "output_tokens": {
+          "n_observed": 4,
+          "n_missing": 0,
+          "sum_observed": 24725,
+          "median_observed": 6394.5
+        },
+        "reasoning_tokens": {
+          "n_observed": 4,
+          "n_missing": 0,
+          "sum_observed": 8538,
+          "median_observed": 1864.5
+        },
+        "total_tokens": {
+          "n_observed": 4,
+          "n_missing": 0,
+          "sum_observed": 800763,
+          "median_observed": 196095.5
+        },
+        "uncached_input_plus_output": {
+          "n_observed": 4,
+          "n_missing": 0,
+          "sum_observed": 115782,
+          "median_observed": 28469.5
+        }
+      }
+    },
+    {
+      "split": "search-validation",
+      "model": "haiku",
+      "condition": "9c159019b57c4646",
+      "records": 4,
+      "admitted_evaluable": 4,
+      "reviewed": 4,
+      "completed": 3,
+      "seconds_all": {
+        "n_observed": 4,
+        "n_missing": 0,
+        "sum_observed": 320.87417658398044,
+        "median_observed": 80.05976099998225
+      },
+      "seconds_successful": {
+        "n_observed": 3,
+        "n_missing": 0,
+        "sum_observed": 222.05180554199615,
+        "median_observed": 61.29715095798019
+      },
+      "usage_lower_bound_records": 2,
+      "usage": {
+        "input_tokens": {
+          "n_observed": 4,
+          "n_missing": 0,
+          "sum_observed": 859225,
+          "median_observed": 252213.5
+        },
+        "cached_input_tokens": {
+          "n_observed": 4,
+          "n_missing": 0,
+          "sum_observed": 732224,
+          "median_observed": 216309.5
+        },
+        "cache_write_tokens": {
+          "n_observed": 4,
+          "n_missing": 0,
+          "sum_observed": 73574,
+          "median_observed": 19637.5
+        },
+        "output_tokens": {
+          "n_observed": 4,
+          "n_missing": 0,
+          "sum_observed": 31005,
+          "median_observed": 7159.0
+        },
+        "reasoning_tokens": {
+          "n_observed": 4,
+          "n_missing": 0,
+          "sum_observed": 9802,
+          "median_observed": 1917.5
+        },
+        "total_tokens": {
+          "n_observed": 4,
+          "n_missing": 0,
+          "sum_observed": 890230,
+          "median_observed": 260320.0
+        },
+        "uncached_input_plus_output": {
+          "n_observed": 4,
+          "n_missing": 0,
+          "sum_observed": 158006,
+          "median_observed": 39119.0
+        }
+      }
+    },
+    {
+      "split": "search-validation",
+      "model": "haiku",
+      "condition": "a7079bad62abcbea",
+      "records": 4,
+      "admitted_evaluable": 4,
+      "reviewed": 4,
+      "completed": 2,
+      "seconds_all": {
+        "n_observed": 4,
+        "n_missing": 0,
+        "sum_observed": 317.8111640420102,
+        "median_observed": 68.60403804200178
+      },
+      "seconds_successful": {
+        "n_observed": 2,
+        "n_missing": 0,
+        "sum_observed": 99.25134183399496,
+        "median_observed": 49.62567091699748
+      },
+      "usage_lower_bound_records": 2,
+      "usage": {
+        "input_tokens": {
+          "n_observed": 4,
+          "n_missing": 0,
+          "sum_observed": 793168,
+          "median_observed": 184329.5
+        },
+        "cached_input_tokens": {
+          "n_observed": 4,
+          "n_missing": 0,
+          "sum_observed": 688673,
+          "median_observed": 161267.5
+        },
+        "cache_write_tokens": {
+          "n_observed": 4,
+          "n_missing": 0,
+          "sum_observed": 67416,
+          "median_observed": 15432.5
+        },
+        "output_tokens": {
+          "n_observed": 4,
+          "n_missing": 0,
+          "sum_observed": 33345,
+          "median_observed": 6628.0
+        },
+        "reasoning_tokens": {
+          "n_observed": 4,
+          "n_missing": 0,
+          "sum_observed": 11090,
+          "median_observed": 2625.5
+        },
+        "total_tokens": {
+          "n_observed": 4,
+          "n_missing": 0,
+          "sum_observed": 826513,
+          "median_observed": 190957.5
+        },
+        "uncached_input_plus_output": {
+          "n_observed": 4,
+          "n_missing": 0,
+          "sum_observed": 137840,
+          "median_observed": 29690.0
+        }
+      }
+    },
+    {
+      "split": "search-validation",
+      "model": "haiku",
+      "condition": "cf6e2f491eda155a",
+      "records": 4,
+      "admitted_evaluable": 4,
+      "reviewed": 4,
+      "completed": 3,
+      "seconds_all": {
+        "n_observed": 4,
+        "n_missing": 0,
+        "sum_observed": 287.7507871259877,
+        "median_observed": 77.60657183350122
+      },
+      "seconds_successful": {
+        "n_observed": 3,
+        "n_missing": 0,
+        "sum_observed": 195.00670783399255,
+        "median_observed": 72.89878633301123
+      },
+      "usage_lower_bound_records": 2,
+      "usage": {
+        "input_tokens": {
+          "n_observed": 4,
+          "n_missing": 0,
+          "sum_observed": 815469,
+          "median_observed": 210084.5
+        },
+        "cached_input_tokens": {
+          "n_observed": 4,
+          "n_missing": 0,
+          "sum_observed": 700670,
+          "median_observed": 182014.5
+        },
+        "cache_write_tokens": {
+          "n_observed": 4,
+          "n_missing": 0,
+          "sum_observed": 73467,
+          "median_observed": 18179.5
+        },
+        "output_tokens": {
+          "n_observed": 4,
+          "n_missing": 0,
+          "sum_observed": 26697,
+          "median_observed": 7160.0
+        },
+        "reasoning_tokens": {
+          "n_observed": 4,
+          "n_missing": 0,
+          "sum_observed": 9875,
+          "median_observed": 2628.0
+        },
+        "total_tokens": {
+          "n_observed": 4,
+          "n_missing": 0,
+          "sum_observed": 842166,
+          "median_observed": 217244.5
+        },
+        "uncached_input_plus_output": {
+          "n_observed": 4,
+          "n_missing": 0,
+          "sum_observed": 141496,
+          "median_observed": 35230.0
+        }
+      }
+    },
+    {
+      "split": "search-validation",
+      "model": "qwen",
+      "condition": "37e5b2a3cc8977eb",
+      "records": 4,
+      "admitted_evaluable": 4,
+      "reviewed": 4,
+      "completed": 1,
+      "seconds_all": {
+        "n_observed": 4,
+        "n_missing": 0,
+        "sum_observed": 810.4220772910048,
+        "median_observed": 240.60379174999252
+      },
+      "seconds_successful": {
+        "n_observed": 1,
+        "n_missing": 0,
+        "sum_observed": 88.53710412501823,
+        "median_observed": 88.53710412501823
+      },
+      "usage_lower_bound_records": 3,
+      "usage": {
+        "input_tokens": {
+          "n_observed": 4,
+          "n_missing": 0,
+          "sum_observed": 162290,
+          "median_observed": 38507.0
+        },
+        "cached_input_tokens": {
+          "n_observed": 4,
+          "n_missing": 0,
+          "sum_observed": 116320,
+          "median_observed": 25472.0
+        },
+        "cache_write_tokens": {
+          "n_observed": 4,
+          "n_missing": 0,
+          "sum_observed": 0,
+          "median_observed": 0.0
+        },
+        "output_tokens": {
+          "n_observed": 4,
+          "n_missing": 0,
+          "sum_observed": 16522,
+          "median_observed": 4356.5
+        },
+        "reasoning_tokens": {
+          "n_observed": 4,
+          "n_missing": 0,
+          "sum_observed": 9832,
+          "median_observed": 2754.0
+        },
+        "total_tokens": {
+          "n_observed": 4,
+          "n_missing": 0,
+          "sum_observed": 178812,
+          "median_observed": 44270.5
+        },
+        "uncached_input_plus_output": {
+          "n_observed": 4,
+          "n_missing": 0,
+          "sum_observed": 62492,
+          "median_observed": 16078.0
+        }
+      }
+    },
+    {
+      "split": "search-validation",
+      "model": "qwen",
+      "condition": "596e1a22fad99939",
+      "records": 4,
+      "admitted_evaluable": 4,
+      "reviewed": 4,
+      "completed": 3,
+      "seconds_all": {
+        "n_observed": 4,
+        "n_missing": 0,
+        "sum_observed": 710.8585831259843,
+        "median_observed": 192.47881760449673
+      },
+      "seconds_successful": {
+        "n_observed": 3,
+        "n_missing": 0,
+        "sum_observed": 470.14805200099363,
+        "median_observed": 192.13536708400352
+      },
+      "usage_lower_bound_records": 1,
+      "usage": {
+        "input_tokens": {
+          "n_observed": 4,
+          "n_missing": 0,
+          "sum_observed": 275798,
+          "median_observed": 57951.5
+        },
+        "cached_input_tokens": {
+          "n_observed": 4,
+          "n_missing": 0,
+          "sum_observed": 231392,
+          "median_observed": 46736.0
+        },
+        "cache_write_tokens": {
+          "n_observed": 4,
+          "n_missing": 0,
+          "sum_observed": 0,
+          "median_observed": 0.0
+        },
+        "output_tokens": {
+          "n_observed": 4,
+          "n_missing": 0,
+          "sum_observed": 24883,
+          "median_observed": 6354.0
+        },
+        "reasoning_tokens": {
+          "n_observed": 4,
+          "n_missing": 0,
+          "sum_observed": 16453,
+          "median_observed": 3539.0
+        },
+        "total_tokens": {
+          "n_observed": 4,
+          "n_missing": 0,
+          "sum_observed": 300681,
+          "median_observed": 63196.0
+        },
+        "uncached_input_plus_output": {
+          "n_observed": 4,
+          "n_missing": 0,
+          "sum_observed": 69289,
+          "median_observed": 16460.0
+        }
+      }
+    },
+    {
+      "split": "search-validation",
+      "model": "qwen",
+      "condition": "9c159019b57c4646",
+      "records": 4,
+      "admitted_evaluable": 4,
+      "reviewed": 4,
+      "completed": 1,
+      "seconds_all": {
+        "n_observed": 4,
+        "n_missing": 0,
+        "sum_observed": 774.4749535840238,
+        "median_observed": 240.86654279200593
+      },
+      "seconds_successful": {
+        "n_observed": 1,
+        "n_missing": 0,
+        "sum_observed": 51.86201766700833,
+        "median_observed": 51.86201766700833
+      },
+      "usage_lower_bound_records": 3,
+      "usage": {
+        "input_tokens": {
+          "n_observed": 4,
+          "n_missing": 0,
+          "sum_observed": 156331,
+          "median_observed": 34831.0
+        },
+        "cached_input_tokens": {
+          "n_observed": 4,
+          "n_missing": 0,
+          "sum_observed": 112768,
+          "median_observed": 22208.0
+        },
+        "cache_write_tokens": {
+          "n_observed": 4,
+          "n_missing": 0,
+          "sum_observed": 0,
+          "median_observed": 0.0
+        },
+        "output_tokens": {
+          "n_observed": 4,
+          "n_missing": 0,
+          "sum_observed": 23376,
+          "median_observed": 6541.5
+        },
+        "reasoning_tokens": {
+          "n_observed": 4,
+          "n_missing": 0,
+          "sum_observed": 19403,
+          "median_observed": 5155.5
+        },
+        "total_tokens": {
+          "n_observed": 4,
+          "n_missing": 0,
+          "sum_observed": 179707,
+          "median_observed": 42472.0
+        },
+        "uncached_input_plus_output": {
+          "n_observed": 4,
+          "n_missing": 0,
+          "sum_observed": 66939,
+          "median_observed": 17319.0
+        }
+      }
+    },
+    {
+      "split": "search-validation",
+      "model": "qwen",
+      "condition": "a7079bad62abcbea",
+      "records": 4,
+      "admitted_evaluable": 4,
+      "reviewed": 4,
+      "completed": 1,
+      "seconds_all": {
+        "n_observed": 4,
+        "n_missing": 0,
+        "sum_observed": 801.7241426260152,
+        "median_observed": 240.5859887294937
+      },
+      "seconds_successful": {
+        "n_observed": 1,
+        "n_missing": 0,
+        "sum_observed": 79.61107370900572,
+        "median_observed": 79.61107370900572
+      },
+      "usage_lower_bound_records": 3,
+      "usage": {
+        "input_tokens": {
+          "n_observed": 4,
+          "n_missing": 0,
+          "sum_observed": 133547,
+          "median_observed": 32942.5
+        },
+        "cached_input_tokens": {
+          "n_observed": 4,
+          "n_missing": 0,
+          "sum_observed": 97952,
+          "median_observed": 25552.0
+        },
+        "cache_write_tokens": {
+          "n_observed": 4,
+          "n_missing": 0,
+          "sum_observed": 0,
+          "median_observed": 0.0
+        },
+        "output_tokens": {
+          "n_observed": 4,
+          "n_missing": 0,
+          "sum_observed": 13854,
+          "median_observed": 3659.5
+        },
+        "reasoning_tokens": {
+          "n_observed": 4,
+          "n_missing": 0,
+          "sum_observed": 9825,
+          "median_observed": 2420.0
+        },
+        "total_tokens": {
+          "n_observed": 4,
+          "n_missing": 0,
+          "sum_observed": 147401,
+          "median_observed": 35592.0
+        },
+        "uncached_input_plus_output": {
+          "n_observed": 4,
+          "n_missing": 0,
+          "sum_observed": 49449,
+          "median_observed": 12172.0
+        }
+      }
+    },
+    {
+      "split": "search-validation",
+      "model": "qwen",
+      "condition": "cf6e2f491eda155a",
+      "records": 4,
+      "admitted_evaluable": 4,
+      "reviewed": 4,
+      "completed": 1,
+      "seconds_all": {
+        "n_observed": 4,
+        "n_missing": 0,
+        "sum_observed": 882.1951537500427,
+        "median_observed": 240.72667281251051
+      },
+      "seconds_successful": {
+        "n_observed": 1,
+        "n_missing": 0,
+        "sum_observed": 159.8122997909959,
+        "median_observed": 159.8122997909959
+      },
+      "usage_lower_bound_records": 3,
+      "usage": {
+        "input_tokens": {
+          "n_observed": 4,
+          "n_missing": 0,
+          "sum_observed": 127945,
+          "median_observed": 33496.0
+        },
+        "cached_input_tokens": {
+          "n_observed": 4,
+          "n_missing": 0,
+          "sum_observed": 93248,
+          "median_observed": 22848.0
+        },
+        "cache_write_tokens": {
+          "n_observed": 4,
+          "n_missing": 0,
+          "sum_observed": 0,
+          "median_observed": 0.0
+        },
+        "output_tokens": {
+          "n_observed": 4,
+          "n_missing": 0,
+          "sum_observed": 15494,
+          "median_observed": 3850.0
+        },
+        "reasoning_tokens": {
+          "n_observed": 4,
+          "n_missing": 0,
+          "sum_observed": 12073,
+          "median_observed": 3065.0
+        },
+        "total_tokens": {
+          "n_observed": 4,
+          "n_missing": 0,
+          "sum_observed": 143439,
+          "median_observed": 37393.0
+        },
+        "uncached_input_plus_output": {
+          "n_observed": 4,
+          "n_missing": 0,
+          "sum_observed": 50191,
+          "median_observed": 13068.0
+        }
+      }
+    },
+    {
+      "split": "training",
+      "model": "haiku",
+      "condition": "37e5b2a3cc8977eb",
+      "records": 2,
+      "admitted_evaluable": 2,
+      "reviewed": 2,
+      "completed": 1,
+      "seconds_all": {
+        "n_observed": 2,
+        "n_missing": 0,
+        "sum_observed": 201.76180762497825,
+        "median_observed": 100.88090381248912
+      },
+      "seconds_successful": {
+        "n_observed": 1,
+        "n_missing": 0,
+        "sum_observed": 39.65852291698684,
+        "median_observed": 39.65852291698684
+      },
+      "usage_lower_bound_records": 1,
+      "usage": {
+        "input_tokens": {
+          "n_observed": 2,
+          "n_missing": 0,
+          "sum_observed": 386363,
+          "median_observed": 193181.5
+        },
+        "cached_input_tokens": {
+          "n_observed": 2,
+          "n_missing": 0,
+          "sum_observed": 327066,
+          "median_observed": 163533.0
+        },
+        "cache_write_tokens": {
+          "n_observed": 2,
+          "n_missing": 0,
+          "sum_observed": 36060,
+          "median_observed": 18030.0
+        },
+        "output_tokens": {
+          "n_observed": 2,
+          "n_missing": 0,
+          "sum_observed": 12981,
+          "median_observed": 6490.5
+        },
+        "reasoning_tokens": {
+          "n_observed": 2,
+          "n_missing": 0,
+          "sum_observed": 3742,
+          "median_observed": 1871.0
+        },
+        "total_tokens": {
+          "n_observed": 2,
+          "n_missing": 0,
+          "sum_observed": 399344,
+          "median_observed": 199672.0
+        },
+        "uncached_input_plus_output": {
+          "n_observed": 2,
+          "n_missing": 0,
+          "sum_observed": 72278,
+          "median_observed": 36139.0
+        }
+      }
+    },
+    {
+      "split": "training",
+      "model": "haiku",
+      "condition": "596e1a22fad99939",
+      "records": 6,
+      "admitted_evaluable": 6,
+      "reviewed": 6,
+      "completed": 2,
+      "seconds_all": {
+        "n_observed": 6,
+        "n_missing": 0,
+        "sum_observed": 457.21823845797917,
+        "median_observed": 80.73241506199702
+      },
+      "seconds_successful": {
+        "n_observed": 2,
+        "n_missing": 0,
+        "sum_observed": 164.07379895899794,
+        "median_observed": 82.03689947949897
+      },
+      "usage_lower_bound_records": 4,
+      "usage": {
+        "input_tokens": {
+          "n_observed": 6,
+          "n_missing": 0,
+          "sum_observed": 1125979,
+          "median_observed": 216566.5
+        },
+        "cached_input_tokens": {
+          "n_observed": 6,
+          "n_missing": 0,
+          "sum_observed": 971999,
+          "median_observed": 191868.5
+        },
+        "cache_write_tokens": {
+          "n_observed": 6,
+          "n_missing": 0,
+          "sum_observed": 96002,
+          "median_observed": 16663.5
+        },
+        "output_tokens": {
+          "n_observed": 6,
+          "n_missing": 0,
+          "sum_observed": 43960,
+          "median_observed": 8014.0
+        },
+        "reasoning_tokens": {
+          "n_observed": 6,
+          "n_missing": 0,
+          "sum_observed": 13841,
+          "median_observed": 2339.5
+        },
+        "total_tokens": {
+          "n_observed": 6,
+          "n_missing": 0,
+          "sum_observed": 1169939,
+          "median_observed": 224406.5
+        },
+        "uncached_input_plus_output": {
+          "n_observed": 6,
+          "n_missing": 0,
+          "sum_observed": 197940,
+          "median_observed": 32668.0
+        }
+      }
+    },
+    {
+      "split": "training",
+      "model": "haiku",
+      "condition": "9c159019b57c4646",
+      "records": 2,
+      "admitted_evaluable": 2,
+      "reviewed": 2,
+      "completed": 2,
+      "seconds_all": {
+        "n_observed": 2,
+        "n_missing": 0,
+        "sum_observed": 90.76469183302834,
+        "median_observed": 45.38234591651417
+      },
+      "seconds_successful": {
+        "n_observed": 2,
+        "n_missing": 0,
+        "sum_observed": 90.76469183302834,
+        "median_observed": 45.38234591651417
+      },
+      "usage_lower_bound_records": 0,
+      "usage": {
+        "input_tokens": {
+          "n_observed": 2,
+          "n_missing": 0,
+          "sum_observed": 221694,
+          "median_observed": 110847.0
+        },
+        "cached_input_tokens": {
+          "n_observed": 2,
+          "n_missing": 0,
+          "sum_observed": 180243,
+          "median_observed": 90121.5
+        },
+        "cache_write_tokens": {
+          "n_observed": 2,
+          "n_missing": 0,
+          "sum_observed": 24050,
+          "median_observed": 12025.0
+        },
+        "output_tokens": {
+          "n_observed": 2,
+          "n_missing": 0,
+          "sum_observed": 9246,
+          "median_observed": 4623.0
+        },
+        "reasoning_tokens": {
+          "n_observed": 2,
+          "n_missing": 0,
+          "sum_observed": 4874,
+          "median_observed": 2437.0
+        },
+        "total_tokens": {
+          "n_observed": 2,
+          "n_missing": 0,
+          "sum_observed": 230940,
+          "median_observed": 115470.0
+        },
+        "uncached_input_plus_output": {
+          "n_observed": 2,
+          "n_missing": 0,
+          "sum_observed": 50697,
+          "median_observed": 25348.5
+        }
+      }
+    },
+    {
+      "split": "training",
+      "model": "haiku",
+      "condition": "a7079bad62abcbea",
+      "records": 2,
+      "admitted_evaluable": 2,
+      "reviewed": 2,
+      "completed": 1,
+      "seconds_all": {
+        "n_observed": 2,
+        "n_missing": 0,
+        "sum_observed": 179.28529629096738,
+        "median_observed": 89.64264814548369
+      },
+      "seconds_successful": {
+        "n_observed": 1,
+        "n_missing": 0,
+        "sum_observed": 65.64832187499269,
+        "median_observed": 65.64832187499269
+      },
+      "usage_lower_bound_records": 1,
+      "usage": {
+        "input_tokens": {
+          "n_observed": 2,
+          "n_missing": 0,
+          "sum_observed": 466429,
+          "median_observed": 233214.5
+        },
+        "cached_input_tokens": {
+          "n_observed": 2,
+          "n_missing": 0,
+          "sum_observed": 404801,
+          "median_observed": 202400.5
+        },
+        "cache_write_tokens": {
+          "n_observed": 2,
+          "n_missing": 0,
+          "sum_observed": 39824,
+          "median_observed": 19912.0
+        },
+        "output_tokens": {
+          "n_observed": 2,
+          "n_missing": 0,
+          "sum_observed": 17151,
+          "median_observed": 8575.5
+        },
+        "reasoning_tokens": {
+          "n_observed": 2,
+          "n_missing": 0,
+          "sum_observed": 4773,
+          "median_observed": 2386.5
+        },
+        "total_tokens": {
+          "n_observed": 2,
+          "n_missing": 0,
+          "sum_observed": 483580,
+          "median_observed": 241790.0
+        },
+        "uncached_input_plus_output": {
+          "n_observed": 2,
+          "n_missing": 0,
+          "sum_observed": 78779,
+          "median_observed": 39389.5
+        }
+      }
+    },
+    {
+      "split": "training",
+      "model": "haiku",
+      "condition": "cf6e2f491eda155a",
+      "records": 4,
+      "admitted_evaluable": 4,
+      "reviewed": 4,
+      "completed": 3,
+      "seconds_all": {
+        "n_observed": 4,
+        "n_missing": 0,
+        "sum_observed": 193.45976504098508,
+        "median_observed": 44.42578045799746
+      },
+      "seconds_successful": {
+        "n_observed": 3,
+        "n_missing": 0,
+        "sum_observed": 118.85741662498913,
+        "median_observed": 38.96433620800963
+      },
+      "usage_lower_bound_records": 1,
+      "usage": {
+        "input_tokens": {
+          "n_observed": 4,
+          "n_missing": 0,
+          "sum_observed": 632060,
+          "median_observed": 123568.5
+        },
+        "cached_input_tokens": {
+          "n_observed": 4,
+          "n_missing": 0,
+          "sum_observed": 539187,
+          "median_observed": 99158.0
+        },
+        "cache_write_tokens": {
+          "n_observed": 4,
+          "n_missing": 0,
+          "sum_observed": 61066,
+          "median_observed": 15999.0
+        },
+        "output_tokens": {
+          "n_observed": 4,
+          "n_missing": 0,
+          "sum_observed": 17475,
+          "median_observed": 4112.5
+        },
+        "reasoning_tokens": {
+          "n_observed": 4,
+          "n_missing": 0,
+          "sum_observed": 6391,
+          "median_observed": 1678.5
+        },
+        "total_tokens": {
+          "n_observed": 4,
+          "n_missing": 0,
+          "sum_observed": 649535,
+          "median_observed": 127681.0
+        },
+        "uncached_input_plus_output": {
+          "n_observed": 4,
+          "n_missing": 0,
+          "sum_observed": 110348,
+          "median_observed": 28523.0
+        }
+      }
+    },
+    {
+      "split": "training",
+      "model": "qwen",
+      "condition": "37e5b2a3cc8977eb",
+      "records": 2,
+      "admitted_evaluable": 2,
+      "reviewed": 2,
+      "completed": 0,
+      "seconds_all": {
+        "n_observed": 2,
+        "n_missing": 0,
+        "sum_observed": 482.057537457993,
+        "median_observed": 241.0287687289965
+      },
+      "seconds_successful": {
+        "n_observed": 0,
+        "n_missing": 0,
+        "sum_observed": null,
+        "median_observed": null
+      },
+      "usage_lower_bound_records": 2,
+      "usage": {
+        "input_tokens": {
+          "n_observed": 2,
+          "n_missing": 0,
+          "sum_observed": 95228,
+          "median_observed": 47614.0
+        },
+        "cached_input_tokens": {
+          "n_observed": 2,
+          "n_missing": 0,
+          "sum_observed": 72576,
+          "median_observed": 36288.0
+        },
+        "cache_write_tokens": {
+          "n_observed": 2,
+          "n_missing": 0,
+          "sum_observed": 0,
+          "median_observed": 0.0
+        },
+        "output_tokens": {
+          "n_observed": 2,
+          "n_missing": 0,
+          "sum_observed": 14479,
+          "median_observed": 7239.5
+        },
+        "reasoning_tokens": {
+          "n_observed": 2,
+          "n_missing": 0,
+          "sum_observed": 10324,
+          "median_observed": 5162.0
+        },
+        "total_tokens": {
+          "n_observed": 2,
+          "n_missing": 0,
+          "sum_observed": 109707,
+          "median_observed": 54853.5
+        },
+        "uncached_input_plus_output": {
+          "n_observed": 2,
+          "n_missing": 0,
+          "sum_observed": 37131,
+          "median_observed": 18565.5
+        }
+      }
+    },
+    {
+      "split": "training",
+      "model": "qwen",
+      "condition": "596e1a22fad99939",
+      "records": 6,
+      "admitted_evaluable": 6,
+      "reviewed": 6,
+      "completed": 0,
+      "seconds_all": {
+        "n_observed": 6,
+        "n_missing": 0,
+        "sum_observed": 1444.5300504150218,
+        "median_observed": 240.74928647901106
+      },
+      "seconds_successful": {
+        "n_observed": 0,
+        "n_missing": 0,
+        "sum_observed": null,
+        "median_observed": null
+      },
+      "usage_lower_bound_records": 6,
+      "usage": {
+        "input_tokens": {
+          "n_observed": 6,
+          "n_missing": 0,
+          "sum_observed": 186630,
+          "median_observed": 22312.5
+        },
+        "cached_input_tokens": {
+          "n_observed": 6,
+          "n_missing": 0,
+          "sum_observed": 137088,
+          "median_observed": 14416.0
+        },
+        "cache_write_tokens": {
+          "n_observed": 6,
+          "n_missing": 0,
+          "sum_observed": 0,
+          "median_observed": 0.0
+        },
+        "output_tokens": {
+          "n_observed": 6,
+          "n_missing": 0,
+          "sum_observed": 35547,
+          "median_observed": 5723.5
+        },
+        "reasoning_tokens": {
+          "n_observed": 6,
+          "n_missing": 0,
+          "sum_observed": 27591,
+          "median_observed": 4611.5
+        },
+        "total_tokens": {
+          "n_observed": 6,
+          "n_missing": 0,
+          "sum_observed": 222177,
+          "median_observed": 27395.5
+        },
+        "uncached_input_plus_output": {
+          "n_observed": 6,
+          "n_missing": 0,
+          "sum_observed": 85089,
+          "median_observed": 14381.5
+        }
+      }
+    },
+    {
+      "split": "training",
+      "model": "qwen",
+      "condition": "9c159019b57c4646",
+      "records": 2,
+      "admitted_evaluable": 2,
+      "reviewed": 2,
+      "completed": 2,
+      "seconds_all": {
+        "n_observed": 2,
+        "n_missing": 0,
+        "sum_observed": 347.1062850410235,
+        "median_observed": 173.55314252051176
+      },
+      "seconds_successful": {
+        "n_observed": 2,
+        "n_missing": 0,
+        "sum_observed": 347.1062850410235,
+        "median_observed": 173.55314252051176
+      },
+      "usage_lower_bound_records": 0,
+      "usage": {
+        "input_tokens": {
+          "n_observed": 2,
+          "n_missing": 0,
+          "sum_observed": 149066,
+          "median_observed": 74533.0
+        },
+        "cached_input_tokens": {
+          "n_observed": 2,
+          "n_missing": 0,
+          "sum_observed": 123776,
+          "median_observed": 61888.0
+        },
+        "cache_write_tokens": {
+          "n_observed": 2,
+          "n_missing": 0,
+          "sum_observed": 0,
+          "median_observed": 0.0
+        },
+        "output_tokens": {
+          "n_observed": 2,
+          "n_missing": 0,
+          "sum_observed": 12456,
+          "median_observed": 6228.0
+        },
+        "reasoning_tokens": {
+          "n_observed": 2,
+          "n_missing": 0,
+          "sum_observed": 8805,
+          "median_observed": 4402.5
+        },
+        "total_tokens": {
+          "n_observed": 2,
+          "n_missing": 0,
+          "sum_observed": 161522,
+          "median_observed": 80761.0
+        },
+        "uncached_input_plus_output": {
+          "n_observed": 2,
+          "n_missing": 0,
+          "sum_observed": 37746,
+          "median_observed": 18873.0
+        }
+      }
+    },
+    {
+      "split": "training",
+      "model": "qwen",
+      "condition": "a7079bad62abcbea",
+      "records": 2,
+      "admitted_evaluable": 2,
+      "reviewed": 2,
+      "completed": 0,
+      "seconds_all": {
+        "n_observed": 2,
+        "n_missing": 0,
+        "sum_observed": 481.5912102079892,
+        "median_observed": 240.7956051039946
+      },
+      "seconds_successful": {
+        "n_observed": 0,
+        "n_missing": 0,
+        "sum_observed": null,
+        "median_observed": null
+      },
+      "usage_lower_bound_records": 2,
+      "usage": {
+        "input_tokens": {
+          "n_observed": 2,
+          "n_missing": 0,
+          "sum_observed": 58436,
+          "median_observed": 29218.0
+        },
+        "cached_input_tokens": {
+          "n_observed": 2,
+          "n_missing": 0,
+          "sum_observed": 40832,
+          "median_observed": 20416.0
+        },
+        "cache_write_tokens": {
+          "n_observed": 2,
+          "n_missing": 0,
+          "sum_observed": 0,
+          "median_observed": 0.0
+        },
+        "output_tokens": {
+          "n_observed": 2,
+          "n_missing": 0,
+          "sum_observed": 11536,
+          "median_observed": 5768.0
+        },
+        "reasoning_tokens": {
+          "n_observed": 2,
+          "n_missing": 0,
+          "sum_observed": 8360,
+          "median_observed": 4180.0
+        },
+        "total_tokens": {
+          "n_observed": 2,
+          "n_missing": 0,
+          "sum_observed": 69972,
+          "median_observed": 34986.0
+        },
+        "uncached_input_plus_output": {
+          "n_observed": 2,
+          "n_missing": 0,
+          "sum_observed": 29140,
+          "median_observed": 14570.0
+        }
+      }
+    },
+    {
+      "split": "training",
+      "model": "qwen",
+      "condition": "cf6e2f491eda155a",
+      "records": 4,
+      "admitted_evaluable": 4,
+      "reviewed": 4,
+      "completed": 1,
+      "seconds_all": {
+        "n_observed": 4,
+        "n_missing": 0,
+        "sum_observed": 825.9268792919465,
+        "median_observed": 240.61251647898462
+      },
+      "seconds_successful": {
+        "n_observed": 1,
+        "n_missing": 0,
+        "sum_observed": 103.9778812089935,
+        "median_observed": 103.9778812089935
+      },
+      "usage_lower_bound_records": 3,
+      "usage": {
+        "input_tokens": {
+          "n_observed": 4,
+          "n_missing": 0,
+          "sum_observed": 219043,
+          "median_observed": 49636.5
+        },
+        "cached_input_tokens": {
+          "n_observed": 4,
+          "n_missing": 0,
+          "sum_observed": 169472,
+          "median_observed": 35568.0
+        },
+        "cache_write_tokens": {
+          "n_observed": 4,
+          "n_missing": 0,
+          "sum_observed": 0,
+          "median_observed": 0.0
+        },
+        "output_tokens": {
+          "n_observed": 4,
+          "n_missing": 0,
+          "sum_observed": 20186,
+          "median_observed": 5027.0
+        },
+        "reasoning_tokens": {
+          "n_observed": 4,
+          "n_missing": 0,
+          "sum_observed": 14076,
+          "median_observed": 3402.5
+        },
+        "total_tokens": {
+          "n_observed": 4,
+          "n_missing": 0,
+          "sum_observed": 239229,
+          "median_observed": 54265.5
+        },
+        "uncached_input_plus_output": {
+          "n_observed": 4,
+          "n_missing": 0,
+          "sum_observed": 69757,
+          "median_observed": 17682.0
+        }
+      }
+    }
+  ],
+  "metric_policy": "Original completion retained; machine checks separate. Unknown usage stays null. No token-category summation or comparison of different task subsets."
+}

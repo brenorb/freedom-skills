@@ -37,6 +37,7 @@ Freedom Skills follows the open [Agent Skills standard](https://agentskills.io).
 
 | Skill | What it enables |
 |---|---|
+| [`btcdeb`](skills/btcdeb/) | Write, compile, execute, and debug Bitcoin Script with btcdeb, btcc, and experimental Taproot tools. |
 | [`mdk-agent-wallet`](skills/mdk-agent-wallet/) | Self-custodial agent wallets for Lightning payments, balances, payment history, and L402 access. |
 | [`mdk-l402-api`](skills/mdk-l402-api/) | Paid Next.js or Express APIs using HTTP 402 and Money Dev Kit Lightning payment flows. |
 | [`mdk-mcp`](skills/mdk-mcp/) | Connections between coding agents and Money Dev Kit MCP servers. |
@@ -85,6 +86,10 @@ The repository also includes a portable [Rampart pre-send and post-send hook pai
 The pre-send hook redacts selected personal information before a request reaches a model. The post-send hook restores placeholders in the model's reply. The pair supports raw text and JSON payloads, shared session state, configurable labels, and fail-open or fail-closed behavior.
 
 Read the [hook documentation](hooks/rampart-pre-send/README.md) for details.
+
+## Evaluation evidence
+
+See [benchmarks](benchmarks/README.md) for public eval definitions, per-model results, optimization decisions, evidence access and deterministic checks. [btcdeb results](benchmarks/btcdeb/README.md) distinguish the successful Luna experiments from the negative Haiku/Qwen GEPA study. Raw workspaces and evaluation answers are excluded from benchmark runtime packages.
 
 ## Community and contributing
 

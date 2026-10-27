@@ -1,0 +1,106 @@
+{
+  "skill_name": "btcdeb",
+  "status": "Unexecuted discovery suite; labels require review before optimization. Output-quality passes do not prove triggering.",
+  "queries": [
+    {
+      "id": "T01",
+      "query": "Can you run this Bitcoin Script to its final stack with btcdeb?",
+      "should_trigger": true
+    },
+    {
+      "id": "T02",
+      "query": "Compile OP_2 OP_3 OP_ADD to Script hex and execute those saved bytes.",
+      "should_trigger": true
+    },
+    {
+      "id": "T03",
+      "query": "Help debug a stack underflow in my Bitcoin locking script.",
+      "should_trigger": true
+    },
+    {
+      "id": "T04",
+      "query": "Step and rewind a conditional branch in btcdeb so I can see the stack.",
+      "should_trigger": true
+    },
+    {
+      "id": "T05",
+      "query": "Use btcdeb tf to hash these exact bytes and compare with hashlib.",
+      "should_trigger": true
+    },
+    {
+      "id": "T06",
+      "query": "Verify this supplied serialized transaction spend with real signatures.",
+      "should_trigger": true
+    },
+    {
+      "id": "T07",
+      "query": "Compare btcdeb verification flags without pretending the relaxed run proves consensus.",
+      "should_trigger": true
+    },
+    {
+      "id": "T08",
+      "query": "Construct a teaching Taproot tree and inspect its control block using tap.",
+      "should_trigger": true
+    },
+    {
+      "id": "T09",
+      "query": "Build a regression suite for these Script execution vectors.",
+      "should_trigger": true
+    },
+    {
+      "id": "T10",
+      "query": "Why does btcdeb exit0 while leaving a false stack item?",
+      "should_trigger": true
+    },
+    {
+      "id": "T11",
+      "query": "Write a JavaScript script to resize profile pictures.",
+      "should_trigger": false
+    },
+    {
+      "id": "T12",
+      "query": "What is the current price of bitcoin?",
+      "should_trigger": false
+    },
+    {
+      "id": "T13",
+      "query": "Send bitcoin from my wallet to this address.",
+      "should_trigger": false
+    },
+    {
+      "id": "T14",
+      "query": "Set up a Lightning invoice checkout for my shop.",
+      "should_trigger": false
+    },
+    {
+      "id": "T15",
+      "query": "Explain Taproot at a high level without running tools.",
+      "should_trigger": false
+    },
+    {
+      "id": "T16",
+      "query": "Audit this Solidity smart contract.",
+      "should_trigger": false
+    },
+    {
+      "id": "T17",
+      "query": "Sign a Nostr event with my key.",
+      "should_trigger": false
+    },
+    {
+      "id": "T18",
+      "query": "Help me organize my Bash scripts into folders.",
+      "should_trigger": false
+    },
+    {
+      "id": "T19",
+      "query": "Install a Bitcoin Core full node and sync the blockchain.",
+      "should_trigger": false
+    },
+    {
+      "id": "T20",
+      "query": "Design a lesson plan about Bitcoin economics.",
+      "should_trigger": false
+    }
+  ]
+}
