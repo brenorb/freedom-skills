@@ -48,6 +48,7 @@ Freedom Skills follows the open [Agent Skills standard](https://agentskills.io).
 | Skill | What it enables |
 |---|---|
 | [`rampart-hook-configurator`](skills/rampart-hook-configurator/) | Install, configure, tune, and verify the paired Rampart hooks for reducing sensitive-data exposure in agent workflows. |
+| [`security-audit`](skills/security-audit/) | Cloudflare’s multi-phase codebase security audits with independent verification, coverage tracking, and structured findings. |
 | [`skillspector`](skills/skillspector/) | Security scans for individual skills or skill repositories before installation. |
 | [`timelock-sh`](skills/timelock-sh/) | Time-locking, inspecting, and decrypting files with `timelock.sh`. |
 
