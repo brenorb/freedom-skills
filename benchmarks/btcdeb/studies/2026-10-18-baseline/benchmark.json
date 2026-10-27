@@ -1,0 +1,2184 @@
+{
+  "schema_version": 1,
+  "groups": [
+    {
+      "phase": "h2-v1-development",
+      "model": "haiku",
+      "condition": "offline-no-skill",
+      "records": 12,
+      "admitted_evaluable": 12,
+      "reviewed": 12,
+      "completed": 0,
+      "seconds_all": {
+        "n_observed": 12,
+        "n_missing": 0,
+        "sum_observed": 850.394882626,
+        "median_observed": 64.4692256045
+      },
+      "seconds_successful": {
+        "n_observed": 0,
+        "n_missing": 0,
+        "sum_observed": null,
+        "median_observed": null
+      },
+      "usage_lower_bound_records": 12,
+      "usage": {
+        "input_tokens": {
+          "n_observed": 12,
+          "n_missing": 0,
+          "sum_observed": 2093601,
+          "median_observed": 152207.5
+        },
+        "cached_input_tokens": {
+          "n_observed": 12,
+          "n_missing": 0,
+          "sum_observed": 1776427,
+          "median_observed": 130406.0
+        },
+        "cache_write_tokens": {
+          "n_observed": 0,
+          "n_missing": 12,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "output_tokens": {
+          "n_observed": 12,
+          "n_missing": 0,
+          "sum_observed": 72026,
+          "median_observed": 4754.5
+        },
+        "reasoning_tokens": {
+          "n_observed": 12,
+          "n_missing": 0,
+          "sum_observed": 40658,
+          "median_observed": 2694.0
+        },
+        "total_tokens": {
+          "n_observed": 12,
+          "n_missing": 0,
+          "sum_observed": 2165627,
+          "median_observed": 156200.5
+        },
+        "uncached_input_plus_output": {
+          "n_observed": 12,
+          "n_missing": 0,
+          "sum_observed": 389200,
+          "median_observed": 31554.5
+        }
+      }
+    },
+    {
+      "phase": "h2-v1-development",
+      "model": "haiku",
+      "condition": "skill-offline",
+      "records": 12,
+      "admitted_evaluable": 12,
+      "reviewed": 12,
+      "completed": 10,
+      "seconds_all": {
+        "n_observed": 12,
+        "n_missing": 0,
+        "sum_observed": 960.080526957,
+        "median_observed": 88.204362854
+      },
+      "seconds_successful": {
+        "n_observed": 10,
+        "n_missing": 0,
+        "sum_observed": 824.093619499,
+        "median_observed": 88.204362854
+      },
+      "usage_lower_bound_records": 7,
+      "usage": {
+        "input_tokens": {
+          "n_observed": 12,
+          "n_missing": 0,
+          "sum_observed": 2209434,
+          "median_observed": 221624.0
+        },
+        "cached_input_tokens": {
+          "n_observed": 12,
+          "n_missing": 0,
+          "sum_observed": 1882150,
+          "median_observed": 187107.5
+        },
+        "cache_write_tokens": {
+          "n_observed": 0,
+          "n_missing": 12,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "output_tokens": {
+          "n_observed": 12,
+          "n_missing": 0,
+          "sum_observed": 95905,
+          "median_observed": 8090.0
+        },
+        "reasoning_tokens": {
+          "n_observed": 12,
+          "n_missing": 0,
+          "sum_observed": 34001,
+          "median_observed": 2703.5
+        },
+        "total_tokens": {
+          "n_observed": 12,
+          "n_missing": 0,
+          "sum_observed": 2305339,
+          "median_observed": 229849.5
+        },
+        "uncached_input_plus_output": {
+          "n_observed": 12,
+          "n_missing": 0,
+          "sum_observed": 423189,
+          "median_observed": 36927.5
+        }
+      }
+    },
+    {
+      "phase": "h2-v1-development",
+      "model": "haiku",
+      "condition": "web-no-skill",
+      "records": 12,
+      "admitted_evaluable": 12,
+      "reviewed": 12,
+      "completed": 0,
+      "seconds_all": {
+        "n_observed": 12,
+        "n_missing": 0,
+        "sum_observed": 815.818529875,
+        "median_observed": 65.045028834
+      },
+      "seconds_successful": {
+        "n_observed": 0,
+        "n_missing": 0,
+        "sum_observed": null,
+        "median_observed": null
+      },
+      "usage_lower_bound_records": 12,
+      "usage": {
+        "input_tokens": {
+          "n_observed": 12,
+          "n_missing": 0,
+          "sum_observed": 2443141,
+          "median_observed": 188793.5
+        },
+        "cached_input_tokens": {
+          "n_observed": 12,
+          "n_missing": 0,
+          "sum_observed": 2083070,
+          "median_observed": 155087.5
+        },
+        "cache_write_tokens": {
+          "n_observed": 0,
+          "n_missing": 12,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "output_tokens": {
+          "n_observed": 12,
+          "n_missing": 0,
+          "sum_observed": 64234,
+          "median_observed": 4654.0
+        },
+        "reasoning_tokens": {
+          "n_observed": 12,
+          "n_missing": 0,
+          "sum_observed": 32798,
+          "median_observed": 2448.0
+        },
+        "total_tokens": {
+          "n_observed": 12,
+          "n_missing": 0,
+          "sum_observed": 2507375,
+          "median_observed": 193348.0
+        },
+        "uncached_input_plus_output": {
+          "n_observed": 12,
+          "n_missing": 0,
+          "sum_observed": 424305,
+          "median_observed": 33942.0
+        }
+      }
+    },
+    {
+      "phase": "h2-v1-development",
+      "model": "luna",
+      "condition": "offline-no-skill",
+      "records": 12,
+      "admitted_evaluable": 12,
+      "reviewed": 12,
+      "completed": 7,
+      "seconds_all": {
+        "n_observed": 12,
+        "n_missing": 0,
+        "sum_observed": 700.209688376,
+        "median_observed": 56.913566771
+      },
+      "seconds_successful": {
+        "n_observed": 7,
+        "n_missing": 0,
+        "sum_observed": 364.956266751,
+        "median_observed": 47.80112341700001
+      },
+      "usage_lower_bound_records": 0,
+      "usage": {
+        "input_tokens": {
+          "n_observed": 12,
+          "n_missing": 0,
+          "sum_observed": 2284534,
+          "median_observed": 167511.0
+        },
+        "cached_input_tokens": {
+          "n_observed": 12,
+          "n_missing": 0,
+          "sum_observed": 2044672,
+          "median_observed": 149824.0
+        },
+        "cache_write_tokens": {
+          "n_observed": 0,
+          "n_missing": 12,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "output_tokens": {
+          "n_observed": 12,
+          "n_missing": 0,
+          "sum_observed": 54011,
+          "median_observed": 3926.5
+        },
+        "reasoning_tokens": {
+          "n_observed": 12,
+          "n_missing": 0,
+          "sum_observed": 34094,
+          "median_observed": 2570.0
+        },
+        "total_tokens": {
+          "n_observed": 12,
+          "n_missing": 0,
+          "sum_observed": 2338545,
+          "median_observed": 172519.0
+        },
+        "uncached_input_plus_output": {
+          "n_observed": 12,
+          "n_missing": 0,
+          "sum_observed": 293873,
+          "median_observed": 22449.5
+        }
+      }
+    },
+    {
+      "phase": "h2-v1-development",
+      "model": "luna",
+      "condition": "skill-offline",
+      "records": 12,
+      "admitted_evaluable": 12,
+      "reviewed": 12,
+      "completed": 12,
+      "seconds_all": {
+        "n_observed": 12,
+        "n_missing": 0,
+        "sum_observed": 398.619930416,
+        "median_observed": 28.106174583
+      },
+      "seconds_successful": {
+        "n_observed": 12,
+        "n_missing": 0,
+        "sum_observed": 398.619930416,
+        "median_observed": 28.106174583
+      },
+      "usage_lower_bound_records": 0,
+      "usage": {
+        "input_tokens": {
+          "n_observed": 12,
+          "n_missing": 0,
+          "sum_observed": 1319104,
+          "median_observed": 96627.5
+        },
+        "cached_input_tokens": {
+          "n_observed": 12,
+          "n_missing": 0,
+          "sum_observed": 1141888,
+          "median_observed": 81792.0
+        },
+        "cache_write_tokens": {
+          "n_observed": 0,
+          "n_missing": 12,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "output_tokens": {
+          "n_observed": 12,
+          "n_missing": 0,
+          "sum_observed": 19535,
+          "median_observed": 1265.0
+        },
+        "reasoning_tokens": {
+          "n_observed": 12,
+          "n_missing": 0,
+          "sum_observed": 7933,
+          "median_observed": 537.5
+        },
+        "total_tokens": {
+          "n_observed": 12,
+          "n_missing": 0,
+          "sum_observed": 1338639,
+          "median_observed": 97669.5
+        },
+        "uncached_input_plus_output": {
+          "n_observed": 12,
+          "n_missing": 0,
+          "sum_observed": 196751,
+          "median_observed": 12553.5
+        }
+      }
+    },
+    {
+      "phase": "h2-v1-development",
+      "model": "luna",
+      "condition": "web-no-skill",
+      "records": 12,
+      "admitted_evaluable": 12,
+      "reviewed": 12,
+      "completed": 8,
+      "seconds_all": {
+        "n_observed": 12,
+        "n_missing": 0,
+        "sum_observed": 703.407912292,
+        "median_observed": 58.673646
+      },
+      "seconds_successful": {
+        "n_observed": 8,
+        "n_missing": 0,
+        "sum_observed": 458.519211207,
+        "median_observed": 55.56132997899999
+      },
+      "usage_lower_bound_records": 0,
+      "usage": {
+        "input_tokens": {
+          "n_observed": 12,
+          "n_missing": 0,
+          "sum_observed": 2937076,
+          "median_observed": 235995.5
+        },
+        "cached_input_tokens": {
+          "n_observed": 12,
+          "n_missing": 0,
+          "sum_observed": 2632320,
+          "median_observed": 209408.0
+        },
+        "cache_write_tokens": {
+          "n_observed": 0,
+          "n_missing": 12,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "output_tokens": {
+          "n_observed": 12,
+          "n_missing": 0,
+          "sum_observed": 46257,
+          "median_observed": 3682.0
+        },
+        "reasoning_tokens": {
+          "n_observed": 12,
+          "n_missing": 0,
+          "sum_observed": 25914,
+          "median_observed": 1800.0
+        },
+        "total_tokens": {
+          "n_observed": 12,
+          "n_missing": 0,
+          "sum_observed": 2983333,
+          "median_observed": 240026.0
+        },
+        "uncached_input_plus_output": {
+          "n_observed": 12,
+          "n_missing": 0,
+          "sum_observed": 351013,
+          "median_observed": 25447.5
+        }
+      }
+    },
+    {
+      "phase": "h2-v1-development",
+      "model": "qwen",
+      "condition": "offline-no-skill",
+      "records": 12,
+      "admitted_evaluable": 12,
+      "reviewed": 12,
+      "completed": 0,
+      "seconds_all": {
+        "n_observed": 12,
+        "n_missing": 0,
+        "sum_observed": 2888.227405001,
+        "median_observed": 240.647784479
+      },
+      "seconds_successful": {
+        "n_observed": 0,
+        "n_missing": 0,
+        "sum_observed": null,
+        "median_observed": null
+      },
+      "usage_lower_bound_records": 12,
+      "usage": {
+        "input_tokens": {
+          "n_observed": 12,
+          "n_missing": 0,
+          "sum_observed": 952812,
+          "median_observed": 74583.5
+        },
+        "cached_input_tokens": {
+          "n_observed": 12,
+          "n_missing": 0,
+          "sum_observed": 804992,
+          "median_observed": 63888.0
+        },
+        "cache_write_tokens": {
+          "n_observed": 0,
+          "n_missing": 12,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "output_tokens": {
+          "n_observed": 12,
+          "n_missing": 0,
+          "sum_observed": 90867,
+          "median_observed": 7738.0
+        },
+        "reasoning_tokens": {
+          "n_observed": 12,
+          "n_missing": 0,
+          "sum_observed": 68380,
+          "median_observed": 6070.5
+        },
+        "total_tokens": {
+          "n_observed": 12,
+          "n_missing": 0,
+          "sum_observed": 1043679,
+          "median_observed": 81296.5
+        },
+        "uncached_input_plus_output": {
+          "n_observed": 12,
+          "n_missing": 0,
+          "sum_observed": 238687,
+          "median_observed": 18763.0
+        }
+      }
+    },
+    {
+      "phase": "h2-v1-development",
+      "model": "qwen",
+      "condition": "skill-offline",
+      "records": 12,
+      "admitted_evaluable": 12,
+      "reviewed": 12,
+      "completed": 3,
+      "seconds_all": {
+        "n_observed": 12,
+        "n_missing": 0,
+        "sum_observed": 2705.711328835,
+        "median_observed": 240.589923583
+      },
+      "seconds_successful": {
+        "n_observed": 3,
+        "n_missing": 0,
+        "sum_observed": 539.995926208,
+        "median_observed": 200.08591354200001
+      },
+      "usage_lower_bound_records": 9,
+      "usage": {
+        "input_tokens": {
+          "n_observed": 12,
+          "n_missing": 0,
+          "sum_observed": 647602,
+          "median_observed": 50355.0
+        },
+        "cached_input_tokens": {
+          "n_observed": 12,
+          "n_missing": 0,
+          "sum_observed": 515360,
+          "median_observed": 39216.0
+        },
+        "cache_write_tokens": {
+          "n_observed": 0,
+          "n_missing": 12,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "output_tokens": {
+          "n_observed": 12,
+          "n_missing": 0,
+          "sum_observed": 92358,
+          "median_observed": 7526.5
+        },
+        "reasoning_tokens": {
+          "n_observed": 12,
+          "n_missing": 0,
+          "sum_observed": 75648,
+          "median_observed": 5946.5
+        },
+        "total_tokens": {
+          "n_observed": 12,
+          "n_missing": 0,
+          "sum_observed": 739960,
+          "median_observed": 57682.5
+        },
+        "uncached_input_plus_output": {
+          "n_observed": 12,
+          "n_missing": 0,
+          "sum_observed": 224600,
+          "median_observed": 18606.0
+        }
+      }
+    },
+    {
+      "phase": "h2-v1-development",
+      "model": "qwen",
+      "condition": "web-no-skill",
+      "records": 12,
+      "admitted_evaluable": 12,
+      "reviewed": 12,
+      "completed": 0,
+      "seconds_all": {
+        "n_observed": 12,
+        "n_missing": 0,
+        "sum_observed": 2888.270951748,
+        "median_observed": 240.67626427099998
+      },
+      "seconds_successful": {
+        "n_observed": 0,
+        "n_missing": 0,
+        "sum_observed": null,
+        "median_observed": null
+      },
+      "usage_lower_bound_records": 12,
+      "usage": {
+        "input_tokens": {
+          "n_observed": 12,
+          "n_missing": 0,
+          "sum_observed": 846597,
+          "median_observed": 63142.5
+        },
+        "cached_input_tokens": {
+          "n_observed": 12,
+          "n_missing": 0,
+          "sum_observed": 698016,
+          "median_observed": 50944.0
+        },
+        "cache_write_tokens": {
+          "n_observed": 0,
+          "n_missing": 12,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "output_tokens": {
+          "n_observed": 12,
+          "n_missing": 0,
+          "sum_observed": 91668,
+          "median_observed": 7493.5
+        },
+        "reasoning_tokens": {
+          "n_observed": 12,
+          "n_missing": 0,
+          "sum_observed": 67605,
+          "median_observed": 5750.5
+        },
+        "total_tokens": {
+          "n_observed": 12,
+          "n_missing": 0,
+          "sum_observed": 938265,
+          "median_observed": 71079.0
+        },
+        "uncached_input_plus_output": {
+          "n_observed": 12,
+          "n_missing": 0,
+          "sum_observed": 240249,
+          "median_observed": 19372.0
+        }
+      }
+    },
+    {
+      "phase": "h2-v1-holdout",
+      "model": "haiku",
+      "condition": "offline-no-skill",
+      "records": 8,
+      "admitted_evaluable": 8,
+      "reviewed": 8,
+      "completed": 1,
+      "seconds_all": {
+        "n_observed": 8,
+        "n_missing": 0,
+        "sum_observed": 902.43458421,
+        "median_observed": 113.9705476875
+      },
+      "seconds_successful": {
+        "n_observed": 1,
+        "n_missing": 0,
+        "sum_observed": 100.858677792,
+        "median_observed": 100.858677792
+      },
+      "usage_lower_bound_records": 8,
+      "usage": {
+        "input_tokens": {
+          "n_observed": 8,
+          "n_missing": 0,
+          "sum_observed": 1854573,
+          "median_observed": 233172.0
+        },
+        "cached_input_tokens": {
+          "n_observed": 8,
+          "n_missing": 0,
+          "sum_observed": 1594268,
+          "median_observed": 200575.0
+        },
+        "cache_write_tokens": {
+          "n_observed": 0,
+          "n_missing": 8,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "output_tokens": {
+          "n_observed": 8,
+          "n_missing": 0,
+          "sum_observed": 93569,
+          "median_observed": 12133.5
+        },
+        "reasoning_tokens": {
+          "n_observed": 8,
+          "n_missing": 0,
+          "sum_observed": 46085,
+          "median_observed": 4656.5
+        },
+        "total_tokens": {
+          "n_observed": 8,
+          "n_missing": 0,
+          "sum_observed": 1948142,
+          "median_observed": 243741.5
+        },
+        "uncached_input_plus_output": {
+          "n_observed": 8,
+          "n_missing": 0,
+          "sum_observed": 353874,
+          "median_observed": 47404.5
+        }
+      }
+    },
+    {
+      "phase": "h2-v1-holdout",
+      "model": "haiku",
+      "condition": "skill-offline",
+      "records": 8,
+      "admitted_evaluable": 8,
+      "reviewed": 8,
+      "completed": 3,
+      "seconds_all": {
+        "n_observed": 8,
+        "n_missing": 0,
+        "sum_observed": 633.89596675,
+        "median_observed": 80.3948602705
+      },
+      "seconds_successful": {
+        "n_observed": 3,
+        "n_missing": 0,
+        "sum_observed": 263.62534825,
+        "median_observed": 97.923134417
+      },
+      "usage_lower_bound_records": 4,
+      "usage": {
+        "input_tokens": {
+          "n_observed": 8,
+          "n_missing": 0,
+          "sum_observed": 1650967,
+          "median_observed": 200060.5
+        },
+        "cached_input_tokens": {
+          "n_observed": 8,
+          "n_missing": 0,
+          "sum_observed": 1418608,
+          "median_observed": 170658.0
+        },
+        "cache_write_tokens": {
+          "n_observed": 0,
+          "n_missing": 8,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "output_tokens": {
+          "n_observed": 8,
+          "n_missing": 0,
+          "sum_observed": 63164,
+          "median_observed": 7595.0
+        },
+        "reasoning_tokens": {
+          "n_observed": 8,
+          "n_missing": 0,
+          "sum_observed": 23511,
+          "median_observed": 3080.0
+        },
+        "total_tokens": {
+          "n_observed": 8,
+          "n_missing": 0,
+          "sum_observed": 1714131,
+          "median_observed": 209579.0
+        },
+        "uncached_input_plus_output": {
+          "n_observed": 8,
+          "n_missing": 0,
+          "sum_observed": 295523,
+          "median_observed": 36119.0
+        }
+      }
+    },
+    {
+      "phase": "h2-v1-holdout",
+      "model": "haiku",
+      "condition": "web-no-skill",
+      "records": 8,
+      "admitted_evaluable": 8,
+      "reviewed": 8,
+      "completed": 0,
+      "seconds_all": {
+        "n_observed": 8,
+        "n_missing": 0,
+        "sum_observed": 1045.158061501,
+        "median_observed": 133.5754220835
+      },
+      "seconds_successful": {
+        "n_observed": 0,
+        "n_missing": 0,
+        "sum_observed": null,
+        "median_observed": null
+      },
+      "usage_lower_bound_records": 8,
+      "usage": {
+        "input_tokens": {
+          "n_observed": 8,
+          "n_missing": 0,
+          "sum_observed": 2234972,
+          "median_observed": 266042.5
+        },
+        "cached_input_tokens": {
+          "n_observed": 8,
+          "n_missing": 0,
+          "sum_observed": 1959782,
+          "median_observed": 228248.5
+        },
+        "cache_write_tokens": {
+          "n_observed": 0,
+          "n_missing": 8,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "output_tokens": {
+          "n_observed": 8,
+          "n_missing": 0,
+          "sum_observed": 111671,
+          "median_observed": 13942.5
+        },
+        "reasoning_tokens": {
+          "n_observed": 8,
+          "n_missing": 0,
+          "sum_observed": 50785,
+          "median_observed": 5621.5
+        },
+        "total_tokens": {
+          "n_observed": 8,
+          "n_missing": 0,
+          "sum_observed": 2346643,
+          "median_observed": 282954.5
+        },
+        "uncached_input_plus_output": {
+          "n_observed": 8,
+          "n_missing": 0,
+          "sum_observed": 386861,
+          "median_observed": 48177.0
+        }
+      }
+    },
+    {
+      "phase": "h2-v1-holdout",
+      "model": "luna",
+      "condition": "offline-no-skill",
+      "records": 8,
+      "admitted_evaluable": 8,
+      "reviewed": 8,
+      "completed": 2,
+      "seconds_all": {
+        "n_observed": 8,
+        "n_missing": 0,
+        "sum_observed": 721.839035251,
+        "median_observed": 67.0672002085
+      },
+      "seconds_successful": {
+        "n_observed": 2,
+        "n_missing": 0,
+        "sum_observed": 119.16740999999999,
+        "median_observed": 59.583704999999995
+      },
+      "usage_lower_bound_records": 0,
+      "usage": {
+        "input_tokens": {
+          "n_observed": 8,
+          "n_missing": 0,
+          "sum_observed": 2325984,
+          "median_observed": 234767.0
+        },
+        "cached_input_tokens": {
+          "n_observed": 8,
+          "n_missing": 0,
+          "sum_observed": 2064896,
+          "median_observed": 198016.0
+        },
+        "cache_write_tokens": {
+          "n_observed": 0,
+          "n_missing": 8,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "output_tokens": {
+          "n_observed": 8,
+          "n_missing": 0,
+          "sum_observed": 58568,
+          "median_observed": 4851.0
+        },
+        "reasoning_tokens": {
+          "n_observed": 8,
+          "n_missing": 0,
+          "sum_observed": 34937,
+          "median_observed": 2499.5
+        },
+        "total_tokens": {
+          "n_observed": 8,
+          "n_missing": 0,
+          "sum_observed": 2384552,
+          "median_observed": 239144.5
+        },
+        "uncached_input_plus_output": {
+          "n_observed": 8,
+          "n_missing": 0,
+          "sum_observed": 319656,
+          "median_observed": 39774.0
+        }
+      }
+    },
+    {
+      "phase": "h2-v1-holdout",
+      "model": "luna",
+      "condition": "skill-offline",
+      "records": 8,
+      "admitted_evaluable": 8,
+      "reviewed": 8,
+      "completed": 8,
+      "seconds_all": {
+        "n_observed": 8,
+        "n_missing": 0,
+        "sum_observed": 283.528631584,
+        "median_observed": 34.1209589585
+      },
+      "seconds_successful": {
+        "n_observed": 8,
+        "n_missing": 0,
+        "sum_observed": 283.528631584,
+        "median_observed": 34.1209589585
+      },
+      "usage_lower_bound_records": 0,
+      "usage": {
+        "input_tokens": {
+          "n_observed": 8,
+          "n_missing": 0,
+          "sum_observed": 992648,
+          "median_observed": 115993.5
+        },
+        "cached_input_tokens": {
+          "n_observed": 8,
+          "n_missing": 0,
+          "sum_observed": 824832,
+          "median_observed": 98240.0
+        },
+        "cache_write_tokens": {
+          "n_observed": 0,
+          "n_missing": 8,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "output_tokens": {
+          "n_observed": 8,
+          "n_missing": 0,
+          "sum_observed": 18354,
+          "median_observed": 1878.5
+        },
+        "reasoning_tokens": {
+          "n_observed": 8,
+          "n_missing": 0,
+          "sum_observed": 8391,
+          "median_observed": 797.5
+        },
+        "total_tokens": {
+          "n_observed": 8,
+          "n_missing": 0,
+          "sum_observed": 1011002,
+          "median_observed": 117999.0
+        },
+        "uncached_input_plus_output": {
+          "n_observed": 8,
+          "n_missing": 0,
+          "sum_observed": 186170,
+          "median_observed": 24049.5
+        }
+      }
+    },
+    {
+      "phase": "h2-v1-holdout",
+      "model": "luna",
+      "condition": "web-no-skill",
+      "records": 8,
+      "admitted_evaluable": 8,
+      "reviewed": 8,
+      "completed": 7,
+      "seconds_all": {
+        "n_observed": 8,
+        "n_missing": 0,
+        "sum_observed": 623.8314467499999,
+        "median_observed": 68.934778917
+      },
+      "seconds_successful": {
+        "n_observed": 7,
+        "n_missing": 0,
+        "sum_observed": 563.131025125,
+        "median_observed": 74.835462
+      },
+      "usage_lower_bound_records": 0,
+      "usage": {
+        "input_tokens": {
+          "n_observed": 8,
+          "n_missing": 0,
+          "sum_observed": 3150462,
+          "median_observed": 277736.5
+        },
+        "cached_input_tokens": {
+          "n_observed": 8,
+          "n_missing": 0,
+          "sum_observed": 2921600,
+          "median_observed": 252864.0
+        },
+        "cache_write_tokens": {
+          "n_observed": 0,
+          "n_missing": 8,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "output_tokens": {
+          "n_observed": 8,
+          "n_missing": 0,
+          "sum_observed": 43672,
+          "median_observed": 4845.0
+        },
+        "reasoning_tokens": {
+          "n_observed": 8,
+          "n_missing": 0,
+          "sum_observed": 22913,
+          "median_observed": 2492.0
+        },
+        "total_tokens": {
+          "n_observed": 8,
+          "n_missing": 0,
+          "sum_observed": 3194134,
+          "median_observed": 282527.0
+        },
+        "uncached_input_plus_output": {
+          "n_observed": 8,
+          "n_missing": 0,
+          "sum_observed": 272534,
+          "median_observed": 37663.0
+        }
+      }
+    },
+    {
+      "phase": "h2-v1-holdout",
+      "model": "qwen",
+      "condition": "offline-no-skill",
+      "records": 8,
+      "admitted_evaluable": 8,
+      "reviewed": 8,
+      "completed": 0,
+      "seconds_all": {
+        "n_observed": 8,
+        "n_missing": 0,
+        "sum_observed": 1926.023704292,
+        "median_observed": 240.6613145415
+      },
+      "seconds_successful": {
+        "n_observed": 0,
+        "n_missing": 0,
+        "sum_observed": null,
+        "median_observed": null
+      },
+      "usage_lower_bound_records": 8,
+      "usage": {
+        "input_tokens": {
+          "n_observed": 8,
+          "n_missing": 0,
+          "sum_observed": 438796,
+          "median_observed": 36295.0
+        },
+        "cached_input_tokens": {
+          "n_observed": 8,
+          "n_missing": 0,
+          "sum_observed": 363936,
+          "median_observed": 27536.0
+        },
+        "cache_write_tokens": {
+          "n_observed": 0,
+          "n_missing": 8,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "output_tokens": {
+          "n_observed": 8,
+          "n_missing": 0,
+          "sum_observed": 57399,
+          "median_observed": 7190.0
+        },
+        "reasoning_tokens": {
+          "n_observed": 8,
+          "n_missing": 0,
+          "sum_observed": 42967,
+          "median_observed": 5825.5
+        },
+        "total_tokens": {
+          "n_observed": 8,
+          "n_missing": 0,
+          "sum_observed": 496195,
+          "median_observed": 43681.5
+        },
+        "uncached_input_plus_output": {
+          "n_observed": 8,
+          "n_missing": 0,
+          "sum_observed": 132259,
+          "median_observed": 16413.0
+        }
+      }
+    },
+    {
+      "phase": "h2-v1-holdout",
+      "model": "qwen",
+      "condition": "skill-offline",
+      "records": 8,
+      "admitted_evaluable": 8,
+      "reviewed": 8,
+      "completed": 1,
+      "seconds_all": {
+        "n_observed": 8,
+        "n_missing": 0,
+        "sum_observed": 1847.788643583,
+        "median_observed": 240.65699639550002
+      },
+      "seconds_successful": {
+        "n_observed": 1,
+        "n_missing": 0,
+        "sum_observed": 163.202285833,
+        "median_observed": 163.202285833
+      },
+      "usage_lower_bound_records": 7,
+      "usage": {
+        "input_tokens": {
+          "n_observed": 8,
+          "n_missing": 0,
+          "sum_observed": 340079,
+          "median_observed": 43035.0
+        },
+        "cached_input_tokens": {
+          "n_observed": 8,
+          "n_missing": 0,
+          "sum_observed": 257760,
+          "median_observed": 32320.0
+        },
+        "cache_write_tokens": {
+          "n_observed": 0,
+          "n_missing": 8,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "output_tokens": {
+          "n_observed": 8,
+          "n_missing": 0,
+          "sum_observed": 54437,
+          "median_observed": 6542.0
+        },
+        "reasoning_tokens": {
+          "n_observed": 8,
+          "n_missing": 0,
+          "sum_observed": 40227,
+          "median_observed": 4884.5
+        },
+        "total_tokens": {
+          "n_observed": 8,
+          "n_missing": 0,
+          "sum_observed": 394516,
+          "median_observed": 50328.5
+        },
+        "uncached_input_plus_output": {
+          "n_observed": 8,
+          "n_missing": 0,
+          "sum_observed": 136756,
+          "median_observed": 17043.5
+        }
+      }
+    },
+    {
+      "phase": "h2-v1-holdout",
+      "model": "qwen",
+      "condition": "web-no-skill",
+      "records": 8,
+      "admitted_evaluable": 8,
+      "reviewed": 8,
+      "completed": 0,
+      "seconds_all": {
+        "n_observed": 8,
+        "n_missing": 0,
+        "sum_observed": 1925.577811959,
+        "median_observed": 240.684232458
+      },
+      "seconds_successful": {
+        "n_observed": 0,
+        "n_missing": 0,
+        "sum_observed": null,
+        "median_observed": null
+      },
+      "usage_lower_bound_records": 7,
+      "usage": {
+        "input_tokens": {
+          "n_observed": 8,
+          "n_missing": 0,
+          "sum_observed": 474825,
+          "median_observed": 51824.5
+        },
+        "cached_input_tokens": {
+          "n_observed": 8,
+          "n_missing": 0,
+          "sum_observed": 374304,
+          "median_observed": 40624.0
+        },
+        "cache_write_tokens": {
+          "n_observed": 0,
+          "n_missing": 8,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "output_tokens": {
+          "n_observed": 8,
+          "n_missing": 0,
+          "sum_observed": 58612,
+          "median_observed": 7410.0
+        },
+        "reasoning_tokens": {
+          "n_observed": 8,
+          "n_missing": 0,
+          "sum_observed": 43954,
+          "median_observed": 5454.0
+        },
+        "total_tokens": {
+          "n_observed": 8,
+          "n_missing": 0,
+          "sum_observed": 533437,
+          "median_observed": 59618.5
+        },
+        "uncached_input_plus_output": {
+          "n_observed": 8,
+          "n_missing": 0,
+          "sum_observed": 159133,
+          "median_observed": 18406.0
+        }
+      }
+    },
+    {
+      "phase": "h2-v1-repeat-development",
+      "model": "haiku",
+      "condition": "skill-offline",
+      "records": 2,
+      "admitted_evaluable": 2,
+      "reviewed": 2,
+      "completed": 1,
+      "seconds_all": {
+        "n_observed": 2,
+        "n_missing": 0,
+        "sum_observed": 111.950784959,
+        "median_observed": 55.9753924795
+      },
+      "seconds_successful": {
+        "n_observed": 1,
+        "n_missing": 0,
+        "sum_observed": 39.202418666999996,
+        "median_observed": 39.202418666999996
+      },
+      "usage_lower_bound_records": 1,
+      "usage": {
+        "input_tokens": {
+          "n_observed": 2,
+          "n_missing": 0,
+          "sum_observed": 285269,
+          "median_observed": 142634.5
+        },
+        "cached_input_tokens": {
+          "n_observed": 2,
+          "n_missing": 0,
+          "sum_observed": 241532,
+          "median_observed": 120766.0
+        },
+        "cache_write_tokens": {
+          "n_observed": 0,
+          "n_missing": 2,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "output_tokens": {
+          "n_observed": 2,
+          "n_missing": 0,
+          "sum_observed": 9500,
+          "median_observed": 4750.0
+        },
+        "reasoning_tokens": {
+          "n_observed": 2,
+          "n_missing": 0,
+          "sum_observed": 4483,
+          "median_observed": 2241.5
+        },
+        "total_tokens": {
+          "n_observed": 2,
+          "n_missing": 0,
+          "sum_observed": 294769,
+          "median_observed": 147384.5
+        },
+        "uncached_input_plus_output": {
+          "n_observed": 2,
+          "n_missing": 0,
+          "sum_observed": 53237,
+          "median_observed": 26618.5
+        }
+      }
+    },
+    {
+      "phase": "h2-v1-repeat-development",
+      "model": "luna",
+      "condition": "skill-offline",
+      "records": 2,
+      "admitted_evaluable": 2,
+      "reviewed": 2,
+      "completed": 2,
+      "seconds_all": {
+        "n_observed": 2,
+        "n_missing": 0,
+        "sum_observed": 57.866909248999995,
+        "median_observed": 28.933454624499998
+      },
+      "seconds_successful": {
+        "n_observed": 2,
+        "n_missing": 0,
+        "sum_observed": 57.866909248999995,
+        "median_observed": 28.933454624499998
+      },
+      "usage_lower_bound_records": 0,
+      "usage": {
+        "input_tokens": {
+          "n_observed": 2,
+          "n_missing": 0,
+          "sum_observed": 229018,
+          "median_observed": 114509.0
+        },
+        "cached_input_tokens": {
+          "n_observed": 2,
+          "n_missing": 0,
+          "sum_observed": 203776,
+          "median_observed": 101888.0
+        },
+        "cache_write_tokens": {
+          "n_observed": 0,
+          "n_missing": 2,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "output_tokens": {
+          "n_observed": 2,
+          "n_missing": 0,
+          "sum_observed": 2653,
+          "median_observed": 1326.5
+        },
+        "reasoning_tokens": {
+          "n_observed": 2,
+          "n_missing": 0,
+          "sum_observed": 1233,
+          "median_observed": 616.5
+        },
+        "total_tokens": {
+          "n_observed": 2,
+          "n_missing": 0,
+          "sum_observed": 231671,
+          "median_observed": 115835.5
+        },
+        "uncached_input_plus_output": {
+          "n_observed": 2,
+          "n_missing": 0,
+          "sum_observed": 27895,
+          "median_observed": 13947.5
+        }
+      }
+    },
+    {
+      "phase": "h2-v1-repeat-development",
+      "model": "qwen",
+      "condition": "skill-offline",
+      "records": 2,
+      "admitted_evaluable": 2,
+      "reviewed": 2,
+      "completed": 0,
+      "seconds_all": {
+        "n_observed": 2,
+        "n_missing": 0,
+        "sum_observed": 481.558475207,
+        "median_observed": 240.7792376035
+      },
+      "seconds_successful": {
+        "n_observed": 0,
+        "n_missing": 0,
+        "sum_observed": null,
+        "median_observed": null
+      },
+      "usage_lower_bound_records": 2,
+      "usage": {
+        "input_tokens": {
+          "n_observed": 2,
+          "n_missing": 0,
+          "sum_observed": 48274,
+          "median_observed": 24137.0
+        },
+        "cached_input_tokens": {
+          "n_observed": 2,
+          "n_missing": 0,
+          "sum_observed": 33280,
+          "median_observed": 16640.0
+        },
+        "cache_write_tokens": {
+          "n_observed": 0,
+          "n_missing": 2,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "output_tokens": {
+          "n_observed": 2,
+          "n_missing": 0,
+          "sum_observed": 13095,
+          "median_observed": 6547.5
+        },
+        "reasoning_tokens": {
+          "n_observed": 2,
+          "n_missing": 0,
+          "sum_observed": 11379,
+          "median_observed": 5689.5
+        },
+        "total_tokens": {
+          "n_observed": 2,
+          "n_missing": 0,
+          "sum_observed": 61369,
+          "median_observed": 30684.5
+        },
+        "uncached_input_plus_output": {
+          "n_observed": 2,
+          "n_missing": 0,
+          "sum_observed": 28089,
+          "median_observed": 14044.5
+        }
+      }
+    },
+    {
+      "phase": "h2-v2-development",
+      "model": "haiku",
+      "condition": "skill-offline",
+      "records": 4,
+      "admitted_evaluable": 4,
+      "reviewed": 4,
+      "completed": 3,
+      "seconds_all": {
+        "n_observed": 4,
+        "n_missing": 0,
+        "sum_observed": 259.455159916,
+        "median_observed": 53.986771854
+      },
+      "seconds_successful": {
+        "n_observed": 3,
+        "n_missing": 0,
+        "sum_observed": 215.023297166,
+        "median_observed": 63.541680958
+      },
+      "usage_lower_bound_records": 1,
+      "usage": {
+        "input_tokens": {
+          "n_observed": 4,
+          "n_missing": 0,
+          "sum_observed": 612485,
+          "median_observed": 132655.5
+        },
+        "cached_input_tokens": {
+          "n_observed": 4,
+          "n_missing": 0,
+          "sum_observed": 512541,
+          "median_observed": 110331.5
+        },
+        "cache_write_tokens": {
+          "n_observed": 0,
+          "n_missing": 4,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "output_tokens": {
+          "n_observed": 4,
+          "n_missing": 0,
+          "sum_observed": 25370,
+          "median_observed": 4919.0
+        },
+        "reasoning_tokens": {
+          "n_observed": 4,
+          "n_missing": 0,
+          "sum_observed": 11319,
+          "median_observed": 2482.0
+        },
+        "total_tokens": {
+          "n_observed": 4,
+          "n_missing": 0,
+          "sum_observed": 637855,
+          "median_observed": 137309.5
+        },
+        "uncached_input_plus_output": {
+          "n_observed": 4,
+          "n_missing": 0,
+          "sum_observed": 125314,
+          "median_observed": 27890.5
+        }
+      }
+    },
+    {
+      "phase": "h2-v2-development",
+      "model": "luna",
+      "condition": "skill-offline",
+      "records": 4,
+      "admitted_evaluable": 4,
+      "reviewed": 4,
+      "completed": 4,
+      "seconds_all": {
+        "n_observed": 4,
+        "n_missing": 0,
+        "sum_observed": 142.725261249,
+        "median_observed": 33.260050854
+      },
+      "seconds_successful": {
+        "n_observed": 4,
+        "n_missing": 0,
+        "sum_observed": 142.725261249,
+        "median_observed": 33.260050854
+      },
+      "usage_lower_bound_records": 0,
+      "usage": {
+        "input_tokens": {
+          "n_observed": 4,
+          "n_missing": 0,
+          "sum_observed": 442211,
+          "median_observed": 102044.5
+        },
+        "cached_input_tokens": {
+          "n_observed": 4,
+          "n_missing": 0,
+          "sum_observed": 390016,
+          "median_observed": 87552.0
+        },
+        "cache_write_tokens": {
+          "n_observed": 0,
+          "n_missing": 4,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "output_tokens": {
+          "n_observed": 4,
+          "n_missing": 0,
+          "sum_observed": 8409,
+          "median_observed": 1724.5
+        },
+        "reasoning_tokens": {
+          "n_observed": 4,
+          "n_missing": 0,
+          "sum_observed": 3200,
+          "median_observed": 741.5
+        },
+        "total_tokens": {
+          "n_observed": 4,
+          "n_missing": 0,
+          "sum_observed": 450620,
+          "median_observed": 103498.5
+        },
+        "uncached_input_plus_output": {
+          "n_observed": 4,
+          "n_missing": 0,
+          "sum_observed": 60604,
+          "median_observed": 14355.5
+        }
+      }
+    },
+    {
+      "phase": "h2-v2-development",
+      "model": "qwen",
+      "condition": "skill-offline",
+      "records": 4,
+      "admitted_evaluable": 4,
+      "reviewed": 4,
+      "completed": 2,
+      "seconds_all": {
+        "n_observed": 4,
+        "n_missing": 0,
+        "sum_observed": 792.4113192509999,
+        "median_observed": 208.0573260415
+      },
+      "seconds_successful": {
+        "n_observed": 2,
+        "n_missing": 0,
+        "sum_observed": 311.082570042,
+        "median_observed": 155.541285021
+      },
+      "usage_lower_bound_records": 2,
+      "usage": {
+        "input_tokens": {
+          "n_observed": 4,
+          "n_missing": 0,
+          "sum_observed": 240531,
+          "median_observed": 59934.5
+        },
+        "cached_input_tokens": {
+          "n_observed": 4,
+          "n_missing": 0,
+          "sum_observed": 203616,
+          "median_observed": 50256.0
+        },
+        "cache_write_tokens": {
+          "n_observed": 0,
+          "n_missing": 4,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "output_tokens": {
+          "n_observed": 4,
+          "n_missing": 0,
+          "sum_observed": 22528,
+          "median_observed": 6039.0
+        },
+        "reasoning_tokens": {
+          "n_observed": 4,
+          "n_missing": 0,
+          "sum_observed": 15663,
+          "median_observed": 4079.5
+        },
+        "total_tokens": {
+          "n_observed": 4,
+          "n_missing": 0,
+          "sum_observed": 263059,
+          "median_observed": 66114.0
+        },
+        "uncached_input_plus_output": {
+          "n_observed": 4,
+          "n_missing": 0,
+          "sum_observed": 59443,
+          "median_observed": 15858.0
+        }
+      }
+    },
+    {
+      "phase": "h2-v2-holdout",
+      "model": "haiku",
+      "condition": "skill-offline",
+      "records": 8,
+      "admitted_evaluable": 8,
+      "reviewed": 8,
+      "completed": 3,
+      "seconds_all": {
+        "n_observed": 8,
+        "n_missing": 0,
+        "sum_observed": 705.149749292,
+        "median_observed": 74.5436678335
+      },
+      "seconds_successful": {
+        "n_observed": 3,
+        "n_missing": 0,
+        "sum_observed": 284.94776520899995,
+        "median_observed": 77.58938674999999
+      },
+      "usage_lower_bound_records": 5,
+      "usage": {
+        "input_tokens": {
+          "n_observed": 8,
+          "n_missing": 0,
+          "sum_observed": 1733474,
+          "median_observed": 217993.0
+        },
+        "cached_input_tokens": {
+          "n_observed": 8,
+          "n_missing": 0,
+          "sum_observed": 1509751,
+          "median_observed": 189654.0
+        },
+        "cache_write_tokens": {
+          "n_observed": 0,
+          "n_missing": 8,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "output_tokens": {
+          "n_observed": 8,
+          "n_missing": 0,
+          "sum_observed": 72181,
+          "median_observed": 7259.0
+        },
+        "reasoning_tokens": {
+          "n_observed": 8,
+          "n_missing": 0,
+          "sum_observed": 36581,
+          "median_observed": 2631.0
+        },
+        "total_tokens": {
+          "n_observed": 8,
+          "n_missing": 0,
+          "sum_observed": 1805655,
+          "median_observed": 230359.5
+        },
+        "uncached_input_plus_output": {
+          "n_observed": 8,
+          "n_missing": 0,
+          "sum_observed": 295904,
+          "median_observed": 37846.5
+        }
+      }
+    },
+    {
+      "phase": "h2-v2-holdout",
+      "model": "luna",
+      "condition": "skill-offline",
+      "records": 8,
+      "admitted_evaluable": 8,
+      "reviewed": 8,
+      "completed": 8,
+      "seconds_all": {
+        "n_observed": 8,
+        "n_missing": 0,
+        "sum_observed": 318.016542458,
+        "median_observed": 38.97086831199999
+      },
+      "seconds_successful": {
+        "n_observed": 8,
+        "n_missing": 0,
+        "sum_observed": 318.016542458,
+        "median_observed": 38.97086831199999
+      },
+      "usage_lower_bound_records": 0,
+      "usage": {
+        "input_tokens": {
+          "n_observed": 8,
+          "n_missing": 0,
+          "sum_observed": 1123742,
+          "median_observed": 120481.0
+        },
+        "cached_input_tokens": {
+          "n_observed": 8,
+          "n_missing": 0,
+          "sum_observed": 992512,
+          "median_observed": 103616.0
+        },
+        "cache_write_tokens": {
+          "n_observed": 0,
+          "n_missing": 8,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "output_tokens": {
+          "n_observed": 8,
+          "n_missing": 0,
+          "sum_observed": 23227,
+          "median_observed": 3128.0
+        },
+        "reasoning_tokens": {
+          "n_observed": 8,
+          "n_missing": 0,
+          "sum_observed": 12371,
+          "median_observed": 1797.0
+        },
+        "total_tokens": {
+          "n_observed": 8,
+          "n_missing": 0,
+          "sum_observed": 1146969,
+          "median_observed": 122755.5
+        },
+        "uncached_input_plus_output": {
+          "n_observed": 8,
+          "n_missing": 0,
+          "sum_observed": 154457,
+          "median_observed": 19571.0
+        }
+      }
+    },
+    {
+      "phase": "h2-v2-holdout",
+      "model": "qwen",
+      "condition": "skill-offline",
+      "records": 8,
+      "admitted_evaluable": 8,
+      "reviewed": 8,
+      "completed": 0,
+      "seconds_all": {
+        "n_observed": 8,
+        "n_missing": 0,
+        "sum_observed": 1925.697463417,
+        "median_observed": 240.6961398335
+      },
+      "seconds_successful": {
+        "n_observed": 0,
+        "n_missing": 0,
+        "sum_observed": null,
+        "median_observed": null
+      },
+      "usage_lower_bound_records": 7,
+      "usage": {
+        "input_tokens": {
+          "n_observed": 8,
+          "n_missing": 0,
+          "sum_observed": 429534,
+          "median_observed": 43318.5
+        },
+        "cached_input_tokens": {
+          "n_observed": 8,
+          "n_missing": 0,
+          "sum_observed": 335104,
+          "median_observed": 32848.0
+        },
+        "cache_write_tokens": {
+          "n_observed": 0,
+          "n_missing": 8,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "output_tokens": {
+          "n_observed": 8,
+          "n_missing": 0,
+          "sum_observed": 56999,
+          "median_observed": 6778.5
+        },
+        "reasoning_tokens": {
+          "n_observed": 8,
+          "n_missing": 0,
+          "sum_observed": 39931,
+          "median_observed": 4814.5
+        },
+        "total_tokens": {
+          "n_observed": 8,
+          "n_missing": 0,
+          "sum_observed": 486533,
+          "median_observed": 49864.0
+        },
+        "uncached_input_plus_output": {
+          "n_observed": 8,
+          "n_missing": 0,
+          "sum_observed": 151429,
+          "median_observed": 17966.0
+        }
+      }
+    },
+    {
+      "phase": "v1-development",
+      "model": "luna",
+      "condition": "offline-no-skill",
+      "records": 9,
+      "admitted_evaluable": 0,
+      "reviewed": 0,
+      "completed": 0,
+      "seconds_all": {
+        "n_observed": 0,
+        "n_missing": 0,
+        "sum_observed": null,
+        "median_observed": null
+      },
+      "seconds_successful": {
+        "n_observed": 0,
+        "n_missing": 0,
+        "sum_observed": null,
+        "median_observed": null
+      },
+      "usage_lower_bound_records": 0,
+      "usage": {
+        "input_tokens": {
+          "n_observed": 0,
+          "n_missing": 0,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "cached_input_tokens": {
+          "n_observed": 0,
+          "n_missing": 0,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "cache_write_tokens": {
+          "n_observed": 0,
+          "n_missing": 0,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "output_tokens": {
+          "n_observed": 0,
+          "n_missing": 0,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "reasoning_tokens": {
+          "n_observed": 0,
+          "n_missing": 0,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "total_tokens": {
+          "n_observed": 0,
+          "n_missing": 0,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "uncached_input_plus_output": {
+          "n_observed": 0,
+          "n_missing": 0,
+          "sum_observed": null,
+          "median_observed": null
+        }
+      }
+    },
+    {
+      "phase": "v1-development",
+      "model": "luna",
+      "condition": "skill-offline",
+      "records": 10,
+      "admitted_evaluable": 0,
+      "reviewed": 0,
+      "completed": 0,
+      "seconds_all": {
+        "n_observed": 0,
+        "n_missing": 0,
+        "sum_observed": null,
+        "median_observed": null
+      },
+      "seconds_successful": {
+        "n_observed": 0,
+        "n_missing": 0,
+        "sum_observed": null,
+        "median_observed": null
+      },
+      "usage_lower_bound_records": 0,
+      "usage": {
+        "input_tokens": {
+          "n_observed": 0,
+          "n_missing": 0,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "cached_input_tokens": {
+          "n_observed": 0,
+          "n_missing": 0,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "cache_write_tokens": {
+          "n_observed": 0,
+          "n_missing": 0,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "output_tokens": {
+          "n_observed": 0,
+          "n_missing": 0,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "reasoning_tokens": {
+          "n_observed": 0,
+          "n_missing": 0,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "total_tokens": {
+          "n_observed": 0,
+          "n_missing": 0,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "uncached_input_plus_output": {
+          "n_observed": 0,
+          "n_missing": 0,
+          "sum_observed": null,
+          "median_observed": null
+        }
+      }
+    },
+    {
+      "phase": "v1-development",
+      "model": "luna",
+      "condition": "web-no-skill",
+      "records": 10,
+      "admitted_evaluable": 0,
+      "reviewed": 0,
+      "completed": 0,
+      "seconds_all": {
+        "n_observed": 0,
+        "n_missing": 0,
+        "sum_observed": null,
+        "median_observed": null
+      },
+      "seconds_successful": {
+        "n_observed": 0,
+        "n_missing": 0,
+        "sum_observed": null,
+        "median_observed": null
+      },
+      "usage_lower_bound_records": 0,
+      "usage": {
+        "input_tokens": {
+          "n_observed": 0,
+          "n_missing": 0,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "cached_input_tokens": {
+          "n_observed": 0,
+          "n_missing": 0,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "cache_write_tokens": {
+          "n_observed": 0,
+          "n_missing": 0,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "output_tokens": {
+          "n_observed": 0,
+          "n_missing": 0,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "reasoning_tokens": {
+          "n_observed": 0,
+          "n_missing": 0,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "total_tokens": {
+          "n_observed": 0,
+          "n_missing": 0,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "uncached_input_plus_output": {
+          "n_observed": 0,
+          "n_missing": 0,
+          "sum_observed": null,
+          "median_observed": null
+        }
+      }
+    },
+    {
+      "phase": "v1-development",
+      "model": "qwen",
+      "condition": "offline-no-skill",
+      "records": 3,
+      "admitted_evaluable": 0,
+      "reviewed": 0,
+      "completed": 0,
+      "seconds_all": {
+        "n_observed": 0,
+        "n_missing": 0,
+        "sum_observed": null,
+        "median_observed": null
+      },
+      "seconds_successful": {
+        "n_observed": 0,
+        "n_missing": 0,
+        "sum_observed": null,
+        "median_observed": null
+      },
+      "usage_lower_bound_records": 0,
+      "usage": {
+        "input_tokens": {
+          "n_observed": 0,
+          "n_missing": 0,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "cached_input_tokens": {
+          "n_observed": 0,
+          "n_missing": 0,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "cache_write_tokens": {
+          "n_observed": 0,
+          "n_missing": 0,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "output_tokens": {
+          "n_observed": 0,
+          "n_missing": 0,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "reasoning_tokens": {
+          "n_observed": 0,
+          "n_missing": 0,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "total_tokens": {
+          "n_observed": 0,
+          "n_missing": 0,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "uncached_input_plus_output": {
+          "n_observed": 0,
+          "n_missing": 0,
+          "sum_observed": null,
+          "median_observed": null
+        }
+      }
+    },
+    {
+      "phase": "v1-development",
+      "model": "qwen",
+      "condition": "skill-offline",
+      "records": 2,
+      "admitted_evaluable": 0,
+      "reviewed": 0,
+      "completed": 0,
+      "seconds_all": {
+        "n_observed": 0,
+        "n_missing": 0,
+        "sum_observed": null,
+        "median_observed": null
+      },
+      "seconds_successful": {
+        "n_observed": 0,
+        "n_missing": 0,
+        "sum_observed": null,
+        "median_observed": null
+      },
+      "usage_lower_bound_records": 0,
+      "usage": {
+        "input_tokens": {
+          "n_observed": 0,
+          "n_missing": 0,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "cached_input_tokens": {
+          "n_observed": 0,
+          "n_missing": 0,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "cache_write_tokens": {
+          "n_observed": 0,
+          "n_missing": 0,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "output_tokens": {
+          "n_observed": 0,
+          "n_missing": 0,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "reasoning_tokens": {
+          "n_observed": 0,
+          "n_missing": 0,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "total_tokens": {
+          "n_observed": 0,
+          "n_missing": 0,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "uncached_input_plus_output": {
+          "n_observed": 0,
+          "n_missing": 0,
+          "sum_observed": null,
+          "median_observed": null
+        }
+      }
+    },
+    {
+      "phase": "v1-development",
+      "model": "qwen",
+      "condition": "web-no-skill",
+      "records": 2,
+      "admitted_evaluable": 0,
+      "reviewed": 0,
+      "completed": 0,
+      "seconds_all": {
+        "n_observed": 0,
+        "n_missing": 0,
+        "sum_observed": null,
+        "median_observed": null
+      },
+      "seconds_successful": {
+        "n_observed": 0,
+        "n_missing": 0,
+        "sum_observed": null,
+        "median_observed": null
+      },
+      "usage_lower_bound_records": 0,
+      "usage": {
+        "input_tokens": {
+          "n_observed": 0,
+          "n_missing": 0,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "cached_input_tokens": {
+          "n_observed": 0,
+          "n_missing": 0,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "cache_write_tokens": {
+          "n_observed": 0,
+          "n_missing": 0,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "output_tokens": {
+          "n_observed": 0,
+          "n_missing": 0,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "reasoning_tokens": {
+          "n_observed": 0,
+          "n_missing": 0,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "total_tokens": {
+          "n_observed": 0,
+          "n_missing": 0,
+          "sum_observed": null,
+          "median_observed": null
+        },
+        "uncached_input_plus_output": {
+          "n_observed": 0,
+          "n_missing": 0,
+          "sum_observed": null,
+          "median_observed": null
+        }
+      }
+    }
+  ],
+  "metric_policy": "Original completion retained; machine checks separate. Unknown usage stays null. No token-category summation or comparison of different task subsets."
+}

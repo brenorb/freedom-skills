@@ -1,0 +1,96 @@
+{
+  "candidates": [
+    {
+      "id": "596e1a22fad99939",
+      "package_sha256": "596e1a22fad99939b0a37d42658bb875b640397adb3a82ff8aa9f2dcda15f2f5",
+      "parent": null,
+      "entry_words": 446,
+      "markdown_words": 2417,
+      "bytes": 18590,
+      "validation": {
+        "haiku": 3,
+        "qwen": 3,
+        "cases": 4
+      },
+      "eligible": false,
+      "promoted": false,
+      "scope": "seed"
+    },
+    {
+      "id": "9c159019b57c4646",
+      "package_sha256": "9c159019b57c46461d0b147a0cedc795c7a6524addc701196f7ce0d130ee2c87",
+      "parent": "596e1a22fad99939",
+      "entry_words": 424,
+      "markdown_words": 2807,
+      "bytes": 33915,
+      "validation": {
+        "haiku": 3,
+        "qwen": 1,
+        "cases": 4
+      },
+      "eligible": false,
+      "promoted": false,
+      "scope": "valid_proposal"
+    },
+    {
+      "id": "37e5b2a3cc8977eb",
+      "package_sha256": "37e5b2a3cc8977ebaeacca321913b1493dccc95f0f54ab59577529a6ddd6c872",
+      "parent": "596e1a22fad99939",
+      "entry_words": 457,
+      "markdown_words": 2840,
+      "bytes": 34111,
+      "validation": {
+        "haiku": 3,
+        "qwen": 1,
+        "cases": 4
+      },
+      "eligible": false,
+      "promoted": false,
+      "scope": "valid_proposal"
+    },
+    {
+      "id": "a7079bad62abcbea",
+      "package_sha256": "a7079bad62abcbea01288c3d8ae1f0bbb3ca950a5208300306792c3ae048c655",
+      "parent": "596e1a22fad99939",
+      "entry_words": 437,
+      "markdown_words": 2820,
+      "bytes": 33975,
+      "validation": {
+        "haiku": 2,
+        "qwen": 1,
+        "cases": 4
+      },
+      "eligible": false,
+      "promoted": false,
+      "scope": "valid_proposal"
+    },
+    {
+      "id": "cf6e2f491eda155a",
+      "package_sha256": "cf6e2f491eda155ae612e87289aac1436a91844824bad3a461193a8d976c94ab",
+      "parent": "596e1a22fad99939",
+      "entry_words": 438,
+      "markdown_words": 2821,
+      "bytes": 34090,
+      "validation": {
+        "haiku": 3,
+        "qwen": 1,
+        "cases": 4
+      },
+      "eligible": false,
+      "promoted": false,
+      "scope": "valid_proposal"
+    }
+  ],
+  "excluded_trajectories": [
+    "contended-start",
+    "malformed-package-start",
+    "cross-split-cache-start",
+    "haiku-quota-start"
+  ],
+  "decision": "Keep seed; no qualifying proposal; final remains sealed.",
+  "unavailable_costs": [
+    "teacher_provider_tokens",
+    "reviewer_provider_tokens",
+    "orchestrator_provider_tokens"
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "policy": "Copied pure utilities for future studies; historical copies and consumers remain unchanged.",
+  "sources": [
+    {
+      "source": "benchmarks/btcdeb-gepa-2026-10-19/harness/dataset_loader.py",
+      "target": "dataset_loader.py",
+      "sha256": "654a671fd5536a83eabde43793bce096eb1fa8e26874055bb86ac51c7a5c45cd"
+    },
+    {
+      "source": "benchmarks/btcdeb-2026-10-18/harness/telemetry.mjs",
+      "target": "telemetry.mjs",
+      "sha256": "8ab77ac31ee3a7e44fc4f112e7800e2f7bbc8acecb93929be0b9192166a1c6a3"
+    }
+  ]
+}

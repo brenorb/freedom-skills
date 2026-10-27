@@ -1,0 +1,31 @@
+{
+  "optimizer": "official-gepa",
+  "version": "0.1.4",
+  "seed": 19,
+  "mutable": "SKILL.md body only; metadata/five references fixed; optional frozen helper catalog",
+  "reflection": {
+    "model": "gpt-6.1-sol",
+    "effort": "high",
+    "fresh_context": true,
+    "provider_tokens": null
+  },
+  "rounds": [
+    {
+      "name": "initial",
+      "max_proposals": 3,
+      "max_metric_calls": 32,
+      "actual_metric_calls": 28,
+      "reflection_batch_size": 2
+    },
+    {
+      "name": "extension",
+      "max_proposals": 1,
+      "max_metric_calls": 16,
+      "actual_metric_calls": 16,
+      "reflection_batch_size": 4
+    }
+  ],
+  "gate": "Both models improve from seed3/4 on four validation cases; requires4/4 both.",
+  "final_evaluation": "Conditional64 runs; not triggered.",
+  "teacher_prompt_response_evidence": "Archived under reflections/ and rounds/; see artifacts.json."
+}
