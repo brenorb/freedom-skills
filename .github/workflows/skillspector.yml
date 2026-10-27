@@ -1,0 +1,27 @@
+name: SkillSpector
+
+on:
+  pull_request:
+    paths:
+      - "skills/**"
+      - "scripts/run_skillspector.sh"
+      - ".skillspector-baseline.yaml"
+      - ".github/workflows/skillspector.yml"
+
+jobs:
+  skillspector:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
+
+      - name: Scan skills with SkillSpector
+        shell: bash
+        run: |
+          set -euo pipefail
+          ./scripts/run_skillspector.sh
