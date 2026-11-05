@@ -5,7 +5,7 @@ description: Use this skill when the user wants a private, read-only Bitcoin UTX
 
 # bitcoin-pir
 
-Use the bundled wrapper around the upstream `Bitcoin-PIR/Bitcoin-PIR` native example that was verified against the live public servers.
+Use the bundled wrapper around the upstream `Bitcoin-PIR/Bitcoin-PIR` native address-query example. The wrapper accepts current and legacy checkout layouts; setup and validation provenance are in `references/onboarding.md`.
 
 ## Default workflow
 

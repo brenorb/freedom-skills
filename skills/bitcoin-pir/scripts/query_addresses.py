@@ -36,23 +36,34 @@ def run(cmd: list[str], *, cwd: Path | None = None, description: str) -> subproc
     return result
 
 
-def ensure_repo(repo_dir: Path) -> Path:
-    manifest_path = repo_dir / "Cargo.toml"
-    example_path = repo_dir / "pir-sdk-client" / "examples" / "fetch_addresses.rs"
-    if manifest_path.exists() and example_path.exists():
+def validate_repo(repo_dir: Path) -> Path:
+    """Recognize the current workspace and the original pre-restructure layout."""
+    example_paths = (
+        Path("crates/sdk/client/examples/fetch_addresses.rs"),
+        Path("pir-sdk-client/examples/fetch_addresses.rs"),
+    )
+    if (repo_dir / "Cargo.toml").is_file() and any(
+        (repo_dir / relative_path).is_file() for relative_path in example_paths
+    ):
         return repo_dir
+    raise QueryAddressesError(
+        f"upstream repo path does not look like Bitcoin-PIR: {repo_dir}; "
+        "expected Cargo.toml and fetch_addresses.rs under crates/sdk/client/examples "
+        "or pir-sdk-client/examples. Existing directories are not modified."
+    )
 
+
+def ensure_repo(repo_dir: Path) -> Path:
     if repo_dir.exists():
-        raise QueryAddressesError(
-            f"upstream repo path exists but does not look like Bitcoin-PIR: {repo_dir}"
-        )
+        return validate_repo(repo_dir)
 
     repo_dir.parent.mkdir(parents=True, exist_ok=True)
     run(
         ["git", "clone", "--depth", "1", UPSTREAM_REPO_URL, str(repo_dir)],
         description=f"cloning {UPSTREAM_REPO_URL}",
     )
-    return repo_dir
+    # Apply the same contract on first use and every later cached invocation.
+    return validate_repo(repo_dir)
 
 
 def find_unsupported_queries(values: list[str]) -> list[str]:
