@@ -1,0 +1,4 @@
+interface:
+  display_name: "Skill Risk Auditor"
+  short_description: "Pre-install risk review for skills, with findings-first recommendations."
+  default_prompt: "Use $skill-auditor to review this skill before install. Focus on external actions, secret handling, destructive behavior, confirmation boundaries, and whether the safe path is the default."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Harness Chooser"
+  short_description: "Recommend the best agent or harness for a task, risk level, and user profile"
+  default_prompt: "Use $harness-chooser to recommend the best agent or harness for this task, explain the tradeoffs, and name a fallback if the primary choice is not a fit."

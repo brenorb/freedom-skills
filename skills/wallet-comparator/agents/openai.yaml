@@ -1,0 +1,4 @@
+interface:
+  display_name: "Wallet Comparator"
+  short_description: "Compare Bitcoin wallets by custody, privacy, Lightning, hardware support, and user profile"
+  default_prompt: "Use $wallet-comparator to compare Bitcoin wallet options for this user by custody, privacy, Lightning support, hardware wallet support, and profile-specific tradeoffs."
