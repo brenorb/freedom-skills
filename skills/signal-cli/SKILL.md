@@ -1,29 +1,29 @@
 ---
 name: signal-cli
-description: Use this skill when the user wants to send a Signal message or attachment to a person or group, even if they ask in terms of messaging someone rather than using signal-cli explicitly. It also applies when the user needs to set up or troubleshoot Signal CLI access, link Signal on a computer, or inspect Signal accounts, contacts, or groups.
+description: Receive Signal messages, read or search previously captured Signal messages, send messages and attachments, or inspect accounts, contacts, and groups with signal-cli. Also use for linking an account or troubleshooting Signal CLI access.
 ---
 
 # signal-cli
 
-Use the local `signal-cli` binary to send Signal messages and attachments. Account inspection, syncing, and recipient resolution support that primary workflow.
+Use the local `signal-cli` binary for Signal messaging. Choose the workflow that matches the request; receiving new events and searching an existing capture are different operations.
 
-## Default workflow
+## Read or search messages
 
-1. Check whether `signal-cli` is installed and linked:
+For incoming messages or local history search, read
+[references/message-history.md](references/message-history.md). Start with an
+existing capture for history queries; use JSON `receive` for new pending messages.
+Do not sync first and discard the output needed for the user's inspection.
+`receive` is not a query of the phone's historical inbox.
 
-```bash
-command -v signal-cli
-signal-cli listAccounts
-```
+## Sending workflow
 
-2. If the binary is missing or `listAccounts` is empty, read `references/onboarding.md` and complete setup before trying to send anything.
-3. Before listing contacts, listing groups, or sending, sync the account once:
+1. When the account is known, sync it once before contact/group lookup or sending:
 
 ```bash
 signal-cli -u "+15551234567" receive
 ```
 
-4. Use the bundled scripts for recipient resolution and sending:
+2. Use the bundled scripts for recipient resolution and sending:
 
 ```bash
 python3 scripts/find_contact.py --account "+15551234567" --query "Alice"
@@ -31,7 +31,10 @@ python3 scripts/send_message.py --account "+15551234567" --to "Alice" --text "he
 python3 scripts/send_message.py --account "+15551234567" --to "Alice" --text "see attachment" --attachment "/path/to/file"
 ```
 
-5. If the user asks for raw CLI usage patterns beyond the defaults here, read `references/commands.md`.
+3. If the account is uncertain, inspect `signal-cli listAccounts`. If the binary
+   is missing or no account is linked, read `references/onboarding.md` before
+   retrying the action. Do not require setup checks for an already working account.
+4. For other raw CLI patterns, read `references/commands.md`.
 
 ## Defaults
 

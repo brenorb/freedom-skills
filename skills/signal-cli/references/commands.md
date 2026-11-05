@@ -14,6 +14,17 @@ signal-cli listAccounts
 signal-cli -u "+15551234567" receive
 ```
 
+## Receive incoming messages as JSON
+
+```bash
+signal-cli -o json -a "+15551234567" receive --timeout 5 --ignore-attachments
+```
+
+This emits newline-delimited events for pending messages, not a historical inbox.
+Read [message-history.md](message-history.md) to retain captures and search them
+with `jq`. Capture first if the user needs the message contents: an earlier plain
+`receive` used only for syncing does not provide a replayable history.
+
 ## List contacts as JSON
 
 ```bash
