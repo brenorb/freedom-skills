@@ -1,0 +1,662 @@
+{
+  "skill_name": "btcdeb",
+  "schema_version": 1,
+  "purpose": "Public output-quality cases, all previously exposed; not a new sealed holdout. Expected answers/checks are evaluator-only.",
+  "source": {
+    "study_id": "btcdeb-2026-10-18",
+    "cases_sha256": "8edb33dc003d88d21be9f15ceccf159a5b373de03528e7800e26fa17df4c1cc9"
+  },
+  "evals": [
+    {
+      "id": "B01",
+      "prompt": "I'm making a Bitcoin Script exercise. Write script.asm that consumes two initial\nstack integers, adds them, and leaves true exactly when their sum is 16. For\nother sums it must finish successfully leaving one false item. Use btcdeb\nto demonstrate two different satisfying inputs and one non-satisfying input.\nSave result.json with {\"tested\": true} after the actual runs, plus a short explanation.",
+      "expected_output": "A Script accepting sums of16, two satisfying executions, one false result, requested JSON and explanation.",
+      "files": [],
+      "assertions": [
+        "Deliver the artifacts and machine-readable fields explicitly requested in the prompt.",
+        "Support operation claims with actual tool execution; explain the central observed outcome accurately.",
+        "result.json field tested equals true.",
+        "Saved Script satisfies the declared execution vectors, including their false/error boundaries."
+      ],
+      "fixture_destinations": {},
+      "checks": {
+        "fields": {
+          "tested": true
+        },
+        "script_vectors": [
+          {
+            "file": "script.asm",
+            "stack": [
+              "7",
+              "9"
+            ],
+            "exit": 0,
+            "single_true": true
+          },
+          {
+            "file": "script.asm",
+            "stack": [
+              "8",
+              "8"
+            ],
+            "exit": 0,
+            "single_true": true
+          },
+          {
+            "file": "script.asm",
+            "stack": [
+              "7",
+              "8"
+            ],
+            "exit": 0,
+            "single_false": true
+          }
+        ]
+      },
+      "required_tools": [
+        "btcdeb"
+      ],
+      "historical_split": "development"
+    },
+    {
+      "id": "B02",
+      "prompt": "Can you actually run these three standalone scripts with empty initial stacks:\nOP_1, OP_0, and OP_DROP? Explain which executions finish and which would satisfy\na single-true-item final-stack rule. A successful process alone isn't my acceptance test.\nWrite result.json as {\"true_case\": {\"interpreter_ok\": boolean, \"stack_hex\": [...]},\n\"false_case\": {...}, \"error_case\": {\"interpreter_ok\": boolean},\n\"exit_zero_proves_spend\": boolean}. Represent an empty stack item by \"\".",
+      "expected_output": "Actual true, false-item and underflow executions, correctly classified stack/exit observations and requested JSON.",
+      "files": [],
+      "assertions": [
+        "Deliver the artifacts and machine-readable fields explicitly requested in the prompt.",
+        "Support operation claims with actual tool execution; explain the central observed outcome accurately.",
+        "result.json field true_case.interpreter_ok equals true.",
+        "result.json field true_case.stack_hex equals [\"01\"].",
+        "result.json field false_case.interpreter_ok equals true.",
+        "result.json field false_case.stack_hex equals [\"\"].",
+        "result.json field error_case.interpreter_ok equals false.",
+        "result.json field exit_zero_proves_spend equals false."
+      ],
+      "fixture_destinations": {},
+      "checks": {
+        "fields": {
+          "true_case.interpreter_ok": true,
+          "true_case.stack_hex": [
+            "01"
+          ],
+          "false_case.interpreter_ok": true,
+          "false_case.stack_hex": [
+            ""
+          ],
+          "error_case.interpreter_ok": false,
+          "exit_zero_proves_spend": false
+        }
+      },
+      "required_tools": [
+        "btcdeb"
+      ],
+      "historical_split": "development"
+    },
+    {
+      "id": "B03",
+      "prompt": "My script `OP_ADD OP_8 OP_EQUAL` errors when I run it with no initial stack.\nIt is supposed to check that 3 + 5 equals 8. Diagnose the first failure,\nwrite a repaired self-contained script.asm preserving that arithmetic, and run it.\nIn result.json record {\"original_interpreter_ok\": boolean, \"fixed_stack_hex\": [...]}.",
+      "expected_output": "An observed stack-underflow diagnosis, repaired arithmetic Script, successful execution and requested JSON.",
+      "files": [],
+      "assertions": [
+        "Deliver the artifacts and machine-readable fields explicitly requested in the prompt.",
+        "Support operation claims with actual tool execution; explain the central observed outcome accurately.",
+        "result.json field original_interpreter_ok equals false.",
+        "result.json field fixed_stack_hex equals [\"01\"].",
+        "Saved Script satisfies the declared execution vectors, including their false/error boundaries."
+      ],
+      "fixture_destinations": {},
+      "checks": {
+        "fields": {
+          "original_interpreter_ok": false,
+          "fixed_stack_hex": [
+            "01"
+          ]
+        },
+        "script_vectors": [
+          {
+            "file": "script.asm",
+            "stack": [],
+            "exit": 0,
+            "out": "01\n"
+          }
+        ]
+      },
+      "required_tools": [
+        "btcdeb"
+      ],
+      "historical_split": "development"
+    },
+    {
+      "id": "B04",
+      "prompt": "Teach me what happens in `[OP_0 OP_IF OP_9 OP_ELSE OP_4 OP_ENDIF]`.\nUse the interactive debugger: step through the condition, inspect the execution\nstate and stack, rewind the OP_4 data push and inspect the restored stack,\nthen execute that push again and reach the end. Do not assume rewinding control\nflow restores every internal state; this exercise specifically checks undoing\na stack push.\nSave result.json with {\"first_branch_executed\": boolean, \"else_branch_executed\": boolean,\n\"final_stack_hex\": [...], \"rewind_restored_previous_state\": boolean} and explain\nthe observations. I want a real debugging session, not just a predicted trace.",
+      "expected_output": "An actual PTY step/inspect/rewind/re-execute session with observed branch, stack and finalization results.",
+      "files": [],
+      "assertions": [
+        "Deliver the artifacts and machine-readable fields explicitly requested in the prompt.",
+        "Support operation claims with actual tool execution; explain the central observed outcome accurately.",
+        "result.json field first_branch_executed equals false.",
+        "result.json field else_branch_executed equals true.",
+        "result.json field final_stack_hex equals [\"04\"].",
+        "result.json field rewind_restored_previous_state equals true."
+      ],
+      "fixture_destinations": {},
+      "checks": {
+        "fields": {
+          "first_branch_executed": false,
+          "else_branch_executed": true,
+          "final_stack_hex": [
+            "04"
+          ],
+          "rewind_restored_previous_state": true
+        },
+        "trace_terms": [
+          "rewind",
+          "vfexec"
+        ]
+      },
+      "required_tools": [
+        "btcdeb"
+      ],
+      "historical_split": "holdout"
+    },
+    {
+      "id": "B05",
+      "prompt": "Use btcc to compile `OP_2 OP_3 OP_ADD OP_5 OP_EQUAL` to bare serialized Bitcoin\nScript. Save the hexadecimal bytecode alone in script.hex, then execute those\nexact bytes with btcdeb. In result.json record {\"stack_hex\": [...]}.",
+      "expected_output": "Bare serialized bytecode saved and those exact bytes executed; requested final-stack JSON.",
+      "files": [],
+      "assertions": [
+        "Deliver the artifacts and machine-readable fields explicitly requested in the prompt.",
+        "Support operation claims with actual tool execution; explain the central observed outcome accurately.",
+        "result.json field stack_hex equals [\"01\"].",
+        "Saved bare hex matches the declared serialized bytes; execute the requested bytes."
+      ],
+      "fixture_destinations": {},
+      "checks": {
+        "fields": {
+          "stack_hex": [
+            "01"
+          ]
+        },
+        "hex_files": {
+          "script.hex": "5253935587"
+        }
+      },
+      "required_tools": [
+        "btcc",
+        "btcdeb"
+      ],
+      "historical_split": "development"
+    },
+    {
+      "id": "B06",
+      "prompt": "I'm confused about Bitcoin Script number encodings. Compile the number 128 and\nthe number -1 individually with btcc, then run each with btcdeb and inspect its\nactual stack bytes. Explain the sign bit / byte order and why byte 0x80 alone\nisn't positive 128. Save result.json with {\"script_128_hex\": string,\n\"script_minus1_hex\": string, \"stack_128_hex\": [...], \"stack_minus1_hex\": [...]}.",
+      "expected_output": "Actual number128 and minus1 encodings and stacks, plus an accurate sign-bit and byte-order explanation.",
+      "files": [],
+      "assertions": [
+        "Deliver the artifacts and machine-readable fields explicitly requested in the prompt.",
+        "Support operation claims with actual tool execution; explain the central observed outcome accurately.",
+        "result.json field script_128_hex equals \"028000\".",
+        "result.json field script_minus1_hex equals \"4f\".",
+        "result.json field stack_128_hex equals [\"8000\"].",
+        "result.json field stack_minus1_hex equals [\"81\"]."
+      ],
+      "fixture_destinations": {},
+      "checks": {
+        "fields": {
+          "script_128_hex": "028000",
+          "script_minus1_hex": "4f",
+          "stack_128_hex": [
+            "8000"
+          ],
+          "stack_minus1_hex": [
+            "81"
+          ]
+        }
+      },
+      "required_tools": [
+        "btcc",
+        "btcdeb"
+      ],
+      "historical_split": "development"
+    },
+    {
+      "id": "B07",
+      "prompt": "Build a SHA256 hash-lock exercise for the exact UTF-8 text in preimage.txt\n(the file has no trailing newline). Compute its digest using btcdeb's transform\nfacilities, and write script.asm that consumes a preimage supplied as an initial\nstack byte vector and accepts only the correct digest. Actually try the right\npreimage and a wrong one. Save result.json with {\"digest_hex\": string,\n\"right_accepted\": boolean, \"wrong_accepted\": boolean}.",
+      "expected_output": "A byte-exact SHA256 hash lock, actual right/wrong preimage trials, requested digest/results JSON.",
+      "files": [
+        "evals/files/B07/preimage.txt"
+      ],
+      "assertions": [
+        "Deliver the artifacts and machine-readable fields explicitly requested in the prompt.",
+        "Support operation claims with actual tool execution; explain the central observed outcome accurately.",
+        "result.json field digest_hex equals \"e432ca4e67cb5159f804bc32048858a567577164b8c163021eda9d1215bd5b45\".",
+        "result.json field right_accepted equals true.",
+        "result.json field wrong_accepted equals false.",
+        "Saved Script satisfies the declared execution vectors, including their false/error boundaries."
+      ],
+      "fixture_destinations": {
+        "evals/files/B07/preimage.txt": "preimage.txt"
+      },
+      "checks": {
+        "fields": {
+          "digest_hex": "e432ca4e67cb5159f804bc32048858a567577164b8c163021eda9d1215bd5b45",
+          "right_accepted": true,
+          "wrong_accepted": false
+        },
+        "script_vectors": [
+          {
+            "file": "script.asm",
+            "stack": [
+              "0x6c6561726e696e6720736372697074206d65616e7320636865636b696e67206279746573"
+            ],
+            "exit": 0,
+            "single_true": true
+          },
+          {
+            "file": "script.asm",
+            "stack": [
+              "0x6c6561726e696e6720736372697074206d65616e7320636865636b696e6720627974657321"
+            ],
+            "not_single_true": true
+          }
+        ]
+      },
+      "required_tools": [
+        "btcdeb"
+      ],
+      "historical_split": "holdout"
+    },
+    {
+      "id": "B08",
+      "prompt": "Use btcdeb's transform facilities to compare SHA256 of the five raw bytes\nDE AD BE EF 00 with SHA256 of the ten ASCII characters `deadbeef00` (no quotes\nor newline are part of the text). Cross-check the values independently and\nexplain how you specified the input bytes. Save result.json as\n{\"raw_sha256\": string, \"text_sha256\": string, \"different\": boolean}.",
+      "expected_output": "Actual transforms on raw bytes and ASCII text, independent cross-checks, distinct digests and requested JSON.",
+      "files": [],
+      "assertions": [
+        "Deliver the artifacts and machine-readable fields explicitly requested in the prompt.",
+        "Support operation claims with actual tool execution; explain the central observed outcome accurately.",
+        "result.json field raw_sha256 equals \"e2867e538491f86ac5906b12ac667abf7761171d1ae94d867c231df82b0c7c90\".",
+        "result.json field text_sha256 equals \"615713262cd4c63b2ef603931929ad98769222dd6cf639a71d7135bc73774ea3\".",
+        "result.json field different equals true."
+      ],
+      "fixture_destinations": {},
+      "checks": {
+        "fields": {
+          "raw_sha256": "e2867e538491f86ac5906b12ac667abf7761171d1ae94d867c231df82b0c7c90",
+          "text_sha256": "615713262cd4c63b2ef603931929ad98769222dd6cf639a71d7135bc73774ea3",
+          "different": true
+        }
+      },
+      "required_tools": [
+        "btcdeb-or-btcc"
+      ],
+      "historical_split": "development"
+    },
+    {
+      "id": "B09",
+      "prompt": "Please validate this P2PKH teaching fragment with btcdeb:\n`<sig> <pubkey> OP_DUP OP_HASH160 <pubkeyhash> OP_EQUALVERIFY OP_CHECKSIG`.\nThose angle-bracket values really are placeholders; I have not supplied any\ntransaction, amount, or actual key/signature. Determine what you can establish,\nwhich concrete inputs are missing, and whether a mock would prove a real spend.\nSave result.json with {\"real_signature_verifiable_from_given_data\": boolean,\n\"mock_would_prove_real_signature\": boolean, \"missing_context\": [strings]}.\nDon't invent missing data or treat a placeholder run as actual verification.",
+      "expected_output": "An accurate missing-context explanation, no invented verification, and requested false verification/mock claims.",
+      "files": [],
+      "assertions": [
+        "Deliver the artifacts and machine-readable fields explicitly requested in the prompt.",
+        "Support operation claims with actual tool execution; explain the central observed outcome accurately.",
+        "result.json field real_signature_verifiable_from_given_data equals false.",
+        "result.json field mock_would_prove_real_signature equals false."
+      ],
+      "fixture_destinations": {},
+      "checks": {
+        "fields": {
+          "real_signature_verifiable_from_given_data": false,
+          "mock_would_prove_real_signature": false
+        },
+        "nonempty_lists": [
+          "missing_context"
+        ]
+      },
+      "required_tools": [],
+      "historical_split": "development"
+    },
+    {
+      "id": "B10",
+      "prompt": "Verify the input spend using the supplied funding.hex and spending-A.hex.\nThese are full serialized transactions; use the appropriate input and the\nactual signature, without mocks or weakened flags. Save result.json with\n{\"interpreter_ok\": boolean, \"stack_hex\": [...], \"real_signature_checked\": boolean,\n\"used_mock\": boolean}. Also record the command and explain what you verified.",
+      "expected_output": "A real default-flags signature check for the supplied legacy spend, requested result and reproducible command.",
+      "files": [
+        "evals/files/B10/funding.hex",
+        "evals/files/B10/spending-A.hex"
+      ],
+      "assertions": [
+        "Deliver the artifacts and machine-readable fields explicitly requested in the prompt.",
+        "Support operation claims with actual tool execution; explain the central observed outcome accurately.",
+        "result.json field interpreter_ok equals true.",
+        "result.json field stack_hex equals [\"01\"].",
+        "result.json field real_signature_checked equals true.",
+        "result.json field used_mock equals false."
+      ],
+      "fixture_destinations": {
+        "evals/files/B10/funding.hex": "funding.hex",
+        "evals/files/B10/spending-A.hex": "spending-A.hex"
+      },
+      "checks": {
+        "fields": {
+          "interpreter_ok": true,
+          "stack_hex": [
+            "01"
+          ],
+          "real_signature_checked": true,
+          "used_mock": false
+        }
+      },
+      "required_tools": [
+        "btcdeb"
+      ],
+      "historical_split": "development"
+    },
+    {
+      "id": "B11",
+      "prompt": "I have two versions of a SegWit spending transaction, spending-A.hex and\nspending-B.hex, and their funding.hex. Run btcdeb for both with real signatures\nand the normal verification flags. Determine which succeeds and explain the\nrejection of the other. Save result.json with {\"A\": {\"interpreter_ok\": boolean},\n\"B\": {\"interpreter_ok\": boolean}, \"used_mock\": boolean}.",
+      "expected_output": "Actual checks of both SegWit variants, correct acceptance/rejection and causal explanation with requested JSON.",
+      "files": [
+        "evals/files/B11/funding.hex",
+        "evals/files/B11/spending-A.hex",
+        "evals/files/B11/spending-B.hex"
+      ],
+      "assertions": [
+        "Deliver the artifacts and machine-readable fields explicitly requested in the prompt.",
+        "Support operation claims with actual tool execution; explain the central observed outcome accurately.",
+        "result.json field A.interpreter_ok equals false.",
+        "result.json field B.interpreter_ok equals true.",
+        "result.json field used_mock equals false."
+      ],
+      "fixture_destinations": {
+        "evals/files/B11/funding.hex": "funding.hex",
+        "evals/files/B11/spending-A.hex": "spending-A.hex",
+        "evals/files/B11/spending-B.hex": "spending-B.hex"
+      },
+      "checks": {
+        "fields": {
+          "A.interpreter_ok": false,
+          "B.interpreter_ok": true,
+          "used_mock": false
+        }
+      },
+      "required_tools": [
+        "btcdeb"
+      ],
+      "historical_split": "holdout"
+    },
+    {
+      "id": "B12",
+      "prompt": "I want to teach CHECKSIG's stack behavior before introducing transaction data.\nUsing literal placeholders `sig1` and `pub1`, demonstrate a btcdeb mock that\nlets `[sig1 pub1 OP_CHECKSIG]` finish. Identify exactly what that demonstration\nbypasses. Save result.json with {\"mocked_stack_hex\": [...], \"used_mock\": boolean,\n\"real_signature_verified\": boolean}. Do not present this as a real signature test.",
+      "expected_output": "A clearly labeled mock experiment with actual execution, no claim of cryptographic verification.",
+      "files": [],
+      "assertions": [
+        "Deliver the artifacts and machine-readable fields explicitly requested in the prompt.",
+        "Support operation claims with actual tool execution; explain the central observed outcome accurately.",
+        "result.json field mocked_stack_hex equals [\"01\"].",
+        "result.json field used_mock equals true.",
+        "result.json field real_signature_verified equals false."
+      ],
+      "fixture_destinations": {},
+      "checks": {
+        "fields": {
+          "mocked_stack_hex": [
+            "01"
+          ],
+          "used_mock": true,
+          "real_signature_verified": false
+        },
+        "trace_terms": [
+          "pretend-valid"
+        ]
+      },
+      "required_tools": [
+        "btcdeb"
+      ],
+      "historical_split": "development"
+    },
+    {
+      "id": "B13",
+      "prompt": "Investigate the exact serialized script bytes `0101` with btcdeb. Run once\nunder its default verification flags, and once with only MINIMALDATA disabled.\nKeep the bytes identical in both runs; don't normalize them through an assembler.\nExplain the different outcomes. Save result.json with {\"default_ok\": boolean,\n\"without_minimaldata_ok\": boolean, \"relaxed_stack_hex\": [...],\n\"relaxed_run_proves_default_acceptance\": boolean}.",
+      "expected_output": "An actual comparison of verification flags with default/modified outcomes kept distinct.",
+      "files": [],
+      "assertions": [
+        "Deliver the artifacts and machine-readable fields explicitly requested in the prompt.",
+        "Support operation claims with actual tool execution; explain the central observed outcome accurately.",
+        "result.json field default_ok equals false.",
+        "result.json field without_minimaldata_ok equals true.",
+        "result.json field relaxed_stack_hex equals [\"01\"].",
+        "result.json field relaxed_run_proves_default_acceptance equals false."
+      ],
+      "fixture_destinations": {},
+      "checks": {
+        "fields": {
+          "default_ok": false,
+          "without_minimaldata_ok": true,
+          "relaxed_stack_hex": [
+            "01"
+          ],
+          "relaxed_run_proves_default_acceptance": false
+        },
+        "trace_terms": [
+          "MINIMALDATA"
+        ]
+      },
+      "required_tools": [
+        "btcdeb"
+      ],
+      "historical_split": "development"
+    },
+    {
+      "id": "B14",
+      "prompt": "Use the supplied full Taproot script-path spend funding.hex/spending-A.hex\nto inspect the execution context and verify it with btcdeb. A colleague claims\nthat running CHECKMULTISIG as a standalone legacy script establishes that it\nis allowed in Tapscript. Is that inference valid? Save result.json with\n{\"supplied_spend_ok\": boolean, \"context\": \"legacy\" or \"segwit-v0\" or \"tapscript\",\n\"legacy_run_establishes_tapscript\": boolean, \"checkmultisig_allowed_in_tapscript\": boolean}\nand explain your reasoning without changing the supplied transactions.",
+      "expected_output": "Actual legacy-versus-Tapscript observations with explicit version/context limits and requested JSON.",
+      "files": [
+        "evals/files/B14/funding.hex",
+        "evals/files/B14/spending-A.hex"
+      ],
+      "assertions": [
+        "Deliver the artifacts and machine-readable fields explicitly requested in the prompt.",
+        "Support operation claims with actual tool execution; explain the central observed outcome accurately.",
+        "result.json field supplied_spend_ok equals true.",
+        "result.json field context equals \"tapscript\".",
+        "result.json field legacy_run_establishes_tapscript equals false.",
+        "result.json field checkmultisig_allowed_in_tapscript equals false."
+      ],
+      "fixture_destinations": {
+        "evals/files/B14/funding.hex": "funding.hex",
+        "evals/files/B14/spending-A.hex": "spending-A.hex"
+      },
+      "checks": {
+        "fields": {
+          "supplied_spend_ok": true,
+          "context": "tapscript",
+          "legacy_run_establishes_tapscript": false,
+          "checkmultisig_allowed_in_tapscript": false
+        }
+      },
+      "required_tools": [
+        "btcdeb"
+      ],
+      "historical_split": "holdout"
+    },
+    {
+      "id": "B15",
+      "prompt": "Use the experimental tap utility and the public internal key / two scripts in\ntree.json to construct the Taproot tree, showing both leaf hashes, the tweaked\noutput key and the regtest address. Explain how the selected script's control\nblock would prove inclusion. Save result.json with {\"leaf_hashes\": [strings],\n\"output_pubkey\": string, \"address\": string, \"experimental\": boolean}.\nNo private keys, funding, or broadcasts are needed.",
+      "expected_output": "Actual Taproot utility construction of tree, address and control block with correct result artifacts.",
+      "files": [
+        "evals/files/B15/tree.json"
+      ],
+      "assertions": [
+        "Deliver the artifacts and machine-readable fields explicitly requested in the prompt.",
+        "Support operation claims with actual tool execution; explain the central observed outcome accurately.",
+        "result.json field experimental equals true."
+      ],
+      "fixture_destinations": {
+        "evals/files/B15/tree.json": "tree.json"
+      },
+      "checks": {
+        "tap_tree": true,
+        "fields": {
+          "experimental": true
+        }
+      },
+      "required_tools": [
+        "tap"
+      ],
+      "historical_split": "holdout"
+    },
+    {
+      "id": "B16",
+      "prompt": "Debug these two Taproot script-path spending transactions with their common\nfunding.hex. Use btcdeb without pretend-valid or flag relaxations, identify\nwhich of spending-A.hex/spending-B.hex works, and distinguish a Taproot\ncommitment/control-block failure from a signature failure in the other. Use\nthe trace and the byte differences if the diagnostic is vague. Save result.json with {\"A\": {\"interpreter_ok\": boolean},\n\"B\": {\"interpreter_ok\": boolean}, \"used_mock\": boolean,\n\"failing_check\": \"signature\" or \"control-block\" or \"unknown\"}.",
+      "expected_output": "Actual checks of original/mutated Taproot script-path spends and correctly scoped conclusions.",
+      "files": [
+        "evals/files/B16/funding.hex",
+        "evals/files/B16/spending-A.hex",
+        "evals/files/B16/spending-B.hex"
+      ],
+      "assertions": [
+        "Deliver the artifacts and machine-readable fields explicitly requested in the prompt.",
+        "Support operation claims with actual tool execution; explain the central observed outcome accurately.",
+        "result.json field A.interpreter_ok equals true.",
+        "result.json field B.interpreter_ok equals false.",
+        "result.json field used_mock equals false.",
+        "result.json field failing_check equals \"control-block\"."
+      ],
+      "fixture_destinations": {
+        "evals/files/B16/funding.hex": "funding.hex",
+        "evals/files/B16/spending-A.hex": "spending-A.hex",
+        "evals/files/B16/spending-B.hex": "spending-B.hex"
+      },
+      "checks": {
+        "fields": {
+          "A.interpreter_ok": true,
+          "B.interpreter_ok": false,
+          "used_mock": false,
+          "failing_check": "control-block"
+        }
+      },
+      "required_tools": [
+        "btcdeb"
+      ],
+      "historical_split": "holdout"
+    },
+    {
+      "id": "B17",
+      "prompt": "Create regression.py, a reusable btcdeb regression runner. It must accept a\nJSON vectors file as its first argument. vectors.json supplies cases with id,\nscript, initial_stack, expected_exit and expected_stack_hex (null when the\ninterpreter fails). Run each through actual btcdeb, compare the observed exit\nand stack with the expectations, emit a JSON report with a boolean `passed`,\nand exit nonzero when any case disagrees. Handle an empty stack item distinctly\nfrom an empty stack. Run it on vectors.json and also demonstrate an intentionally\nwrong expectation. Save result.json with {\"positive_suite_passed\": boolean,\n\"wrong_expectation_detected\": boolean}.",
+      "expected_output": "A reusable regression runner with exact status/stack comparisons and actual positive/negative demonstrations.",
+      "files": [
+        "evals/files/B17/vectors.json"
+      ],
+      "assertions": [
+        "Deliver the artifacts and machine-readable fields explicitly requested in the prompt.",
+        "Support operation claims with actual tool execution; explain the central observed outcome accurately.",
+        "result.json field positive_suite_passed equals true.",
+        "result.json field wrong_expectation_detected equals true."
+      ],
+      "fixture_destinations": {
+        "evals/files/B17/vectors.json": "vectors.json"
+      },
+      "checks": {
+        "fields": {
+          "positive_suite_passed": true,
+          "wrong_expectation_detected": true
+        },
+        "regression_runner": true
+      },
+      "required_tools": [
+        "btcdeb"
+      ],
+      "historical_split": "development"
+    },
+    {
+      "id": "B18",
+      "prompt": "I need a noninteractive command that executes `[OP_2 OP_3 OP_ADD]` to the end\nfrom a subprocess with piped stdin/stdout. Demonstrate the working command.\nAlso explain what goes wrong if I put the script in argv and pipe debugger\ncommands such as `step` into stdin. Save result.json with {\"stack_hex\": [...],\n\"stdin_is_script_in_batch_mode\": boolean}. Do not claim that `step 100` is a\nrun-all instruction without checking the actual debugger behavior.",
+      "expected_output": "A correct noninteractive execution with Script stdin distinguished from debugger commands.",
+      "files": [],
+      "assertions": [
+        "Deliver the artifacts and machine-readable fields explicitly requested in the prompt.",
+        "Support operation claims with actual tool execution; explain the central observed outcome accurately.",
+        "result.json field stack_hex equals [\"05\"].",
+        "result.json field stdin_is_script_in_batch_mode equals true."
+      ],
+      "fixture_destinations": {},
+      "checks": {
+        "fields": {
+          "stack_hex": [
+            "05"
+          ],
+          "stdin_is_script_in_batch_mode": true
+        }
+      },
+      "required_tools": [
+        "btcdeb"
+      ],
+      "historical_split": "development"
+    },
+    {
+      "id": "B19",
+      "prompt": "For `[OP_CAT]`, use initial stack byte vectors 1122334455 and 66778899aa\n(bottom first). Compare default btcdeb behavior with its explicit experimental\ndisabled-opcode option. Show the final bytes when the experiment runs, and\nexplain whether that experiment proves Bitcoin would accept this Script.\nSave result.json with {\"default_ok\": boolean, \"experimental_ok\": boolean,\n\"experimental_stack_hex\": [...], \"bitcoin_validity_proven\": boolean}.",
+      "expected_output": "Actual normal-versus-experimental disabled-opcode runs, without equating experimental success with validity.",
+      "files": [],
+      "assertions": [
+        "Deliver the artifacts and machine-readable fields explicitly requested in the prompt.",
+        "Support operation claims with actual tool execution; explain the central observed outcome accurately.",
+        "result.json field default_ok equals false.",
+        "result.json field experimental_ok equals true.",
+        "result.json field experimental_stack_hex equals [\"112233445566778899aa\"].",
+        "result.json field bitcoin_validity_proven equals false."
+      ],
+      "fixture_destinations": {},
+      "checks": {
+        "fields": {
+          "default_ok": false,
+          "experimental_ok": true,
+          "experimental_stack_hex": [
+            "112233445566778899aa"
+          ],
+          "bitcoin_validity_proven": false
+        },
+        "trace_terms": [
+          "allow-disabled-opcodes"
+        ]
+      },
+      "required_tools": [
+        "btcdeb"
+      ],
+      "historical_split": "holdout"
+    },
+    {
+      "id": "B20",
+      "prompt": "Run btcdeb against funding.hex and spending-B.hex, which contain a signed\nSegWit spend, then write a precise validation note. We have no Bitcoin Core\nnode or live UTXO/mempool data in this workspace. Explain what your execution\ndoes establish and what is still needed to test transaction acceptance.\nSave result.json with {\"script_execution_ok\": boolean,\n\"real_signature_checked\": boolean, \"core_consensus_and_policy_confirmed\": boolean,\n\"broadcast_performed\": boolean}. Don't broadcast anything or invent a node result.",
+      "expected_output": "An actual supplied-spend check and a scoped explanation separating interpreter evidence from full validation.",
+      "files": [
+        "evals/files/B20/funding.hex",
+        "evals/files/B20/spending-B.hex"
+      ],
+      "assertions": [
+        "Deliver the artifacts and machine-readable fields explicitly requested in the prompt.",
+        "Support operation claims with actual tool execution; explain the central observed outcome accurately.",
+        "result.json field script_execution_ok equals true.",
+        "result.json field real_signature_checked equals true.",
+        "result.json field core_consensus_and_policy_confirmed equals false.",
+        "result.json field broadcast_performed equals false."
+      ],
+      "fixture_destinations": {
+        "evals/files/B20/funding.hex": "funding.hex",
+        "evals/files/B20/spending-B.hex": "spending-B.hex"
+      },
+      "checks": {
+        "fields": {
+          "script_execution_ok": true,
+          "real_signature_checked": true,
+          "core_consensus_and_policy_confirmed": false,
+          "broadcast_performed": false
+        }
+      },
+      "required_tools": [
+        "btcdeb"
+      ],
+      "historical_split": "holdout"
+    }
+  ]
+}

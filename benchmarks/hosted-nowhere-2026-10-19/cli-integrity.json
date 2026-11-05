@@ -1,0 +1,39 @@
+{
+  "all_match": true,
+  "installations": [
+    {
+      "installation": "/private/tmp/freedom-skills-nowhere-tests/node_modules/nowhere-cli",
+      "version": "0.3.0",
+      "dist_sha256": "184295f9c786322e6825619801e787ebd398d38de32efddcf31598467260b54b",
+      "package_json_sha256": "d9d268ae001f945009359dfff709535008fadf18191a85147ce7a2f1ab21051c"
+    },
+    {
+      "installation": "/private/tmp/freedom-skills-npx-cache/_npx/22b78decaf8b0f3b/node_modules/nowhere-cli",
+      "version": "0.3.0",
+      "dist_sha256": "184295f9c786322e6825619801e787ebd398d38de32efddcf31598467260b54b",
+      "package_json_sha256": "d9d268ae001f945009359dfff709535008fadf18191a85147ce7a2f1ab21051c"
+    },
+    {
+      "installation": "/private/tmp/freedom-skills-npx-cache/_npx/b2f56853dfdcb866/node_modules/nowhere-cli",
+      "version": "0.3.0",
+      "dist_sha256": "184295f9c786322e6825619801e787ebd398d38de32efddcf31598467260b54b",
+      "package_json_sha256": "d9d268ae001f945009359dfff709535008fadf18191a85147ce7a2f1ab21051c"
+    }
+  ],
+  "rechecked_at_utc": "2026-10-20T09:56:11.575046+00:00",
+  "recheck_note": "All published dist files and package manifests matched the independent published installation before cleanup; only the listed extra empty diagnostic files were removed. Full dist trees and package manifests then matched all recorded baseline hashes.",
+  "removed_empty_diagnostic_files": [
+    {
+      "installation": "/private/tmp/freedom-skills-npx-cache/_npx/22b78decaf8b0f3b/node_modules/nowhere-cli",
+      "file": "dist/forum.json",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Empty local diagnostic redirection file; no published code changed."
+    },
+    {
+      "installation": "/private/tmp/freedom-skills-npx-cache/_npx/22b78decaf8b0f3b/node_modules/nowhere-cli",
+      "file": "dist/re.err",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Empty local diagnostic redirection file; no published code changed."
+    }
+  ]
+}

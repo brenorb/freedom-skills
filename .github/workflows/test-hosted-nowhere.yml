@@ -1,0 +1,23 @@
+name: Test Hosted Nowhere skill
+
+on:
+  pull_request:
+    paths:
+      - "skills/hosted-nowhere/**"
+      - "tests/hosted_nowhere/**"
+      - ".github/workflows/test-hosted-nowhere.yml"
+  workflow_dispatch:
+
+jobs:
+  offline-workflows:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Exercise app fixtures, protections, and isolated relay contracts
+        run: python3 -m unittest discover -s tests/hosted_nowhere -v

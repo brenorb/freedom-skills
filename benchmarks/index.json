@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "studies": [
+    {
+      "id": "btcdeb-2026-10-18",
+      "skill": "btcdeb",
+      "path": "btcdeb/studies/2026-10-18-baseline",
+      "legacy_path": "benchmarks/btcdeb-2026-10-18",
+      "raw_access": "local_only",
+      "rows": 258,
+      "admitted_rows": 222
+    },
+    {
+      "id": "btcdeb-gepa-2026-10-19",
+      "skill": "btcdeb",
+      "path": "btcdeb/studies/2026-10-19-gepa",
+      "legacy_path": "benchmarks/btcdeb-gepa-2026-10-19",
+      "raw_access": "local_only",
+      "rows": 92,
+      "admitted_rows": 72
+    },
+    {
+      "id": "hosted-nowhere-2026-10-19",
+      "skill": "hosted-nowhere",
+      "path": "hosted-nowhere-2026-10-19",
+      "raw_access": "See existing report; raw traces were kept outside repository. Not rearchived or regraded here.",
+      "kind": "acceptance_with_replays_not_paired_baseline"
+    }
+  ]
+}

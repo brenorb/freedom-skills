@@ -1,0 +1,10 @@
+{
+  "legacy_path": "benchmarks/btcdeb-gepa-2026-10-19",
+  "files": {
+    "oracle/study-accounting-completed.json": "61807527e056c5a63b52c7787526688a4fc1954e606291b40cb4a1ad410e41b5",
+    "oracle/search-diagnostics.json": "250cc62a3d257c6cc7bb22152fcad82cb0fb914f753822471da8d85afd99e156",
+    "report.md": "3be568b699ea1550d0dda940c20682e18a1b788b3b92ef89c6aac8a8348ed353",
+    "oracle/failure-analysis.md": "c0ffab24378445cd1b53051275d8264e76c0b644388fe2aa71a37619049ca821"
+  },
+  "policy": "All listed source snapshots inspected. No inference, regrading, or final-input reads."
+}

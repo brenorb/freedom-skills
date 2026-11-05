@@ -1,0 +1,13 @@
+{
+  "legacy_path": "benchmarks/btcdeb-2026-10-18",
+  "files": {
+    "v1-development-summary.json": "931a5ea4416e04f4e0fa370c244b70e245c86e4e38c367ea08b29f18df21b081",
+    "h2-v1-development-summary.json": "dee8ed160fc9e879ba1d11f5c1cbe31179cdf4550f6f880ed3b919a23c2db83f",
+    "h2-v1-holdout-summary.json": "5281371b8206ad5f8e5115189efa505bd23062d4aa53ae3cff3849895fb3de63",
+    "h2-v1-repeat-development-summary.json": "1d944e0cc42ee965fd493d588a25779797910f8aeab0d79af1d5f6df6686a34b",
+    "h2-v2-development-summary.json": "d7d4d11d7439721f1a6d3eb5576108c3985e7dba96ab91d0b28f3f170f21d3e7",
+    "h2-v2-holdout-summary.json": "4752ed777a49c74549499c209dc385923a9f11a2ec13828c1378357ab47b457b",
+    "report.md": "7f19ae378d978f2075f002e92ca9e5864493391f746be4e7da7f04649df722ee"
+  },
+  "policy": "All listed source snapshots inspected. No inference, regrading, or final-input reads."
+}

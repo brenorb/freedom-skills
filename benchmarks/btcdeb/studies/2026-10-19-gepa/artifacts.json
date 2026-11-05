@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "study_id": "btcdeb-gepa-2026-10-19",
+  "archive_sha256": "02c4a0b0c6c7f06b92a059c8e6b6b4226edcff7c965d48fae2e1c77f5fea9404",
+  "archive_bytes": 12796692,
+  "included_files": 7284,
+  "included_bytes": 88344498,
+  "excluded_boundaries_by_reason": {
+    "auth-state-or-cache": 54,
+    "sealed-final-data": 12,
+    "symlink-not-followed": 2,
+    "reproducible-executables": 92
+  },
+  "inventory_member": "_archive_inventory.json",
+  "availability": "local_only",
+  "archive_name": "btcdeb-gepa-2026-10-19.filtered-v2.tar.gz",
+  "retrieval": "Obtain this local archive from the study maintainer; no hosted copy has been published.",
+  "originals_retained": true,
+  "local_path": ".benchmark-workspaces/archives/btcdeb-gepa-2026-10-19.filtered-v2.tar.gz",
+  "legacy_path": "benchmarks/btcdeb-gepa-2026-10-19"
+}

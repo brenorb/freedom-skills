@@ -30,12 +30,14 @@ Freedom Skills follows the open [Agent Skills standard](https://agentskills.io).
 |---|---|
 | [`bitchat`](skills/bitchat/) | BitChat Bluetooth mesh, direct messages, daemon receiving, geohash channels, and location-scoped messaging. |
 | [`nostr-cli`](skills/nostr-cli/) | Nostr account setup, relay management, profiles, posts, replies, DMs, follows, and long-form publishing. |
+| [`nihao`](skills/nihao/) | Nostr identity setup and health checks, with optional Cashu wallet configuration. |
 | [`signal-cli`](skills/signal-cli/) | Signal messages and attachments, incoming-message capture and local history search, account/contact inspection, group workflows, setup, and troubleshooting. |
 
 ### Money and payments
 
 | Skill | What it enables |
 |---|---|
+| [`btcdeb`](skills/btcdeb/) | Write, compile, execute, and debug Bitcoin Script with btcdeb, btcc, and experimental Taproot tools. |
 | [`mdk-agent-wallet`](skills/mdk-agent-wallet/) | Self-custodial agent wallets for Lightning payments, balances, payment history, and L402 access. |
 | [`mdk-l402-api`](skills/mdk-l402-api/) | Paid Next.js or Express APIs using HTTP 402 and Money Dev Kit Lightning payment flows. |
 | [`mdk-mcp`](skills/mdk-mcp/) | Connections between coding agents and Money Dev Kit MCP servers. |
@@ -47,6 +49,7 @@ Freedom Skills follows the open [Agent Skills standard](https://agentskills.io).
 | Skill | What it enables |
 |---|---|
 | [`rampart-hook-configurator`](skills/rampart-hook-configurator/) | Install, configure, tune, and verify the paired Rampart hooks for reducing sensitive-data exposure in agent workflows. |
+| [`security-audit`](skills/security-audit/) | Cloudflare’s multi-phase codebase security audits with independent verification, coverage tracking, and structured findings. |
 | [`skillspector`](skills/skillspector/) | Security scans for individual skills or skill repositories before installation. |
 | [`timelock-sh`](skills/timelock-sh/) | Time-locking, inspecting, and decrypting files with `timelock.sh`. |
 
@@ -54,6 +57,7 @@ Freedom Skills follows the open [Agent Skills standard](https://agentskills.io).
 
 | Skill | What it enables |
 |---|---|
+| [`hosted-nowhere`](skills/hosted-nowhere/) | Create and operate Nowhere pages through one app router, with CLI and browser workflows; includes deprecated Store guidance. |
 | [`p2p-transfer-filepizza`](skills/p2p-transfer-filepizza/) | Sharing local files through temporary peer-to-peer links with FilePizza. |
 | [`wayback-archive`](skills/wayback-archive/) | Archiving webpages, checking snapshots, creating stable citation links, and batch archiving URLs. |
 
@@ -82,6 +86,10 @@ The repository also includes a portable [Rampart pre-send and post-send hook pai
 The pre-send hook redacts selected personal information before a request reaches a model. The post-send hook restores placeholders in the model's reply. The pair supports raw text and JSON payloads, shared session state, configurable labels, and fail-open or fail-closed behavior.
 
 Read the [hook documentation](hooks/rampart-pre-send/README.md) for details.
+
+## Evaluation evidence
+
+See [benchmarks](benchmarks/README.md) for public eval definitions, per-model results, optimization decisions, evidence access and deterministic checks. [btcdeb results](benchmarks/btcdeb/README.md) distinguish the successful Luna experiments from the negative Haiku/Qwen GEPA study. Raw workspaces and evaluation answers are excluded from benchmark runtime packages.
 
 ## Community and contributing
 

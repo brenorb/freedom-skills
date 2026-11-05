@@ -52,6 +52,6 @@ echo "Validating skills with skills-ref:"
 printf ' - %s\n' $skills
 
 printf '%s\n' "$skills" | while IFS= read -r skill; do
-  uvx --from git+https://github.com/agentskills/agentskills#subdirectory=skills-ref \
+  uvx --from git+https://github.com/agentskills/agentskills@69ef37e9424c0a7ea9dd2293b559e43ec8176379#subdirectory=skills-ref \
     skills-ref validate "$skill"
 done

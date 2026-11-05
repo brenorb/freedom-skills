@@ -5,3 +5,8 @@
 # Python bytecode
 __pycache__/
 *.py[cod]
+
+# Generated evidence; untouched legacy btcdeb studies have compact exports.
+/.benchmark-workspaces/
+/benchmarks/btcdeb-2026-10-18/
+/benchmarks/btcdeb-gepa-2026-10-19/

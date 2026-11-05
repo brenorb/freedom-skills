@@ -1,0 +1,20 @@
+{
+  "files": {
+    "evals/files/B17/vectors.json": "572ca7c667dddb7ba83635a9f0e270980af562a1d297b788d50089e9eac03339",
+    "evals/files/B10/spending-A.hex": "1664340dfe45c844638a838a298ca702c6430770cce51af5e35faf2f139aee3d",
+    "evals/files/B10/funding.hex": "cc67c15ad945681cd2bb306d3a9904c2bb75350985a84882fa1ef404c7f43693",
+    "evals/files/B11/spending-B.hex": "6cbab174e9867e848d3a226b38ad4903d5893f38774d649240ddce37d1934d5d",
+    "evals/files/B11/spending-A.hex": "4077c05e8561bb2b873340f3fd508e17381c8d7209005c1d7e8d94bedb605ce0",
+    "evals/files/B11/funding.hex": "0467689a2c2162ca2cff8d2145012843615b639228ccdf34b9399ebcecac1602",
+    "evals/files/B16/spending-B.hex": "d4dc6b8bff6abeaf8aae9f65e22d85c9cba9cfe5afb6bd13b1cbddc7959560d8",
+    "evals/files/B16/spending-A.hex": "2755a5daddb4afac40c1a1ce00c0913ec4670c7cedacf5efdacd70d0e34d4547",
+    "evals/files/B16/funding.hex": "549ddc2010752bc81b3dfb0650210266ace3fb52e1ad18628e09cabbb041113c",
+    "evals/files/B20/spending-B.hex": "6cbab174e9867e848d3a226b38ad4903d5893f38774d649240ddce37d1934d5d",
+    "evals/files/B20/funding.hex": "0467689a2c2162ca2cff8d2145012843615b639228ccdf34b9399ebcecac1602",
+    "evals/files/B14/spending-A.hex": "2755a5daddb4afac40c1a1ce00c0913ec4670c7cedacf5efdacd70d0e34d4547",
+    "evals/files/B14/funding.hex": "549ddc2010752bc81b3dfb0650210266ace3fb52e1ad18628e09cabbb041113c",
+    "evals/files/B15/tree.json": "dc0d58bebe76fada854caf99c3386ddfd01b03dd7cb5092f30ecbd00e6271f2e",
+    "evals/files/B07/preimage.txt": "e432ca4e67cb5159f804bc32048858a567577164b8c163021eda9d1215bd5b45"
+  },
+  "source": "Byte copies of inputs already exposed in btcdeb-2026-10-18; no private final data."
+}
