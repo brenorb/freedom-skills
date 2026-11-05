@@ -79,6 +79,36 @@ If a local Bitcoin Core node is available, pin it explicitly:
 ots --bitcoin-node http://user:pass@127.0.0.1:8332 verify /absolute/path/to/document.pdf.ots
 ```
 
+## Bounded operations and explicit waiting
+
+The wrapper has a **120-second total execution budget** for each invocation. It includes starting `ots` (or `uvx`/`uv`), any capability probe and the operation itself. Set a longer finite budget only when the task calls for it:
+
+```bash
+python3 skills/opentimestamps/scripts/opentimestamps.py \
+  --operation-timeout 900 --wait upgrade \
+  --timestamp /absolute/path/to/document.pdf.ots
+```
+
+`--wait` asks the client to retry pending attestations until complete, but the wrapper still cancels it at the total deadline. Without `--wait`, the wrapper does not add retry rounds. On POSIX, cancellation kills the runner's process group, including client children started by `uvx`/`uv`; on other platforms only the immediate process is killed, so descendant cleanup remains unverified. Ctrl-C cancels the running client and returns exit code 130.
+
+The operation deadline is separate from the optional **per-calendar** timeout:
+
+```bash
+python3 skills/opentimestamps/scripts/opentimestamps.py \
+  --operation-timeout 60 verify \
+  --timestamp /absolute/path/to/document.pdf.ots --timeout 5
+```
+
+`stamp --timeout` is supported by the released client. For `upgrade --timeout` and `verify --timeout`, the wrapper reads the selected client's subcommand help only when this option is requested. It forwards the option if advertised; otherwise it relies on the total deadline and reports `calendar_timeout_supported: false`. A `null` value means no calendar timeout was requested. Do not interpret the calendar timeout as a deadline for all calendars, startup, Bitcoin RPC or repeated `--wait` rounds.
+
+A timeout returns JSON with `timed_out: true` and exit code **124**, distinct from the client's proof-validation failure. Any captured output is diagnostic only; no `verification` success is returned on timeout. Completion is unknown: a calendar submission may already have happened, and an upgrade may already have changed the proof/cache. Keep the original file, inspect `.ots`/`.ots.bak` if present, and do not blindly repeat submissions.
+
+### Tested compatibility
+
+- Released **opentimestamps-client v0.7.2**, tag `opentimestamps-client-v0.7.2`: verified its version, help, local `info`, invalid-proof errors and fallback behavior. Its upgrade/verify commands do **not** advertise `--timeout`.
+- Reviewed upstream source at [`356195c69e09ff1c67528a8d25b18379d14845ed`](https://github.com/opentimestamps/opentimestamps-client/tree/356195c69e09ff1c67528a8d25b18379d14845ed). [`427a815`](https://github.com/opentimestamps/opentimestamps-client/commit/427a815548770c62f08124863cafe868ae56f06c) adds calendar deadlines to upgrade/verify; [`607fec3`](https://github.com/opentimestamps/opentimestamps-client/commit/607fec3720de7b41701493edd17171594b2cdb4b) fixes immediate retries on incomplete new attestations. These source changes must not be attributed to v0.7.2.
+- Hermetic wrapper tests cover supported/unsupported help, stalled clients and probes, incomplete-attestation output, success/error parsing, bounded explicit waits and POSIX child cleanup. They do not establish live calendar behavior or validate an unreleased upstream installation. The wrapper uses the installed or package-resolved client; it does not silently replace it with upstream master.
+
 ## Browser fallback on opentimestamps.org
 
 Use the website only when the user explicitly wants the browser flow or the CLI path is unavailable:
