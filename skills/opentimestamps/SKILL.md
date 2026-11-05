@@ -3,7 +3,7 @@ name: opentimestamps
 description: Use this skill when the user wants to timestamp a local file with OpenTimestamps or opentimestamps.org, generate or inspect a `.ots` proof, upgrade a pending proof, or verify that a file digest was attested in Bitcoin from the command line or the public website.
 compatibility: Requires Python 3 and the official OpenTimestamps client via `ots`, `uvx`, or `uv`; network access is needed for calendar submission and proof upgrades.
 metadata:
-  version: "0.1.0"
+  version: "0.2.0"
   repository: "https://github.com/opentimestamps/opentimestamps-client"
 ---
 
@@ -63,6 +63,8 @@ python3 skills/opentimestamps/scripts/opentimestamps.py verify \
 - Prefer storing the `.ots` file beside the original file and keeping the bytes unchanged after stamping.
 - Prefer trying `verify` first; if it reports pending confirmations, run `upgrade` and retry instead of assuming the proof is broken.
 - Prefer explicit `--input` on verify when the original file moved or was renamed.
+- The wrapper limits each operation to 120 seconds, including client startup and capability checks. For an explicitly requested longer wait, place `--operation-timeout SECONDS` before the operation. `--wait` still has this deadline; see `references/commands.md` for calendar-timeout compatibility and cancellation.
+- A timeout returns exit code 124 and `timed_out: true`; it leaves completion unknown, rather than proving a bad timestamp. Check existing proof/backup files before retrying a stamp or upgrade.
 
 ## Safety rules
 
