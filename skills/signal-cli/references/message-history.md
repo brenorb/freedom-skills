@@ -28,9 +28,9 @@ receipts, groups or non-text metadata too:
 capture_dir="captures/signal"
 (
   umask 077
-  mkdir -p "$capture_dir"
-  touch "$capture_dir/events.jsonl"
-  chmod 600 "$capture_dir/events.jsonl"
+  mkdir -p "$capture_dir" || exit
+  touch "$capture_dir/events.jsonl" || exit
+  chmod 600 "$capture_dir/events.jsonl" || exit
   signal-cli -o json -a "+15551234567" receive --timeout 5 --ignore-attachments \
     >> "$capture_dir/events.jsonl"
 )
