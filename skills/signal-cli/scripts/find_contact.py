@@ -20,6 +20,9 @@ FIELDS = [
 ]
 
 
+UUID_RE = re.compile(r"^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$")
+
+
 def run(cmd: list[str]) -> str:
     result = subprocess.run(cmd, capture_output=True, text=True)
     if result.returncode != 0:
@@ -43,9 +46,14 @@ def score_contact(contact: dict, query: str) -> int:
         raw_value = contact.get(field)
         if not raw_value:
             continue
+        if field == "uuid" and (not isinstance(raw_value, str) or not UUID_RE.fullmatch(raw_value) or raw_value == "00000000-0000-0000-0000-000000000000"):
+            continue
         candidate = normalize(str(raw_value))
         if candidate == query:
             best = max(best, 100)
+        elif field == "uuid":
+            # UUID lookup is exact; name/number fragments retain their behavior.
+            continue
         elif query and candidate.startswith(query):
             best = max(best, 60)
         elif query and query in candidate:
@@ -54,7 +62,7 @@ def score_contact(contact: dict, query: str) -> int:
 
 
 def load_contacts(account: str) -> list[dict]:
-    output = run(["signal-cli", "-o", "json", "-u", account, "listContacts"])
+    output = run(["signal-cli", "-o", "json", "--account", account, "listContacts"])
     return json.loads(output)
 
 
@@ -75,8 +83,8 @@ def simplify(contact: dict, score: int) -> dict:
 
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--account", required=True, help="Sender account in E.164 format")
-    parser.add_argument("--query", required=True, help="Name, nickname, or number fragment")
+    parser.add_argument("--account", required=True, help="Sender E.164 number or ACI from listAccounts (numberless accounts require signal-cli 0.14.9+)")
+    parser.add_argument("--query", required=True, help="Name, nickname, number fragment, or full contact ACI UUID")
     parser.add_argument("--limit", type=int, default=20)
     args = parser.parse_args()
 

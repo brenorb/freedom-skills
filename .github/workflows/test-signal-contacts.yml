@@ -1,0 +1,19 @@
+name: Test Signal contact helpers
+
+on:
+  pull_request:
+    paths:
+      - "skills/signal-cli/**"
+      - "tests/signal_cli/**"
+      - ".github/workflows/test-signal-contacts.yml"
+
+jobs:
+  contacts:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          python-version: "3.12"
+      - name: Test account and contact fixtures without Signal access
+        run: uv run --with pytest python -m pytest tests/signal_cli -q
