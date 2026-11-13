@@ -91,6 +91,14 @@ frontmatter. Freedom Skills uses its own `0.2.0` version and retains project
 metadata. Do not use unmerged upstream proposal APIs as implementation
 dependencies.
 
+## Connectors
+
+Connectors link an agent runtime you already run to an external service. They are maintained upstream, so each folder holds only a prompt that sets one up.
+
+| Connector | What it enables |
+|---|---|
+| [`whitenoise`](connectors/whitenoise/) | Chat with Hermes, OpenClaw, Claude Code, Codex, OpenCode, Pi or Goose from White Noise over end-to-end encrypted Marmot groups. |
+
 ## Hooks
 
 The repository also includes a portable [Rampart pre-send and post-send hook pair](hooks/rampart-pre-send/).
