@@ -18,6 +18,6 @@
   "allowScripts": {
     "sharp@0.34.5": true,
     "onnxruntime-node@1.21.0": true,
-    "protobufjs@7.6.4": true
+    "protobufjs@7.6.6": true
   }
 }
