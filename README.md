@@ -73,11 +73,23 @@ Freedom Skills follows the open [Agent Skills standard](https://agentskills.io).
 | Skill | What it enables |
 |---|---|
 | [`mo-ux-vibedesign-btc`](skills/mo-ux-vibedesign-btc/) | Senior Bitcoin UX reviews covering interviews, copy, flows, wireframes, mockups, and benchmarks. |
-| [`make-napplet`](skills/make-napplet/) | **Entrypoint** for creating a complete napplet end to end from one prompt using the other skills. |
-| [`design-napplet`](skills/design-napplet/) | Plan safe, conformant sandboxed Nostr napplets before implementation. |
-| [`build-napplet`](skills/build-napplet/) | Implement napplets with NAP boundaries, OUTBOX-first events, and single-file builds. |
-| [`port-nostr-app`](skills/port-nostr-app/) | Map an existing Nostr web app into napplet boundaries for migration. |
-| [`test-napplet`](skills/test-napplet/) | Run conformance and safety checks before publishing a napplet. |
+| [`napplet-make`](skills/napplet-make/) | **Entrypoint** for creating a complete napplet end to end from one prompt using the other skills. |
+| [`napplet-design`](skills/napplet-design/) | Plan safe, conformant sandboxed Nostr napplets before implementation. |
+| [`napplet-ui`](skills/napplet-ui/) | Design applet interfaces that work from compact widgets to full panes. |
+| [`napplet-build`](skills/napplet-build/) | Implement napplets with NAP boundaries, OUTBOX-first events, and single-file builds. |
+| [`napplet-sdk`](skills/napplet-sdk/) | Reference current `@napplet/sdk` calls, domains, and optional capability handling. |
+| [`napplet-interop`](skills/napplet-interop/) | Implement NAP-INC and NAP-INTENT handoff, delivery, and archetype metadata. |
+| [`napplet-port`](skills/napplet-port/) | Map an existing Nostr app into napplet boundaries for migration. |
+| [`napplet-migrate`](skills/napplet-migrate/) | Migrate legacy manifests and deployment projects to current artifact-hash metadata. |
+| [`napplet-icon`](skills/napplet-icon/) | Design or generate a napplet icon and identity artwork. |
+| [`napplet-test`](skills/napplet-test/) | Run conformance, UI, and safety checks before shipping a napplet. |
+
+The Napplet guidance is adapted from [`napplet/web`](https://github.com/napplet/web/tree/6c4dafd20142cade5a51ae049beecfef7c8f7c2e/skills)
+at upstream commit `6c4dafd20142cade5a51ae049beecfef7c8f7c2e` (CLI `0.13.0`,
+SDK `0.30.0`). Each canonical skill records its source and license in
+frontmatter. Freedom Skills uses its own `0.2.0` version and retains project
+metadata. Do not use unmerged upstream proposal APIs as implementation
+dependencies.
 
 ## Hooks
 
