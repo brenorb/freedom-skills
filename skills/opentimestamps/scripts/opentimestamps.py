@@ -5,12 +5,18 @@ from __future__ import annotations
 
 import argparse
 import json
+import math
+import os
 import re
 import shutil
+import signal
 import subprocess
 import sys
+import time
 from dataclasses import dataclass
 from pathlib import Path
+
+DEFAULT_OPERATION_TIMEOUT = 120.0
 
 VERIFY_SUCCESS_RE = re.compile(
     r"Success! Bitcoin block (?P<block_height>\d+) attests data existed as of (?P<attested_at>.+)"
@@ -38,6 +44,28 @@ class OpenTimestampsCommandError(OpenTimestampsError):
     exit_code: int
     stdout: str
     stderr: str
+
+
+@dataclass
+class OpenTimestampsTimeoutError(OpenTimestampsError):
+    command: list[str]
+    timeout: float
+    stdout: str = ""
+    stderr: str = ""
+
+
+@dataclass
+class Deadline:
+    seconds: float
+
+    def __post_init__(self) -> None:
+        self.expires_at = time.monotonic() + self.seconds
+
+    def remaining(self, command: list[str]) -> float:
+        remaining = self.expires_at - time.monotonic()
+        if remaining <= 0:
+            raise OpenTimestampsTimeoutError(command, self.seconds)
+        return remaining
 
 
 def ensure_file(path: str) -> Path:
@@ -77,8 +105,41 @@ def resolve_ots_runner() -> tuple[list[str], str]:
     raise OpenTimestampsError("OpenTimestamps client not found; install `ots`, `uvx`, or `uv`")
 
 
-def run_checked(cmd: list[str]) -> subprocess.CompletedProcess[str]:
-    result = subprocess.run(cmd, capture_output=True, text=True)
+def stop_process(process: subprocess.Popen[str]) -> tuple[str, str]:
+    """Cancel the runner and, on POSIX, its uv/uvx or client descendants."""
+    if os.name == "posix":
+        try:
+            os.killpg(process.pid, signal.SIGKILL)
+        except ProcessLookupError:
+            pass
+    else:
+        process.kill()
+    try:
+        return process.communicate(timeout=1)
+    except subprocess.TimeoutExpired:
+        # A descendant outside our process group can retain a pipe. Never let
+        # that turn cancellation into another unbounded wait.
+        process.stdout.close()
+        process.stderr.close()
+        process.wait(timeout=1)
+        return "", ""
+
+
+def run_checked(cmd: list[str], deadline: Deadline) -> subprocess.CompletedProcess[str]:
+    remaining = deadline.remaining(cmd)
+    with subprocess.Popen(
+        cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True,
+        start_new_session=os.name == "posix",
+    ) as process:
+        try:
+            stdout, stderr = process.communicate(timeout=remaining)
+        except subprocess.TimeoutExpired:
+            stdout, stderr = stop_process(process)
+            raise OpenTimestampsTimeoutError(cmd, deadline.seconds, stdout, stderr) from None
+        except KeyboardInterrupt:
+            stop_process(process)
+            raise
+        result = subprocess.CompletedProcess(cmd, process.returncode, stdout, stderr)
     if result.returncode != 0:
         raise OpenTimestampsCommandError(
             message="OpenTimestamps command failed",
@@ -88,6 +149,20 @@ def run_checked(cmd: list[str]) -> subprocess.CompletedProcess[str]:
             stderr=result.stderr,
         )
     return result
+
+
+def calendar_timeout_args(
+    args: argparse.Namespace, runner: list[str], deadline: Deadline,
+) -> tuple[list[str], bool | None]:
+    if args.timeout is None:
+        return [], None
+    # Stamp already supported this flag in v0.7.2. Upgrade and verify gained
+    # it later, so inspect the selected client's capability only on request.
+    supported = args.command == "stamp"
+    if not supported:
+        result = run_checked(runner + [args.command, "--help"], deadline)
+        supported = bool(re.search(r"(?<![\w-])--timeout(?=[\s=,\]])", combined_output(result)))
+    return (["--timeout", str(args.timeout)] if supported else []), supported
 
 
 def parse_submitted_calendars(text: str) -> list[str]:
@@ -150,12 +225,12 @@ def stamp(args: argparse.Namespace) -> dict:
     command = runner + build_global_args(args) + ["stamp"]
     for calendar in args.calendar:
         command.extend(["--calendar", calendar])
-    if args.timeout is not None:
-        command.extend(["--timeout", str(args.timeout)])
+    timeout_args, timeout_supported = calendar_timeout_args(args, runner, args.deadline)
+    command.extend(timeout_args)
     if args.min_calendars is not None:
         command.extend(["-m", str(args.min_calendars)])
     command.append(str(input_path))
-    result = run_checked(command)
+    result = run_checked(command, args.deadline)
     created_path = default_path
     if requested_path and requested_path != default_path and default_path.is_file():
         requested_path.parent.mkdir(parents=True, exist_ok=True)
@@ -163,6 +238,7 @@ def stamp(args: argparse.Namespace) -> dict:
         created_path = requested_path
     return {
         "action": "stamp",
+        "calendar_timeout_supported": timeout_supported,
         "input_path": str(input_path),
         "timestamp_path": str(created_path),
         "runner": runner_kind,
@@ -176,16 +252,19 @@ def upgrade(args: argparse.Namespace) -> dict:
     timestamp_path = ensure_file(args.timestamp)
     runner, runner_kind = resolve_ots_runner()
     command = runner + build_global_args(args) + ["upgrade"]
+    timeout_args, timeout_supported = calendar_timeout_args(args, runner, args.deadline)
+    command.extend(timeout_args)
     for calendar in args.calendar:
         command.extend(["--calendar", calendar])
     if args.dry_run:
         command.append("--dry-run")
     command.append(str(timestamp_path))
-    result = run_checked(command)
+    result = run_checked(command, args.deadline)
     backup_path = backup_timestamp_path(timestamp_path)
     output = combined_output(result)
     return {
         "action": "upgrade",
+        "calendar_timeout_supported": timeout_supported,
         "timestamp_path": str(timestamp_path),
         "runner": runner_kind,
         "backup_path": str(backup_path) if backup_path.exists() else None,
@@ -202,6 +281,8 @@ def verify(args: argparse.Namespace) -> dict:
     timestamp_path = ensure_file(args.timestamp)
     runner, runner_kind = resolve_ots_runner()
     command = runner + build_global_args(args) + ["verify"]
+    timeout_args, timeout_supported = calendar_timeout_args(args, runner, args.deadline)
+    command.extend(timeout_args)
     input_path = None
     if args.input:
         input_path = ensure_file(args.input)
@@ -213,10 +294,11 @@ def verify(args: argparse.Namespace) -> dict:
         if inferred.is_file():
             input_path = inferred
     command.append(str(timestamp_path))
-    result = run_checked(command)
+    result = run_checked(command, args.deadline)
     output = combined_output(result)
     return {
         "action": "verify",
+        "calendar_timeout_supported": timeout_supported,
         "timestamp_path": str(timestamp_path),
         "input_path": str(input_path) if input_path else None,
         "runner": runner_kind,
@@ -231,7 +313,7 @@ def info(args: argparse.Namespace) -> dict:
     timestamp_path = ensure_file(args.timestamp)
     runner, runner_kind = resolve_ots_runner()
     command = runner + build_global_args(args) + ["info", str(timestamp_path)]
-    result = run_checked(command)
+    result = run_checked(command, args.deadline)
     output = combined_output(result)
     summary = parse_info_summary(output)
     return {
@@ -244,9 +326,33 @@ def info(args: argparse.Namespace) -> dict:
     }
 
 
+def positive_seconds(value: str) -> float:
+    try:
+        seconds = float(value)
+    except ValueError:
+        raise argparse.ArgumentTypeError("must be a positive finite number of seconds") from None
+    if not math.isfinite(seconds) or seconds <= 0:
+        raise argparse.ArgumentTypeError("must be a positive finite number of seconds")
+    return seconds
+
+
+def positive_calendar_seconds(value: str) -> int:
+    try:
+        seconds = int(value)
+    except ValueError:
+        raise argparse.ArgumentTypeError("must be a positive integer number of seconds") from None
+    if seconds <= 0:
+        raise argparse.ArgumentTypeError("must be a positive integer number of seconds")
+    return seconds
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="OpenTimestamps structured wrapper")
-    parser.add_argument("--wait", action="store_true", help="wait for a complete attestation when supported")
+    parser.add_argument(
+        "--operation-timeout", type=positive_seconds, default=DEFAULT_OPERATION_TIMEOUT,
+        help="total client execution budget in seconds, including capability checks (default: %(default)s)",
+    )
+    parser.add_argument("--wait", action="store_true", help="wait for a complete attestation, within --operation-timeout")
     parser.add_argument("--no-bitcoin", action="store_true", help="disable Bitcoin verification logic")
     parser.add_argument("--bitcoin-node", help="Bitcoin node URL for verify flows")
     parser.add_argument("--socks5-proxy", help="route network traffic through a socks5 proxy")
@@ -257,16 +363,18 @@ def build_parser() -> argparse.ArgumentParser:
     stamp_parser.add_argument("--input", required=True, help="path to the local file")
     stamp_parser.add_argument("--timestamp", help="expected .ots path; defaults to <input>.ots")
     stamp_parser.add_argument("--calendar", action="append", default=[], help="calendar URL override")
-    stamp_parser.add_argument("--timeout", type=int, help="calendar timeout in seconds")
+    stamp_parser.add_argument("--timeout", type=positive_calendar_seconds, help="calendar timeout in seconds")
     stamp_parser.add_argument("--min-calendars", type=int, help="minimum calendars before returning")
 
     upgrade_parser = subparsers.add_parser("upgrade", help="upgrade an existing .ots file")
     upgrade_parser.add_argument("--timestamp", required=True, help="path to the .ots file")
+    upgrade_parser.add_argument("--timeout", type=positive_calendar_seconds, help="per-calendar seconds, forwarded only if supported by the client")
     upgrade_parser.add_argument("--calendar", action="append", default=[], help="calendar URL override")
     upgrade_parser.add_argument("--dry-run", action="store_true", help="show whether upgrade would succeed")
 
     verify_parser = subparsers.add_parser("verify", help="verify an existing .ots file")
     verify_parser.add_argument("--timestamp", required=True, help="path to the .ots file")
+    verify_parser.add_argument("--timeout", type=positive_calendar_seconds, help="per-calendar seconds, forwarded only if supported by the client")
     verify_target = verify_parser.add_mutually_exclusive_group()
     verify_target.add_argument("--input", help="path to the original file")
     verify_target.add_argument("--digest", help="hex-encoded digest to verify instead of a file")
@@ -280,6 +388,7 @@ def build_parser() -> argparse.ArgumentParser:
 def main(argv: list[str] | None = None) -> int:
     parser = build_parser()
     args = parser.parse_args(argv)
+    args.deadline = Deadline(args.operation_timeout)
 
     try:
         if args.command == "stamp":
@@ -292,6 +401,21 @@ def main(argv: list[str] | None = None) -> int:
             payload = info(args)
         print_json(payload)
         return 0
+    except OpenTimestampsTimeoutError as exc:
+        print_json({
+            "ok": False,
+            "error": "OpenTimestamps operation timed out; completion is unknown",
+            "timed_out": True,
+            "command": exc.command,
+            "operation_timeout": exc.timeout,
+            "exit_code": 124,
+            "stdout": exc.stdout.strip(),
+            "stderr": exc.stderr.strip(),
+        })
+        return 124
+    except KeyboardInterrupt:
+        print_json({"ok": False, "error": "OpenTimestamps operation cancelled", "cancelled": True, "exit_code": 130})
+        return 130
     except OpenTimestampsCommandError as exc:
         output = "\n".join(part for part in [exc.stdout.strip(), exc.stderr.strip()] if part).strip()
         print_json(
