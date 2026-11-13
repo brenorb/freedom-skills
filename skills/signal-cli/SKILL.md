@@ -9,21 +9,7 @@ Use the local `signal-cli` binary to send Signal messages and attachments. Accou
 
 ## Default workflow
 
-1. Check whether `signal-cli` is installed and linked:
-
-```bash
-command -v signal-cli
-signal-cli listAccounts
-```
-
-2. If the binary is missing or `listAccounts` is empty, read `references/onboarding.md` and complete setup before trying to send anything.
-3. Before listing contacts, listing groups, or sending, sync the account once:
-
-```bash
-signal-cli -u "+15551234567" receive
-```
-
-4. Use the bundled scripts for recipient resolution and sending:
+1. With a known linked account, start with the requested action. Use the bundled scripts for person-to-person recipient lookup and sending:
 
 ```bash
 python3 scripts/find_contact.py --account "+15551234567" --query "Alice"
@@ -31,14 +17,18 @@ python3 scripts/send_message.py --account "+15551234567" --to "Alice" --text "he
 python3 scripts/send_message.py --account "+15551234567" --to "Alice" --text "see attachment" --attachment "/path/to/file"
 ```
 
-5. If the user asks for raw CLI usage patterns beyond the defaults here, read `references/commands.md`.
+2. `--account` accepts the intended sender's E.164 phone number or ACI identifier. For linked accounts without a phone number, use signal-cli 0.14.9+ and the `aci` returned by `signal-cli -o json listAccounts`. A null `number` does not mean an account is unlinked. When the intended account is unknown, list the accounts and identify it explicitly; never select the first account or invent a phone number.
+3. The send helper accepts an explicit E.164 number, a full dashed ACI UUID, or a contact name. For a named contact without a phone number, it uses the saved `uuid` from `listContacts`. UUID fields require an exact full match. If lookup is ambiguous or the best match has no usable identifier, stop and resolve that contact before sending.
+4. If setup is missing, the client is too old for the account, or account/contact state is uncertain, read `references/onboarding.md`. Sync stale account state with `receive` when needed, then retry the requested lookup; an automatic note-to-self send is not part of setup.
+5. For raw commands, including group sends, read `references/commands.md`.
 
 ## Defaults
 
 - Prefer linking `signal-cli` as a secondary device to the user's existing Signal account.
 - Prefer the bundled scripts over handwritten `signal-cli` command assembly for contact lookup and person-to-person sends.
-- Use E.164 phone numbers (`+15551234567`) for account and direct recipient arguments.
-- After first-time setup, send `--note-to-self` before messaging another person or group.
+- Keep the selected sender explicit across lookup, sync and send commands. E.164 accounts remain supported; ACI sender selection for numberless accounts requires 0.14.9+.
+- Direct recipients can be E.164 numbers or full ACI UUIDs. A saved UUID identifies a contact; it does not verify that person’s real-world identity.
+- Send a note-to-self only if the user requests or authorizes that test.
 
 ## Safety rules
 
