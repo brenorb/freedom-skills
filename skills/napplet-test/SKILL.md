@@ -102,3 +102,7 @@ Report the Paja URL. If `napplet`, Kehto, or Paja is not installed, report the e
 ```
 
 Cache Playwright's Chromium. Green conformance + a clean boundary audit + a self-contained single-file build + the four-frame UI check = ready to publish.
+
+## Optional controller input
+
+This optional guidance follows the merged [NAP-GAMEPAD](https://github.com/napplet/naps/pull/108) specification. Check injected `gamepad` presence and call the SDK namespace from `@napplet/sdk/gamepad`. Its cached API exposes `getGamepads()`, `available`, `focused`, and `onChange(handler)`; close listeners on disposal. Keep keyboard or pointer fallbacks, ignore gameplay edges while unfocused, reset held-button baselines on regained focus, preserve null slots, and route controllers by `index`. Use an optional manifest domain when the core task remains usable without controllers. Native controller access belongs to the runtime. Do not add haptics, raw HID access, a correlation id, or a prerequisite SHELL readiness exchange. Reference-mock conformance reports unavailable controllers; verify live focus isolation in a GAMEPAD-capable runtime.
