@@ -1,6 +1,12 @@
 ---
 name: blossom-cli
 description: Use when the user wants to upload, download, verify, mirror, list, delete, or recover files on Blossom blob servers with `blossom-cli`, including Nostr-authenticated storage, hash-addressed media, multi-server replication, or server failure recovery.
+compatibility: Requires uv (`uvx`) and network access; the first run downloads blossom-cli from PyPI. Blob operations need a Nostr secret key in `BLOSSOM_SECRET_KEY`.
+metadata:
+  version: "0.1.0"
+  repository: "https://github.com/brenorb/blossom-cli"
+  upstream_source: "https://github.com/MonumentalSystems/blossom-rs"
+  upstream_cli: "0.5.6"
 ---
 
 # Blossom CLI
