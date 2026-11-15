@@ -1,0 +1,19 @@
+name: Test Blossom CLI skill
+
+on:
+  pull_request:
+    paths:
+      - "skills/blossom-cli/**"
+      - "tests/blossom_cli/**"
+      - ".github/workflows/test-blossom-cli.yml"
+
+jobs:
+  e2e:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          python-version: "3.12"
+      - name: Run SKILL.md commands against local Blossom servers
+        run: uv run --with pytest python -m pytest tests/blossom_cli -v
