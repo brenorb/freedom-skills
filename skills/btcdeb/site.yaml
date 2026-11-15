@@ -1,0 +1,47 @@
+# Website and README card for this skill. Agents don't load this file.
+# scripts/build_site_data.py turns it into the site's data, the README table and the skill pages.
+category: money
+order: 5
+name: btcdeb
+tagline: Step through Bitcoin Script one opcode at a time.
+summary: Write, compile, execute, and debug Bitcoin Script with btcdeb, btcc, and tap; inspect stacks,
+  hashes, and experimental Taproot constructions.
+readme: Write, compile, execute, and debug Bitcoin Script with btcdeb, btcc, and experimental Taproot
+  tools.
+tool: btcdeb
+upstream: https://github.com/bitcoin-core/btcdeb
+example_prompt: Debug why this 2-of-3 multisig script fails verification.
+what_for: Write, compile, run and step through Bitcoin Script, check real signatures against transactions,
+  and try Taproot constructions. For learning and debugging, not wallets.
+needs: btcdeb (with btcc and tap); Nix can run it one-shot
+prompts:
+- Debug why this 2-of-3 multisig script fails verification.
+- Does OP_3 OP_DUP OP_ADD OP_6 OP_EQUAL leave true on the stack?
+- Compile this Script to hex.
+- Step through this script and show the stack after each opcode.
+- Check this spend's signature against the previous transaction.
+- Build a Taproot address with two script leaves.
+caveats:
+- Exit status 0 can still leave false or an empty stack; completion isn't spend validity.
+- --pretend-valid only proves the mocked path, never real signature verification.
+- Won't remove verification flags or enable disabled opcodes just to make a spend pass.
+- btcdeb's copied interpreter is not a current Bitcoin Core consensus oracle.
+demo:
+  prompt: Debug why this 2-of-3 multisig script fails verification.
+  steps:
+  - kind: match
+    text: 'Recognized the skill: btcdeb'
+  - kind: run
+    text: Runs the spend with its real transaction context
+    cmd: btcdeb --tx="<spending_hex>" --txin="<previous_hex>" --select=0
+  - kind: run
+    text: Shows sighash and signing details
+    cmd: btcdeb --debug=sighash,signing --tx=<spending_hex> --txin=<prev_hex> --select=0
+  - kind: check
+    text: Records exit status, error, final stack and assumptions separately
+  - kind: caveat
+    text: Finishing without error isn't spend validity, and a --pretend-valid run is never signature verification.
+  - kind: result
+    text: Shows the failing opcode and stack, with a plain explanation and the assumptions used.
+  result: You see where verification fails, e.g. a missing input amount for witness signature hashing.
+music: null

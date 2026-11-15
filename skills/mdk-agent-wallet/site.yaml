@@ -1,0 +1,45 @@
+# Website and README card for this skill. Agents don't load this file.
+# scripts/build_site_data.py turns it into the site's data, the README table and the skill pages.
+category: money
+order: 10
+name: Agent wallet
+tagline: A self-custodial Lightning wallet your agent can actually use.
+summary: Self-custodial agent wallets for Lightning payments, balances, payment history, and L402 access.
+readme: Self-custodial agent wallets for Lightning payments, balances, payment history, and L402 access.
+tool: '@moneydevkit/agent-wallet'
+upstream: https://docs.moneydevkit.com
+example_prompt: Pay this L402 endpoint up to 500 sats and show me the receipt.
+what_for: 'Give an AI agent its own self-custodial Lightning wallet: receive and send sats, check balance
+  and history, and pay L402-protected APIs.'
+needs: npx (Node.js); a wallet created with agent-wallet init
+prompts:
+- Pay this L402 endpoint up to 500 sats and show me the receipt.
+- Set up a Lightning wallet for my agent.
+- What's my agent wallet balance?
+- Create an invoice for 1,000 sats.
+- Send 500 sats to ana@example.com.
+- Show the agent wallet's recent payments.
+caveats:
+- The mnemonic (and MDK_WALLET_MNEMONIC) controls funds; keep it secret.
+- Never deletes or reinitializes the wallet unless you confirm the mnemonic is backed up.
+- If commands hang or return no output, restart the wallet daemon.
+- Wallet config lives in ~/.mdk-wallet/config.json unless overridden.
+demo:
+  prompt: Pay this L402 endpoint up to 500 sats and show me the receipt.
+  steps:
+  - kind: match
+    text: 'Recognized the skill: mdk-agent-wallet'
+  - kind: run
+    text: Checks that a wallet already exists
+    cmd: npx @moneydevkit/agent-wallet@latest status
+  - kind: run
+    text: Requests the endpoint and gets HTTP 402 with an invoice and token
+  - kind: check
+    text: The invoice asks 100 sats, inside your 500-sat limit
+  - kind: caveat
+    text: The mnemonic controls the funds. It is never printed unless you ask for backup instructions.
+  - kind: confirm
+    text: Pay the 100-sat invoice from example.com?
+    action: Pay
+  result: 'Paid, then retried with Authorization: L402 <token>:<preimage>; response and payment hash shown.'
+music: null

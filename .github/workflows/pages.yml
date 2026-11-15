@@ -1,0 +1,40 @@
+name: Website
+
+# Publishes site/ to GitHub Pages at https://freedomskills.dev on every push to main.
+# The site data is regenerated from skills/ and connectors/ first, so the published site is
+# never behind the repository even before the "Site data and links" workflow commits it back.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          python-version: "3.12"
+      - name: Regenerate site data from skills/ and connectors/
+        run: uv run --with pyyaml python scripts/build_site_data.py
+      - name: Links point at files that exist
+        run: python3 scripts/check_site_links.py
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+      - id: deployment
+        uses: actions/deploy-pages@v4

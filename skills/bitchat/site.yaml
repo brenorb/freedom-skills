@@ -1,0 +1,49 @@
+# Website and README card for this skill. Agents don't load this file.
+# scripts/build_site_data.py turns it into the site's data, the README table and the skill pages.
+category: communication
+order: 10
+name: BitChat
+tagline: Message people nearby over Bluetooth mesh — no internet, no accounts.
+summary: BitChat Bluetooth mesh, direct messages, daemon receiving, geohash channels, and location-scoped
+  messaging.
+readme: BitChat Bluetooth mesh, direct messages, daemon receiving, geohash channels, and location-scoped
+  messaging.
+tool: bitchat CLI
+upstream: https://github.com/brenorb/bitchat-cli
+example_prompt: Post "meeting moved to 7pm" in the BitChat mesh and keep listening for replies.
+what_for: Chat with people nearby over Bluetooth mesh with no internet, send direct messages and files,
+  and join location-based channels over Nostr.
+needs: bitchat CLI (uv tool install bitchat4agents, or Homebrew); Bluetooth LE for mesh; network for geohash/Nostr
+prompts:
+- Start the BitChat listener as 'clanker' and tell me who's nearby.
+- Show the last 20 messages in the public mesh chat.
+- 'DM @bob on BitChat: ''running 10 minutes late''.'
+- Send this photo to @bob over BitChat.
+- Join the geohash channel for my city and show what people are saying.
+- Run BitChat's doctor and tell me if Bluetooth is working.
+caveats:
+- 'Geohashes disclose location: city level is safer, and block or building precision needs --force.'
+- A queued send, local history row or relay ACK is not proof the recipient saw the message.
+- Geohash messages, geo lookup and Nostr fallback use the internet, not just Bluetooth.
+- chat and daemon both need the Bluetooth radio; stop one before running the other.
+demo:
+  prompt: Post "meeting moved to 7pm" in the BitChat mesh and keep listening for replies.
+  steps:
+  - kind: match
+    text: 'Recognized the skill: bitchat'
+  - kind: run
+    text: Checks whether the listener is already running
+    cmd: bitchat daemon status
+  - kind: run
+    text: Starts the background listener
+    cmd: bitchat daemon start --nickname clanker
+  - kind: check
+    text: 'Confirms the exact message and that it goes to the public #mesh chat'
+  - kind: caveat
+    text: Mesh reaches nearby Bluetooth peers only. A queued send or local history row is not proof anyone
+      received it.
+  - kind: confirm
+    text: 'Send ''meeting moved to 7pm'' to the public #mesh chat?'
+    action: Send
+  result: 'Posted to #mesh. The listener keeps running; replies appear in bitchat mesh inbox --tail 20.'
+music: null

@@ -4,6 +4,8 @@
 
 Freedom Skills is an open library of reusable skills, hooks, and MCP integrations that help AI agents work with Bitcoin, Nostr, privacy tools, and other freedom technologies.
 
+Browse the skills, with examples of what to ask, at **[freedomskills.dev](https://freedomskills.dev)**.
+
 There are many free and open-source freedom technologies, but using them often means learning a new interface, terminology, setup process, and set of security assumptions for every tool.
 
 Freedom Skills packages that knowledge into reusable, agent-ready workflows. Install a skill in a compatible agent and it can recognize when the skill applies, follow the documented workflow, use the relevant tools, and surface important caveats.
@@ -23,6 +25,9 @@ At minimum, a skill contains a `SKILL.md` file. It can also include scripts, ref
 Freedom Skills follows the open [Agent Skills standard](https://agentskills.io).
 
 ## Available skills
+
+<!-- skills:start -->
+<!-- Generated from skills/*/site.yaml by scripts/build_site_data.py. Edit those, not this. -->
 
 ### Communication and coordination
 
@@ -60,6 +65,7 @@ Freedom Skills follows the open [Agent Skills standard](https://agentskills.io).
 | [`hosted-nowhere`](skills/hosted-nowhere/) | Create and operate Nowhere pages through one app router, with CLI and browser workflows; includes deprecated Store guidance. |
 | [`p2p-transfer-filepizza`](skills/p2p-transfer-filepizza/) | Sharing local files through temporary peer-to-peer links with FilePizza. |
 | [`wayback-archive`](skills/wayback-archive/) | Archiving webpages, checking snapshots, creating stable citation links, and batch archiving URLs. |
+| [`opentimestamps`](skills/opentimestamps/) | Timestamping files with OpenTimestamps, creating and upgrading `.ots` proofs, and verifying that a file was attested in Bitcoin. |
 
 ### Research and media
 
@@ -84,6 +90,8 @@ Freedom Skills follows the open [Agent Skills standard](https://agentskills.io).
 | [`napplet-icon`](skills/napplet-icon/) | Design or generate a napplet icon and identity artwork. |
 | [`napplet-test`](skills/napplet-test/) | Run conformance, UI, and safety checks before shipping a napplet. |
 
+<!-- skills:end -->
+
 The Napplet guidance is adapted from [`napplet/web`](https://github.com/napplet/web/tree/6c4dafd20142cade5a51ae049beecfef7c8f7c2e/skills)
 at upstream commit `6c4dafd20142cade5a51ae049beecfef7c8f7c2e` (CLI `0.13.0`,
 SDK `0.30.0`). Each canonical skill records its source and license in
@@ -95,9 +103,11 @@ dependencies.
 
 Connectors link an agent runtime you already run to an external service. They are maintained upstream, so each folder holds only a prompt that sets one up.
 
+<!-- connectors:start -->
 | Connector | What it enables |
 |---|---|
 | [`whitenoise`](connectors/whitenoise/) | Chat with Hermes, OpenClaw, Claude Code, Codex, OpenCode, Pi or Goose from White Noise over end-to-end encrypted Marmot groups. |
+<!-- connectors:end -->
 
 ## Hooks
 

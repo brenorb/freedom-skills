@@ -1,0 +1,44 @@
+# Website and README card for this skill. Agents don't load this file.
+# scripts/build_site_data.py turns it into the site's data, the README table and the skill pages.
+category: research
+order: 20
+name: Fast transcript
+tagline: Transcribe audio and video locally, with speaker labels.
+summary: Transcribe and inspect audio and video with the local fscript CLI, including local files and
+  supported remote URLs.
+readme: Transcribe and inspect audio and video with the local `fscript` CLI, including local files and
+  supported remote URLs.
+tool: fscript
+upstream: https://github.com/brenorb/freedom-skills/tree/main/skills/fast-transcript
+example_prompt: Transcribe this interview and label who is speaking.
+what_for: Transcribe audio and video, from local files or links that yt-dlp supports, with timestamps
+  and optional speaker labels.
+needs: fscript (Homebrew, uvx or uv tool install); yt-dlp for remote URLs
+prompts:
+- Transcribe this interview and label who is speaking.
+- Summarize this YouTube talk.
+- Find where they mention pricing in this podcast episode.
+- Give me a plain transcript without timestamps.
+- Who said 'we ship on Fridays' in this panel recording?
+caveats:
+- Diarization is slower; it's only used when who-said-what matters.
+- The first run downloads the ASR model automatically.
+- For links it prefers the platform's manual subtitles; --local transcribes anyway.
+- --clean is on by default and compresses repeated words; --raw turns it off.
+demo:
+  prompt: Transcribe this interview and label who is speaking.
+  steps:
+  - kind: match
+    text: 'Recognized the skill: fast-transcript'
+  - kind: check
+    text: Speaker labels matter here, so it uses diarization mode instead of --text
+  - kind: run
+    text: Transcribes with speaker labels
+    cmd: fscript "interview.mp3" --stdout
+  - kind: caveat
+    text: Diarization is slower than --text, and the first run downloads the speech model.
+  - kind: confirm
+    text: Save the transcript to ./interview-transcript.txt?
+    action: Save
+  result: Transcript saved with timestamps and speaker turns.
+music: null
