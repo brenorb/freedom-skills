@@ -10,9 +10,9 @@ Freedom Skills packages that knowledge into reusable, agent-ready workflows. Ins
 
 The goal is to make freedom technologies as convenient to use as mainstream apps, without making convenience depend on centralized, data-extracting services.
 
-![From raw tools to tested skills, guided use, safer action, and human-rights work](assets/00-raw-tools-to-human-rights.png)
+![From raw tools to tested skills, guided use, safer action, and sensitive workflows](assets/00-raw-tools-to-human-rights.png)
 
-Freedom technologies can help people communicate, transact, preserve information, and coordinate with greater autonomy. By making these tools easier for agents to understand and operate, Freedom Skills aims to reduce the practical barriers that keep them out of reach for developers, activists, researchers, and human-rights defenders.
+Freedom technologies can help people communicate, transact, preserve information, and coordinate with greater autonomy. By making these tools easier for agents to understand and operate, Freedom Skills aims to reduce the practical barriers that keep them out of reach for developers, researchers, and people working in sensitive contexts.
 
 ## What is an Agent Skill?
 
@@ -30,12 +30,14 @@ Freedom Skills follows the open [Agent Skills standard](https://agentskills.io).
 |---|---|
 | [`bitchat`](skills/bitchat/) | BitChat Bluetooth mesh, direct messages, daemon receiving, geohash channels, and location-scoped messaging. |
 | [`nostr-cli`](skills/nostr-cli/) | Nostr account setup, relay management, profiles, posts, replies, DMs, follows, and long-form publishing. |
+| [`nihao`](skills/nihao/) | Nostr identity setup and health checks, with optional Cashu wallet configuration. |
 | [`signal-cli`](skills/signal-cli/) | Private Signal messages and attachments, account and contact inspection, group workflows, setup, and troubleshooting. |
 
 ### Money and payments
 
 | Skill | What it enables |
 |---|---|
+| [`btcdeb`](skills/btcdeb/) | Write, compile, execute, and debug Bitcoin Script with btcdeb, btcc, and experimental Taproot tools. |
 | [`mdk-agent-wallet`](skills/mdk-agent-wallet/) | Self-custodial agent wallets for Lightning payments, balances, payment history, and L402 access. |
 | [`mdk-l402-api`](skills/mdk-l402-api/) | Paid Next.js or Express APIs using HTTP 402 and Money Dev Kit Lightning payment flows. |
 | [`mdk-mcp`](skills/mdk-mcp/) | Connections between coding agents and Money Dev Kit MCP servers. |
@@ -47,6 +49,7 @@ Freedom Skills follows the open [Agent Skills standard](https://agentskills.io).
 | Skill | What it enables |
 |---|---|
 | [`rampart-hook-configurator`](skills/rampart-hook-configurator/) | Install, configure, tune, and verify the paired Rampart hooks for reducing sensitive-data exposure in agent workflows. |
+| [`security-audit`](skills/security-audit/) | Cloudflare’s multi-phase codebase security audits with independent verification, coverage tracking, and structured findings. |
 | [`skillspector`](skills/skillspector/) | Security scans for individual skills or skill repositories before installation. |
 | [`timelock-sh`](skills/timelock-sh/) | Time-locking, inspecting, and decrypting files with `timelock.sh`. |
 
@@ -55,8 +58,8 @@ Freedom Skills follows the open [Agent Skills standard](https://agentskills.io).
 | Skill | What it enables |
 |---|---|
 | [`blossom-cli`](skills/blossom-cli/) | Uploading, downloading, verifying, mirroring, and recovering files across Blossom servers. |
+| [`hosted-nowhere`](skills/hosted-nowhere/) | Create and operate Nowhere pages through one app router, with CLI and browser workflows; includes deprecated Store guidance. |
 | [`p2p-transfer-filepizza`](skills/p2p-transfer-filepizza/) | Sharing local files through temporary peer-to-peer links with FilePizza. |
-| [`nsyte-static-sites`](skills/nsyte-static-sites/) | Building, validating, and deploying static websites to Nostr nsites with nsyte, local relay and Blossom services, and `nsite.lol` handoff URLs. |
 | [`wayback-archive`](skills/wayback-archive/) | Archiving webpages, checking snapshots, creating stable citation links, and batch archiving URLs. |
 
 ### Research and media
@@ -71,11 +74,31 @@ Freedom Skills follows the open [Agent Skills standard](https://agentskills.io).
 | Skill | What it enables |
 |---|---|
 | [`mo-ux-vibedesign-btc`](skills/mo-ux-vibedesign-btc/) | Senior Bitcoin UX reviews covering interviews, copy, flows, wireframes, mockups, and benchmarks. |
-| [`design-napplet`](skills/design-napplet/) | Plan safe, conformant sandboxed Nostr napplets before implementation. |
-| [`build-napplet`](skills/build-napplet/) | Implement napplets with NAP boundaries, OUTBOX-first events, and single-file builds. |
-| [`make-napplet`](skills/make-napplet/) | Create a complete napplet end to end from one prompt. |
-| [`port-nostr-app`](skills/port-nostr-app/) | Map an existing Nostr web app into napplet boundaries for migration. |
-| [`test-napplet`](skills/test-napplet/) | Run conformance and safety checks before publishing a napplet. |
+| [`napplet-make`](skills/napplet-make/) | **Entrypoint** for creating a complete napplet end to end from one prompt using the other skills. |
+| [`napplet-design`](skills/napplet-design/) | Plan safe, conformant sandboxed Nostr napplets before implementation. |
+| [`napplet-ui`](skills/napplet-ui/) | Design applet interfaces that work from compact widgets to full panes. |
+| [`napplet-build`](skills/napplet-build/) | Implement napplets with NAP boundaries, OUTBOX-first events, and single-file builds. |
+| [`napplet-sdk`](skills/napplet-sdk/) | Reference current `@napplet/sdk` calls, domains, and optional capability handling. |
+| [`napplet-interop`](skills/napplet-interop/) | Implement NAP-INC and NAP-INTENT handoff, delivery, and archetype metadata. |
+| [`napplet-port`](skills/napplet-port/) | Map an existing Nostr app into napplet boundaries for migration. |
+| [`napplet-migrate`](skills/napplet-migrate/) | Migrate legacy manifests and deployment projects to current artifact-hash metadata. |
+| [`napplet-icon`](skills/napplet-icon/) | Design or generate a napplet icon and identity artwork. |
+| [`napplet-test`](skills/napplet-test/) | Run conformance, UI, and safety checks before shipping a napplet. |
+
+The Napplet guidance is adapted from [`napplet/web`](https://github.com/napplet/web/tree/6c4dafd20142cade5a51ae049beecfef7c8f7c2e/skills)
+at upstream commit `6c4dafd20142cade5a51ae049beecfef7c8f7c2e` (CLI `0.13.0`,
+SDK `0.30.0`). Each canonical skill records its source and license in
+frontmatter. Freedom Skills uses its own `0.2.0` version and retains project
+metadata. Do not use unmerged upstream proposal APIs as implementation
+dependencies.
+
+## Connectors
+
+Connectors link an agent runtime you already run to an external service. They are maintained upstream, so each folder holds only a prompt that sets one up.
+
+| Connector | What it enables |
+|---|---|
+| [`whitenoise`](connectors/whitenoise/) | Chat with Hermes, OpenClaw, Claude Code, Codex, OpenCode, Pi or Goose from White Noise over end-to-end encrypted Marmot groups. |
 
 ## Hooks
 
@@ -84,6 +107,10 @@ The repository also includes a portable [Rampart pre-send and post-send hook pai
 The pre-send hook redacts selected personal information before a request reaches a model. The post-send hook restores placeholders in the model's reply. The pair supports raw text and JSON payloads, shared session state, configurable labels, and fail-open or fail-closed behavior.
 
 Read the [hook documentation](hooks/rampart-pre-send/README.md) for details.
+
+## Evaluation evidence
+
+See [benchmarks](benchmarks/README.md) for public eval definitions, per-model results, optimization decisions, evidence access and deterministic checks. [btcdeb results](benchmarks/btcdeb/README.md) distinguish the successful Luna experiments from the negative Haiku/Qwen GEPA study. Raw workspaces and evaluation answers are excluded from benchmark runtime packages.
 
 ## Community and contributing
 

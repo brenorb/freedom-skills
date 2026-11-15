@@ -1,0 +1,23 @@
+{
+  "pubkey": "npub1p4xdd2wpjdwy33quyx4gpa6395pd64x0hsnyuxe855arvvv55deq938rr5",
+  "name": "Demo Store \u2014 Deprecated",
+  "description": "An offline demonstration, not a live shop.",
+  "tags": [
+    {
+      "key": "$",
+      "value": "USD"
+    },
+    {
+      "key": "k",
+      "value": "1"
+    }
+  ],
+  "items": [
+    {
+      "name": "Sticker Pack",
+      "price": 7.5,
+      "description": "Three stickers.",
+      "tags": []
+    }
+  ]
+}

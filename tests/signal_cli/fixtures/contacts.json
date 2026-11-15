@@ -1,0 +1,16 @@
+[
+  {
+    "name": "Fixture Alice",
+    "number": "+15550101002",
+    "uuid": "11111111-2222-4333-8444-555555555555",
+    "nickName": "Fixture Ally",
+    "username": "fixture.alice"
+  },
+  {
+    "name": "Fixture Bob",
+    "number": null,
+    "uuid": "2222aaaa-3333-4bbb-8ccc-666666666666",
+    "nickName": "Fixture Bobby",
+    "username": "fixture.bob"
+  }
+]

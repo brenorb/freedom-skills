@@ -9,11 +9,11 @@ Use the bundled wrapper around `timelock.sh` and local OpenSSL 3.x to encrypt a 
 
 ## Default workflow
 
-1. Encrypt with the bundled wrapper:
+1. Choose a future UTC minute within the service's roughly 30-day certificate window, then encrypt with the bundled wrapper. Replace the timestamp placeholder:
 
 ```bash
 python3 skills/timelock-sh/scripts/timelock.py encrypt \
-  --unlock 2026-07-01T12:00Z \
+  --unlock YYYY-MM-DDTHH:MMZ \
   --input /absolute/path/to/plaintext.txt
 ```
 
@@ -21,7 +21,7 @@ python3 skills/timelock-sh/scripts/timelock.py encrypt \
 
 ```bash
 python3 skills/timelock-sh/scripts/timelock.py encrypt \
-  --unlock 2026-07-01T12:00Z \
+  --unlock YYYY-MM-DDTHH:MMZ \
   --input /absolute/path/to/archive.tar.gz
 ```
 

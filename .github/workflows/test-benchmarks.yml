@@ -1,0 +1,26 @@
+name: Test Benchmark Infrastructure
+
+on:
+  pull_request:
+    paths:
+      - "benchmarks/harness/**"
+      - "benchmarks/btcdeb/**"
+      - "skills/btcdeb/**"
+      - "tests/benchmark_harness/**"
+      - ".github/workflows/test-benchmarks.yml"
+
+jobs:
+  deterministic-checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Test packaging, archives, datasets and historical result contracts
+        run: python -m unittest discover -s tests/benchmark_harness -v
+      - name: Test retained-request telemetry and registry limits
+        run: node --test tests/benchmark_harness/test_telemetry.mjs

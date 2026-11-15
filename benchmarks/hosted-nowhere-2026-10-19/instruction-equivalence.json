@@ -1,0 +1,1359 @@
+{
+  "method": "Primary-agent inspection of all file-access and executable tool inputs, scripts, argv and write paths. Inert quoted data heredocs need no execution analysis; audit rendering abbreviates only share URLs and fixture hex. Directory reads return filenames, which are unchanged. Every loaded instruction file is byte-identical; broad content searches are compared with path ordering normalized. Unknown/dynamic instruction reads require fresh runs.",
+  "target_batch": "final-v12",
+  "cases": {
+    "final-v6/luna/N01": {
+      "reviewer": "primary-agent",
+      "approved": true,
+      "source_skill_sha256": "5563fe0abf9ba2c53ed423f5eb81de67c8acf4cec996fc040ced1910c6c25f90",
+      "target_skill_sha256": "4e07e081100a8e2ca5e0a1ea57231f39a8597fd4aba76b69404ca75e14d79155",
+      "changed_files": [
+        "references/art.md",
+        "references/forum-chat.md",
+        "references/forum.md",
+        "references/petition.md"
+      ],
+      "tools_sha256": "df2a510f5b58f2334b33eba65680c2f6e3c0ba3065d0f216a8f3c03872363cc3",
+      "initial_context_sha256": {
+        "prompt.md": "1af48bccd05f28bc8342a942b4efb4942c1e33180010e8e3a0fcea3c83805b4f",
+        "system-prompt.txt": "6b406b5bd9523338e4dd3c092c3f3427de95301fc8a35db75b63703789efcbd7",
+        "context-audit.json": "543863bf45f6baf20a8e44b45a1ff08ad740bd51299eb78ec56a06b8d1df0751"
+      },
+      "all_tool_inputs_reviewed": true,
+      "instruction_files": [
+        "SKILL.md",
+        "examples/message.json",
+        "references/message.md",
+        "references/verification.md"
+      ],
+      "uncertain_reads": [],
+      "content_searches": [],
+      "note": "Inspected executable/file-access tool inputs and helper code. Directory reads/listings reveal only unchanged filenames. No changed app-reference content was read, including indirectly; all loaded instructions are byte-identical. Quoted static data bodies are inert and do not read files."
+    },
+    "final-v6/luna/N02": {
+      "reviewer": "primary-agent",
+      "approved": true,
+      "source_skill_sha256": "5563fe0abf9ba2c53ed423f5eb81de67c8acf4cec996fc040ced1910c6c25f90",
+      "target_skill_sha256": "4e07e081100a8e2ca5e0a1ea57231f39a8597fd4aba76b69404ca75e14d79155",
+      "changed_files": [
+        "references/art.md",
+        "references/forum-chat.md",
+        "references/forum.md",
+        "references/petition.md"
+      ],
+      "tools_sha256": "b40dba26901f59e1426e41b4483c2e6191b79d74867afa7092c7d53a416bbf86",
+      "initial_context_sha256": {
+        "prompt.md": "bb6668781cb9279c59e02467fe31560bde44d3bd74a390b2366d46169f9014ee",
+        "system-prompt.txt": "6b406b5bd9523338e4dd3c092c3f3427de95301fc8a35db75b63703789efcbd7",
+        "context-audit.json": "0eb74af5b8f22fc99d3de910264be412055c1c79d2a127a384a286b466a6ead1"
+      },
+      "all_tool_inputs_reviewed": true,
+      "instruction_files": [
+        "SKILL.md",
+        "examples/drop.json",
+        "references/drop.md",
+        "references/verification.md"
+      ],
+      "uncertain_reads": [],
+      "content_searches": [],
+      "note": "Inspected executable/file-access tool inputs and helper code. Directory reads/listings reveal only unchanged filenames. No changed app-reference content was read, including indirectly; all loaded instructions are byte-identical. Quoted static data bodies are inert and do not read files."
+    },
+    "final-v6/luna/N03": {
+      "reviewer": "primary-agent",
+      "approved": true,
+      "source_skill_sha256": "5563fe0abf9ba2c53ed423f5eb81de67c8acf4cec996fc040ced1910c6c25f90",
+      "target_skill_sha256": "4e07e081100a8e2ca5e0a1ea57231f39a8597fd4aba76b69404ca75e14d79155",
+      "changed_files": [
+        "references/art.md",
+        "references/forum-chat.md",
+        "references/forum.md",
+        "references/petition.md"
+      ],
+      "tools_sha256": "2991399e31bf1bd61a31b047b65f53ae2845ac1588f292825654b26117ef72c1",
+      "initial_context_sha256": {
+        "prompt.md": "c9e6a7fef33d69b83012bb52aa150b39eb1807b99d17786a396d229c355580f6",
+        "system-prompt.txt": "6b406b5bd9523338e4dd3c092c3f3427de95301fc8a35db75b63703789efcbd7",
+        "context-audit.json": "0667b9daef8e9b3864d553892ca9e7fcb04990b2125eb115d9a95a2ed39e10ca"
+      },
+      "all_tool_inputs_reviewed": true,
+      "instruction_files": [
+        "SKILL.md",
+        "examples/event.json",
+        "references/event.md",
+        "references/verification.md"
+      ],
+      "uncertain_reads": [],
+      "content_searches": [],
+      "note": "Inspected executable/file-access tool inputs and helper code. Directory reads/listings reveal only unchanged filenames. No changed app-reference content was read, including indirectly; all loaded instructions are byte-identical. Quoted static data bodies are inert and do not read files."
+    },
+    "final-v6/luna/N04": {
+      "reviewer": "primary-agent",
+      "approved": true,
+      "source_skill_sha256": "5563fe0abf9ba2c53ed423f5eb81de67c8acf4cec996fc040ced1910c6c25f90",
+      "target_skill_sha256": "4e07e081100a8e2ca5e0a1ea57231f39a8597fd4aba76b69404ca75e14d79155",
+      "changed_files": [
+        "references/art.md",
+        "references/forum-chat.md",
+        "references/forum.md",
+        "references/petition.md"
+      ],
+      "tools_sha256": "1ebf61f39b8cb8d7a0ceb6480d2ab61a773bd3544524b31d2940f7c9e3bf0fe4",
+      "initial_context_sha256": {
+        "prompt.md": "8913063a234de2131f1a2df6a040163f721d7f2854615cf7e13d8c1bd442fda3",
+        "system-prompt.txt": "6b406b5bd9523338e4dd3c092c3f3427de95301fc8a35db75b63703789efcbd7",
+        "context-audit.json": "e2755e0d97f0a6602cfd54e8b115aacef5131898149035a795cc357e9140ff07"
+      },
+      "all_tool_inputs_reviewed": true,
+      "instruction_files": [
+        "SKILL.md",
+        "examples/fundraiser.json",
+        "references/browser.md",
+        "references/fundraiser.md",
+        "references/payment-methods.md",
+        "references/verification.md"
+      ],
+      "uncertain_reads": [],
+      "content_searches": [],
+      "note": "Inspected executable/file-access tool inputs and helper code. Directory reads/listings reveal only unchanged filenames. No changed app-reference content was read, including indirectly; all loaded instructions are byte-identical. Quoted static data bodies are inert and do not read files."
+    },
+    "final-v6/luna/N10": {
+      "reviewer": "primary-agent",
+      "approved": true,
+      "source_skill_sha256": "5563fe0abf9ba2c53ed423f5eb81de67c8acf4cec996fc040ced1910c6c25f90",
+      "target_skill_sha256": "4e07e081100a8e2ca5e0a1ea57231f39a8597fd4aba76b69404ca75e14d79155",
+      "changed_files": [
+        "references/art.md",
+        "references/forum-chat.md",
+        "references/forum.md",
+        "references/petition.md"
+      ],
+      "tools_sha256": "efaa5ae689dc8d704cdc18d1c991a75b1f2d9b90fb42fcaaf6a595ebe7fd1b2a",
+      "initial_context_sha256": {
+        "prompt.md": "c4c6356dc54358f4aee81b8eca9fe062f9ce10d88ef9169ee2fb981209509553",
+        "system-prompt.txt": "6b406b5bd9523338e4dd3c092c3f3427de95301fc8a35db75b63703789efcbd7",
+        "context-audit.json": "cbad078b3b1203eb0bcfb1aec684fab54ed576165729345e1cb674fb09b2dcde"
+      },
+      "all_tool_inputs_reviewed": true,
+      "instruction_files": [
+        "SKILL.md",
+        "examples/store.json",
+        "references/browser.md",
+        "references/store.md",
+        "references/verification.md"
+      ],
+      "uncertain_reads": [],
+      "content_searches": [],
+      "note": "Inspected executable/file-access tool inputs and helper code. Directory reads/listings reveal only unchanged filenames. No changed app-reference content was read, including indirectly; all loaded instructions are byte-identical. Quoted static data bodies are inert and do not read files."
+    },
+    "final-v6/luna/N11": {
+      "reviewer": "primary-agent",
+      "approved": true,
+      "source_skill_sha256": "5563fe0abf9ba2c53ed423f5eb81de67c8acf4cec996fc040ced1910c6c25f90",
+      "target_skill_sha256": "4e07e081100a8e2ca5e0a1ea57231f39a8597fd4aba76b69404ca75e14d79155",
+      "changed_files": [
+        "references/art.md",
+        "references/forum-chat.md",
+        "references/forum.md",
+        "references/petition.md"
+      ],
+      "tools_sha256": "9ea31e6925215c51f496669a7f5f0e5521b510cb365ffdc8aacc735be3446e30",
+      "initial_context_sha256": {
+        "prompt.md": "f43e4fa836ace6d090cf93b2b20fbd3a11db3a914ad7fb7416f17bab76d2a9c8",
+        "system-prompt.txt": "6b406b5bd9523338e4dd3c092c3f3427de95301fc8a35db75b63703789efcbd7",
+        "context-audit.json": "286d3267f041043d3ed863780df179413c7115a82bf6f7f13eb1871150e4f7df"
+      },
+      "all_tool_inputs_reviewed": true,
+      "instruction_files": [
+        "SKILL.md",
+        "references/message.md",
+        "references/verification.md"
+      ],
+      "uncertain_reads": [],
+      "content_searches": [],
+      "note": "Inspected executable/file-access tool inputs and helper code. Directory reads/listings reveal only unchanged filenames. No changed app-reference content was read, including indirectly; all loaded instructions are byte-identical. Quoted static data bodies are inert and do not read files."
+    },
+    "final-v6/luna/N12": {
+      "reviewer": "primary-agent",
+      "approved": true,
+      "source_skill_sha256": "5563fe0abf9ba2c53ed423f5eb81de67c8acf4cec996fc040ced1910c6c25f90",
+      "target_skill_sha256": "4e07e081100a8e2ca5e0a1ea57231f39a8597fd4aba76b69404ca75e14d79155",
+      "changed_files": [
+        "references/art.md",
+        "references/forum-chat.md",
+        "references/forum.md",
+        "references/petition.md"
+      ],
+      "tools_sha256": "1c5b36faa54e77ea3c7cf66c69682f030517b1698cd7b577e136cb963780266b",
+      "initial_context_sha256": {
+        "prompt.md": "edf416f4db04f587156240e9bd5e06f9a676a4eeddbab1583427b3da7202be3d",
+        "system-prompt.txt": "6b406b5bd9523338e4dd3c092c3f3427de95301fc8a35db75b63703789efcbd7",
+        "context-audit.json": "9289d76d7da7c26690824141bc6df6512e1a329ef8b6120ee0e179380e946b11"
+      },
+      "all_tool_inputs_reviewed": true,
+      "instruction_files": [
+        "SKILL.md",
+        "references/browser.md",
+        "references/verification.md"
+      ],
+      "uncertain_reads": [],
+      "content_searches": [],
+      "note": "Inspected executable/file-access tool inputs and helper code. Directory reads/listings reveal only unchanged filenames. No changed app-reference content was read, including indirectly; all loaded instructions are byte-identical. Quoted static data bodies are inert and do not read files."
+    },
+    "final-v6/luna/N13": {
+      "reviewer": "primary-agent",
+      "approved": true,
+      "source_skill_sha256": "5563fe0abf9ba2c53ed423f5eb81de67c8acf4cec996fc040ced1910c6c25f90",
+      "target_skill_sha256": "4e07e081100a8e2ca5e0a1ea57231f39a8597fd4aba76b69404ca75e14d79155",
+      "changed_files": [
+        "references/art.md",
+        "references/forum-chat.md",
+        "references/forum.md",
+        "references/petition.md"
+      ],
+      "tools_sha256": "fb5df4cc5535c5a90b8cea3e621eabfcf55be235ac102760e20f28eae4131c79",
+      "initial_context_sha256": {
+        "prompt.md": "e8868736b99eb7a0794391d9ab78eb21290626c37b8992c7530a5acaf6b89ece",
+        "system-prompt.txt": "6b406b5bd9523338e4dd3c092c3f3427de95301fc8a35db75b63703789efcbd7",
+        "context-audit.json": "051f6a2d789ccf3ce6343e9ae96a20bf39c942f14e31c0079a2d5a46232ebf20"
+      },
+      "all_tool_inputs_reviewed": true,
+      "instruction_files": [
+        "SKILL.md",
+        "references/event.md",
+        "references/verification.md"
+      ],
+      "uncertain_reads": [],
+      "content_searches": [],
+      "note": "Inspected executable/file-access tool inputs and helper code. Directory reads/listings reveal only unchanged filenames. No changed app-reference content was read, including indirectly; all loaded instructions are byte-identical. Quoted static data bodies are inert and do not read files."
+    },
+    "final-v6/luna/N14": {
+      "reviewer": "primary-agent",
+      "approved": true,
+      "source_skill_sha256": "5563fe0abf9ba2c53ed423f5eb81de67c8acf4cec996fc040ced1910c6c25f90",
+      "target_skill_sha256": "4e07e081100a8e2ca5e0a1ea57231f39a8597fd4aba76b69404ca75e14d79155",
+      "changed_files": [
+        "references/art.md",
+        "references/forum-chat.md",
+        "references/forum.md",
+        "references/petition.md"
+      ],
+      "tools_sha256": "b2645a9c62350bfbfff84b6b02acc5cfcda2c7b853813a017070429a01be63d9",
+      "initial_context_sha256": {
+        "prompt.md": "dfe7267d866a95ef7bcf1675b85d78db82f650be1a1d6296ae05bfa05937960e",
+        "system-prompt.txt": "6b406b5bd9523338e4dd3c092c3f3427de95301fc8a35db75b63703789efcbd7",
+        "context-audit.json": "f17d059d06078ac01779cbb45e68ebe2ed6a0d65c7ad2bce74b26dd3246a38e5"
+      },
+      "all_tool_inputs_reviewed": true,
+      "instruction_files": [
+        "SKILL.md",
+        "references/browser.md",
+        "references/message.md"
+      ],
+      "uncertain_reads": [],
+      "content_searches": [],
+      "note": "Inspected executable/file-access tool inputs and helper code. Directory reads/listings reveal only unchanged filenames. No changed app-reference content was read, including indirectly; all loaded instructions are byte-identical. Quoted static data bodies are inert and do not read files."
+    },
+    "final-v6/luna/N16": {
+      "reviewer": "primary-agent",
+      "approved": true,
+      "source_skill_sha256": "5563fe0abf9ba2c53ed423f5eb81de67c8acf4cec996fc040ced1910c6c25f90",
+      "target_skill_sha256": "4e07e081100a8e2ca5e0a1ea57231f39a8597fd4aba76b69404ca75e14d79155",
+      "changed_files": [
+        "references/art.md",
+        "references/forum-chat.md",
+        "references/forum.md",
+        "references/petition.md"
+      ],
+      "tools_sha256": "f000564ca9d457e6a0f76c84345a7dc1921b1e2be5bdaabb8c81721e257781f8",
+      "initial_context_sha256": {
+        "prompt.md": "91d69f44355fd13aeac1d860bd5eb5e6b808f731d2e7561bab0eecd2f86ac330",
+        "system-prompt.txt": "6b406b5bd9523338e4dd3c092c3f3427de95301fc8a35db75b63703789efcbd7",
+        "context-audit.json": "386a61447d42b66ad84845f8b4b45c6b3cd9474f470b030f3ca003661a146c44"
+      },
+      "all_tool_inputs_reviewed": true,
+      "instruction_files": [
+        "SKILL.md",
+        "references/browser.md",
+        "references/message.md"
+      ],
+      "uncertain_reads": [],
+      "content_searches": [],
+      "note": "Inspected executable/file-access tool inputs and helper code. Directory reads/listings reveal only unchanged filenames. No changed app-reference content was read, including indirectly; all loaded instructions are byte-identical. Quoted static data bodies are inert and do not read files."
+    },
+    "final-v6/luna/N17": {
+      "reviewer": "primary-agent",
+      "approved": true,
+      "source_skill_sha256": "5563fe0abf9ba2c53ed423f5eb81de67c8acf4cec996fc040ced1910c6c25f90",
+      "target_skill_sha256": "4e07e081100a8e2ca5e0a1ea57231f39a8597fd4aba76b69404ca75e14d79155",
+      "changed_files": [
+        "references/art.md",
+        "references/forum-chat.md",
+        "references/forum.md",
+        "references/petition.md"
+      ],
+      "tools_sha256": "dc0ad92e47ef4785e52a1f7b468e8f0205b0a94fa60ce4ae6c5733d4396c7cf9",
+      "initial_context_sha256": {
+        "prompt.md": "5d4ec20d7ce2e85c9809323e30752b39cbf80d1996c19e1c6960bfea07c233be",
+        "system-prompt.txt": "6b406b5bd9523338e4dd3c092c3f3427de95301fc8a35db75b63703789efcbd7",
+        "context-audit.json": "044b632bafcb011755453bdd6129eccbe2894773db9642387914988c7f87e41a"
+      },
+      "all_tool_inputs_reviewed": true,
+      "instruction_files": [
+        "SKILL.md",
+        "examples/message.json",
+        "references/browser.md",
+        "references/fundraiser.md",
+        "references/message.md",
+        "references/payment-methods.md",
+        "references/verification.md"
+      ],
+      "uncertain_reads": [],
+      "content_searches": [],
+      "note": "Inspected executable/file-access tool inputs and helper code. Directory reads/listings reveal only unchanged filenames. No changed app-reference content was read, including indirectly; all loaded instructions are byte-identical. Quoted static data bodies are inert and do not read files."
+    },
+    "final-v6/luna/N18": {
+      "reviewer": "primary-agent",
+      "approved": true,
+      "source_skill_sha256": "5563fe0abf9ba2c53ed423f5eb81de67c8acf4cec996fc040ced1910c6c25f90",
+      "target_skill_sha256": "4e07e081100a8e2ca5e0a1ea57231f39a8597fd4aba76b69404ca75e14d79155",
+      "changed_files": [
+        "references/art.md",
+        "references/forum-chat.md",
+        "references/forum.md",
+        "references/petition.md"
+      ],
+      "tools_sha256": "723dc92e3eee8c769b141dcfa722ef557ed05d0a54744fdc99b19f32d46e2e5d",
+      "initial_context_sha256": {
+        "prompt.md": "c1d66773512072df8baf112e87deea21f24482206a35be8f92dd70ac53705f38",
+        "system-prompt.txt": "6b406b5bd9523338e4dd3c092c3f3427de95301fc8a35db75b63703789efcbd7",
+        "context-audit.json": "dab8d7dffbeae5e01f832901aa87022d5fc2c865994f6109035a29b45a517dd2"
+      },
+      "all_tool_inputs_reviewed": true,
+      "instruction_files": [
+        "SKILL.md",
+        "references/message.md",
+        "references/verification.md"
+      ],
+      "uncertain_reads": [],
+      "content_searches": [],
+      "note": "Inspected executable/file-access tool inputs and helper code. Directory reads/listings reveal only unchanged filenames. No changed app-reference content was read, including indirectly; all loaded instructions are byte-identical. Quoted static data bodies are inert and do not read files."
+    },
+    "final-v6/qwen/N01": {
+      "reviewer": "primary-agent",
+      "approved": true,
+      "source_skill_sha256": "5563fe0abf9ba2c53ed423f5eb81de67c8acf4cec996fc040ced1910c6c25f90",
+      "target_skill_sha256": "4e07e081100a8e2ca5e0a1ea57231f39a8597fd4aba76b69404ca75e14d79155",
+      "changed_files": [
+        "references/art.md",
+        "references/forum-chat.md",
+        "references/forum.md",
+        "references/petition.md"
+      ],
+      "tools_sha256": "8e41276b982d3e91b94d340522d22495c92140f78ae2ddbbe48fc4e63f5cacae",
+      "initial_context_sha256": {
+        "prompt.md": "1af48bccd05f28bc8342a942b4efb4942c1e33180010e8e3a0fcea3c83805b4f",
+        "system-prompt.txt": "6b406b5bd9523338e4dd3c092c3f3427de95301fc8a35db75b63703789efcbd7"
+      },
+      "all_tool_inputs_reviewed": true,
+      "instruction_files": [
+        "SKILL.md",
+        "examples/message.json",
+        "references/message.md",
+        "references/verification.md"
+      ],
+      "uncertain_reads": [],
+      "content_searches": [],
+      "note": "Inspected executable/file-access tool inputs and helper code. Directory reads/listings reveal only unchanged filenames. No changed app-reference content was read, including indirectly; all loaded instructions are byte-identical. Quoted static data bodies are inert and do not read files."
+    },
+    "final-v6/qwen/N02": {
+      "reviewer": "primary-agent",
+      "approved": true,
+      "source_skill_sha256": "5563fe0abf9ba2c53ed423f5eb81de67c8acf4cec996fc040ced1910c6c25f90",
+      "target_skill_sha256": "4e07e081100a8e2ca5e0a1ea57231f39a8597fd4aba76b69404ca75e14d79155",
+      "changed_files": [
+        "references/art.md",
+        "references/forum-chat.md",
+        "references/forum.md",
+        "references/petition.md"
+      ],
+      "tools_sha256": "8b19dc7f51d1c96be3c6e6c550b4ef57189ac946bc9258c8466f09325a2979ac",
+      "initial_context_sha256": {
+        "prompt.md": "bb6668781cb9279c59e02467fe31560bde44d3bd74a390b2366d46169f9014ee",
+        "system-prompt.txt": "6b406b5bd9523338e4dd3c092c3f3427de95301fc8a35db75b63703789efcbd7"
+      },
+      "all_tool_inputs_reviewed": true,
+      "instruction_files": [
+        "SKILL.md",
+        "examples/drop.json",
+        "references/drop.md"
+      ],
+      "uncertain_reads": [],
+      "content_searches": [],
+      "note": "Inspected executable/file-access tool inputs and helper code. Directory reads/listings reveal only unchanged filenames. No changed app-reference content was read, including indirectly; all loaded instructions are byte-identical. Quoted static data bodies are inert and do not read files."
+    },
+    "final-v6/qwen/N03": {
+      "reviewer": "primary-agent",
+      "approved": true,
+      "source_skill_sha256": "5563fe0abf9ba2c53ed423f5eb81de67c8acf4cec996fc040ced1910c6c25f90",
+      "target_skill_sha256": "4e07e081100a8e2ca5e0a1ea57231f39a8597fd4aba76b69404ca75e14d79155",
+      "changed_files": [
+        "references/art.md",
+        "references/forum-chat.md",
+        "references/forum.md",
+        "references/petition.md"
+      ],
+      "tools_sha256": "ad44559a4cd7b01ef12092f71d4672b693f1be9bc2a2cd87c723bffe9eee95c7",
+      "initial_context_sha256": {
+        "prompt.md": "c9e6a7fef33d69b83012bb52aa150b39eb1807b99d17786a396d229c355580f6",
+        "system-prompt.txt": "6b406b5bd9523338e4dd3c092c3f3427de95301fc8a35db75b63703789efcbd7"
+      },
+      "all_tool_inputs_reviewed": true,
+      "instruction_files": [
+        "SKILL.md",
+        "examples/event.json",
+        "references/event.md"
+      ],
+      "uncertain_reads": [],
+      "content_searches": [],
+      "note": "Inspected executable/file-access tool inputs and helper code. Directory reads/listings reveal only unchanged filenames. No changed app-reference content was read, including indirectly; all loaded instructions are byte-identical. Quoted static data bodies are inert and do not read files."
+    },
+    "final-v7/luna/N05": {
+      "reviewer": "primary-agent",
+      "approved": true,
+      "source_skill_sha256": "f7848f6104020e9ade0b01c2d924c681920bd53d1aa4783c055139c65712a403",
+      "target_skill_sha256": "4e07e081100a8e2ca5e0a1ea57231f39a8597fd4aba76b69404ca75e14d79155",
+      "changed_files": [
+        "references/forum-chat.md",
+        "references/forum.md",
+        "references/petition.md"
+      ],
+      "tools_sha256": "98071fd636607791c2b032bdcf507234de518f4d39b028db3a002e77ae7978d8",
+      "initial_context_sha256": {
+        "prompt.md": "4d630e7a0798c75bcebb82bceb988af3c58ef92b1ddfee85c148dc2d0b0d560e",
+        "system-prompt.txt": "6b406b5bd9523338e4dd3c092c3f3427de95301fc8a35db75b63703789efcbd7",
+        "context-audit.json": "0135e9b7e2f521dd3156a4cd89c252d2400d6723702f70c831f9787c818bea66"
+      },
+      "all_tool_inputs_reviewed": true,
+      "instruction_files": [
+        "SKILL.md",
+        "examples/art.json",
+        "references/art.md",
+        "references/browser.md",
+        "references/verification.md"
+      ],
+      "uncertain_reads": [],
+      "content_searches": [],
+      "note": "Inspected executable/file-access tool inputs and helper code. Directory reads/listings reveal only unchanged filenames. No changed app-reference content was read, including indirectly; all loaded instructions are byte-identical. Quoted static data bodies are inert and do not read files."
+    },
+    "final-v7/haiku/N01": {
+      "reviewer": "primary-agent",
+      "approved": true,
+      "source_skill_sha256": "f7848f6104020e9ade0b01c2d924c681920bd53d1aa4783c055139c65712a403",
+      "target_skill_sha256": "4e07e081100a8e2ca5e0a1ea57231f39a8597fd4aba76b69404ca75e14d79155",
+      "changed_files": [
+        "references/forum-chat.md",
+        "references/forum.md",
+        "references/petition.md"
+      ],
+      "tools_sha256": "3dec1c60fa7bf75463cea26d409bd2a6feeccb90c161562c99481e5c05fcf091",
+      "initial_context_sha256": {
+        "prompt.md": "1af48bccd05f28bc8342a942b4efb4942c1e33180010e8e3a0fcea3c83805b4f",
+        "system-prompt.txt": "6b406b5bd9523338e4dd3c092c3f3427de95301fc8a35db75b63703789efcbd7"
+      },
+      "all_tool_inputs_reviewed": true,
+      "instruction_files": [
+        "SKILL.md",
+        "examples/message.json",
+        "references/message.md"
+      ],
+      "uncertain_reads": [],
+      "content_searches": [],
+      "note": "Inspected executable/file-access tool inputs and helper code. Directory reads/listings reveal only unchanged filenames. No changed app-reference content was read, including indirectly; all loaded instructions are byte-identical. Quoted static data bodies are inert and do not read files."
+    },
+    "final-v7/haiku/N02": {
+      "reviewer": "primary-agent",
+      "approved": true,
+      "source_skill_sha256": "f7848f6104020e9ade0b01c2d924c681920bd53d1aa4783c055139c65712a403",
+      "target_skill_sha256": "4e07e081100a8e2ca5e0a1ea57231f39a8597fd4aba76b69404ca75e14d79155",
+      "changed_files": [
+        "references/forum-chat.md",
+        "references/forum.md",
+        "references/petition.md"
+      ],
+      "tools_sha256": "d7de013f7eef6658b108c1e9ed851c6cd962f2ab29facf6ed1c7f5c8fe80e265",
+      "initial_context_sha256": {
+        "prompt.md": "bb6668781cb9279c59e02467fe31560bde44d3bd74a390b2366d46169f9014ee",
+        "system-prompt.txt": "6b406b5bd9523338e4dd3c092c3f3427de95301fc8a35db75b63703789efcbd7"
+      },
+      "all_tool_inputs_reviewed": true,
+      "instruction_files": [
+        "SKILL.md",
+        "examples/drop.json",
+        "references/drop.md"
+      ],
+      "uncertain_reads": [],
+      "content_searches": [],
+      "note": "Inspected executable/file-access tool inputs and helper code. Directory reads/listings reveal only unchanged filenames. No changed app-reference content was read, including indirectly; all loaded instructions are byte-identical. Quoted static data bodies are inert and do not read files."
+    },
+    "final-v7/haiku/N03": {
+      "reviewer": "primary-agent",
+      "approved": true,
+      "source_skill_sha256": "f7848f6104020e9ade0b01c2d924c681920bd53d1aa4783c055139c65712a403",
+      "target_skill_sha256": "4e07e081100a8e2ca5e0a1ea57231f39a8597fd4aba76b69404ca75e14d79155",
+      "changed_files": [
+        "references/forum-chat.md",
+        "references/forum.md",
+        "references/petition.md"
+      ],
+      "tools_sha256": "8b325577aaba9426dba391bcf794b2471fdf7eacf2ff29a65255db76c1825f76",
+      "initial_context_sha256": {
+        "prompt.md": "c9e6a7fef33d69b83012bb52aa150b39eb1807b99d17786a396d229c355580f6",
+        "system-prompt.txt": "6b406b5bd9523338e4dd3c092c3f3427de95301fc8a35db75b63703789efcbd7"
+      },
+      "all_tool_inputs_reviewed": true,
+      "instruction_files": [
+        "SKILL.md",
+        "examples/event.json",
+        "references/event.md",
+        "references/verification.md"
+      ],
+      "uncertain_reads": [],
+      "content_searches": [],
+      "note": "Inspected executable/file-access tool inputs and helper code. Directory reads/listings reveal only unchanged filenames. No changed app-reference content was read, including indirectly; all loaded instructions are byte-identical. Quoted static data bodies are inert and do not read files."
+    },
+    "final-v7/haiku/N04": {
+      "reviewer": "primary-agent",
+      "approved": true,
+      "source_skill_sha256": "f7848f6104020e9ade0b01c2d924c681920bd53d1aa4783c055139c65712a403",
+      "target_skill_sha256": "4e07e081100a8e2ca5e0a1ea57231f39a8597fd4aba76b69404ca75e14d79155",
+      "changed_files": [
+        "references/forum-chat.md",
+        "references/forum.md",
+        "references/petition.md"
+      ],
+      "tools_sha256": "0d9c46128966076ebf2f620c5b0e7fc94cc43b7095c0c2cfbfb7ce0a5b668da2",
+      "initial_context_sha256": {
+        "prompt.md": "8913063a234de2131f1a2df6a040163f721d7f2854615cf7e13d8c1bd442fda3",
+        "system-prompt.txt": "6b406b5bd9523338e4dd3c092c3f3427de95301fc8a35db75b63703789efcbd7"
+      },
+      "all_tool_inputs_reviewed": true,
+      "instruction_files": [
+        "SKILL.md",
+        "examples/fundraiser.json",
+        "references/fundraiser.md",
+        "references/payment-methods.md"
+      ],
+      "uncertain_reads": [],
+      "content_searches": [],
+      "note": "Inspected executable/file-access tool inputs and helper code. Directory reads/listings reveal only unchanged filenames. No changed app-reference content was read, including indirectly; all loaded instructions are byte-identical. Quoted static data bodies are inert and do not read files."
+    },
+    "final-v7/haiku/N05": {
+      "reviewer": "primary-agent",
+      "approved": true,
+      "source_skill_sha256": "f7848f6104020e9ade0b01c2d924c681920bd53d1aa4783c055139c65712a403",
+      "target_skill_sha256": "4e07e081100a8e2ca5e0a1ea57231f39a8597fd4aba76b69404ca75e14d79155",
+      "changed_files": [
+        "references/forum-chat.md",
+        "references/forum.md",
+        "references/petition.md"
+      ],
+      "tools_sha256": "6904572ae050698f4ca4f063205b109bd27703a8fc68b95a89063663c96712dc",
+      "initial_context_sha256": {
+        "prompt.md": "4d630e7a0798c75bcebb82bceb988af3c58ef92b1ddfee85c148dc2d0b0d560e",
+        "system-prompt.txt": "6b406b5bd9523338e4dd3c092c3f3427de95301fc8a35db75b63703789efcbd7"
+      },
+      "all_tool_inputs_reviewed": true,
+      "instruction_files": [
+        "SKILL.md",
+        "examples/art.json",
+        "references/art.md"
+      ],
+      "uncertain_reads": [],
+      "content_searches": [],
+      "note": "Inspected executable/file-access tool inputs and helper code. Directory reads/listings reveal only unchanged filenames. No changed app-reference content was read, including indirectly; all loaded instructions are byte-identical. Quoted static data bodies are inert and do not read files."
+    },
+    "final-v7/haiku/N10": {
+      "reviewer": "primary-agent",
+      "approved": true,
+      "source_skill_sha256": "f7848f6104020e9ade0b01c2d924c681920bd53d1aa4783c055139c65712a403",
+      "target_skill_sha256": "4e07e081100a8e2ca5e0a1ea57231f39a8597fd4aba76b69404ca75e14d79155",
+      "changed_files": [
+        "references/forum-chat.md",
+        "references/forum.md",
+        "references/petition.md"
+      ],
+      "tools_sha256": "80ef08221f125c3f9f106482cd4a16568e296b29f21bd2fd7732f56969146020",
+      "initial_context_sha256": {
+        "prompt.md": "c4c6356dc54358f4aee81b8eca9fe062f9ce10d88ef9169ee2fb981209509553",
+        "system-prompt.txt": "6b406b5bd9523338e4dd3c092c3f3427de95301fc8a35db75b63703789efcbd7"
+      },
+      "all_tool_inputs_reviewed": true,
+      "instruction_files": [
+        "SKILL.md",
+        "examples/store.json",
+        "references/store.md"
+      ],
+      "uncertain_reads": [],
+      "content_searches": [],
+      "note": "Inspected executable/file-access tool inputs and helper code. Directory reads/listings reveal only unchanged filenames. No changed app-reference content was read, including indirectly; all loaded instructions are byte-identical. Quoted static data bodies are inert and do not read files."
+    },
+    "final-v7/haiku/N11": {
+      "reviewer": "primary-agent",
+      "approved": true,
+      "source_skill_sha256": "f7848f6104020e9ade0b01c2d924c681920bd53d1aa4783c055139c65712a403",
+      "target_skill_sha256": "4e07e081100a8e2ca5e0a1ea57231f39a8597fd4aba76b69404ca75e14d79155",
+      "changed_files": [
+        "references/forum-chat.md",
+        "references/forum.md",
+        "references/petition.md"
+      ],
+      "tools_sha256": "063f24be4ac83783212f36253da0cac7afe6f54a04f2d4547c53e398fc0f3a7c",
+      "initial_context_sha256": {
+        "prompt.md": "f43e4fa836ace6d090cf93b2b20fbd3a11db3a914ad7fb7416f17bab76d2a9c8",
+        "system-prompt.txt": "6b406b5bd9523338e4dd3c092c3f3427de95301fc8a35db75b63703789efcbd7"
+      },
+      "all_tool_inputs_reviewed": true,
+      "instruction_files": [
+        "SKILL.md",
+        "examples/message.json",
+        "references/message.md",
+        "references/verification.md"
+      ],
+      "uncertain_reads": [],
+      "content_searches": [],
+      "note": "Inspected executable/file-access tool inputs and helper code. Directory reads/listings reveal only unchanged filenames. No changed app-reference content was read, including indirectly; all loaded instructions are byte-identical. Quoted static data bodies are inert and do not read files."
+    },
+    "final-v7/haiku/N12": {
+      "reviewer": "primary-agent",
+      "approved": true,
+      "source_skill_sha256": "f7848f6104020e9ade0b01c2d924c681920bd53d1aa4783c055139c65712a403",
+      "target_skill_sha256": "4e07e081100a8e2ca5e0a1ea57231f39a8597fd4aba76b69404ca75e14d79155",
+      "changed_files": [
+        "references/forum-chat.md",
+        "references/forum.md",
+        "references/petition.md"
+      ],
+      "tools_sha256": "4e6c55020ad4d7beb07cd88d613323f9c4382b3712673cd48906f6f8484257e3",
+      "initial_context_sha256": {
+        "prompt.md": "edf416f4db04f587156240e9bd5e06f9a676a4eeddbab1583427b3da7202be3d",
+        "system-prompt.txt": "6b406b5bd9523338e4dd3c092c3f3427de95301fc8a35db75b63703789efcbd7"
+      },
+      "all_tool_inputs_reviewed": true,
+      "instruction_files": [
+        "SKILL.md",
+        "references/verification.md"
+      ],
+      "uncertain_reads": [],
+      "content_searches": [],
+      "note": "Inspected executable/file-access tool inputs and helper code. Directory reads/listings reveal only unchanged filenames. No changed app-reference content was read, including indirectly; all loaded instructions are byte-identical. Quoted static data bodies are inert and do not read files."
+    },
+    "final-v7/haiku/N13": {
+      "reviewer": "primary-agent",
+      "approved": true,
+      "source_skill_sha256": "f7848f6104020e9ade0b01c2d924c681920bd53d1aa4783c055139c65712a403",
+      "target_skill_sha256": "4e07e081100a8e2ca5e0a1ea57231f39a8597fd4aba76b69404ca75e14d79155",
+      "changed_files": [
+        "references/forum-chat.md",
+        "references/forum.md",
+        "references/petition.md"
+      ],
+      "tools_sha256": "caf74957c170da8857499039c31f381063297155d73deb38f72bb46709aa24b1",
+      "initial_context_sha256": {
+        "prompt.md": "e8868736b99eb7a0794391d9ab78eb21290626c37b8992c7530a5acaf6b89ece",
+        "system-prompt.txt": "6b406b5bd9523338e4dd3c092c3f3427de95301fc8a35db75b63703789efcbd7"
+      },
+      "all_tool_inputs_reviewed": true,
+      "instruction_files": [
+        "SKILL.md",
+        "references/event.md"
+      ],
+      "uncertain_reads": [],
+      "content_searches": [],
+      "note": "Inspected executable/file-access tool inputs and helper code. Directory reads/listings reveal only unchanged filenames. No changed app-reference content was read, including indirectly; all loaded instructions are byte-identical. Quoted static data bodies are inert and do not read files."
+    },
+    "final-v7/haiku/N14": {
+      "reviewer": "primary-agent",
+      "approved": true,
+      "source_skill_sha256": "f7848f6104020e9ade0b01c2d924c681920bd53d1aa4783c055139c65712a403",
+      "target_skill_sha256": "4e07e081100a8e2ca5e0a1ea57231f39a8597fd4aba76b69404ca75e14d79155",
+      "changed_files": [
+        "references/forum-chat.md",
+        "references/forum.md",
+        "references/petition.md"
+      ],
+      "tools_sha256": "6b531ba55007b3eb3fe9063fd0b4f10b640ce005b755d053351a98e27cdee73d",
+      "initial_context_sha256": {
+        "prompt.md": "dfe7267d866a95ef7bcf1675b85d78db82f650be1a1d6296ae05bfa05937960e",
+        "system-prompt.txt": "6b406b5bd9523338e4dd3c092c3f3427de95301fc8a35db75b63703789efcbd7"
+      },
+      "all_tool_inputs_reviewed": true,
+      "instruction_files": [
+        "SKILL.md",
+        "examples/message.json",
+        "references/message.md"
+      ],
+      "uncertain_reads": [],
+      "content_searches": [],
+      "note": "Inspected executable/file-access tool inputs and helper code. Directory reads/listings reveal only unchanged filenames. No changed app-reference content was read, including indirectly; all loaded instructions are byte-identical. Quoted static data bodies are inert and do not read files."
+    },
+    "final-v7/haiku/N16": {
+      "reviewer": "primary-agent",
+      "approved": true,
+      "source_skill_sha256": "f7848f6104020e9ade0b01c2d924c681920bd53d1aa4783c055139c65712a403",
+      "target_skill_sha256": "4e07e081100a8e2ca5e0a1ea57231f39a8597fd4aba76b69404ca75e14d79155",
+      "changed_files": [
+        "references/forum-chat.md",
+        "references/forum.md",
+        "references/petition.md"
+      ],
+      "tools_sha256": "292d6c6c546941dc883af38ba8c96a99b375a6f6619746d753c5ff9aaa7b5589",
+      "initial_context_sha256": {
+        "prompt.md": "91d69f44355fd13aeac1d860bd5eb5e6b808f731d2e7561bab0eecd2f86ac330",
+        "system-prompt.txt": "6b406b5bd9523338e4dd3c092c3f3427de95301fc8a35db75b63703789efcbd7"
+      },
+      "all_tool_inputs_reviewed": true,
+      "instruction_files": [
+        "SKILL.md",
+        "references/browser.md",
+        "references/message.md"
+      ],
+      "uncertain_reads": [],
+      "content_searches": [],
+      "note": "Inspected executable/file-access tool inputs and helper code. Directory reads/listings reveal only unchanged filenames. No changed app-reference content was read, including indirectly; all loaded instructions are byte-identical. Quoted static data bodies are inert and do not read files."
+    },
+    "final-v7/haiku/N17": {
+      "reviewer": "primary-agent",
+      "approved": true,
+      "source_skill_sha256": "f7848f6104020e9ade0b01c2d924c681920bd53d1aa4783c055139c65712a403",
+      "target_skill_sha256": "4e07e081100a8e2ca5e0a1ea57231f39a8597fd4aba76b69404ca75e14d79155",
+      "changed_files": [
+        "references/forum-chat.md",
+        "references/forum.md",
+        "references/petition.md"
+      ],
+      "tools_sha256": "868ffe1923668a8007fe8e4250d8211d84a25afb5b3a644cf5aaf2480ea761ed",
+      "initial_context_sha256": {
+        "prompt.md": "5d4ec20d7ce2e85c9809323e30752b39cbf80d1996c19e1c6960bfea07c233be",
+        "system-prompt.txt": "6b406b5bd9523338e4dd3c092c3f3427de95301fc8a35db75b63703789efcbd7"
+      },
+      "all_tool_inputs_reviewed": true,
+      "instruction_files": [
+        "SKILL.md",
+        "examples/message.json",
+        "references/message.md",
+        "references/payment-methods.md"
+      ],
+      "uncertain_reads": [],
+      "content_searches": [],
+      "note": "Inspected executable/file-access tool inputs and helper code. Directory reads/listings reveal only unchanged filenames. No changed app-reference content was read, including indirectly; all loaded instructions are byte-identical. Quoted static data bodies are inert and do not read files."
+    },
+    "final-v7/haiku/N18": {
+      "reviewer": "primary-agent",
+      "approved": true,
+      "source_skill_sha256": "f7848f6104020e9ade0b01c2d924c681920bd53d1aa4783c055139c65712a403",
+      "target_skill_sha256": "4e07e081100a8e2ca5e0a1ea57231f39a8597fd4aba76b69404ca75e14d79155",
+      "changed_files": [
+        "references/forum-chat.md",
+        "references/forum.md",
+        "references/petition.md"
+      ],
+      "tools_sha256": "f084e275c1e1291a88e334649da5f7f6b40823542d7ab6d589384f2a52367f9a",
+      "initial_context_sha256": {
+        "prompt.md": "c1d66773512072df8baf112e87deea21f24482206a35be8f92dd70ac53705f38",
+        "system-prompt.txt": "6b406b5bd9523338e4dd3c092c3f3427de95301fc8a35db75b63703789efcbd7"
+      },
+      "all_tool_inputs_reviewed": true,
+      "instruction_files": [
+        "SKILL.md",
+        "references/message.md",
+        "references/verification.md"
+      ],
+      "uncertain_reads": [],
+      "content_searches": [],
+      "note": "Inspected executable/file-access tool inputs and helper code. Directory reads/listings reveal only unchanged filenames. No changed app-reference content was read, including indirectly; all loaded instructions are byte-identical. Quoted static data bodies are inert and do not read files."
+    },
+    "final-v7/qwen/N04": {
+      "reviewer": "primary-agent",
+      "approved": true,
+      "source_skill_sha256": "f7848f6104020e9ade0b01c2d924c681920bd53d1aa4783c055139c65712a403",
+      "target_skill_sha256": "4e07e081100a8e2ca5e0a1ea57231f39a8597fd4aba76b69404ca75e14d79155",
+      "changed_files": [
+        "references/forum-chat.md",
+        "references/forum.md",
+        "references/petition.md"
+      ],
+      "tools_sha256": "8adacf176a3f4a1a6bdcd7163576fd1194871815abb57fae49203b422b1d9286",
+      "initial_context_sha256": {
+        "prompt.md": "8913063a234de2131f1a2df6a040163f721d7f2854615cf7e13d8c1bd442fda3",
+        "system-prompt.txt": "6b406b5bd9523338e4dd3c092c3f3427de95301fc8a35db75b63703789efcbd7"
+      },
+      "all_tool_inputs_reviewed": true,
+      "instruction_files": [
+        "SKILL.md",
+        "examples/fundraiser.json",
+        "references/fundraiser.md",
+        "references/payment-methods.md"
+      ],
+      "uncertain_reads": [],
+      "content_searches": [],
+      "note": "Inspected executable/file-access tool inputs and helper code. Directory reads/listings reveal only unchanged filenames. No changed app-reference content was read, including indirectly; all loaded instructions are byte-identical. Quoted static data bodies are inert and do not read files."
+    },
+    "final-v7/qwen/N05": {
+      "reviewer": "primary-agent",
+      "approved": true,
+      "source_skill_sha256": "f7848f6104020e9ade0b01c2d924c681920bd53d1aa4783c055139c65712a403",
+      "target_skill_sha256": "4e07e081100a8e2ca5e0a1ea57231f39a8597fd4aba76b69404ca75e14d79155",
+      "changed_files": [
+        "references/forum-chat.md",
+        "references/forum.md",
+        "references/petition.md"
+      ],
+      "tools_sha256": "eee90f16badd2bdfc775ce2280bb1dab667a64c4f5e4805b0bd797280847ff20",
+      "initial_context_sha256": {
+        "prompt.md": "4d630e7a0798c75bcebb82bceb988af3c58ef92b1ddfee85c148dc2d0b0d560e",
+        "system-prompt.txt": "6b406b5bd9523338e4dd3c092c3f3427de95301fc8a35db75b63703789efcbd7"
+      },
+      "all_tool_inputs_reviewed": true,
+      "instruction_files": [
+        "SKILL.md",
+        "examples/art.json",
+        "references/art.md",
+        "references/browser.md",
+        "references/verification.md"
+      ],
+      "uncertain_reads": [],
+      "content_searches": [],
+      "note": "Inspected executable/file-access tool inputs and helper code. Directory reads/listings reveal only unchanged filenames. No changed app-reference content was read, including indirectly; all loaded instructions are byte-identical. Quoted static data bodies are inert and do not read files."
+    },
+    "final-v8/luna/N06": {
+      "reviewer": "primary-agent",
+      "approved": true,
+      "source_skill_sha256": "9e4391504b81c31eb5274c902779fe00a5d428b9bb09b14fbe19bdde712d934f",
+      "target_skill_sha256": "4e07e081100a8e2ca5e0a1ea57231f39a8597fd4aba76b69404ca75e14d79155",
+      "changed_files": [
+        "references/forum-chat.md",
+        "references/forum.md"
+      ],
+      "tools_sha256": "b4c0ba22a4fc26080214d15c7beaad2ffbddac2d08f05348fea3d7c5650d89de",
+      "initial_context_sha256": {
+        "prompt.md": "3619e379358ffb7e78e99d36151119ecd9066794cb2c971a6ca82c51ff5a8d95",
+        "system-prompt.txt": "6b406b5bd9523338e4dd3c092c3f3427de95301fc8a35db75b63703789efcbd7",
+        "context-audit.json": "ae3757940cba3d3d9f227d32db54a4250a30c05b0a4f730a7c9aae36b402d4b0"
+      },
+      "all_tool_inputs_reviewed": true,
+      "instruction_files": [
+        "SKILL.md",
+        "examples/petition.json",
+        "references/petition.md",
+        "references/verification.md"
+      ],
+      "uncertain_reads": [],
+      "content_searches": [],
+      "note": "Primary inspected all executable/file-access inputs, helper invocations, scripts, argv and write paths in the full v8 Petition traces. Only root, Petition, Verification and Petition example loaded. Directory reads/find list filenames without reading instruction text. Static quoted report heredocs/document writes are inert. No changed Forum content read. All loaded skill bytes identical."
+    },
+    "final-v8/haiku/N06": {
+      "reviewer": "primary-agent",
+      "approved": true,
+      "source_skill_sha256": "9e4391504b81c31eb5274c902779fe00a5d428b9bb09b14fbe19bdde712d934f",
+      "target_skill_sha256": "4e07e081100a8e2ca5e0a1ea57231f39a8597fd4aba76b69404ca75e14d79155",
+      "changed_files": [
+        "references/forum-chat.md",
+        "references/forum.md"
+      ],
+      "tools_sha256": "2e853fc9080a03e11eda2288befd25ab2521638663ef09a131199be4f0f2f298",
+      "initial_context_sha256": {
+        "prompt.md": "3619e379358ffb7e78e99d36151119ecd9066794cb2c971a6ca82c51ff5a8d95",
+        "system-prompt.txt": "6b406b5bd9523338e4dd3c092c3f3427de95301fc8a35db75b63703789efcbd7"
+      },
+      "all_tool_inputs_reviewed": true,
+      "instruction_files": [
+        "SKILL.md",
+        "examples/petition.json",
+        "references/petition.md",
+        "references/verification.md"
+      ],
+      "uncertain_reads": [],
+      "content_searches": [],
+      "note": "Primary inspected all executable/file-access inputs, helper invocations, scripts, argv and write paths in the full v8 Petition traces. Only root, Petition, Verification and Petition example loaded. Directory reads/find list filenames without reading instruction text. Static quoted report heredocs/document writes are inert. No changed Forum content read. All loaded skill bytes identical."
+    },
+    "final-v8/qwen/N06": {
+      "reviewer": "primary-agent",
+      "approved": true,
+      "source_skill_sha256": "9e4391504b81c31eb5274c902779fe00a5d428b9bb09b14fbe19bdde712d934f",
+      "target_skill_sha256": "4e07e081100a8e2ca5e0a1ea57231f39a8597fd4aba76b69404ca75e14d79155",
+      "changed_files": [
+        "references/forum-chat.md",
+        "references/forum.md"
+      ],
+      "tools_sha256": "ded3fe45a3cdc8650d69690871f3228cd08e9534a2b7894a1d25e8c035ce2b19",
+      "initial_context_sha256": {
+        "prompt.md": "3619e379358ffb7e78e99d36151119ecd9066794cb2c971a6ca82c51ff5a8d95",
+        "system-prompt.txt": "6b406b5bd9523338e4dd3c092c3f3427de95301fc8a35db75b63703789efcbd7"
+      },
+      "all_tool_inputs_reviewed": true,
+      "instruction_files": [
+        "SKILL.md",
+        "examples/petition.json",
+        "references/petition.md",
+        "references/verification.md"
+      ],
+      "uncertain_reads": [],
+      "content_searches": [],
+      "note": "Primary inspected all executable/file-access inputs, helper invocations, scripts, argv and write paths in the full v8 Petition traces. Only root, Petition, Verification and Petition example loaded. Directory reads/find list filenames without reading instruction text. Static quoted report heredocs/document writes are inert. No changed Forum content read. All loaded skill bytes identical."
+    },
+    "final-v9/luna/N07": {
+      "reviewer": "primary-agent",
+      "approved": true,
+      "source_skill_sha256": "b62fa79a16edb1690f6880ce9927e735ec2536637b42b16c66ae3328879d5a57",
+      "target_skill_sha256": "4e07e081100a8e2ca5e0a1ea57231f39a8597fd4aba76b69404ca75e14d79155",
+      "changed_files": [
+        "references/forum-chat.md"
+      ],
+      "tools_sha256": "221619932017f4127a5a361c28ab60bcf0021c730ffedfc360c66bf8bbb57c2d",
+      "initial_context_sha256": {
+        "prompt.md": "ce4c12e7f76973921bfe0605e8e93652430d97512f6ac351646ad13853a54eb5",
+        "system-prompt.txt": "ae787a6f31a40193f02c1b5bfdadfe3b587636df8875da9aef8b335f34fc0ee4",
+        "context-audit.json": "40288f718757599bee0cb0ed4e07618e653b4b5123946225a3b7f389edf4e26d"
+      },
+      "all_tool_inputs_reviewed": true,
+      "instruction_files": [
+        "SKILL.md",
+        "examples/forum.json",
+        "references/forum.md"
+      ],
+      "uncertain_reads": [],
+      "content_searches": [],
+      "note": "Primary reviewed every executable/file-access input, helper call, argv and write path. Quoted static report heredocs are inert; the Haiku N07 executable Python heredoc was inspected in full. Directory reads/searches expose unchanged filenames. Only explicitly listed skill instructions were loaded; no changed Chat-reference content or broad content searches. All loaded instruction bytes unchanged. Clarified N15 records use the final quoted title wording."
+    },
+    "final-v9/luna/N08": {
+      "reviewer": "primary-agent",
+      "approved": true,
+      "source_skill_sha256": "b62fa79a16edb1690f6880ce9927e735ec2536637b42b16c66ae3328879d5a57",
+      "target_skill_sha256": "4e07e081100a8e2ca5e0a1ea57231f39a8597fd4aba76b69404ca75e14d79155",
+      "changed_files": [
+        "references/forum-chat.md"
+      ],
+      "tools_sha256": "3ce17f5dbb50d939fd7bb82c6574bac286fce3d2246c09119b55f658985c50f7",
+      "initial_context_sha256": {
+        "prompt.md": "b17d5a7281e182f352ce7ab96182b0ec98c50c385755467302c0acde2ab85468",
+        "system-prompt.txt": "ae787a6f31a40193f02c1b5bfdadfe3b587636df8875da9aef8b335f34fc0ee4",
+        "context-audit.json": "491fdc534f9243f07259fbf090594904d9fb2a51cf83d04ac66fe70912860f35"
+      },
+      "all_tool_inputs_reviewed": true,
+      "instruction_files": [
+        "SKILL.md",
+        "examples/forum-torrents.json",
+        "examples/forum.json",
+        "references/forum-torrents.md",
+        "references/forum.md"
+      ],
+      "uncertain_reads": [],
+      "content_searches": [],
+      "note": "Primary reviewed every executable/file-access input, helper call, argv and write path. Quoted static report heredocs are inert; the Haiku N07 executable Python heredoc was inspected in full. Directory reads/searches expose unchanged filenames. Only explicitly listed skill instructions were loaded; no changed Chat-reference content or broad content searches. All loaded instruction bytes unchanged. Clarified N15 records use the final quoted title wording."
+    },
+    "final-v9/haiku/N07": {
+      "reviewer": "primary-agent",
+      "approved": true,
+      "source_skill_sha256": "b62fa79a16edb1690f6880ce9927e735ec2536637b42b16c66ae3328879d5a57",
+      "target_skill_sha256": "4e07e081100a8e2ca5e0a1ea57231f39a8597fd4aba76b69404ca75e14d79155",
+      "changed_files": [
+        "references/forum-chat.md"
+      ],
+      "tools_sha256": "1aeaae3aa277c0c0aa4ab6ffcedc0a2cd8e018604e18085233afb44e43243d7b",
+      "initial_context_sha256": {
+        "prompt.md": "ce4c12e7f76973921bfe0605e8e93652430d97512f6ac351646ad13853a54eb5",
+        "system-prompt.txt": "ae787a6f31a40193f02c1b5bfdadfe3b587636df8875da9aef8b335f34fc0ee4"
+      },
+      "all_tool_inputs_reviewed": true,
+      "instruction_files": [
+        "SKILL.md",
+        "examples/forum.json",
+        "references/forum.md",
+        "references/verification.md"
+      ],
+      "uncertain_reads": [],
+      "content_searches": [],
+      "note": "Primary reviewed every executable/file-access input, helper call, argv and write path. Quoted static report heredocs are inert; the Haiku N07 executable Python heredoc was inspected in full. Directory reads/searches expose unchanged filenames. Only explicitly listed skill instructions were loaded; no changed Chat-reference content or broad content searches. All loaded instruction bytes unchanged. Clarified N15 records use the final quoted title wording."
+    },
+    "final-v9/haiku/N08": {
+      "reviewer": "primary-agent",
+      "approved": true,
+      "source_skill_sha256": "b62fa79a16edb1690f6880ce9927e735ec2536637b42b16c66ae3328879d5a57",
+      "target_skill_sha256": "4e07e081100a8e2ca5e0a1ea57231f39a8597fd4aba76b69404ca75e14d79155",
+      "changed_files": [
+        "references/forum-chat.md"
+      ],
+      "tools_sha256": "945875599bb55e168e3210055d3d0e772613b359dbf87501961c38dfea694b6d",
+      "initial_context_sha256": {
+        "prompt.md": "b17d5a7281e182f352ce7ab96182b0ec98c50c385755467302c0acde2ab85468",
+        "system-prompt.txt": "ae787a6f31a40193f02c1b5bfdadfe3b587636df8875da9aef8b335f34fc0ee4"
+      },
+      "all_tool_inputs_reviewed": true,
+      "instruction_files": [
+        "SKILL.md",
+        "examples/forum-torrents.json",
+        "references/forum-torrents.md",
+        "references/forum.md"
+      ],
+      "uncertain_reads": [],
+      "content_searches": [],
+      "note": "Primary reviewed every executable/file-access input, helper call, argv and write path. Quoted static report heredocs are inert; the Haiku N07 executable Python heredoc was inspected in full. Directory reads/searches expose unchanged filenames. Only explicitly listed skill instructions were loaded; no changed Chat-reference content or broad content searches. All loaded instruction bytes unchanged. Clarified N15 records use the final quoted title wording."
+    },
+    "final-v9/qwen/N07": {
+      "reviewer": "primary-agent",
+      "approved": true,
+      "source_skill_sha256": "b62fa79a16edb1690f6880ce9927e735ec2536637b42b16c66ae3328879d5a57",
+      "target_skill_sha256": "4e07e081100a8e2ca5e0a1ea57231f39a8597fd4aba76b69404ca75e14d79155",
+      "changed_files": [
+        "references/forum-chat.md"
+      ],
+      "tools_sha256": "40271c7e36b3259f285428c27ec0a3b104f29280fb917e993aa3b844f8246fc7",
+      "initial_context_sha256": {
+        "prompt.md": "ce4c12e7f76973921bfe0605e8e93652430d97512f6ac351646ad13853a54eb5",
+        "system-prompt.txt": "ae787a6f31a40193f02c1b5bfdadfe3b587636df8875da9aef8b335f34fc0ee4"
+      },
+      "all_tool_inputs_reviewed": true,
+      "instruction_files": [
+        "SKILL.md",
+        "examples/forum.json",
+        "references/forum.md",
+        "references/verification.md"
+      ],
+      "uncertain_reads": [],
+      "content_searches": [],
+      "note": "Primary reviewed every executable/file-access input, helper call, argv and write path. Quoted static report heredocs are inert; the Haiku N07 executable Python heredoc was inspected in full. Directory reads/searches expose unchanged filenames. Only explicitly listed skill instructions were loaded; no changed Chat-reference content or broad content searches. All loaded instruction bytes unchanged. Clarified N15 records use the final quoted title wording."
+    },
+    "final-v9/qwen/N08": {
+      "reviewer": "primary-agent",
+      "approved": true,
+      "source_skill_sha256": "b62fa79a16edb1690f6880ce9927e735ec2536637b42b16c66ae3328879d5a57",
+      "target_skill_sha256": "4e07e081100a8e2ca5e0a1ea57231f39a8597fd4aba76b69404ca75e14d79155",
+      "changed_files": [
+        "references/forum-chat.md"
+      ],
+      "tools_sha256": "a955f666f4a5bc708540dac6d333b8bc37e5b2db68be15f693d3ac0d40744ab3",
+      "initial_context_sha256": {
+        "prompt.md": "b17d5a7281e182f352ce7ab96182b0ec98c50c385755467302c0acde2ab85468",
+        "system-prompt.txt": "ae787a6f31a40193f02c1b5bfdadfe3b587636df8875da9aef8b335f34fc0ee4"
+      },
+      "all_tool_inputs_reviewed": true,
+      "instruction_files": [
+        "SKILL.md",
+        "examples/forum-torrents.json",
+        "examples/forum.json",
+        "references/forum-torrents.md",
+        "references/forum.md"
+      ],
+      "uncertain_reads": [],
+      "content_searches": [],
+      "note": "Primary reviewed every executable/file-access input, helper call, argv and write path. Quoted static report heredocs are inert; the Haiku N07 executable Python heredoc was inspected in full. Directory reads/searches expose unchanged filenames. Only explicitly listed skill instructions were loaded; no changed Chat-reference content or broad content searches. All loaded instruction bytes unchanged. Clarified N15 records use the final quoted title wording."
+    },
+    "final-v9-clarified/luna/N15": {
+      "reviewer": "primary-agent",
+      "approved": true,
+      "source_skill_sha256": "b62fa79a16edb1690f6880ce9927e735ec2536637b42b16c66ae3328879d5a57",
+      "target_skill_sha256": "4e07e081100a8e2ca5e0a1ea57231f39a8597fd4aba76b69404ca75e14d79155",
+      "changed_files": [
+        "references/forum-chat.md"
+      ],
+      "tools_sha256": "c3735e4571082cd8bf4fb7e3db60d8e284a4470de4556caef1aa15bcb6bcddf2",
+      "initial_context_sha256": {
+        "prompt.md": "07bcdaef0ae94dd0738542328f5fabe68842955481135c39a5a3d4f245d54aa4",
+        "system-prompt.txt": "ae787a6f31a40193f02c1b5bfdadfe3b587636df8875da9aef8b335f34fc0ee4",
+        "context-audit.json": "67ce44921466c8146a131b9e9aee8e1c1e1730fde03fac090ef92055a797d4f2"
+      },
+      "all_tool_inputs_reviewed": true,
+      "instruction_files": [
+        "SKILL.md",
+        "references/forum.md",
+        "references/troubleshooting.md"
+      ],
+      "uncertain_reads": [],
+      "content_searches": [],
+      "note": "Primary reviewed every executable/file-access input, helper call, argv and write path. Quoted static report heredocs are inert; the Haiku N07 executable Python heredoc was inspected in full. Directory reads/searches expose unchanged filenames. Only explicitly listed skill instructions were loaded; no changed Chat-reference content or broad content searches. All loaded instruction bytes unchanged. Clarified N15 records use the final quoted title wording."
+    },
+    "final-v9-clarified/haiku/N15": {
+      "reviewer": "primary-agent",
+      "approved": true,
+      "source_skill_sha256": "b62fa79a16edb1690f6880ce9927e735ec2536637b42b16c66ae3328879d5a57",
+      "target_skill_sha256": "4e07e081100a8e2ca5e0a1ea57231f39a8597fd4aba76b69404ca75e14d79155",
+      "changed_files": [
+        "references/forum-chat.md"
+      ],
+      "tools_sha256": "95131abec1e4a6be42431b4bccf2a9d547aecbddf842bf59c08b8e4e8dc0c3f9",
+      "initial_context_sha256": {
+        "prompt.md": "07bcdaef0ae94dd0738542328f5fabe68842955481135c39a5a3d4f245d54aa4",
+        "system-prompt.txt": "ae787a6f31a40193f02c1b5bfdadfe3b587636df8875da9aef8b335f34fc0ee4"
+      },
+      "all_tool_inputs_reviewed": true,
+      "instruction_files": [
+        "SKILL.md",
+        "examples/forum.json",
+        "references/forum.md"
+      ],
+      "uncertain_reads": [],
+      "content_searches": [],
+      "note": "Primary reviewed every executable/file-access input, helper call, argv and write path. Quoted static report heredocs are inert; the Haiku N07 executable Python heredoc was inspected in full. Directory reads/searches expose unchanged filenames. Only explicitly listed skill instructions were loaded; no changed Chat-reference content or broad content searches. All loaded instruction bytes unchanged. Clarified N15 records use the final quoted title wording."
+    },
+    "final-v11-private-recovery/haiku/N06": {
+      "reviewer": "primary-agent",
+      "approved": true,
+      "source_skill_sha256": "7c78caa47f540ce442de85403744820f6de955351cba83b652254d8c8c737e9c",
+      "target_skill_sha256": "4e07e081100a8e2ca5e0a1ea57231f39a8597fd4aba76b69404ca75e14d79155",
+      "changed_files": [
+        "references/forum-chat.md"
+      ],
+      "tools_sha256": "a5f9bc583c5acce20a801401e9f2120b56c4611a7fc592acca3061cd63df95ca",
+      "initial_context_sha256": {
+        "prompt.md": "3619e379358ffb7e78e99d36151119ecd9066794cb2c971a6ca82c51ff5a8d95",
+        "system-prompt.txt": "00dc18b4441d8876089f2453a7b6c453264b8d6bb5f589a031c31d53959845e2"
+      },
+      "all_tool_inputs_reviewed": true,
+      "instruction_files": [
+        "SKILL.md",
+        "examples/petition.json",
+        "references/petition.md",
+        "references/verification.md"
+      ],
+      "uncertain_reads": [],
+      "content_searches": [],
+      "note": "Primary reviewed full executable/file-access inputs and actual final/narrative reports. Quoted static report heredocs are inert; executable Node/Python helpers and argv were reviewed. Skill directories expose unchanged filenames; public CLI implementation diagnostics do not load changed Skill text. Only listed unchanged Skill instructions were read; no changed Chat reference content, broad Skill content queries or uncertain dynamic Skill reads. The v12 change only clarifies the private-recipient public encoding in that unread reference. Behavioral privacy failures are independent of this text attestation."
+    },
+    "final-v11-private/haiku/N15": {
+      "reviewer": "primary-agent",
+      "approved": true,
+      "source_skill_sha256": "7c78caa47f540ce442de85403744820f6de955351cba83b652254d8c8c737e9c",
+      "target_skill_sha256": "4e07e081100a8e2ca5e0a1ea57231f39a8597fd4aba76b69404ca75e14d79155",
+      "changed_files": [
+        "references/forum-chat.md"
+      ],
+      "tools_sha256": "6f5b62d521ed6d660c739b4c43fc30ee40ffe0e75e77efb5c1c9850969e673f4",
+      "initial_context_sha256": {
+        "prompt.md": "07bcdaef0ae94dd0738542328f5fabe68842955481135c39a5a3d4f245d54aa4",
+        "system-prompt.txt": "00dc18b4441d8876089f2453a7b6c453264b8d6bb5f589a031c31d53959845e2"
+      },
+      "all_tool_inputs_reviewed": true,
+      "instruction_files": [
+        "SKILL.md",
+        "references/forum.md"
+      ],
+      "uncertain_reads": [],
+      "content_searches": [],
+      "note": "Primary reviewed full executable/file-access inputs and actual final/narrative reports. Quoted static report heredocs are inert; executable Node/Python helpers and argv were reviewed. Skill directories expose unchanged filenames; public CLI implementation diagnostics do not load changed Skill text. Only listed unchanged Skill instructions were read; no changed Chat reference content, broad Skill content queries or uncertain dynamic Skill reads. The v12 change only clarifies the private-recipient public encoding in that unread reference. Behavioral privacy failures are independent of this text attestation."
+    },
+    "final-v11/qwen/N10": {
+      "reviewer": "primary-agent",
+      "approved": true,
+      "source_skill_sha256": "7c78caa47f540ce442de85403744820f6de955351cba83b652254d8c8c737e9c",
+      "target_skill_sha256": "4e07e081100a8e2ca5e0a1ea57231f39a8597fd4aba76b69404ca75e14d79155",
+      "changed_files": [
+        "references/forum-chat.md"
+      ],
+      "tools_sha256": "bc1f5805797e02893a1aac1b64e04d1db6a0487dc605e97e246d1529ee46ded6",
+      "initial_context_sha256": {
+        "prompt.md": "c4c6356dc54358f4aee81b8eca9fe062f9ce10d88ef9169ee2fb981209509553",
+        "system-prompt.txt": "ae787a6f31a40193f02c1b5bfdadfe3b587636df8875da9aef8b335f34fc0ee4"
+      },
+      "all_tool_inputs_reviewed": true,
+      "instruction_files": [
+        "SKILL.md",
+        "examples/store.json",
+        "references/payment-methods.md",
+        "references/store.md",
+        "references/verification.md"
+      ],
+      "uncertain_reads": [],
+      "content_searches": [],
+      "note": "Primary reviewed full executable/file-access inputs and actual final/narrative reports. Quoted static report heredocs are inert; executable Node/Python helpers and argv were reviewed. Skill directories expose unchanged filenames; public CLI implementation diagnostics do not load changed Skill text. Only listed unchanged Skill instructions were read; no changed Chat reference content, broad Skill content queries or uncertain dynamic Skill reads. The v12 change only clarifies the private-recipient public encoding in that unread reference. Behavioral privacy failures are independent of this text attestation."
+    },
+    "final-v11/qwen/N11": {
+      "reviewer": "primary-agent",
+      "approved": true,
+      "source_skill_sha256": "7c78caa47f540ce442de85403744820f6de955351cba83b652254d8c8c737e9c",
+      "target_skill_sha256": "4e07e081100a8e2ca5e0a1ea57231f39a8597fd4aba76b69404ca75e14d79155",
+      "changed_files": [
+        "references/forum-chat.md"
+      ],
+      "tools_sha256": "a8ff1799abf3997ecad6db81396f3ec50712ad18f30033f5ef4791ec6e616079",
+      "initial_context_sha256": {
+        "prompt.md": "f43e4fa836ace6d090cf93b2b20fbd3a11db3a914ad7fb7416f17bab76d2a9c8",
+        "system-prompt.txt": "ae787a6f31a40193f02c1b5bfdadfe3b587636df8875da9aef8b335f34fc0ee4"
+      },
+      "all_tool_inputs_reviewed": true,
+      "instruction_files": [
+        "SKILL.md",
+        "references/message.md",
+        "references/verification.md"
+      ],
+      "uncertain_reads": [],
+      "content_searches": [],
+      "note": "Primary reviewed full executable/file-access inputs and actual final/narrative reports. Quoted static report heredocs are inert; executable Node/Python helpers and argv were reviewed. Skill directories expose unchanged filenames; public CLI implementation diagnostics do not load changed Skill text. Only listed unchanged Skill instructions were read; no changed Chat reference content, broad Skill content queries or uncertain dynamic Skill reads. The v12 change only clarifies the private-recipient public encoding in that unread reference. Behavioral privacy failures are independent of this text attestation."
+    },
+    "final-v11/qwen/N12": {
+      "reviewer": "primary-agent",
+      "approved": true,
+      "source_skill_sha256": "7c78caa47f540ce442de85403744820f6de955351cba83b652254d8c8c737e9c",
+      "target_skill_sha256": "4e07e081100a8e2ca5e0a1ea57231f39a8597fd4aba76b69404ca75e14d79155",
+      "changed_files": [
+        "references/forum-chat.md"
+      ],
+      "tools_sha256": "7d7c7abb93ee7f843c6625fdc1f48eedcfc604f5fabc1582e6ff12bb533af9f6",
+      "initial_context_sha256": {
+        "prompt.md": "edf416f4db04f587156240e9bd5e06f9a676a4eeddbab1583427b3da7202be3d",
+        "system-prompt.txt": "ae787a6f31a40193f02c1b5bfdadfe3b587636df8875da9aef8b335f34fc0ee4"
+      },
+      "all_tool_inputs_reviewed": true,
+      "instruction_files": [
+        "SKILL.md",
+        "references/message.md",
+        "references/verification.md"
+      ],
+      "uncertain_reads": [],
+      "content_searches": [],
+      "note": "Primary reviewed full executable/file-access inputs and actual final/narrative reports. Quoted static report heredocs are inert; executable Node/Python helpers and argv were reviewed. Skill directories expose unchanged filenames; public CLI implementation diagnostics do not load changed Skill text. Only listed unchanged Skill instructions were read; no changed Chat reference content, broad Skill content queries or uncertain dynamic Skill reads. The v12 change only clarifies the private-recipient public encoding in that unread reference. Behavioral privacy failures are independent of this text attestation."
+    },
+    "final-v11/qwen/N13": {
+      "reviewer": "primary-agent",
+      "approved": true,
+      "source_skill_sha256": "7c78caa47f540ce442de85403744820f6de955351cba83b652254d8c8c737e9c",
+      "target_skill_sha256": "4e07e081100a8e2ca5e0a1ea57231f39a8597fd4aba76b69404ca75e14d79155",
+      "changed_files": [
+        "references/forum-chat.md"
+      ],
+      "tools_sha256": "18d2b7e375b9a627bdbb94730acacaf6ae47e7585a87ae9a8cd7f46fe8bfed5c",
+      "initial_context_sha256": {
+        "prompt.md": "e8868736b99eb7a0794391d9ab78eb21290626c37b8992c7530a5acaf6b89ece",
+        "system-prompt.txt": "ae787a6f31a40193f02c1b5bfdadfe3b587636df8875da9aef8b335f34fc0ee4"
+      },
+      "all_tool_inputs_reviewed": true,
+      "instruction_files": [
+        "SKILL.md",
+        "examples/event.json",
+        "references/event.md",
+        "references/verification.md"
+      ],
+      "uncertain_reads": [],
+      "content_searches": [],
+      "note": "Primary reviewed full executable/file-access inputs and actual final/narrative reports. Quoted static report heredocs are inert; executable Node/Python helpers and argv were reviewed. Skill directories expose unchanged filenames; public CLI implementation diagnostics do not load changed Skill text. Only listed unchanged Skill instructions were read; no changed Chat reference content, broad Skill content queries or uncertain dynamic Skill reads. The v12 change only clarifies the private-recipient public encoding in that unread reference. Behavioral privacy failures are independent of this text attestation."
+    },
+    "final-v11/qwen/N14": {
+      "reviewer": "primary-agent",
+      "approved": true,
+      "source_skill_sha256": "7c78caa47f540ce442de85403744820f6de955351cba83b652254d8c8c737e9c",
+      "target_skill_sha256": "4e07e081100a8e2ca5e0a1ea57231f39a8597fd4aba76b69404ca75e14d79155",
+      "changed_files": [
+        "references/forum-chat.md"
+      ],
+      "tools_sha256": "3ac7c1dcee78f4dae90417b9662ed4c91a9534f5df19b65fd8d9c3784732f2cd",
+      "initial_context_sha256": {
+        "prompt.md": "dfe7267d866a95ef7bcf1675b85d78db82f650be1a1d6296ae05bfa05937960e",
+        "system-prompt.txt": "ae787a6f31a40193f02c1b5bfdadfe3b587636df8875da9aef8b335f34fc0ee4"
+      },
+      "all_tool_inputs_reviewed": true,
+      "instruction_files": [
+        "SKILL.md",
+        "examples/message.json",
+        "references/message.md"
+      ],
+      "uncertain_reads": [],
+      "content_searches": [],
+      "note": "Primary reviewed full executable/file-access inputs and actual final/narrative reports. Quoted static report heredocs are inert; executable Node/Python helpers and argv were reviewed. Skill directories expose unchanged filenames; public CLI implementation diagnostics do not load changed Skill text. Only listed unchanged Skill instructions were read; no changed Chat reference content, broad Skill content queries or uncertain dynamic Skill reads. The v12 change only clarifies the private-recipient public encoding in that unread reference. Behavioral privacy failures are independent of this text attestation."
+    },
+    "final-v11/qwen/N15": {
+      "reviewer": "primary-agent",
+      "approved": true,
+      "source_skill_sha256": "7c78caa47f540ce442de85403744820f6de955351cba83b652254d8c8c737e9c",
+      "target_skill_sha256": "4e07e081100a8e2ca5e0a1ea57231f39a8597fd4aba76b69404ca75e14d79155",
+      "changed_files": [
+        "references/forum-chat.md"
+      ],
+      "tools_sha256": "f110557b9f4bdf3bcb12b60f75adabdf550c06b891ff6c88253cf87944b0c97a",
+      "initial_context_sha256": {
+        "prompt.md": "07bcdaef0ae94dd0738542328f5fabe68842955481135c39a5a3d4f245d54aa4",
+        "system-prompt.txt": "ae787a6f31a40193f02c1b5bfdadfe3b587636df8875da9aef8b335f34fc0ee4"
+      },
+      "all_tool_inputs_reviewed": true,
+      "instruction_files": [
+        "SKILL.md",
+        "references/forum.md",
+        "references/troubleshooting.md"
+      ],
+      "uncertain_reads": [],
+      "content_searches": [],
+      "note": "Primary reviewed full executable/file-access inputs and actual final/narrative reports. Quoted static report heredocs are inert; executable Node/Python helpers and argv were reviewed. Skill directories expose unchanged filenames; public CLI implementation diagnostics do not load changed Skill text. Only listed unchanged Skill instructions were read; no changed Chat reference content, broad Skill content queries or uncertain dynamic Skill reads. The v12 change only clarifies the private-recipient public encoding in that unread reference. Behavioral privacy failures are independent of this text attestation."
+    },
+    "final-v11/qwen/N16": {
+      "reviewer": "primary-agent",
+      "approved": true,
+      "source_skill_sha256": "7c78caa47f540ce442de85403744820f6de955351cba83b652254d8c8c737e9c",
+      "target_skill_sha256": "4e07e081100a8e2ca5e0a1ea57231f39a8597fd4aba76b69404ca75e14d79155",
+      "changed_files": [
+        "references/forum-chat.md"
+      ],
+      "tools_sha256": "ff5a313a68f8182bb37c27f2532ce307e219c6cfad2544e56dade329d5bb5456",
+      "initial_context_sha256": {
+        "prompt.md": "91d69f44355fd13aeac1d860bd5eb5e6b808f731d2e7561bab0eecd2f86ac330",
+        "system-prompt.txt": "ae787a6f31a40193f02c1b5bfdadfe3b587636df8875da9aef8b335f34fc0ee4"
+      },
+      "all_tool_inputs_reviewed": true,
+      "instruction_files": [
+        "SKILL.md",
+        "references/browser.md",
+        "references/message.md"
+      ],
+      "uncertain_reads": [],
+      "content_searches": [],
+      "note": "Primary reviewed full executable/file-access inputs and actual final/narrative reports. Quoted static report heredocs are inert; executable Node/Python helpers and argv were reviewed. Skill directories expose unchanged filenames; public CLI implementation diagnostics do not load changed Skill text. Only listed unchanged Skill instructions were read; no changed Chat reference content, broad Skill content queries or uncertain dynamic Skill reads. The v12 change only clarifies the private-recipient public encoding in that unread reference. Behavioral privacy failures are independent of this text attestation."
+    },
+    "final-v11/qwen/N17": {
+      "reviewer": "primary-agent",
+      "approved": true,
+      "source_skill_sha256": "7c78caa47f540ce442de85403744820f6de955351cba83b652254d8c8c737e9c",
+      "target_skill_sha256": "4e07e081100a8e2ca5e0a1ea57231f39a8597fd4aba76b69404ca75e14d79155",
+      "changed_files": [
+        "references/forum-chat.md"
+      ],
+      "tools_sha256": "1c2dfc528138876d8332e9db61dc34e39cf85bd4386c7571c640e9f6a16c0a19",
+      "initial_context_sha256": {
+        "prompt.md": "5d4ec20d7ce2e85c9809323e30752b39cbf80d1996c19e1c6960bfea07c233be",
+        "system-prompt.txt": "ae787a6f31a40193f02c1b5bfdadfe3b587636df8875da9aef8b335f34fc0ee4"
+      },
+      "all_tool_inputs_reviewed": true,
+      "instruction_files": [
+        "SKILL.md",
+        "examples/message.json",
+        "references/message.md",
+        "references/payment-methods.md",
+        "references/verification.md"
+      ],
+      "uncertain_reads": [],
+      "content_searches": [],
+      "note": "Primary reviewed full executable/file-access inputs and actual final/narrative reports. Quoted static report heredocs are inert; executable Node/Python helpers and argv were reviewed. Skill directories expose unchanged filenames; public CLI implementation diagnostics do not load changed Skill text. Only listed unchanged Skill instructions were read; no changed Chat reference content, broad Skill content queries or uncertain dynamic Skill reads. The v12 change only clarifies the private-recipient public encoding in that unread reference. Behavioral privacy failures are independent of this text attestation."
+    },
+    "final-v11/qwen/N18": {
+      "reviewer": "primary-agent",
+      "approved": true,
+      "source_skill_sha256": "7c78caa47f540ce442de85403744820f6de955351cba83b652254d8c8c737e9c",
+      "target_skill_sha256": "4e07e081100a8e2ca5e0a1ea57231f39a8597fd4aba76b69404ca75e14d79155",
+      "changed_files": [
+        "references/forum-chat.md"
+      ],
+      "tools_sha256": "3907962e5078668fa708232934648fbf9eb4175f39acfbfca9c871c533a0bd80",
+      "initial_context_sha256": {
+        "prompt.md": "c1d66773512072df8baf112e87deea21f24482206a35be8f92dd70ac53705f38",
+        "system-prompt.txt": "ae787a6f31a40193f02c1b5bfdadfe3b587636df8875da9aef8b335f34fc0ee4"
+      },
+      "all_tool_inputs_reviewed": true,
+      "instruction_files": [
+        "SKILL.md",
+        "examples/message.json",
+        "references/message.md",
+        "references/troubleshooting.md",
+        "references/verification.md"
+      ],
+      "uncertain_reads": [],
+      "content_searches": [],
+      "note": "Primary reviewed full executable/file-access inputs and actual final/narrative reports. Quoted static report heredocs are inert; executable Node/Python helpers and argv were reviewed. Skill directories expose unchanged filenames; public CLI implementation diagnostics do not load changed Skill text. Only listed unchanged Skill instructions were read; no changed Chat reference content, broad Skill content queries or uncertain dynamic Skill reads. The v12 change only clarifies the private-recipient public encoding in that unread reference. Behavioral privacy failures are independent of this text attestation."
+    }
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "reporter_sha256": "64262f8194cfa83a9715e4f5ce7f934d9c8838ae57e81a9bb4ee5a53633e0185",
+  "controls": [
+    {
+      "control": "real-old-story-positive",
+      "expected": true,
+      "actual": true,
+      "same_scenario": true
+    },
+    {
+      "control": "changed-story-cannot-reuse-old-selected-run",
+      "expected": false,
+      "actual": false,
+      "same_scenario": false
+    },
+    {
+      "control": "undeclared-wording-change-rejected",
+      "expected": "rejected",
+      "actual": "rejected"
+    },
+    {
+      "control": "real-fresh-clarified-story-positive",
+      "expected": true,
+      "actual": true,
+      "same_scenario": true
+    },
+    {
+      "control": "non-task-field-change-rejected-even-with-declared-hash",
+      "expected": "rejected",
+      "actual": "rejected"
+    },
+    {
+      "control": "rewriting-story-metadata-cannot-replace-original-prompt",
+      "expected": false,
+      "actual": false,
+      "same_scenario": false
+    }
+  ],
+  "all_expected_outcomes_match": true,
+  "fixture": "Temporary copies of real completed Luna N15 evidence metadata; original model responses, prompts and outputs untouched. Negative fixtures change only copied scenario metadata."
+}

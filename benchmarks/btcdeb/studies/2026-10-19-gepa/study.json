@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "study_id": "2026-10-19-gepa",
+  "skill": "btcdeb",
+  "kind": "output_quality_gepa",
+  "status": "historical_completed",
+  "legacy_path": "benchmarks/btcdeb-gepa-2026-10-19",
+  "models": {
+    "haiku": {
+      "runner": "claude",
+      "model": "haiku",
+      "actual_provider_model": "claude-haiku-4-5-20251001"
+    },
+    "qwen": {
+      "runner": "omp",
+      "model": "splash/incoai/Qwen3.8-27B-Splash"
+    }
+  },
+  "limits": {
+    "wall_seconds": 240,
+    "tool_calls": 64,
+    "claude_max_turns": 24,
+    "qwen_context_window": 32768,
+    "qwen_output_tokens_per_request": 4096
+  },
+  "conditions": [
+    "seed-offline",
+    "candidate-offline"
+  ],
+  "automatic_inference": false,
+  "promotion": "none; final test not triggered",
+  "final_data_access": "GEPA final inputs remain evaluator-only and are not exported",
+  "raw_evidence": "artifacts.json",
+  "metrics": "results.json",
+  "protocol_source_sha256": "b215f9a221199f251018e82e079a2cbfc27c57f3f2b699419d2d3729a7d402c0",
+  "retained_runtime_skill": {
+    "path": "skills/btcdeb",
+    "files": {
+      "SKILL.md": "3538ca2860d355446832aee03e0a44458812030115e14fce90816d879473030a",
+      "references/taproot.md": "09f870f7132d113545d1832a91b349dbed99396d831e6a670b6c11f299153d94",
+      "references/authoring.md": "48f9cf976b2aff4055fa41c7a966490ab8fffb68d7fc2e9167fcca9c5c0ac58a",
+      "references/execution.md": "282bf2a7bf2eed549c2a3ed3dacf36484321cb4835e49552ab5d00e1868093f8",
+      "references/runtime.md": "d021291a8e024c81f83ad1fa125fee720eac96136b207a3291eb6305f898dd95",
+      "references/transactions.md": "48954e3df64f92e7d70d1d04e2bb54ad028f8f905b2a93e1560d1bd23f17d44c"
+    }
+  },
+  "evaluated_package_snapshots": {
+    "seed": {
+      "SKILL.md": "3538ca2860d355446832aee03e0a44458812030115e14fce90816d879473030a",
+      "references/taproot.md": "09f870f7132d113545d1832a91b349dbed99396d831e6a670b6c11f299153d94",
+      "references/authoring.md": "48f9cf976b2aff4055fa41c7a966490ab8fffb68d7fc2e9167fcca9c5c0ac58a",
+      "references/execution.md": "282bf2a7bf2eed549c2a3ed3dacf36484321cb4835e49552ab5d00e1868093f8",
+      "references/runtime.md": "d021291a8e024c81f83ad1fa125fee720eac96136b207a3291eb6305f898dd95",
+      "references/transactions.md": "48954e3df64f92e7d70d1d04e2bb54ad028f8f905b2a93e1560d1bd23f17d44c"
+    }
+  },
+  "source_semantics": "Each cohort uses its recorded package snapshot; retained runtime is not substituted into older runs.",
+  "protocol_path_semantics": "Byte-identical historical protocol. Paths refer to original legacy layout; no automatic restart or final unsealing authorized."
+}

@@ -1,0 +1,11 @@
+{
+  "service_sha256": "1ffbab6f7976d4c159b3002702b0796a33e9e71b8c9c337c5bfd0aa672282e95",
+  "all_match": true,
+  "malformed_frames_rejected_without_crash": 6,
+  "invalid_filter_not_retained": true,
+  "subsequent_signed_persistent_event_accepted": true,
+  "subsequent_signed_ephemeral_event_accepted": true,
+  "live_subscription_received_both": true,
+  "later_history_only_persistent": true,
+  "scope": "Isolated actual service fixture; genuine signed events, no model inference or browser required."
+}

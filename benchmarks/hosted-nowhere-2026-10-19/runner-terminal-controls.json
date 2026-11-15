@@ -1,0 +1,16 @@
+{
+  "scope": "Immutable real trace terminal controls, copied trace collection with synthetic cancellation status, and isolated adapter construction; no new model inference.",
+  "real_unfinished_not_completed": true,
+  "real_final_then_maintenance_detected": true,
+  "cancel_status_preserved": true,
+  "native_final_text_preserved": true,
+  "later_tool_work_invalidates_marker": true,
+  "adapter_prompt_modes": {
+    "claude_False": true,
+    "claude_True": true,
+    "omp_False": true,
+    "omp_True": true
+  },
+  "all_match": true,
+  "collector_sha256": "aa784bf807f7d2015ecddba44c358227234bcf7a0f005ce3f4c33c26c56c6429"
+}
