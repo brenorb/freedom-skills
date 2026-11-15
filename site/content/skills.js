@@ -30,7 +30,7 @@ window.FREEDOM_SKILLS = {
       "id": "sharing",
       "name": "Sharing, publishing, and preservation",
       "blurb": "Publish without a host, share without a cloud, keep proof it existed.",
-      "count": 4
+      "count": 5
     },
     {
       "id": "research",
@@ -243,6 +243,17 @@ window.FREEDOM_SKILLS = {
       "tool": "OpenTimestamps client",
       "upstream": "https://github.com/opentimestamps/opentimestamps-client",
       "url": "https://github.com/brenorb/freedom-skills/tree/main/skills/opentimestamps"
+    },
+    {
+      "slug": "blossom-cli",
+      "name": "Blossom",
+      "category": "sharing",
+      "summary": "Upload, download, verify, mirror and recover files across Blossom servers with blossom-cli.",
+      "tagline": "Store files on Nostr's hash-addressed servers and get them back from any copy.",
+      "example_prompt": "Upload this PDF to my Blossom server and check it arrived intact.",
+      "tool": "blossom-cli",
+      "upstream": "https://github.com/brenorb/blossom-cli",
+      "url": "https://github.com/brenorb/freedom-skills/tree/main/skills/blossom-cli"
     },
     {
       "slug": "domain-intel",
