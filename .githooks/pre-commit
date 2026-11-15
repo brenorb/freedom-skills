@@ -3,9 +3,9 @@
 #
 # 1. Validates every skill the commit touches (scripts/validate_skills_ref.sh).
 # 2. Keeps the website and README in step with skills/: when the commit touches skills/,
-#    connectors/, site/ or README.md, it regenerates the site data, the README skill tables and live
+#    catalog/, connectors/, site/ or README.md, it regenerates the site data, the README skill tables and live
 #    pages, stages exactly the files it rewrote, and checks every link points at something
-#    that exists. It blocks the commit only when a skill is missing its site.yaml card or a
+#    that exists. It blocks the commit only when a skill is missing its catalog card or a
 #    link is broken, and says how to fix it.
 
 set -eu
@@ -23,7 +23,7 @@ fi
 
 # --- website and README ---
 [ -f scripts/build_site_data.py ] || exit 0
-git diff --cached --quiet -- skills connectors site README.md && exit 0
+git diff --cached --quiet -- skills catalog connectors site README.md && exit 0
 
 if ! command -v uv >/dev/null 2>&1; then
   echo "pre-commit: uv is not installed, so the website wasn't regenerated." >&2

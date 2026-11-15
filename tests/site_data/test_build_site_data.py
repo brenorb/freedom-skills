@@ -56,12 +56,15 @@ def skill(root: Path, slug: str, card: str | None, description: str = "Does a th
     d.mkdir(parents=True)
     (d / "SKILL.md").write_text(f"---\nname: {slug}\ndescription: {description}\n---\n\n# {slug}\n")
     if card is not None:
-        (d / "site.yaml").write_text(card)
+        cards = root / "catalog" / "skills"
+        cards.mkdir(parents=True, exist_ok=True)
+        (cards / f"{slug}.yaml").write_text(card)
 
 
 def make_repo(root: Path) -> Path:
     (root / "skills").mkdir()
-    (root / "skills" / "categories.yaml").write_text(CATEGORIES)
+    (root / "catalog").mkdir()
+    (root / "catalog" / "categories.yaml").write_text(CATEGORIES)
     skill(root, "zeta", "category: talk\norder: 10\nname: Zeta\nexample_prompt: Say \"hi\" to Ana\nreadme: Zeta row.\n")
     skill(root, "alpha", "category: pay\nname: Alpha\nprompts: [Pay Bob 5 sats]\n")
     skill(root, "beta", "category: talk\norder: 20\n")
@@ -153,7 +156,7 @@ def test_missing_card_explains_how_to_create_it(tmp_path, capsys):
     skill(root, "gamma", None)
     assert run(root) == 1
     err = capsys.readouterr().err
-    assert "skills/gamma/site.yaml is missing" in err and "--new gamma" in err
+    assert "catalog/skills/gamma.yaml is missing" in err and "--new gamma" in err
 
 
 def test_bad_category_is_rejected(tmp_path, capsys):
@@ -167,7 +170,7 @@ def test_new_card_is_scaffolded_from_skill_md(tmp_path):
     root = make_repo(tmp_path)
     skill(root, "gamma", None, description="Sends postcards. Very slowly.")
     assert run(root, "--new", "gamma") == 0
-    card = (root / "skills/gamma/site.yaml").read_text()
+    card = (root / "catalog/skills/gamma.yaml").read_text()
     assert 'name: "gamma"' in card and 'tagline: "Sends postcards."' in card
     assert "one of: talk, pay" in card
     assert run(root) == 1  # the category is still empty, so the build asks for it
@@ -202,7 +205,8 @@ def add_connectors(root: Path, readme_markers: bool = True):
     d = root / "connectors" / "relay"
     d.mkdir(parents=True)
     (d / "PROMPT.md").write_text("Just do it.\n")
-    (d / "site.yaml").write_text("order: 1\nname: Relay\ntagline: Relay things.\nreadme: Relay row.\nworks_with: [A, B]\n")
+    (root / "catalog" / "connectors").mkdir(parents=True)
+    (root / "catalog" / "connectors" / "relay.yaml").write_text("order: 1\nname: Relay\ntagline: Relay things.\nreadme: Relay row.\nworks_with: [A, B]\n")
     if readme_markers:
         text = (root / "README.md").read_text().replace(
             "## Hooks", "## Connectors\n\n<!-- connectors:start -->\nold\n<!-- connectors:end -->\n\n## Hooks")
@@ -242,3 +246,27 @@ def test_connectors_need_readme_markers(tmp_path, capsys):
     add_connectors(root, readme_markers=False)
     assert run(root) == 1
     assert "<!-- connectors:start -->" in capsys.readouterr().err
+
+
+def test_card_inside_a_skill_folder_is_rejected(tmp_path, capsys):
+    root = make_repo(tmp_path)
+    (root / "skills" / "zeta" / "site.yaml").write_text("category: talk\n")
+    assert run(root) == 1
+    err = capsys.readouterr().err
+    assert "skills/zeta/site.yaml must not be in the skill folder" in err
+    assert "catalog/skills/zeta.yaml" in err
+
+
+def test_card_without_a_skill_is_rejected(tmp_path, capsys):
+    root = make_repo(tmp_path)
+    (root / "catalog" / "skills" / "ghost.yaml").write_text("category: talk\n")
+    assert run(root) == 1
+    assert "catalog/skills/ghost.yaml has no skills/ghost/SKILL.md" in capsys.readouterr().err
+
+
+def test_new_card_is_written_to_the_catalog_not_the_skill_folder(tmp_path):
+    root = make_repo(tmp_path)
+    skill(root, "gamma", None)
+    assert run(root, "--new", "gamma") == 0
+    assert (root / "catalog/skills/gamma.yaml").exists()
+    assert not (root / "skills/gamma/site.yaml").exists()

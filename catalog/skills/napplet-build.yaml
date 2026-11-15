@@ -1,0 +1,49 @@
+# Website and README card for skills/napplet-build/. Kept out of the skill folder so it isn't installed into agents.
+# scripts/build_site_data.py turns it into the site's data, the README table and the skill pages.
+category: developer
+order: 50
+name: napplet-build
+tagline: Implement a napplet from its spec as one conformant, single-file index.html.
+summary: Implement napplets with NAP boundaries, OUTBOX-first events, and single-file builds.
+readme: Implement napplets with NAP boundaries, OUTBOX-first events, and single-file builds.
+tool: '@napplet/cli'
+upstream: https://github.com/napplet/web
+example_prompt: Implement the reading-list napplet from this spec.
+what_for: 'Implement a napplet from its design spec on the maintained boilerplate: SDK-first shell calls,
+  required and optional domains in the manifest, a single-file build, conformance and a Paja preview.'
+needs: napplet CLI and pnpm; a spec from napplet-design
+prompts:
+- Implement the reading-list napplet from this spec.
+- Scaffold a new napplet called note-feed.
+- Strip the starter masthead and demo panels from my napplet.
+- Replace localStorage in my napplet with shell storage.
+- Preview my napplet through Paja.
+caveats:
+- Keeps the boilerplate's scripts and config; edits only project files such as vite.config.ts, index.html
+  and src/main.ts.
+- 'JS must be inline: the napplet ships as one index.html.'
+- 'SDK-first: imports from @napplet/sdk instead of hand-rolling window.napplet calls.'
+- A legacy .napplet/config.json is not migrated without your approval.
+demo:
+  prompt: Implement the reading-list napplet from this spec.
+  steps:
+  - kind: match
+    text: 'Recognized the skill: napplet-build'
+  - kind: run
+    text: Scaffolds from the boilerplate
+    cmd: napplet create reading-list
+  - kind: run
+    text: Sets the d-tag, title and description
+    cmd: napplet init
+  - kind: run
+    text: Lays out the frame per napplet-ui, then wires @napplet/sdk calls in src/main.ts
+  - kind: run
+    text: Builds the single file and runs conformance
+    cmd: pnpm verify && pnpm test:conformance
+  - kind: caveat
+    text: No fetch, localStorage or external images; bytes go through resource, state through storage.
+  - kind: confirm
+    text: Open a runtime preview through Paja?
+    action: Preview
+  result: A single-file dist/index.html that passes conformance, previewed at the URL Paja prints.
+music: null

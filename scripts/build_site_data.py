@@ -3,14 +3,17 @@
 
     uv run --with pyyaml python scripts/build_site_data.py           # write everything
     uv run --with pyyaml python scripts/build_site_data.py --check   # exit 1 if anything is stale
-    uv run --with pyyaml python scripts/build_site_data.py --new my-skill   # start a site.yaml card
+    uv run --with pyyaml python scripts/build_site_data.py --new my-skill   # start a catalog card
 
 Sources (the only files to edit by hand):
-- skills/<slug>/SKILL.md     name and description (frontmatter)
-- skills/<slug>/site.yaml    the website card: category, tagline, prompts, demo, caveats...
-- skills/categories.yaml     category ids, names and blurbs, in display order
-- connectors/<slug>/PROMPT.md    a connector: the prompt a person pastes into their agent
-- connectors/<slug>/site.yaml    optional connector card: name, tagline, readme, works_with, upstream
+- skills/<slug>/SKILL.md              name and description (frontmatter)
+- catalog/skills/<slug>.yaml          the website card: category, tagline, prompts, demo, caveats...
+- catalog/categories.yaml             category ids, names and blurbs, in display order
+- connectors/<slug>/PROMPT.md         a connector: the prompt a person pastes into their agent
+- catalog/connectors/<slug>.yaml      optional connector card: name, tagline, readme, works_with, upstream
+
+Cards live in catalog/, never in a skill folder: `npx skills add` copies the whole skill folder
+into the user's agent, so anything there that isn't for the agent is shipped for nothing.
 
 Outputs (never edit by hand):
 - site/content/skills.json, skills.js                  the catalog every page reads
@@ -59,29 +62,41 @@ def read_frontmatter(path: Path) -> dict:
     return yaml.safe_load(m.group(1)) or {}
 
 
+CATALOG = "catalog"  # website and README cards; never inside a skill folder
+
+
 def first_sentence(text: str, limit: int = 140) -> str:
     s = re.split(r"(?<=[.!?])\s", text.strip(), maxsplit=1)[0]
     return s if len(s) <= limit else s[: limit - 1].rstrip() + "…"
 
 
 def load(root: Path) -> dict:
-    cats_file = root / "skills" / "categories.yaml"
+    cats_file = root / CATALOG / "categories.yaml"
     if not cats_file.exists():
-        raise SiteDataError("skills/categories.yaml is missing")
+        raise SiteDataError("catalog/categories.yaml is missing")
     categories = yaml.safe_load(cats_file.read_text())["categories"]
     cat_ids = [c["id"] for c in categories]
     problems, skills = [], []
+    for stray in sorted((root / "skills").glob("*/site.yaml")) + sorted((root / "connectors").glob("*/site.yaml")):
+        kind, slug = stray.parent.parent.name, stray.parent.name
+        problems.append(f"{kind}/{slug}/site.yaml must not be in the {kind[:-1]} folder (it would be installed "
+                        f"into users' agents). Move it to catalog/{kind}/{slug}.yaml")
+    slugs = {p.parent.name for p in (root / "skills").glob("*/SKILL.md")}
+    for card_path in sorted((root / CATALOG / "skills").glob("*.yaml")):
+        if card_path.stem not in slugs:
+            problems.append(f"catalog/skills/{card_path.name} has no skills/{card_path.stem}/SKILL.md; "
+                            f"delete the card or restore the skill")
     for skill_md in sorted((root / "skills").glob("*/SKILL.md")):
         slug = skill_md.parent.name
         fm = read_frontmatter(skill_md)
-        card_path = skill_md.parent / "site.yaml"
+        card_path = root / CATALOG / "skills" / f"{slug}.yaml"
         if not card_path.exists():
-            problems.append(f"skills/{slug}/site.yaml is missing. Create it with:\n"
+            problems.append(f"catalog/skills/{slug}.yaml is missing. Create it with:\n"
                             f"    uv run --with pyyaml python scripts/build_site_data.py --new {slug}")
             continue
         card = yaml.safe_load(card_path.read_text()) or {}
         if card.get("category") not in cat_ids:
-            problems.append(f"skills/{slug}/site.yaml: category must be one of {', '.join(cat_ids)} "
+            problems.append(f"catalog/skills/{slug}.yaml: category must be one of {', '.join(cat_ids)} "
                             f"(got {card.get('category')!r})")
             continue
         description = " ".join(str(fm.get("description", "")).split())
@@ -111,11 +126,12 @@ def load(root: Path) -> dict:
 
 
 def load_connectors(root: Path) -> list[dict]:
-    """Every connectors/<slug>/PROMPT.md is a connector; site.yaml next to it is optional."""
+    """Every connectors/<slug>/PROMPT.md is a connector; catalog/connectors/<slug>.yaml is optional."""
     out = []
     for prompt_md in sorted((root / "connectors").glob("*/PROMPT.md")):
         d = prompt_md.parent
-        card = yaml.safe_load((d / "site.yaml").read_text()) if (d / "site.yaml").exists() else {}
+        card_path = root / CATALOG / "connectors" / f"{d.name}.yaml"
+        card = yaml.safe_load(card_path.read_text()) if card_path.exists() else {}
         card = card or {}
         readme = (d / "README.md").read_text() if (d / "README.md").exists() else ""
         title = re.search(r"^#\s+(.+)$", readme, re.M)
@@ -174,7 +190,7 @@ def dump_json(obj) -> str:
 
 
 def dump_js(var: str, obj, note: str) -> str:
-    return f"// {note}\n// Generated by scripts/build_site_data.py from skills/*/site.yaml. Do not edit.\nwindow.{var} = " + json.dumps(obj, indent=2, ensure_ascii=False) + ";\n"
+    return f"// {note}\n// Generated by scripts/build_site_data.py from catalog/. Do not edit.\nwindow.{var} = " + json.dumps(obj, indent=2, ensure_ascii=False) + ";\n"
 
 
 def readme_section(data: dict) -> str:
@@ -198,7 +214,7 @@ def replace_between(text: str, start: str, end: str, body: str) -> str:
 
 
 def update_readme(text: str, data: dict) -> str:
-    note = "<!-- Generated from skills/*/site.yaml by scripts/build_site_data.py. Edit those, not this. -->\n\n"
+    note = "<!-- Generated from catalog/ by scripts/build_site_data.py. Edit those cards, not this. -->\n\n"
     text = replace_between(text, README_START, README_END, note + readme_section(data) + "\n")
     if data["connectors"] or CONN_START in text:
         rows = "\n".join(f"| [`{c['slug']}`](connectors/{c['slug']}/) | {c['readme']} |" for c in data["connectors"])
@@ -335,7 +351,7 @@ def build(root: Path) -> dict[Path, str]:
     return out
 
 
-NEW_CARD = """# Website and README card for this skill. Agents don't load this file.
+NEW_CARD = """# Website and README card for skills/{slug}/. Kept out of the skill folder so it isn't installed into agents.
 # scripts/build_site_data.py turns it into the site's data, the README table and the skill pages.
 category: {category}   # one of: {choices}
 order: 100              # position inside the category (lower comes first)
@@ -359,15 +375,16 @@ def new_card(root: Path, slug: str) -> Path:
     skill_md = root / "skills" / slug / "SKILL.md"
     if not skill_md.exists():
         raise SiteDataError(f"skills/{slug}/SKILL.md does not exist yet; create the skill first")
-    target = skill_md.parent / "site.yaml"
+    target = root / CATALOG / "skills" / f"{slug}.yaml"
     if target.exists():
         raise SiteDataError(f"{target.relative_to(root)} already exists")
     fm = read_frontmatter(skill_md)
-    cats = [c["id"] for c in yaml.safe_load((root / "skills" / "categories.yaml").read_text())["categories"]]
+    cats = [c["id"] for c in yaml.safe_load((root / CATALOG / "categories.yaml").read_text())["categories"]]
+    target.parent.mkdir(parents=True, exist_ok=True)
     description = " ".join(str(fm.get("description", "")).split())
     q = lambda s: json.dumps(s, ensure_ascii=False)
     target.write_text(NEW_CARD.format(
-        category='""', choices=", ".join(cats), name=q(fm.get("name", slug)),
+        slug=slug, category='""', choices=", ".join(cats), name=q(fm.get("name", slug)),
         tagline=q(first_sentence(description)), summary=q(description),
         upstream=q((fm.get("metadata") or {}).get("repository", "")),
     ))
@@ -378,7 +395,7 @@ def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("--root", type=Path, default=Path.cwd())
     ap.add_argument("--check", action="store_true", help="don't write; exit 1 if any output is out of date")
-    ap.add_argument("--new", metavar="SLUG", help="create skills/SLUG/site.yaml from its SKILL.md, then fill it in")
+    ap.add_argument("--new", metavar="SLUG", help="create catalog/skills/SLUG.yaml from its SKILL.md, then fill it in")
     args = ap.parse_args(argv)
     root = args.root.resolve()
     try:

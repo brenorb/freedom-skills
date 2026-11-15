@@ -1,0 +1,44 @@
+# Website and README card for skills/mdk-mcp/. Kept out of the skill folder so it isn't installed into agents.
+# scripts/build_site_data.py turns it into the site's data, the README table and the skill pages.
+category: money
+order: 30
+name: Money Dev Kit MCP
+tagline: Wire your coding agent to Money Dev Kit's live MCP tools.
+summary: Connections between coding agents and Money Dev Kit MCP servers.
+readme: Connections between coding agents and Money Dev Kit MCP servers.
+tool: Money Dev Kit MCP
+upstream: https://docs.moneydevkit.com
+example_prompt: Connect Cursor to the Money Dev Kit MCP server.
+what_for: Connect your coding agent to the Money Dev Kit MCP server so it can create an account, manage
+  apps, products and checkouts, and search the docs live.
+needs: 'An MCP-capable agent: Claude Code, Codex, Cursor, VS Code or Replit Agent'
+prompts:
+- Connect Cursor to the Money Dev Kit MCP server.
+- Add the Money Dev Kit MCP to Claude Code. I already have an account.
+- Set up Money Dev Kit MCP in Codex and create a new account.
+- Install the Money Dev Kit MCP in VS Code.
+- Use the Money Dev Kit MCP to look up my products.
+caveats:
+- The new-account flow asks for your real email and name before creating the account.
+- Use /mcp/account/ if you already have an account; /mcp/ is for creating a new one.
+- Credentials returned by the MCP are never printed, logged or committed.
+- MCP is the live source for account operations; the docs are the source for code patterns.
+demo:
+  prompt: Connect Cursor to the Money Dev Kit MCP server.
+  steps:
+  - kind: match
+    text: 'Recognized the skill: mdk-mcp'
+  - kind: check
+    text: Asks whether you already have a Money Dev Kit account, to pick the right endpoint
+  - kind: run
+    text: Picks the authenticated endpoint mcp.moneydevkit.com/mcp/account/
+  - kind: run
+    text: Prepares the Cursor install deep link for that endpoint
+  - kind: caveat
+    text: Any MDK_ACCESS_TOKEN or MDK_MNEMONIC it returns goes in server-side env vars only, never printed
+      or committed.
+  - kind: confirm
+    text: Open the Cursor link to install the moneydevkit MCP server?
+    action: Install
+  result: Cursor lists moneydevkit as an MCP server; the agent can search docs and manage account resources.
+music: null
