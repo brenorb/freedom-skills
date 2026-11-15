@@ -1,0 +1,45 @@
+# Website and README card for this skill. Agents don't load this file.
+# scripts/build_site_data.py turns it into the site's data, the README table and the skill pages.
+category: developer
+order: 90
+name: napplet-migrate
+tagline: Move legacy napplet manifests and projects to the current artifact-hash format.
+summary: Migrate legacy manifests and deployment projects to current artifact-hash metadata.
+readme: Migrate legacy manifests and deployment projects to current artifact-hash metadata.
+tool: '@napplet/cli'
+upstream: https://github.com/napplet/web
+example_prompt: Convert my old signed napplet manifest to the current format.
+what_for: 'Bring a legacy napplet up to date: convert a signed manifest event into an unsigned current-format
+  preview, or rebuild the project, and see what changes for shells, storage and event pointers.'
+needs: napplet CLI; the signed legacy event file or the deployment project
+prompts:
+- Convert my old signed napplet manifest to the current format.
+- Preview what my napplet would publish in the current format.
+- The CLI found a .napplet/config.json; what happens if I migrate it?
+- Mark notify and theme as optional in the migrated manifest.
+- Will migrating change my napplet's saved data in shells?
+caveats:
+- napplet migrate verifies the signature and writes an unsigned preview; it never signs or publishes.
+- A legacy config.json is converted only with your consent and kept as config.json.bak.
+- A legacy aggregate is never reused as the artifact hash; the hash comes from the final bytes.
+- A new artifact identity can affect shell permissions, storage keys and event pointers.
+demo:
+  prompt: Convert my old signed napplet manifest to the current format.
+  steps:
+  - kind: match
+    text: 'Recognized the skill: napplet-migrate'
+  - kind: check
+    text: Confirms this is an event conversion preview, not a project rebuild or a publish
+  - kind: run
+    text: Verifies the signature and writes an unsigned preview
+    cmd: napplet migrate source.json --output preview.json
+  - kind: check
+    text: Reviews the author, kind and d identifier, description, and required versus optional domains
+  - kind: caveat
+    text: The artifact identity changes, which can affect shell permissions, storage keys and snapshot event
+      pointers.
+  - kind: confirm
+    text: Review done. Publish the new manifest as a separate step?
+    action: Publish
+  result: preview.json holds an unsigned current-format manifest to review before anything is signed.
+music: null

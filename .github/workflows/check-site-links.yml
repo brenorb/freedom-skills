@@ -1,0 +1,71 @@
+name: Site data and links
+
+# The website and the README skill tables are generated from skills/*/site.yaml.
+# - Pull requests: fail if the generated files are stale, or if anything links to a skill
+#   or file this commit doesn't contain.
+# - Pushes to main: regenerate and commit the generated files if someone forgot, then check.
+on:
+  pull_request:
+    paths:
+      - "skills/**"
+      - "hooks/**"
+      - "connectors/**"
+      - "site/**"
+      - "README.md"
+      - "scripts/build_site_data.py"
+      - "scripts/check_site_links.py"
+      - "tests/site_data/**"
+      - "tests/site_links/**"
+      - ".github/workflows/check-site-links.yml"
+  push:
+    branches: [main]
+    paths:
+      - "skills/**"
+      - "hooks/**"
+      - "connectors/**"
+      - "site/**"
+      - "README.md"
+      - "scripts/build_site_data.py"
+      - "scripts/check_site_links.py"
+      - ".github/workflows/check-site-links.yml"
+
+jobs:
+  check:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          python-version: "3.12"
+      - name: Test the generator and the link checker
+        run: uv run --with pytest --with pyyaml python -m pytest tests/site_data tests/site_links -q
+      - name: Generated files are up to date
+        run: uv run --with pyyaml python scripts/build_site_data.py --check
+      - name: Catalog, README and links point at files that exist
+        run: python3 scripts/check_site_links.py
+
+  regenerate:
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          python-version: "3.12"
+      - name: Regenerate site data, README tables and live pages
+        run: uv run --with pyyaml python scripts/build_site_data.py
+      - name: Commit regenerated files
+        run: |
+          if git diff --quiet; then
+            echo "Already up to date."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -am "chore(site): regenerate site data from skills/"
+          git push
+      - name: Catalog, README and links point at files that exist
+        run: python3 scripts/check_site_links.py

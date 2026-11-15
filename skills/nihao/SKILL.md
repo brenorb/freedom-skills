@@ -1,7 +1,8 @@
 ---
 name: nihao
 description: Nostr identity setup and health-check CLI. Creates a complete Nostr identity (keypair, profile, relay list, lightning address, Cashu wallet) in one command. Audits existing npub health with a 0–8 score. Single Go binary, non-interactive, agent-friendly.
-repository: https://github.com/dergigi/nihao
+metadata:
+  repository: "https://github.com/dergigi/nihao"
 ---
 
 # nihao 👋

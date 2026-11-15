@@ -1,0 +1,50 @@
+# Website and README card for this skill. Agents don't load this file.
+# scripts/build_site_data.py turns it into the site's data, the README table and the skill pages.
+category: developer
+order: 110
+name: napplet-test
+tagline: Conformance, boundary and UI checks before you publish a napplet.
+summary: Run conformance, UI, and safety checks before shipping a napplet.
+readme: Run conformance, UI, and safety checks before shipping a napplet.
+tool: napplet-conformance
+upstream: https://github.com/napplet/web
+example_prompt: Run conformance tests on my napplet before I ship it.
+what_for: 'Check a napplet before shipping: protocol conformance in real Chromium against a reference shell,
+  an audit for forbidden network, storage and signing code, the single-file artifact and the UI at four
+  frame sizes.'
+needs: A built napplet project with pnpm; napplet-conformance runs headless Chromium
+prompts:
+- Run conformance tests on my napplet before I ship it.
+- Why does my napplet fail with a forbidden global?
+- Add napplet conformance to our CI.
+- Check that my build is one self-contained index.html.
+- Open the visual conformance report.
+- Check which domains my napplet's manifest will declare before I deploy.
+caveats:
+- 'Exit codes: 0 conformant, 1 non-conformant, 2 usage or runtime error.'
+- The forbidden-global check is static, so even unreachable references fail.
+- Fix the napplet, not the check; a failure on a spec-faithful napplet is a tooling bug to flag.
+- Tests the build output, never the source, and never signs or publishes.
+demo:
+  prompt: Run conformance tests on my napplet before I ship it.
+  steps:
+  - kind: match
+    text: 'Recognized the skill: napplet-test'
+  - kind: run
+    text: Runs the guidance test, type-check and single-file build
+    cmd: pnpm verify
+  - kind: run
+    text: Runs conformance in real Chromium against ./dist
+    cmd: pnpm test:conformance
+  - kind: check
+    text: Searches src and dist for fetch, localStorage, WebSocket and window.nostr
+  - kind: run
+    text: Inspects the manifest a deploy would publish, without signing it
+    cmd: napplet deploy --dry-run --json --format current
+  - kind: caveat
+    text: Conformance is not a user preview; only a Paja runtime URL counts as one.
+  - kind: confirm
+    text: Run the four-frame UI check in dark and light?
+    action: Run
+  result: Green conformance, a clean boundary audit and a single-file build mean it's ready to publish.
+music: null

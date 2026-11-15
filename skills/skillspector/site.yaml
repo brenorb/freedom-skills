@@ -1,0 +1,42 @@
+# Website and README card for this skill. Agents don't load this file.
+# scripts/build_site_data.py turns it into the site's data, the README table and the skill pages.
+category: privacy
+order: 30
+name: SkillSpector
+tagline: Scan any skill for vulnerabilities before you install it.
+summary: Security scans for individual skills or skill repositories before installation.
+readme: Security scans for individual skills or skill repositories before installation.
+tool: NVIDIA SkillSpector
+upstream: https://github.com/NVIDIA/SkillSpector
+example_prompt: Scan this skills repo before I install anything from it.
+what_for: Scan a skill, or a whole repo of skills, for vulnerabilities before you install it, with fast
+  static checks or deeper LLM-backed analysis.
+needs: uv (uvx); optionally a Claude Code or Codex login, or an API key, for LLM scans
+prompts:
+- Scan this skills repo before I install anything from it.
+- Run a quick static scan of ./skills/signal-cli.
+- Do a deeper scan using my Claude Code login.
+- Add a SkillSpector check to our CI.
+- This skill got DO_NOT_INSTALL. Is that real or noise?
+caveats:
+- Exit code 1 means findings were reported; it isn't necessarily a crash.
+- API providers send scanned content to a remote endpoint; CLI providers use your local login.
+- Recursive scans don't honor baselines consistently; use a per-skill loop in CI.
+- Generic subprocess findings deserve skepticism when code uses argv lists, not shell=True.
+demo:
+  prompt: Scan this skills repo before I install anything from it.
+  steps:
+  - kind: match
+    text: 'Recognized the skill: skillspector'
+  - kind: run
+    text: Fast static pass over every skill, run with uvx from GitHub
+    cmd: skillspector scan ./skills --recursive --no-llm
+  - kind: check
+    text: Reads each flagged file instead of trusting a HIGH or DO_NOT_INSTALL verdict blindly
+  - kind: caveat
+    text: Exit code 1 means findings were reported, not a crash. Without --recursive, risk is overstated.
+  - kind: confirm
+    text: Run a deeper LLM scan with your active Claude Code login?
+    action: Run
+  result: Per-skill findings, with real supply-chain risks separated from scanner noise.
+music: null

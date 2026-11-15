@@ -1,0 +1,44 @@
+# Website and README card for this skill. Agents don't load this file.
+# scripts/build_site_data.py turns it into the site's data, the README table and the skill pages.
+category: developer
+order: 100
+name: napplet-icon
+tagline: A napplet app icon that still reads at 16 px, ready to embed in the build.
+summary: Design or generate a napplet icon and identity artwork.
+readme: Design or generate a napplet icon and identity artwork.
+tool: Your image-generation tool
+upstream: https://github.com/napplet/web
+example_prompt: Make an icon for my reading-list napplet.
+what_for: 'Get a finished app icon for a napplet: a short design brief, generated artwork, checks at 16,
+  32 and 64 px, and an asset ready to embed in the single-file build.'
+needs: An image-generation tool; the napplet's purpose or existing design notes
+prompts:
+- Make an icon for my reading-list napplet.
+- Refine my napplet's icon so it reads at 16 px.
+- Give me three icon concepts for a DM napplet.
+- Write an icon brief and prompt, but don't generate it yet.
+- Make a transparent-background version of my icon.
+- Add the new icon to my napplet's manifest.
+caveats:
+- Without an image tool it hands over the brief and prompt, and says no image was generated.
+- A large render isn't proof; it checks 16, 32 and 64 px on light and dark backgrounds.
+- The manifest icon takes PNG, JPEG or WebP; an SVG source needs a raster export.
+- The icon is finalized before the artifact is hashed and signed, never patched afterward.
+demo:
+  prompt: Make an icon for my reading-list napplet.
+  steps:
+  - kind: match
+    text: 'Recognized the skill: napplet-icon'
+  - kind: check
+    text: 'Reads the app''s purpose and palette, then writes a brief: identity, concept, treatment, constraints'
+  - kind: run
+    text: Generates one standalone icon, without a phone mockup or presentation board
+  - kind: check
+    text: Previews it at 16, 32 and 64 px, on light and dark, under rounded and circular masks
+  - kind: caveat
+    text: Small lettering and fine detail vanish at launcher size, so it keeps one clear focal shape.
+  - kind: confirm
+    text: Save the icon to the project's assets folder?
+    action: Save
+  result: A PNG icon with its path, dimensions, format and a short design rationale.
+music: null

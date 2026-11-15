@@ -1,4 +1,12 @@
 #!/bin/sh
+# Turn on once per clone:   git config core.hooksPath .githooks
+#
+# 1. Validates every skill the commit touches (scripts/validate_skills_ref.sh).
+# 2. Keeps the website and README in step with skills/: when the commit touches skills/,
+#    connectors/, site/ or README.md, it regenerates the site data, the README skill tables and live
+#    pages, stages exactly the files it rewrote, and checks every link points at something
+#    that exists. It blocks the commit only when a skill is missing its site.yaml card or a
+#    link is broken, and says how to fix it.
 
 set -eu
 
@@ -12,3 +20,30 @@ if [ -z "$staged_files" ]; then
 fi
 
 "$repo_root/scripts/validate_skills_ref.sh" $staged_files
+
+# --- website and README ---
+[ -f scripts/build_site_data.py ] || exit 0
+git diff --cached --quiet -- skills connectors site README.md && exit 0
+
+if ! command -v uv >/dev/null 2>&1; then
+  echo "pre-commit: uv is not installed, so the website wasn't regenerated." >&2
+  echo "            Run: uv run --with pyyaml python scripts/build_site_data.py" >&2
+  exit 0
+fi
+
+out=$(uv run --quiet --with pyyaml python scripts/build_site_data.py) || {
+  echo "pre-commit: the website could not be regenerated (see above). Commit stopped." >&2
+  exit 1
+}
+written=$(printf '%s\n' "$out" | sed -n 's/^wrote //p')
+if [ -n "$written" ]; then
+  printf '%s\n' "$written" | while IFS= read -r f; do git add -- "$f"; done
+  echo "pre-commit: regenerated and staged:"
+  printf '%s\n' "$written" | sed 's/^/  /'
+fi
+
+python3 scripts/check_site_links.py >/dev/null 2>&1 || {
+  python3 scripts/check_site_links.py || true
+  echo "pre-commit: fix the links above, or commit with --no-verify to skip." >&2
+  exit 1
+}

@@ -1,0 +1,42 @@
+# Website and README card for this skill. Agents don't load this file.
+# scripts/build_site_data.py turns it into the site's data, the README table and the skill pages.
+category: sharing
+order: 30
+name: Wayback archive
+tagline: Save a page to the Wayback Machine before it disappears.
+summary: Archiving webpages, checking snapshots, creating stable citation links, and batch archiving URLs.
+readme: Archiving webpages, checking snapshots, creating stable citation links, and batch archiving URLs.
+tool: Internet Archive Wayback Machine
+upstream: https://web.archive.org
+example_prompt: Archive these 40 links and give me citation URLs.
+what_for: Save web pages to the Internet Archive's Wayback Machine for stable citation links, check what's
+  already archived, or compare versions over time.
+needs: Python 3; network access to the Internet Archive
+prompts:
+- Archive these 40 links and give me citation URLs.
+- Is this article already in the Wayback Machine?
+- Show me the snapshot closest to January 1, 2026.
+- How did this page change between January and February?
+- List every snapshot of example.com/article.
+caveats:
+- Saving submits URLs to the Internet Archive, an external network action.
+- A save may return an existing nearby snapshot; check the timestamp if you need a fresh one.
+- New captures may not appear instantly in every lookup.
+- archive.today has no stable public write API and may need a CAPTCHA, so Wayback is the default.
+demo:
+  prompt: Archive these 40 links and give me citation URLs.
+  steps:
+  - kind: match
+    text: 'Recognized the skill: wayback-archive'
+  - kind: check
+    text: 'Reads urls.txt: one URL per line'
+  - kind: run
+    text: Prepares the batch save
+    cmd: python3 scripts/wayback_archive.py batch-save --input urls.txt
+  - kind: caveat
+    text: Each save archives one page, not a whole site, and some sites still refuse to be archived.
+  - kind: confirm
+    text: Submit 40 URLs to the Internet Archive?
+    action: Archive
+  result: An archived_url and timestamp for each link, ready to cite.
+music: null
