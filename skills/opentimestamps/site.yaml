@@ -1,0 +1,44 @@
+# Website and README card for this skill. Agents don't load this file.
+# scripts/build_site_data.py turns it into the site's data, the README table and the skill pages.
+category: sharing
+order: 40
+name: OpenTimestamps
+tagline: Prove a file existed at a point in time, anchored in Bitcoin.
+summary: Timestamp files with OpenTimestamps, generate and upgrade .ots proofs, and verify a file digest
+  was attested in Bitcoin.
+readme: Timestamping files with OpenTimestamps, creating and upgrading `.ots` proofs, and verifying that
+  a file was attested in Bitcoin.
+tool: OpenTimestamps client
+upstream: https://github.com/opentimestamps/opentimestamps-client
+example_prompt: Timestamp this contract and verify the proof next week.
+what_for: Prove a file existed at a point in time by anchoring its digest in Bitcoin through OpenTimestamps,
+  then upgrade and verify the .ots proof later.
+needs: Python 3 and the OpenTimestamps client (ots, uvx or uv); network for calendars
+prompts:
+- Timestamp this contract and verify the proof next week.
+- Is my contract.pdf.ots proof confirmed yet?
+- Upgrade my pending timestamp proof.
+- Verify this .ots proof. The file was renamed to final.pdf.
+- Verify my timestamp against my own Bitcoin node.
+caveats:
+- Fresh proofs are pending and may need upgrade passes before verify succeeds.
+- A proof isn't complete until verify succeeds against a Bitcoin block.
+- Changing the original file after stamping breaks later verification.
+- The fact that a specific digest exists can itself be sensitive; share .ots files with care.
+demo:
+  prompt: Timestamp this contract and verify the proof next week.
+  steps:
+  - kind: match
+    text: 'Recognized the skill: opentimestamps'
+  - kind: run
+    text: Prepares the stamp with the bundled wrapper
+    cmd: python3 scripts/opentimestamps.py stamp --input contract.pdf
+  - kind: check
+    text: Keeps the .ots proof beside the original, which must not change afterwards
+  - kind: caveat
+    text: Proves when a digest existed. It doesn't encrypt or hide the file.
+  - kind: confirm
+    text: Submit contract.pdf's digest to public OpenTimestamps calendars?
+    action: Timestamp
+  result: 'contract.pdf.ots saved. Next week: verify, and upgrade first if it''s still pending.'
+music: null

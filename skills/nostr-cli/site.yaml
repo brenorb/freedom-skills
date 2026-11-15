@@ -1,0 +1,48 @@
+# Website and README card for this skill. Agents don't load this file.
+# scripts/build_site_data.py turns it into the site's data, the README table and the skill pages.
+category: communication
+order: 20
+name: Nostr CLI
+tagline: Post, reply, DM, and publish long-form on Nostr from the command line.
+summary: Nostr account setup, relay management, profiles, posts, replies, DMs, follows, and long-form
+  publishing.
+readme: Nostr account setup, relay management, profiles, posts, replies, DMs, follows, and long-form publishing.
+tool: nostr (xdamman/nostr-cli)
+upstream: https://github.com/xdamman/nostr-cli
+example_prompt: Publish this draft as a long-form Nostr article from my writing account.
+what_for: Post notes, replies, DMs and long-form articles on Nostr from the terminal, manage follows and
+  relays, and stream events as JSON for bots.
+needs: nostr CLI (xdamman/nostr-cli) with at least one local account
+prompts:
+- Publish article.md as a long-form Nostr post from my writing account.
+- Reply 'Nice post' to this note, but show me a dry run first.
+- Send a Nostr DM to alice saying the call is at 3pm.
+- Show alice's Nostr profile.
+- Stream new notes from the last hour as JSONL.
+- Which relays is my bot account using?
+caveats:
+- Never put an nsec in shell arguments; prefer interactive nostr login for real keys.
+- Uses --dry-run before publishing when available, then asks before the real send.
+- nostr dm sends NIP-17 gift-wrapped DMs by default; --nip04 only when the other side needs it.
+- --watch streams keep running; bound them with --since or stop them.
+demo:
+  prompt: Publish this draft as a long-form Nostr article from my writing account.
+  steps:
+  - kind: match
+    text: 'Recognized the skill: nostr-cli'
+  - kind: run
+    text: Lists local accounts to pick the sender
+    cmd: nostr switch --json
+  - kind: run
+    text: Inspects the relay setup before writing
+    cmd: nostr relays --json
+  - kind: run
+    text: Dry-runs the long-form post
+    cmd: nostr post -f article.md --title "My Article" --account writing --dry-run --json
+  - kind: caveat
+    text: Posting is public and changes state, so it confirms the final text and sending account first.
+  - kind: confirm
+    text: Publish 'My Article' as a long-form post from account 'writing'?
+    action: Publish
+  result: Article published to the account's relays; the command returns the event as JSON.
+music: null

@@ -1,0 +1,1603 @@
+{
+  "bitchat": {
+    "slug": "bitchat",
+    "install": "npx skills add brenorb/freedom-skills -s bitchat",
+    "what_for": "Chat with people nearby over Bluetooth mesh with no internet, send direct messages and files, and join location-based channels over Nostr.",
+    "prompts": [
+      "Start the BitChat listener as 'clanker' and tell me who's nearby.",
+      "Show the last 20 messages in the public mesh chat.",
+      "DM @bob on BitChat: 'running 10 minutes late'.",
+      "Send this photo to @bob over BitChat.",
+      "Join the geohash channel for my city and show what people are saying.",
+      "Run BitChat's doctor and tell me if Bluetooth is working."
+    ],
+    "demo": {
+      "prompt": "Post \"meeting moved to 7pm\" in the BitChat mesh and keep listening for replies.",
+      "steps": [
+        {
+          "kind": "match",
+          "text": "Recognized the skill: bitchat"
+        },
+        {
+          "kind": "run",
+          "text": "Checks whether the listener is already running",
+          "cmd": "bitchat daemon status"
+        },
+        {
+          "kind": "run",
+          "text": "Starts the background listener",
+          "cmd": "bitchat daemon start --nickname clanker"
+        },
+        {
+          "kind": "check",
+          "text": "Confirms the exact message and that it goes to the public #mesh chat"
+        },
+        {
+          "kind": "caveat",
+          "text": "Mesh reaches nearby Bluetooth peers only. A queued send or local history row is not proof anyone received it."
+        },
+        {
+          "kind": "confirm",
+          "text": "Send 'meeting moved to 7pm' to the public #mesh chat?",
+          "action": "Send"
+        }
+      ],
+      "result": "Posted to #mesh. The listener keeps running; replies appear in bitchat mesh inbox --tail 20."
+    },
+    "caveats": [
+      "Geohashes disclose location: city level is safer, and block or building precision needs --force.",
+      "A queued send, local history row or relay ACK is not proof the recipient saw the message.",
+      "Geohash messages, geo lookup and Nostr fallback use the internet, not just Bluetooth.",
+      "chat and daemon both need the Bluetooth radio; stop one before running the other."
+    ],
+    "needs": "bitchat CLI (uv tool install bitchat4agents, or Homebrew); Bluetooth LE for mesh; network for geohash/Nostr",
+    "music": null
+  },
+  "nostr-cli": {
+    "slug": "nostr-cli",
+    "install": "npx skills add brenorb/freedom-skills -s nostr-cli",
+    "what_for": "Post notes, replies, DMs and long-form articles on Nostr from the terminal, manage follows and relays, and stream events as JSON for bots.",
+    "prompts": [
+      "Publish article.md as a long-form Nostr post from my writing account.",
+      "Reply 'Nice post' to this note, but show me a dry run first.",
+      "Send a Nostr DM to alice saying the call is at 3pm.",
+      "Show alice's Nostr profile.",
+      "Stream new notes from the last hour as JSONL.",
+      "Which relays is my bot account using?"
+    ],
+    "demo": {
+      "prompt": "Publish this draft as a long-form Nostr article from my writing account.",
+      "steps": [
+        {
+          "kind": "match",
+          "text": "Recognized the skill: nostr-cli"
+        },
+        {
+          "kind": "run",
+          "text": "Lists local accounts to pick the sender",
+          "cmd": "nostr switch --json"
+        },
+        {
+          "kind": "run",
+          "text": "Inspects the relay setup before writing",
+          "cmd": "nostr relays --json"
+        },
+        {
+          "kind": "run",
+          "text": "Dry-runs the long-form post",
+          "cmd": "nostr post -f article.md --title \"My Article\" --account writing --dry-run --json"
+        },
+        {
+          "kind": "caveat",
+          "text": "Posting is public and changes state, so it confirms the final text and sending account first."
+        },
+        {
+          "kind": "confirm",
+          "text": "Publish 'My Article' as a long-form post from account 'writing'?",
+          "action": "Publish"
+        }
+      ],
+      "result": "Article published to the account's relays; the command returns the event as JSON."
+    },
+    "caveats": [
+      "Never put an nsec in shell arguments; prefer interactive nostr login for real keys.",
+      "Uses --dry-run before publishing when available, then asks before the real send.",
+      "nostr dm sends NIP-17 gift-wrapped DMs by default; --nip04 only when the other side needs it.",
+      "--watch streams keep running; bound them with --since or stop them."
+    ],
+    "needs": "nostr CLI (xdamman/nostr-cli) with at least one local account",
+    "music": null
+  },
+  "nihao": {
+    "slug": "nihao",
+    "install": "npx skills add brenorb/freedom-skills -s nihao",
+    "what_for": "Create a complete Nostr identity in one command (profile, relays, lightning address, Cashu wallet) or score an existing npub's health and see what's missing.",
+    "prompts": [
+      "Check how healthy my npub is and tell me what to fix.",
+      "Create a Nostr identity for my bot called Scout and save the key safely.",
+      "Back up my Nostr profile and relay lists to identity.json.",
+      "Is my NIP-05 and lightning address actually working?",
+      "Check my npub using only my own relays."
+    ],
+    "demo": {
+      "prompt": "Check how healthy my npub is and tell me what to fix.",
+      "steps": [
+        {
+          "kind": "match",
+          "text": "Recognized the skill: nihao"
+        },
+        {
+          "kind": "run",
+          "text": "Runs the health check",
+          "cmd": "nihao check npub1... --json"
+        },
+        {
+          "kind": "check",
+          "text": "Reads each check: profile, NIP-05, picture, lightning address, relay lists, DM relays, wallet"
+        },
+        {
+          "kind": "caveat",
+          "text": "Exit code 1 means one or more checks failed; 0 means every check passed."
+        },
+        {
+          "kind": "result",
+          "text": "Score 6/8. Not passing: nip05 (not set) and DM relay list (kind 10050)."
+        }
+      ],
+      "result": "A scored report with each check's status and detail, so you know which fixes come first."
+    },
+    "caveats": [
+      "The nsec cannot be recovered if lost; use --nsec-file or --nsec-cmd to store it.",
+      "Avoid passing a raw nsec as an argument; prefer --stdin or --nsec-cmd.",
+      "Setup publishes your profile, relay lists, follows and a first #nihao note to public relays.",
+      "Built from source with go install; no pre-built binaries are downloaded."
+    ],
+    "needs": "Go 1.21+ to build nihao (go install github.com/dergigi/nihao@latest)",
+    "music": null
+  },
+  "signal-cli": {
+    "slug": "signal-cli",
+    "install": "npx skills add brenorb/freedom-skills -s signal-cli",
+    "what_for": "Send Signal messages and files to people or groups from your computer, through a linked device on your own Signal account.",
+    "prompts": [
+      "Send the signed PDF to Ana on Signal.",
+      "Message the Book Club group: 'Thursday at 7, my place.'",
+      "Send me a note-to-self on Signal to check it's working.",
+      "Link Signal on this laptop.",
+      "Find Ana in my Signal contacts.",
+      "Send these three photos to Bruno on Signal."
+    ],
+    "demo": {
+      "prompt": "Send the signed PDF to Ana on Signal.",
+      "steps": [
+        {
+          "kind": "match",
+          "text": "Recognized the skill: signal-cli"
+        },
+        {
+          "kind": "run",
+          "text": "Syncs contacts and groups first",
+          "cmd": "signal-cli -u \"<your-number>\" receive"
+        },
+        {
+          "kind": "run",
+          "text": "Looks up the recipient",
+          "cmd": "python3 scripts/find_contact.py --account \"<your-number>\" --query \"Ana\""
+        },
+        {
+          "kind": "check",
+          "text": "Exactly one contact matches; if several did, it would stop and ask"
+        },
+        {
+          "kind": "caveat",
+          "text": "Confirms the recipient and final text before any send, and asks explicitly if the content is sensitive."
+        },
+        {
+          "kind": "confirm",
+          "text": "Send signed-contract.pdf to Ana (+55…) with 'Signed copy attached'?",
+          "action": "Send"
+        }
+      ],
+      "result": "Sent from your linked device; Ana gets it like any other Signal message."
+    },
+    "caveats": [
+      "signal-cli can look healthy with no linked account; listAccounts is the real check.",
+      "Contacts, groups and profiles can be stale until receive runs.",
+      "If the lookup returns several candidates, it stops and asks which one.",
+      "Group sends may warn about stale members yet still deliver; success means a clean exit."
+    ],
+    "needs": "signal-cli installed and linked as a secondary device to your Signal account",
+    "music": null
+  },
+  "btcdeb": {
+    "slug": "btcdeb",
+    "install": "npx skills add brenorb/freedom-skills -s btcdeb",
+    "what_for": "Write, compile, run and step through Bitcoin Script, check real signatures against transactions, and try Taproot constructions. For learning and debugging, not wallets.",
+    "prompts": [
+      "Debug why this 2-of-3 multisig script fails verification.",
+      "Does OP_3 OP_DUP OP_ADD OP_6 OP_EQUAL leave true on the stack?",
+      "Compile this Script to hex.",
+      "Step through this script and show the stack after each opcode.",
+      "Check this spend's signature against the previous transaction.",
+      "Build a Taproot address with two script leaves."
+    ],
+    "demo": {
+      "prompt": "Debug why this 2-of-3 multisig script fails verification.",
+      "steps": [
+        {
+          "kind": "match",
+          "text": "Recognized the skill: btcdeb"
+        },
+        {
+          "kind": "run",
+          "text": "Runs the spend with its real transaction context",
+          "cmd": "btcdeb --tx=\"<spending_hex>\" --txin=\"<previous_hex>\" --select=0"
+        },
+        {
+          "kind": "run",
+          "text": "Shows sighash and signing details",
+          "cmd": "btcdeb --debug=sighash,signing --tx=<spending_hex> --txin=<prev_hex> --select=0"
+        },
+        {
+          "kind": "check",
+          "text": "Records exit status, error, final stack and assumptions separately"
+        },
+        {
+          "kind": "caveat",
+          "text": "Finishing without error isn't spend validity, and a --pretend-valid run is never signature verification."
+        },
+        {
+          "kind": "result",
+          "text": "Shows the failing opcode and stack, with a plain explanation and the assumptions used."
+        }
+      ],
+      "result": "You see where verification fails, e.g. a missing input amount for witness signature hashing."
+    },
+    "caveats": [
+      "Exit status 0 can still leave false or an empty stack; completion isn't spend validity.",
+      "--pretend-valid only proves the mocked path, never real signature verification.",
+      "Won't remove verification flags or enable disabled opcodes just to make a spend pass.",
+      "btcdeb's copied interpreter is not a current Bitcoin Core consensus oracle."
+    ],
+    "needs": "btcdeb (with btcc and tap); Nix can run it one-shot",
+    "music": null
+  },
+  "mdk-agent-wallet": {
+    "slug": "mdk-agent-wallet",
+    "install": "npx skills add brenorb/freedom-skills -s mdk-agent-wallet",
+    "what_for": "Give an AI agent its own self-custodial Lightning wallet: receive and send sats, check balance and history, and pay L402-protected APIs.",
+    "prompts": [
+      "Pay this L402 endpoint up to 500 sats and show me the receipt.",
+      "Set up a Lightning wallet for my agent.",
+      "What's my agent wallet balance?",
+      "Create an invoice for 1,000 sats.",
+      "Send 500 sats to ana@example.com.",
+      "Show the agent wallet's recent payments."
+    ],
+    "demo": {
+      "prompt": "Pay this L402 endpoint up to 500 sats and show me the receipt.",
+      "steps": [
+        {
+          "kind": "match",
+          "text": "Recognized the skill: mdk-agent-wallet"
+        },
+        {
+          "kind": "run",
+          "text": "Checks that a wallet already exists",
+          "cmd": "npx @moneydevkit/agent-wallet@latest status"
+        },
+        {
+          "kind": "run",
+          "text": "Requests the endpoint and gets HTTP 402 with an invoice and token"
+        },
+        {
+          "kind": "check",
+          "text": "The invoice asks 100 sats, inside your 500-sat limit"
+        },
+        {
+          "kind": "caveat",
+          "text": "The mnemonic controls the funds. It is never printed unless you ask for backup instructions."
+        },
+        {
+          "kind": "confirm",
+          "text": "Pay the 100-sat invoice from example.com?",
+          "action": "Pay"
+        }
+      ],
+      "result": "Paid, then retried with Authorization: L402 <token>:<preimage>; response and payment hash shown."
+    },
+    "caveats": [
+      "The mnemonic (and MDK_WALLET_MNEMONIC) controls funds; keep it secret.",
+      "Never deletes or reinitializes the wallet unless you confirm the mnemonic is backed up.",
+      "If commands hang or return no output, restart the wallet daemon.",
+      "Wallet config lives in ~/.mdk-wallet/config.json unless overridden."
+    ],
+    "needs": "npx (Node.js); a wallet created with agent-wallet init",
+    "music": null
+  },
+  "mdk-l402-api": {
+    "slug": "mdk-l402-api",
+    "install": "npx skills add brenorb/freedom-skills -s mdk-l402-api",
+    "what_for": "Turn an API route into a pay-per-call endpoint: callers get an HTTP 402 with a Lightning invoice, pay it, and retry with an L402 token.",
+    "prompts": [
+      "Put my /api/summarize route behind a 10-sat L402 paywall.",
+      "Charge 5 US cents per call on my Express /api/premium endpoint.",
+      "Price my image endpoint by size, in sats.",
+      "Write an llms.txt so agents know how to pay my API.",
+      "Test that my paid route returns 402 without payment."
+    ],
+    "demo": {
+      "prompt": "Put my /api/summarize route behind a 10-sat L402 paywall.",
+      "steps": [
+        {
+          "kind": "match",
+          "text": "Recognized the skill: mdk-l402-api"
+        },
+        {
+          "kind": "check",
+          "text": "Inspects the framework and route style, and that Money Dev Kit is already set up"
+        },
+        {
+          "kind": "check",
+          "text": "MDK_ACCESS_TOKEN and MDK_MNEMONIC are set as server-side environment variables"
+        },
+        {
+          "kind": "run",
+          "text": "Wraps the handler in withPayment({ amount: 10, currency: \"SAT\" }, handler)"
+        },
+        {
+          "kind": "caveat",
+          "text": "Secrets stay on the server, never in client code or llms.txt."
+        },
+        {
+          "kind": "confirm",
+          "text": "Apply the paywall to app/api/summarize/route.ts?",
+          "action": "Apply"
+        }
+      ],
+      "result": "Unpaid calls get a 402 with an invoice; paid retries with an L402 token reach your handler."
+    },
+    "caveats": [
+      "Dynamic prices must be deterministic: the amount is computed at invoice creation and verification.",
+      "Keeps your existing validation and authorization logic inside the paid handler.",
+      "Uses L402 rather than inventing a custom payment auth scheme.",
+      "currency \"SAT\" prices in satoshis; \"USD\" prices in US cents."
+    ],
+    "needs": "An app with Money Dev Kit set up (@moneydevkit/nextjs or /replit); MDK_ACCESS_TOKEN and MDK_MNEMONIC",
+    "music": null
+  },
+  "mdk-mcp": {
+    "slug": "mdk-mcp",
+    "install": "npx skills add brenorb/freedom-skills -s mdk-mcp",
+    "what_for": "Connect your coding agent to the Money Dev Kit MCP server so it can create an account, manage apps, products and checkouts, and search the docs live.",
+    "prompts": [
+      "Connect Cursor to the Money Dev Kit MCP server.",
+      "Add the Money Dev Kit MCP to Claude Code. I already have an account.",
+      "Set up Money Dev Kit MCP in Codex and create a new account.",
+      "Install the Money Dev Kit MCP in VS Code.",
+      "Use the Money Dev Kit MCP to look up my products."
+    ],
+    "demo": {
+      "prompt": "Connect Cursor to the Money Dev Kit MCP server.",
+      "steps": [
+        {
+          "kind": "match",
+          "text": "Recognized the skill: mdk-mcp"
+        },
+        {
+          "kind": "check",
+          "text": "Asks whether you already have a Money Dev Kit account, to pick the right endpoint"
+        },
+        {
+          "kind": "run",
+          "text": "Picks the authenticated endpoint mcp.moneydevkit.com/mcp/account/"
+        },
+        {
+          "kind": "run",
+          "text": "Prepares the Cursor install deep link for that endpoint"
+        },
+        {
+          "kind": "caveat",
+          "text": "Any MDK_ACCESS_TOKEN or MDK_MNEMONIC it returns goes in server-side env vars only, never printed or committed."
+        },
+        {
+          "kind": "confirm",
+          "text": "Open the Cursor link to install the moneydevkit MCP server?",
+          "action": "Install"
+        }
+      ],
+      "result": "Cursor lists moneydevkit as an MCP server; the agent can search docs and manage account resources."
+    },
+    "caveats": [
+      "The new-account flow asks for your real email and name before creating the account.",
+      "Use /mcp/account/ if you already have an account; /mcp/ is for creating a new one.",
+      "Credentials returned by the MCP are never printed, logged or committed.",
+      "MCP is the live source for account operations; the docs are the source for code patterns."
+    ],
+    "needs": "An MCP-capable agent: Claude Code, Codex, Cursor, VS Code or Replit Agent",
+    "music": null
+  },
+  "mdk-nextjs-checkout": {
+    "slug": "mdk-nextjs-checkout",
+    "install": "npx skills add brenorb/freedom-skills -s mdk-nextjs-checkout",
+    "what_for": "Add a Lightning checkout to a Next.js App Router app with Money Dev Kit: the /api/mdk route, a checkout button, a checkout page and success handling.",
+    "prompts": [
+      "Add a Lightning checkout button to my pricing page.",
+      "Set up Money Dev Kit checkout in my Next.js app.",
+      "Show a thank-you page only after the payment succeeds.",
+      "My /api/mdk route is broken. Fix the checkout setup.",
+      "Use my Money Dev Kit product for the Pro plan checkout."
+    ],
+    "demo": {
+      "prompt": "Add a Lightning checkout button to my pricing page.",
+      "steps": [
+        {
+          "kind": "match",
+          "text": "Recognized the skill: mdk-nextjs-checkout"
+        },
+        {
+          "kind": "check",
+          "text": "Inspects the package manager, Next.js version, app/ folder and existing payment routes"
+        },
+        {
+          "kind": "run",
+          "text": "Installs the package",
+          "cmd": "npm install @moneydevkit/nextjs"
+        },
+        {
+          "kind": "run",
+          "text": "Adds app/api/mdk/route.ts, the next.config plugin and a useCheckout() button"
+        },
+        {
+          "kind": "caveat",
+          "text": "MDK_ACCESS_TOKEN and MDK_MNEMONIC stay in server-side env vars and are never committed."
+        },
+        {
+          "kind": "confirm",
+          "text": "Apply the checkout changes and run the app's build checks?",
+          "action": "Apply"
+        }
+      ],
+      "result": "The pricing button opens a Lightning checkout page; typecheck and build pass."
+    },
+    "caveats": [
+      "App Router only; Pages Router just when you explicitly ask for legacy support.",
+      "currency \"USD\" is in cents; \"SAT\" is in satoshis.",
+      "For product checkouts it uses Money Dev Kit product IDs, not hard-coded amounts.",
+      "Keeps your package manager, routing and styling conventions."
+    ],
+    "needs": "A Next.js App Router project and a Money Dev Kit account (MDK_ACCESS_TOKEN, MDK_MNEMONIC)",
+    "music": null
+  },
+  "mdk-replit-checkout": {
+    "slug": "mdk-replit-checkout",
+    "install": "npx skills add brenorb/freedom-skills -s mdk-replit-checkout",
+    "what_for": "Make a Replit app with a Vite + React client and an Express server accept Lightning payments through Money Dev Kit checkout.",
+    "prompts": [
+      "Make my Replit app accept Lightning payments.",
+      "Add a Lightning checkout button to my Replit store page.",
+      "Mount the Money Dev Kit route in my Express server.",
+      "My Replit build drops @moneydevkit. Fix the bundler allowlist.",
+      "Show a success screen after a Lightning payment in my Replit app."
+    ],
+    "demo": {
+      "prompt": "Make my Replit app accept Lightning payments.",
+      "steps": [
+        {
+          "kind": "match",
+          "text": "Recognized the skill: mdk-replit-checkout"
+        },
+        {
+          "kind": "check",
+          "text": "Confirms the app has both a Vite + React client and an Express server"
+        },
+        {
+          "kind": "run",
+          "text": "Installs the packages",
+          "cmd": "npm install @moneydevkit/replit express"
+        },
+        {
+          "kind": "run",
+          "text": "Mounts createMdkExpressRouter() at /api/mdk and adds a useCheckout() button"
+        },
+        {
+          "kind": "caveat",
+          "text": "Asks for your email and name before creating a Money Dev Kit account; keys go in Replit env vars."
+        },
+        {
+          "kind": "confirm",
+          "text": "Apply the changes and restart the Replit app?",
+          "action": "Apply"
+        }
+      ],
+      "result": "Checkout works in the Replit preview with sandbox payments, no wallet needed."
+    },
+    "caveats": [
+      "Uses @moneydevkit/replit, not @moneydevkit/nextjs.",
+      "Both MDK_ACCESS_TOKEN and MDK_MNEMONIC are required and are never hard-coded.",
+      "Adds @moneydevkit/core and @moneydevkit/replit to the bundler allowlist if script/build.ts exists.",
+      "Not for static, design-only Replit projects."
+    ],
+    "needs": "A Replit app with Vite + React and Express; a Money Dev Kit account",
+    "music": null
+  },
+  "rampart-hook-configurator": {
+    "slug": "rampart-hook-configurator",
+    "install": "npx skills add brenorb/freedom-skills -s rampart-hook-configurator",
+    "what_for": "Set up the paired Rampart hooks that redact names, emails and other personal data before a request reaches a hosted model, and restore them in the reply.",
+    "prompts": [
+      "Set up Rampart so names and emails never reach the model.",
+      "Let URLs through Rampart but keep redacting everything else.",
+      "Placeholders aren't restored in replies. Fix my session ID wiring.",
+      "Make the pre-send hook fail closed.",
+      "Test the Rampart round trip with one real request."
+    ],
+    "demo": {
+      "prompt": "Set up Rampart so names and emails never reach the model.",
+      "steps": [
+        {
+          "kind": "match",
+          "text": "Recognized the skill: rampart-hook-configurator"
+        },
+        {
+          "kind": "check",
+          "text": "Maps the boundary: what enters pre-send, what leaves post-send, where the session id comes from"
+        },
+        {
+          "kind": "run",
+          "text": "Copies the example config for this harness",
+          "cmd": "cp rampart-hooks.config.example.json rampart-hooks.config.json"
+        },
+        {
+          "kind": "run",
+          "text": "Tests redaction on one line",
+          "cmd": "printf 'My email is ana@example.com\\n' | node ./rampart-pre-send.mjs --mode text"
+        },
+        {
+          "kind": "caveat",
+          "text": "Rampart reduces exposure but is not a security boundary; it has known miss cases."
+        },
+        {
+          "kind": "confirm",
+          "text": "Save the config with failOpen: false and one session id wired into both hooks?",
+          "action": "Save"
+        }
+      ],
+      "result": "The model sees [EMAIL_1]; the post-send hook restores the real address in the reply."
+    },
+    "caveats": [
+      "Both hooks need the same session id, or post-send can't restore placeholders.",
+      "Widening keepLabels (for example adding URL) is a privacy tradeoff it will name.",
+      "Won't recommend bypassing the pre-send hook because one label is inconvenient.",
+      "Not a security boundary: an exposure-reduction layer with known miss cases."
+    ],
+    "needs": "Node.js; this repo's hooks/rampart-pre-send package (npm install); a harness that pipes payloads through hooks",
+    "music": null
+  },
+  "security-audit": {
+    "slug": "security-audit",
+    "install": "npx skills add brenorb/freedom-skills -s security-audit",
+    "what_for": "Get a source-first security review of a codebase: real trust-boundary vulnerabilities with evidence, priority and the smallest fix, from a quick question to a full report.",
+    "prompts": [
+      "Run a full security audit of this repo and write up the findings.",
+      "Is this login handler vulnerable to an auth bypass?",
+      "Do a quick-profile audit of just the src/api folder.",
+      "Review this webhook endpoint for cross-tenant data leaks.",
+      "Re-run the audit and carry over last run's findings."
+    ],
+    "demo": {
+      "prompt": "Run a full security audit of this repo and write up the findings.",
+      "steps": [
+        {
+          "kind": "match",
+          "text": "Recognized the skill: security-audit"
+        },
+        {
+          "kind": "check",
+          "text": "You asked for a full audit, so it runs all six phases instead of guidance mode"
+        },
+        {
+          "kind": "run",
+          "text": "Records the target, source commit and an output folder outside the repo"
+        },
+        {
+          "kind": "caveat",
+          "text": "Target code only runs in an OS-enforced sandbox with no network; otherwise it's marked needs_validation."
+        },
+        {
+          "kind": "confirm",
+          "text": "Start a standard audit writing to ~/security-audit-skill/my-app/run-1?",
+          "action": "Run"
+        }
+      ],
+      "result": "REPORT.md, FINDINGS-DETAIL.md and NEEDS-VALIDATION.md written after both validators pass."
+    },
+    "caveats": [
+      "Never probes deployed endpoints, production identities or other users' data.",
+      "Only confirmed findings get a severity; needs_validation records have none.",
+      "Describes the smallest fix for each finding but doesn't modify your source.",
+      "A quick or scoped run is reported as partial coverage, never as a clean bill."
+    ],
+    "needs": "A local checkout of the code; an OS-enforced sandbox if any target code must run",
+    "music": null
+  },
+  "skillspector": {
+    "slug": "skillspector",
+    "install": "npx skills add brenorb/freedom-skills -s skillspector",
+    "what_for": "Scan a skill, or a whole repo of skills, for vulnerabilities before you install it, with fast static checks or deeper LLM-backed analysis.",
+    "prompts": [
+      "Scan this skills repo before I install anything from it.",
+      "Run a quick static scan of ./skills/signal-cli.",
+      "Do a deeper scan using my Claude Code login.",
+      "Add a SkillSpector check to our CI.",
+      "This skill got DO_NOT_INSTALL. Is that real or noise?"
+    ],
+    "demo": {
+      "prompt": "Scan this skills repo before I install anything from it.",
+      "steps": [
+        {
+          "kind": "match",
+          "text": "Recognized the skill: skillspector"
+        },
+        {
+          "kind": "run",
+          "text": "Fast static pass over every skill, run with uvx from GitHub",
+          "cmd": "skillspector scan ./skills --recursive --no-llm"
+        },
+        {
+          "kind": "check",
+          "text": "Reads each flagged file instead of trusting a HIGH or DO_NOT_INSTALL verdict blindly"
+        },
+        {
+          "kind": "caveat",
+          "text": "Exit code 1 means findings were reported, not a crash. Without --recursive, risk is overstated."
+        },
+        {
+          "kind": "confirm",
+          "text": "Run a deeper LLM scan with your active Claude Code login?",
+          "action": "Run"
+        }
+      ],
+      "result": "Per-skill findings, with real supply-chain risks separated from scanner noise."
+    },
+    "caveats": [
+      "Exit code 1 means findings were reported; it isn't necessarily a crash.",
+      "API providers send scanned content to a remote endpoint; CLI providers use your local login.",
+      "Recursive scans don't honor baselines consistently; use a per-skill loop in CI.",
+      "Generic subprocess findings deserve skepticism when code uses argv lists, not shell=True."
+    ],
+    "needs": "uv (uvx); optionally a Claude Code or Codex login, or an API key, for LLM scans",
+    "music": null
+  },
+  "timelock-sh": {
+    "slug": "timelock-sh",
+    "install": "npx skills add brenorb/freedom-skills -s timelock-sh",
+    "what_for": "Encrypt a file so nobody, you included, can open it until a chosen UTC minute up to about 30 days ahead, using the public timelock.sh service.",
+    "prompts": [
+      "Lock this letter so nobody can open it until two weeks from now.",
+      "Time-lock answers.zip until next Friday at 09:00 UTC.",
+      "When does this .enc file unlock?",
+      "Decrypt letter.txt.enc. It should be open by now.",
+      "Make a one-shot decrypt script my friend can run."
+    ],
+    "demo": {
+      "prompt": "Lock this letter so nobody can open it until two weeks from now.",
+      "steps": [
+        {
+          "kind": "match",
+          "text": "Recognized the skill: timelock-sh"
+        },
+        {
+          "kind": "check",
+          "text": "Picks a future UTC minute inside the roughly 30-day certificate window"
+        },
+        {
+          "kind": "run",
+          "text": "Prepares local encryption with the bundled wrapper",
+          "cmd": "python3 scripts/timelock.py encrypt --unlock <utc-minute> --input letter.txt"
+        },
+        {
+          "kind": "caveat",
+          "text": "Once the unlock minute arrives the key is public forever: this is time-locking, not private encryption."
+        },
+        {
+          "kind": "confirm",
+          "text": "Lock letter.txt until two weeks from now, 09:00 UTC?",
+          "action": "Lock"
+        }
+      ],
+      "result": "letter.txt.enc created. Decrypting early returns 425 Too Early with a retry time."
+    },
+    "caveats": [
+      "After the unlock minute anyone with the file can decrypt it; it isn't recipient-restricted.",
+      "Certificates exist only about 30 days ahead; far-future dates fail before encrypting.",
+      "Plaintext stays local; only the public certificate or released key comes from timelock.sh.",
+      "UTC and minute-granular only; no sub-minute scheduling."
+    ],
+    "needs": "Python 3 and OpenSSL 3.x; network access to timelock.sh",
+    "music": null
+  },
+  "hosted-nowhere": {
+    "slug": "hosted-nowhere",
+    "install": "npx skills add brenorb/freedom-skills -s hosted-nowhere",
+    "what_for": "Create and update shareable Nowhere pages (messages, text drops, events, fundraisers, petitions, forums, SVG art) where the whole site lives in the link.",
+    "prompts": [
+      "Make a Nowhere fundraiser page for the community garden.",
+      "Turn this announcement into a Nowhere message page.",
+      "Create an event invite for Saturday's meetup.",
+      "Start a petition and tell me how many people signed.",
+      "What kind of Nowhere page is this link?",
+      "Update the event link with the new start time."
+    ],
+    "demo": {
+      "prompt": "Make a Nowhere fundraiser page for the community garden.",
+      "steps": [
+        {
+          "kind": "match",
+          "text": "Recognized the skill: hosted-nowhere"
+        },
+        {
+          "kind": "run",
+          "text": "Fills fundraiser.json: name, description, image and your payment method"
+        },
+        {
+          "kind": "run",
+          "text": "Prepares the fundraiser link",
+          "cmd": "npx --yes nowhere-cli create fundraiser --input fundraiser.json --json"
+        },
+        {
+          "kind": "check",
+          "text": "Opens the final link and checks the app, content and exact payment destination"
+        },
+        {
+          "kind": "caveat",
+          "text": "An unencrypted link exposes its content to anyone who has it. Edits make a new URL; old links don't change."
+        },
+        {
+          "kind": "confirm",
+          "text": "Create the 'Community Garden' fundraiser link?",
+          "action": "Create"
+        }
+      ],
+      "result": "You get the new fundraiser link, checked and ready to share."
+    },
+    "caveats": [
+      "The site is the full fragment after #; an unencrypted link exposes its content to anyone holding it.",
+      "Updates build a new URL; links you already shared don't change.",
+      "Updates replace whole arrays such as tags and items, so patches are kept narrow.",
+      "Store is deprecated: a buyer can pay without the seller reliably receiving the order."
+    ],
+    "needs": "Node.js 20+ with npx; network access for relay operations",
+    "music": null
+  },
+  "p2p-transfer-filepizza": {
+    "slug": "p2p-transfer-filepizza",
+    "install": "npx skills add brenorb/freedom-skills -s p2p-transfer-filepizza",
+    "what_for": "Send a file straight from your computer to someone's browser with a temporary peer-to-peer FilePizza link, without uploading it to a server.",
+    "prompts": [
+      "Give me a peer-to-peer link for this 2 GB video.",
+      "Is my FilePizza share still running?",
+      "Stop seeding the file I shared earlier.",
+      "Send this zip to Ana with a direct download link."
+    ],
+    "demo": {
+      "prompt": "Give me a peer-to-peer link for this 2 GB video.",
+      "steps": [
+        {
+          "kind": "match",
+          "text": "Recognized the skill: p2p-transfer-filepizza"
+        },
+        {
+          "kind": "check",
+          "text": "The path exists, is a regular file, and isn't a seed phrase, key or wallet"
+        },
+        {
+          "kind": "run",
+          "text": "Prepares the share with the pinned CLI",
+          "cmd": "npx --yes filepizza-cli@0.1.0 share /absolute/path/to/video.mp4"
+        },
+        {
+          "kind": "caveat",
+          "text": "You must stay online until the download finishes. Peer IPs can be exposed to each other."
+        },
+        {
+          "kind": "confirm",
+          "text": "Create a public share link for video.mp4?",
+          "action": "Share"
+        }
+      ],
+      "result": "Seeding at a file.pizza short link; keep this computer online until the download is done."
+    },
+    "caveats": [
+      "The sender must stay online; the link stops working once seeding ends.",
+      "Not for seed phrases, private keys, wallets or similar high-risk secrets.",
+      "Peer IP, service metadata and the recipient's in-browser JavaScript are part of the trust model.",
+      "Large files depend on WebRTC, so success is less certain than a server upload."
+    ],
+    "needs": "Node.js 22+ and npm",
+    "music": null
+  },
+  "wayback-archive": {
+    "slug": "wayback-archive",
+    "install": "npx skills add brenorb/freedom-skills -s wayback-archive",
+    "what_for": "Save web pages to the Internet Archive's Wayback Machine for stable citation links, check what's already archived, or compare versions over time.",
+    "prompts": [
+      "Archive these 40 links and give me citation URLs.",
+      "Is this article already in the Wayback Machine?",
+      "Show me the snapshot closest to January 1, 2026.",
+      "How did this page change between January and February?",
+      "List every snapshot of example.com/article."
+    ],
+    "demo": {
+      "prompt": "Archive these 40 links and give me citation URLs.",
+      "steps": [
+        {
+          "kind": "match",
+          "text": "Recognized the skill: wayback-archive"
+        },
+        {
+          "kind": "check",
+          "text": "Reads urls.txt: one URL per line"
+        },
+        {
+          "kind": "run",
+          "text": "Prepares the batch save",
+          "cmd": "python3 scripts/wayback_archive.py batch-save --input urls.txt"
+        },
+        {
+          "kind": "caveat",
+          "text": "Each save archives one page, not a whole site, and some sites still refuse to be archived."
+        },
+        {
+          "kind": "confirm",
+          "text": "Submit 40 URLs to the Internet Archive?",
+          "action": "Archive"
+        }
+      ],
+      "result": "An archived_url and timestamp for each link, ready to cite."
+    },
+    "caveats": [
+      "Saving submits URLs to the Internet Archive, an external network action.",
+      "A save may return an existing nearby snapshot; check the timestamp if you need a fresh one.",
+      "New captures may not appear instantly in every lookup.",
+      "archive.today has no stable public write API and may need a CAPTCHA, so Wayback is the default."
+    ],
+    "needs": "Python 3; network access to the Internet Archive",
+    "music": null
+  },
+  "opentimestamps": {
+    "slug": "opentimestamps",
+    "install": "npx skills add brenorb/freedom-skills -s opentimestamps",
+    "what_for": "Prove a file existed at a point in time by anchoring its digest in Bitcoin through OpenTimestamps, then upgrade and verify the .ots proof later.",
+    "prompts": [
+      "Timestamp this contract and verify the proof next week.",
+      "Is my contract.pdf.ots proof confirmed yet?",
+      "Upgrade my pending timestamp proof.",
+      "Verify this .ots proof. The file was renamed to final.pdf.",
+      "Verify my timestamp against my own Bitcoin node."
+    ],
+    "demo": {
+      "prompt": "Timestamp this contract and verify the proof next week.",
+      "steps": [
+        {
+          "kind": "match",
+          "text": "Recognized the skill: opentimestamps"
+        },
+        {
+          "kind": "run",
+          "text": "Prepares the stamp with the bundled wrapper",
+          "cmd": "python3 scripts/opentimestamps.py stamp --input contract.pdf"
+        },
+        {
+          "kind": "check",
+          "text": "Keeps the .ots proof beside the original, which must not change afterwards"
+        },
+        {
+          "kind": "caveat",
+          "text": "Proves when a digest existed. It doesn't encrypt or hide the file."
+        },
+        {
+          "kind": "confirm",
+          "text": "Submit contract.pdf's digest to public OpenTimestamps calendars?",
+          "action": "Timestamp"
+        }
+      ],
+      "result": "contract.pdf.ots saved. Next week: verify, and upgrade first if it's still pending."
+    },
+    "caveats": [
+      "Fresh proofs are pending and may need upgrade passes before verify succeeds.",
+      "A proof isn't complete until verify succeeds against a Bitcoin block.",
+      "Changing the original file after stamping breaks later verification.",
+      "The fact that a specific digest exists can itself be sensitive; share .ots files with care."
+    ],
+    "needs": "Python 3 and the OpenTimestamps client (ots, uvx or uv); network for calendars",
+    "music": null
+  },
+  "domain-intel": {
+    "slug": "domain-intel",
+    "install": "npx skills add brenorb/freedom-skills -s domain-intel",
+    "what_for": "Look up who's behind a domain and what it runs (WHOIS, DNS, SSL certificates, subdomains from certificate logs, availability) with no API keys.",
+    "prompts": [
+      "Who's behind this phishing domain and what else do they run?",
+      "List subdomains of example.com from certificate logs.",
+      "When does example.com's SSL certificate expire?",
+      "Is coolstartup.io available?",
+      "Compare DNS and SSL for these three domains.",
+      "What mail servers does example.com use?"
+    ],
+    "demo": {
+      "prompt": "Who's behind this phishing domain and what else do they run?",
+      "steps": [
+        {
+          "kind": "match",
+          "text": "Recognized the skill: domain-intel"
+        },
+        {
+          "kind": "run",
+          "text": "WHOIS lookup",
+          "cmd": "python3 scripts/domain_intel.py whois example.com"
+        },
+        {
+          "kind": "run",
+          "text": "Subdomains from Certificate Transparency logs",
+          "cmd": "python3 scripts/domain_intel.py subdomains example.com"
+        },
+        {
+          "kind": "run",
+          "text": "Certificate details and SANs",
+          "cmd": "python3 scripts/domain_intel.py ssl example.com"
+        },
+        {
+          "kind": "caveat",
+          "text": "Registrant details are often redacted (GDPR), and WHOIS on port 43 may be blocked."
+        },
+        {
+          "kind": "confirm",
+          "text": "Save the findings to ./domain-report.md?",
+          "action": "Save"
+        }
+      ],
+      "result": "Registrar, dates, name servers, subdomains and certificate SANs collected as leads."
+    },
+    "caveats": [
+      "Passive only: no port scans; the SSL check is the one direct connection to the target.",
+      "WHOIS servers often redact registrant info under GDPR.",
+      "The availability check is a heuristic, not authoritative like a registrar API.",
+      "crt.sh can be slow for very popular domains."
+    ],
+    "needs": "Python 3 only; no dependencies or API keys",
+    "music": null
+  },
+  "fast-transcript": {
+    "slug": "fast-transcript",
+    "install": "npx skills add brenorb/freedom-skills -s fast-transcript",
+    "what_for": "Transcribe audio and video, from local files or links that yt-dlp supports, with timestamps and optional speaker labels.",
+    "prompts": [
+      "Transcribe this interview and label who is speaking.",
+      "Summarize this YouTube talk.",
+      "Find where they mention pricing in this podcast episode.",
+      "Give me a plain transcript without timestamps.",
+      "Who said 'we ship on Fridays' in this panel recording?"
+    ],
+    "demo": {
+      "prompt": "Transcribe this interview and label who is speaking.",
+      "steps": [
+        {
+          "kind": "match",
+          "text": "Recognized the skill: fast-transcript"
+        },
+        {
+          "kind": "check",
+          "text": "Speaker labels matter here, so it uses diarization mode instead of --text"
+        },
+        {
+          "kind": "run",
+          "text": "Transcribes with speaker labels",
+          "cmd": "fscript \"interview.mp3\" --stdout"
+        },
+        {
+          "kind": "caveat",
+          "text": "Diarization is slower than --text, and the first run downloads the speech model."
+        },
+        {
+          "kind": "confirm",
+          "text": "Save the transcript to ./interview-transcript.txt?",
+          "action": "Save"
+        }
+      ],
+      "result": "Transcript saved with timestamps and speaker turns."
+    },
+    "caveats": [
+      "Diarization is slower; it's only used when who-said-what matters.",
+      "The first run downloads the ASR model automatically.",
+      "For links it prefers the platform's manual subtitles; --local transcribes anyway.",
+      "--clean is on by default and compresses repeated words; --raw turns it off."
+    ],
+    "needs": "fscript (Homebrew, uvx or uv tool install); yt-dlp for remote URLs",
+    "music": null
+  },
+  "mo-ux-vibedesign-btc": {
+    "slug": "mo-ux-vibedesign-btc",
+    "install": "npx skills add brenorb/freedom-skills -s mo-ux-vibedesign-btc",
+    "what_for": "Get a senior Bitcoin UX designer's review of your app: copy-first critique, wireframes, hi-fi mockups in your style, a benchmark exploration and a GitHub issue.",
+    "prompts": [
+      "Review the onboarding flow of my Lightning wallet.",
+      "Check the copy on my send screen for jargon.",
+      "Is our backup screen clear for non-native English speakers?",
+      "Mock up a better receive screen in our app's own style.",
+      "Turn this UX review into a GitHub issue."
+    ],
+    "demo": {
+      "prompt": "Review the onboarding flow of my Lightning wallet.",
+      "steps": [
+        {
+          "kind": "match",
+          "text": "Recognized the skill: mo-ux-vibedesign-btc"
+        },
+        {
+          "kind": "check",
+          "text": "Asks four questions first: what it does, who it's for, desktop or mobile, which flows"
+        },
+        {
+          "kind": "run",
+          "text": "Reads every word on screen, then checks the 10 Bitcoin UX principles"
+        },
+        {
+          "kind": "caveat",
+          "text": "Bitcoin mistakes are permanent, so it pushes for preventing errors rather than recovering from them."
+        },
+        {
+          "kind": "confirm",
+          "text": "Review saved to ux-review-<app>.md. Go on to Stage 2, the wireframes?",
+          "action": "Continue"
+        }
+      ],
+      "result": "Next come a wireframe PNG, a hi-fi mockup, a benchmark exploration and github-issue-<app>.md."
+    },
+    "caveats": [
+      "Pauses after every stage and waits for your OK before moving on.",
+      "Every stage produces a real file in your workspace; nothing is summarized or skipped.",
+      "Checks whether copy or flows leak information or make users feel tracked.",
+      "Reads copy as a non-native English speaker would and suggests simpler words."
+    ],
+    "needs": "Screenshots or descriptions of your app's screens; Playwright to render mockups",
+    "music": null
+  },
+  "napplet-make": {
+    "slug": "napplet-make",
+    "install": "npx skills add brenorb/freedom-skills -s napplet-make",
+    "what_for": "Turn an idea into a working, conformant napplet, a small sandboxed Nostr app framed by a shell, by routing through design, UI, build and test, and ending with an evidence report.",
+    "prompts": [
+      "Make a napplet that shows my friends' latest long-form posts.",
+      "Build a napplet for bookmarking notes.",
+      "Make a tiny napplet that shows my follower count.",
+      "Add a mute button to my existing napplet.",
+      "Port my Nostr widget into a napplet, end to end."
+    ],
+    "demo": {
+      "prompt": "Make a napplet that shows my friends' latest long-form posts.",
+      "steps": [
+        {
+          "kind": "match",
+          "text": "Recognized the skill: napplet-make"
+        },
+        {
+          "kind": "run",
+          "text": "Scaffolds the project from the maintained boilerplate",
+          "cmd": "napplet create friends-longform"
+        },
+        {
+          "kind": "run",
+          "text": "Writes the deployment metadata",
+          "cmd": "napplet init"
+        },
+        {
+          "kind": "check",
+          "text": "Writes the brief: one job, must-have flows, sizes it must survive, known gaps"
+        },
+        {
+          "kind": "run",
+          "text": "Builds and runs conformance",
+          "cmd": "pnpm verify && pnpm test:conformance"
+        },
+        {
+          "kind": "caveat",
+          "text": "Feed reads and publishes go through outbox; relay is only a named escape hatch."
+        },
+        {
+          "kind": "confirm",
+          "text": "Open a runtime preview through Paja?",
+          "action": "Preview"
+        }
+      ],
+      "result": "An evidence report: changed files, NAPs used, frames and themes checked, commands run, open gaps."
+    },
+    "caveats": [
+      "Napplet code gets no fetch, browser storage, WebSocket or window.nostr; the shell owns them.",
+      "Not done until pnpm verify and pnpm test:conformance pass and the UI holds at four frame sizes in dark and light.",
+      "A raw Vite URL is never presented as a preview; only the Paja URL counts.",
+      "If a feature needs a NAP the packages don't ship, it stops and flags the gap."
+    ],
+    "needs": "napplet CLI (@napplet/cli 0.13.0) and pnpm; Kehto/Paja for a runtime preview",
+    "music": null
+  },
+  "napplet-design": {
+    "slug": "napplet-design",
+    "install": "npx skills add brenorb/freedom-skills -s napplet-design",
+    "what_for": "Turn a napplet idea into a short build spec before any code: which shipped NAP domain owns each feature, hard requires versus optional fallbacks, size tiers, theme and data flow.",
+    "prompts": [
+      "Plan a napplet for a shared reading list.",
+      "Which NAPs does a DM inbox napplet need?",
+      "Design a note composer that still works as a tiny widget.",
+      "Should my napplet's feed use relay or outbox?",
+      "Which domains should my bookmarks napplet require, and which stay optional?"
+    ],
+    "demo": {
+      "prompt": "Plan a napplet for a shared reading list.",
+      "steps": [
+        {
+          "kind": "match",
+          "text": "Recognized the skill: napplet-design"
+        },
+        {
+          "kind": "check",
+          "text": "Maps each feature to a shipped NAP: lists for list edits, outbox for reads, storage for state"
+        },
+        {
+          "kind": "run",
+          "text": "Splits hard requires from optional domains, each with a fallback"
+        },
+        {
+          "kind": "run",
+          "text": "Plans the tiny, compact, regular and wide tiers plus whole-surface theming"
+        },
+        {
+          "kind": "caveat",
+          "text": "Anything that needs fetch, localStorage or signing inside the napplet gets redesigned or flagged as a gap."
+        },
+        {
+          "kind": "confirm",
+          "text": "Hand this spec to napplet-build?",
+          "action": "Continue"
+        }
+      ],
+      "result": "A spec block: napplet type, NAPs used, requires, fallbacks, tiers, theme, states and data flow."
+    },
+    "caveats": [
+      "Writes no app code; the output is a spec for napplet-build.",
+      "relay is only a named escape hatch; social reads and publishes go through outbox.",
+      "Every NAP is voluntary, so each optional domain gets a named fallback.",
+      "No title header, and the layout must work from a tiny widget to full screen."
+    ],
+    "needs": "Just the app idea; nothing to install",
+    "music": null
+  },
+  "napplet-ui": {
+    "slug": "napplet-ui",
+    "install": "npx skills add brenorb/freedom-skills -s napplet-ui",
+    "what_for": "Lay out a napplet like software, not a website: compact density, a layout that stays good from a widget tile to a full-screen pane, and the host theme painted across the whole surface.",
+    "prompts": [
+      "Make my napplet look right at any size.",
+      "Remove the title header and website layout from my napplet.",
+      "Make my napplet usable as a 200×160 widget.",
+      "My napplet is a narrow column on wide screens; use the space.",
+      "Apply the host theme to my napplet in dark and light.",
+      "Add a minimum-size notice to my chess board napplet."
+    ],
+    "demo": {
+      "prompt": "Make my napplet look right at any size.",
+      "steps": [
+        {
+          "kind": "match",
+          "text": "Recognized the skill: napplet-ui"
+        },
+        {
+          "kind": "check",
+          "text": "Looks for the three usual bugs: a title header, a centered website column, one tested width"
+        },
+        {
+          "kind": "run",
+          "text": "Replaces the page layout with a full-frame root, compact tokens and container-query tiers"
+        },
+        {
+          "kind": "run",
+          "text": "Applies the theme's background, text and primary to html, body and root, with a fallback palette"
+        },
+        {
+          "kind": "caveat",
+          "text": "If it looks the same at 600px and 2400px it isn't done; wide frames get more rows, columns and detail."
+        },
+        {
+          "kind": "confirm",
+          "text": "Run the four-frame check in dark and light?",
+          "action": "Run"
+        }
+      ],
+      "result": "The UI holds at 200×160, 320×560, 900×600 and the largest frame, in both themes."
+    },
+    "caveats": [
+      "Never renders the napplet's own name, tagline or masthead; the runtime shows the name.",
+      "Checked at four frames (200×160, 320×560, 900×600, the largest) in dark and light themes.",
+      "A minimum size is declared only when the UI truly breaks; feeds, lists and composers have none.",
+      "Theme colors paint html, body and the app root, not just the panels."
+    ],
+    "needs": "A napplet project (index.html, src/styles.css); Paja or the browser device toolbar to resize the frame",
+    "music": null
+  },
+  "napplet-build": {
+    "slug": "napplet-build",
+    "install": "npx skills add brenorb/freedom-skills -s napplet-build",
+    "what_for": "Implement a napplet from its design spec on the maintained boilerplate: SDK-first shell calls, required and optional domains in the manifest, a single-file build, conformance and a Paja preview.",
+    "prompts": [
+      "Implement the reading-list napplet from this spec.",
+      "Scaffold a new napplet called note-feed.",
+      "Strip the starter masthead and demo panels from my napplet.",
+      "Replace localStorage in my napplet with shell storage.",
+      "Preview my napplet through Paja."
+    ],
+    "demo": {
+      "prompt": "Implement the reading-list napplet from this spec.",
+      "steps": [
+        {
+          "kind": "match",
+          "text": "Recognized the skill: napplet-build"
+        },
+        {
+          "kind": "run",
+          "text": "Scaffolds from the boilerplate",
+          "cmd": "napplet create reading-list"
+        },
+        {
+          "kind": "run",
+          "text": "Sets the d-tag, title and description",
+          "cmd": "napplet init"
+        },
+        {
+          "kind": "run",
+          "text": "Lays out the frame per napplet-ui, then wires @napplet/sdk calls in src/main.ts"
+        },
+        {
+          "kind": "run",
+          "text": "Builds the single file and runs conformance",
+          "cmd": "pnpm verify && pnpm test:conformance"
+        },
+        {
+          "kind": "caveat",
+          "text": "No fetch, localStorage or external images; bytes go through resource, state through storage."
+        },
+        {
+          "kind": "confirm",
+          "text": "Open a runtime preview through Paja?",
+          "action": "Preview"
+        }
+      ],
+      "result": "A single-file dist/index.html that passes conformance, previewed at the URL Paja prints."
+    },
+    "caveats": [
+      "Keeps the boilerplate's scripts and config; edits only project files such as vite.config.ts, index.html and src/main.ts.",
+      "JS must be inline: the napplet ships as one index.html.",
+      "SDK-first: imports from @napplet/sdk instead of hand-rolling window.napplet calls.",
+      "A legacy .napplet/config.json is not migrated without your approval."
+    ],
+    "needs": "napplet CLI and pnpm; a spec from napplet-design",
+    "music": null
+  },
+  "napplet-sdk": {
+    "slug": "napplet-sdk",
+    "install": "npx skills add brenorb/freedom-skills -s napplet-sdk",
+    "what_for": "Write napplet code against the domains @napplet/sdk actually ships: outbox for reads and publishes, social NAPs, storage, read-only identity, resource bytes and theme, with fallbacks for optional domains.",
+    "prompts": [
+      "How do I load a user's last 20 notes in my napplet?",
+      "Show an avatar in my napplet without fetch.",
+      "Save my napplet's settings without localStorage.",
+      "Add a react button that hides when the shell has no common domain.",
+      "Which options does outbox.publish support?",
+      "Count reactions on a note without downloading them."
+    ],
+    "demo": {
+      "prompt": "How do I load a user's last 20 notes in my napplet?",
+      "steps": [
+        {
+          "kind": "match",
+          "text": "Recognized the skill: napplet-sdk"
+        },
+        {
+          "kind": "check",
+          "text": "Picks outbox, because relay choice affects which notes come back"
+        },
+        {
+          "kind": "run",
+          "text": "Writes an outbox.query with authors, limit and timeoutMs, and reads each result.event"
+        },
+        {
+          "kind": "check",
+          "text": "Uses only current option fields: no strategy, no subscribe live, no outbox.eose"
+        },
+        {
+          "kind": "caveat",
+          "text": "identity.getPublicKey() returns an empty string when signed out, so the code shows a signed-out state."
+        },
+        {
+          "kind": "confirm",
+          "text": "Add this query to src/main.ts?",
+          "action": "Apply"
+        }
+      ],
+      "result": "Typed @napplet/sdk calls; the shell handles relay discovery, dedup and signature checks."
+    },
+    "caveats": [
+      "Uses only the domains the installed packages ship; anything else is flagged as a gap.",
+      "The installed @napplet/sdk types, not the examples, are the source of truth for signatures.",
+      "identity is read-only; there is no signing, encryption or window.nostr.",
+      "relay is only for relay-local needs that outbox and the social NAPs can't express."
+    ],
+    "needs": "A napplet project with @napplet/sdk installed; its installed types are the source of truth",
+    "music": null
+  },
+  "napplet-interop": {
+    "slug": "napplet-interop",
+    "install": "npx skills add brenorb/freedom-skills -s napplet-interop",
+    "what_for": "Connect napplets: broadcast with NAP-INC topics, ask the shell to route actions with NAP-INTENT, and advertise archetype roles such as napplet:note/open in the manifest.",
+    "prompts": [
+      "Open a profile in another napplet when I click an author.",
+      "Make my napplet the handler for napplet:note/open.",
+      "Broadcast the selected profile to sibling napplets.",
+      "Why does my inc.on subscription never fire?",
+      "Handle intent deliveries in my profile viewer."
+    ],
+    "demo": {
+      "prompt": "Open a profile in another napplet when I click an author.",
+      "steps": [
+        {
+          "kind": "match",
+          "text": "Recognized the skill: napplet-interop"
+        },
+        {
+          "kind": "check",
+          "text": "Uses the queryless convention napplet:profile/open"
+        },
+        {
+          "kind": "run",
+          "text": "Dispatches intent.open with the pubkey in the payload and checks ok"
+        },
+        {
+          "kind": "run",
+          "text": "In the profile napplet, records the archetype role",
+          "cmd": "napplet init --archetype napplet:profile/open"
+        },
+        {
+          "kind": "caveat",
+          "text": "Acceptance isn't delivery; the target validates the payload in intent.onDelivery."
+        },
+        {
+          "kind": "confirm",
+          "text": "Add the handoff to both napplets?",
+          "action": "Apply"
+        }
+      ],
+      "result": "Clicking an author asks the shell to open that profile in a napplet that advertises profile/open."
+    },
+    "caveats": [
+      "Topics and conventions match exactly; subscribe to the queryless identity, never a queried one.",
+      "Every received payload is untrusted and gets validated before use.",
+      "An accepted intent means the runtime took the request, not that delivery finished.",
+      "inc and intent stay optional; the affordance hides when the domain is absent."
+    ],
+    "needs": "A napplet project with @napplet/sdk; a design spec that names the cross-napplet feature",
+    "music": null
+  },
+  "napplet-port": {
+    "slug": "napplet-port",
+    "install": "npx skills add brenorb/freedom-skills -s napplet-port",
+    "what_for": "Plan how to turn an existing Nostr web app, client or widget into napplets: inventory its relay, signing, storage, network and site-chrome code and map each part to a shipped NAP.",
+    "prompts": [
+      "Port my Nostr client into a napplet.",
+      "Which parts of this app use window.nostr or localStorage?",
+      "Split my Nostr app into focused napplets.",
+      "Replace my relay pool with outbox calls.",
+      "Write a port handoff for napplet-design."
+    ],
+    "demo": {
+      "prompt": "Port my Nostr client into a napplet.",
+      "steps": [
+        {
+          "kind": "match",
+          "text": "Recognized the skill: napplet-port"
+        },
+        {
+          "kind": "run",
+          "text": "Inventories each feature and the browser authority it uses today"
+        },
+        {
+          "kind": "check",
+          "text": "Maps relay pools to outbox, window.nostr signing to shell publishes, localStorage to storage"
+        },
+        {
+          "kind": "run",
+          "text": "Splits the monolith into focused napplets: feed, composer, profile, DMs"
+        },
+        {
+          "kind": "caveat",
+          "text": "A leftover relay client, signer, direct network layer or site header means the boundary is still wrong."
+        },
+        {
+          "kind": "confirm",
+          "text": "Hand the port inventory to napplet-design?",
+          "action": "Continue"
+        }
+      ],
+      "result": "A handoff listing NAPs used, removed infrastructure and chrome, gaps and verification scenarios."
+    },
+    "caveats": [
+      "Not done when it compiles; done when the napplet owns no authority that belongs to the shell.",
+      "Features that need a NAP the SDK doesn't export are listed as blocked or deferred.",
+      "The site header, nav, footer and page router are deleted; the runtime frames the applet.",
+      "relay stays only for a named relay-local escape hatch."
+    ],
+    "needs": "The source of an existing Nostr web app",
+    "music": null
+  },
+  "napplet-migrate": {
+    "slug": "napplet-migrate",
+    "install": "npx skills add brenorb/freedom-skills -s napplet-migrate",
+    "what_for": "Bring a legacy napplet up to date: convert a signed manifest event into an unsigned current-format preview, or rebuild the project, and see what changes for shells, storage and event pointers.",
+    "prompts": [
+      "Convert my old signed napplet manifest to the current format.",
+      "Preview what my napplet would publish in the current format.",
+      "The CLI found a .napplet/config.json; what happens if I migrate it?",
+      "Mark notify and theme as optional in the migrated manifest.",
+      "Will migrating change my napplet's saved data in shells?"
+    ],
+    "demo": {
+      "prompt": "Convert my old signed napplet manifest to the current format.",
+      "steps": [
+        {
+          "kind": "match",
+          "text": "Recognized the skill: napplet-migrate"
+        },
+        {
+          "kind": "check",
+          "text": "Confirms this is an event conversion preview, not a project rebuild or a publish"
+        },
+        {
+          "kind": "run",
+          "text": "Verifies the signature and writes an unsigned preview",
+          "cmd": "napplet migrate source.json --output preview.json"
+        },
+        {
+          "kind": "check",
+          "text": "Reviews the author, kind and d identifier, description, and required versus optional domains"
+        },
+        {
+          "kind": "caveat",
+          "text": "The artifact identity changes, which can affect shell permissions, storage keys and snapshot event pointers."
+        },
+        {
+          "kind": "confirm",
+          "text": "Review done. Publish the new manifest as a separate step?",
+          "action": "Publish"
+        }
+      ],
+      "result": "preview.json holds an unsigned current-format manifest to review before anything is signed."
+    },
+    "caveats": [
+      "napplet migrate verifies the signature and writes an unsigned preview; it never signs or publishes.",
+      "A legacy config.json is converted only with your consent and kept as config.json.bak.",
+      "A legacy aggregate is never reused as the artifact hash; the hash comes from the final bytes.",
+      "A new artifact identity can affect shell permissions, storage keys and event pointers."
+    ],
+    "needs": "napplet CLI; the signed legacy event file or the deployment project",
+    "music": null
+  },
+  "napplet-icon": {
+    "slug": "napplet-icon",
+    "install": "npx skills add brenorb/freedom-skills -s napplet-icon",
+    "what_for": "Get a finished app icon for a napplet: a short design brief, generated artwork, checks at 16, 32 and 64 px, and an asset ready to embed in the single-file build.",
+    "prompts": [
+      "Make an icon for my reading-list napplet.",
+      "Refine my napplet's icon so it reads at 16 px.",
+      "Give me three icon concepts for a DM napplet.",
+      "Write an icon brief and prompt, but don't generate it yet.",
+      "Make a transparent-background version of my icon.",
+      "Add the new icon to my napplet's manifest."
+    ],
+    "demo": {
+      "prompt": "Make an icon for my reading-list napplet.",
+      "steps": [
+        {
+          "kind": "match",
+          "text": "Recognized the skill: napplet-icon"
+        },
+        {
+          "kind": "check",
+          "text": "Reads the app's purpose and palette, then writes a brief: identity, concept, treatment, constraints"
+        },
+        {
+          "kind": "run",
+          "text": "Generates one standalone icon, without a phone mockup or presentation board"
+        },
+        {
+          "kind": "check",
+          "text": "Previews it at 16, 32 and 64 px, on light and dark, under rounded and circular masks"
+        },
+        {
+          "kind": "caveat",
+          "text": "Small lettering and fine detail vanish at launcher size, so it keeps one clear focal shape."
+        },
+        {
+          "kind": "confirm",
+          "text": "Save the icon to the project's assets folder?",
+          "action": "Save"
+        }
+      ],
+      "result": "A PNG icon with its path, dimensions, format and a short design rationale."
+    },
+    "caveats": [
+      "Without an image tool it hands over the brief and prompt, and says no image was generated.",
+      "A large render isn't proof; it checks 16, 32 and 64 px on light and dark backgrounds.",
+      "The manifest icon takes PNG, JPEG or WebP; an SVG source needs a raster export.",
+      "The icon is finalized before the artifact is hashed and signed, never patched afterward."
+    ],
+    "needs": "An image-generation tool; the napplet's purpose or existing design notes",
+    "music": null
+  },
+  "napplet-test": {
+    "slug": "napplet-test",
+    "install": "npx skills add brenorb/freedom-skills -s napplet-test",
+    "what_for": "Check a napplet before shipping: protocol conformance in real Chromium against a reference shell, an audit for forbidden network, storage and signing code, the single-file artifact and the UI at four frame sizes.",
+    "prompts": [
+      "Run conformance tests on my napplet before I ship it.",
+      "Why does my napplet fail with a forbidden global?",
+      "Add napplet conformance to our CI.",
+      "Check that my build is one self-contained index.html.",
+      "Open the visual conformance report.",
+      "Check which domains my napplet's manifest will declare before I deploy."
+    ],
+    "demo": {
+      "prompt": "Run conformance tests on my napplet before I ship it.",
+      "steps": [
+        {
+          "kind": "match",
+          "text": "Recognized the skill: napplet-test"
+        },
+        {
+          "kind": "run",
+          "text": "Runs the guidance test, type-check and single-file build",
+          "cmd": "pnpm verify"
+        },
+        {
+          "kind": "run",
+          "text": "Runs conformance in real Chromium against ./dist",
+          "cmd": "pnpm test:conformance"
+        },
+        {
+          "kind": "check",
+          "text": "Searches src and dist for fetch, localStorage, WebSocket and window.nostr"
+        },
+        {
+          "kind": "run",
+          "text": "Inspects the manifest a deploy would publish, without signing it",
+          "cmd": "napplet deploy --dry-run --json --format current"
+        },
+        {
+          "kind": "caveat",
+          "text": "Conformance is not a user preview; only a Paja runtime URL counts as one."
+        },
+        {
+          "kind": "confirm",
+          "text": "Run the four-frame UI check in dark and light?",
+          "action": "Run"
+        }
+      ],
+      "result": "Green conformance, a clean boundary audit and a single-file build mean it's ready to publish."
+    },
+    "caveats": [
+      "Exit codes: 0 conformant, 1 non-conformant, 2 usage or runtime error.",
+      "The forbidden-global check is static, so even unreachable references fail.",
+      "Fix the napplet, not the check; a failure on a spec-faithful napplet is a tooling bug to flag.",
+      "Tests the build output, never the source, and never signs or publishes."
+    ],
+    "needs": "A built napplet project with pnpm; napplet-conformance runs headless Chromium",
+    "music": null
+  }
+}

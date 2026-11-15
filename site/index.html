@@ -1,0 +1,485 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Freedom Skills — Freedom tools, without the manuals</title>
+<meta name="description" content="31 open skills that let your AI agent use Bitcoin, Nostr, Signal and other freedom tech — and ask you before it sends, pays or publishes.">
+<link rel="canonical" href="https://freedomskills.dev/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Freedom Skills">
+<meta property="og:title" content="Freedom Skills — Freedom tools, without the manuals">
+<meta property="og:description" content="31 open skills that let your AI agent use Bitcoin, Nostr, Signal and other freedom tech — and ask you before it sends, pays or publishes.">
+<meta property="og:url" content="https://freedomskills.dev/">
+<meta property="og:image" content="https://freedomskills.dev/assets/07-freedom-skills-helps.webp">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="referrer" content="no-referrer">
+<meta name="color-scheme" content="light dark">
+<script>(function(d){d.className=d.className.replace('no-js','js');try{var t=localStorage.getItem('fs-theme');if(t==='light'||t==='dark')d.setAttribute('data-theme',t);}catch(e){}})(document.documentElement);</script>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23d6001c'/%3E%3Cpath d='M16 5c1 4 6 6 6 12a6 6 0 0 1-12 0c0-3 2-5 3-6 0 2 1 3 2 3 0-3-1-6 1-9z' fill='%23fbf7f1'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="fonts/fonts.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="frame top">
+    <p class="issue"><svg class="mark" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><rect width="32" height="32" rx="8" fill="currentColor"/><path d="M16 5c1 4 6 6 6 12a6 6 0 0 1-12 0c0-3 2-5 3-6 0 2 1 3 2 3 0-3-1-6 1-9z" style="fill:var(--paper)"/></svg></p>
+    <p class="wordmark"><a href="index.html" aria-label="Freedom Skills, home">Freedom <em>Skills</em></a></p>
+    <div class="tools"><button class="theme-toggle" type="button" aria-pressed="false" aria-label="Switch to dark mode"><svg class="i-moon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M16.5 12.3A7 7 0 0 1 7.7 3.5a7 7 0 1 0 8.8 8.8Z" stroke-linejoin="round"/></svg><svg class="i-sun" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><circle cx="10" cy="10" r="3.6"/><path d="M10 1.8v2M10 16.2v2M1.8 10h2M16.2 10h2M4.2 4.2l1.4 1.4M14.4 14.4l1.4 1.4M4.2 15.8l1.4-1.4M14.4 5.6l1.4-1.4"/></svg></button></div>
+  </div>
+  <div class="frame"><hr class="rule-double"><nav aria-label="Main">
+      <ul>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#how">How it works</a></li>
+        <li><a href="#install">Install</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="https://github.com/brenorb/freedom-skills" target="_blank" rel="noopener noreferrer">GitHub&nbsp;↗<span class="vh"> (opens in a new tab)</span></a></li>
+      </ul>
+    </nav></div>
+</header>
+
+<main id="main">
+  <!-- Cover: the comic is the cover; the headline and the install command sit beside it. -->
+  <div class="frame">
+    <div class="cover">
+      <div class="cover-copy">
+        <h1>Freedom tools, <em>without</em> the manuals.</h1>
+        <p class="dek">Skills that let your AI agent use Bitcoin, Nostr, Signal and other freedom tech&thinsp;—&thinsp;and ask you before it sends, pays or publishes.</p>
+        <p class="install-label" id="hero-install">Install all 31 skills</p>
+        <div class="cmd big" role="group" aria-labelledby="hero-install"><pre><code>npx skills add brenorb/freedom-skills</code></pre><button class="copy" type="button" data-copy="npx skills add brenorb/freedom-skills" data-what="install command">Copy</button></div>
+        <p class="works-with">Works with Claude Code, Codex, OpenCode and other agents that support the <a href="https://agentskills.io" target="_blank" rel="noopener noreferrer">Agent Skills standard<span class="vh"> (opens in a new tab)</span></a>.</p>
+        <p class="cover-links"><a href="#skills">Browse the 31 skills ↓</a><a href="#demo">Watch one run ↓</a></p>
+      </div>
+      <figure class="cover-art" aria-label="Comic: Too many manuals, Freedom Skills helps, Shielded">
+        <ol class="comic">
+          <li class="panel"><figure><div class="crop" style="--x:16;--w:495"><img src="assets/07-freedom-skills-helps.webp" width="1600" height="901" decoding="async" fetchpriority="high" alt="Comic panel, “Too many manuals”: a small round mascot with a pink flame on its head sits buried in manuals, padlocks and cables, looking overwhelmed."></div><figcaption><a href="about.html#raw-tools"><span class="n">1</span>Every freedom tool comes with its own setup, jargon and security homework.</a></figcaption></figure></li>
+          <li class="panel"><figure><div class="crop" style="--x:518;--w:508"><img src="assets/07-freedom-skills-helps.webp" width="1600" height="901" decoding="async" alt="Comic panel, “Freedom Skills helps”: a friendly robot hands the mascot a checklist while it straps on armour made of the same locks and shields."></div><figcaption><a href="about.html#tested-skills"><span class="n">2</span>A tested skill teaches your agent the tool, step by step.</a></figcaption></figure></li>
+          <li class="panel"><figure><div class="crop" style="--x:1033;--w:546"><img src="assets/07-freedom-skills-helps.webp" width="1600" height="901" decoding="async" alt="Comic panel, “Shielded”: the armoured mascot raises a pink shield in front of a small crowd, blocking a huge many-eyed surveillance machine."></div><figcaption><a href="about.html#safer-action"><span class="n">3</span>You get the protection without becoming an expert first.</a></figcaption></figure></li>
+        </ol>
+      </figure>
+    </div>
+
+    <blockquote class="pullquote">
+      <p>Skip the manual. Keep the freedom.</p>
+      <p class="after"><a class="lede-link" href="about.html">Why this matters →</a></p>
+    </blockquote>
+  </div>
+
+  <section class="section" id="how" aria-labelledby="how-h">
+    <div class="frame">
+      <header class="sec-head"><h2 id="how-h">How it works</h2></header>
+      <ol class="steps">
+        <li><h3>You ask in plain words</h3><p><q>Send the signed PDF to Ana on Signal.</q></p></li>
+        <li><h3>Your agent picks the tested skill</h3><p>It follows that skill’s workflow and uses the real tool.</p></li>
+        <li><h3>It shows the caveats and asks first</h3><p>Nothing is sent, paid or published until you say yes.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section" id="demo" aria-labelledby="demo-h">
+    <div class="frame demo-grid">
+      <div class="demo-intro">
+        <h2 id="demo-h">Watch one run</h2>
+      </div>
+      <div id="player">
+        <noscript><p class="fine">The demo needs JavaScript. In short: you ask <q>Send the signed PDF to Ana on Signal.</q> → your agent picks the Signal skill → follows its workflow with signal-cli → shows the caveats → waits for your OK before it sends.</p></noscript>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="skills" aria-labelledby="skills-h">
+    <div class="frame">
+      <header class="sec-head"><h2 id="skills-h">Skills</h2></header>
+      <div class="issue-grid">
+        <nav class="toc" aria-labelledby="toc-h">
+          <h3 id="toc-h">Categories</h3>
+          <ol>
+<!--gen:categories tpl=tpl-toc-->
+            <li><a href="#communication"><span class="r">01–04</span><span class="t">Communication and coordination</span><span class="c" aria-label="4 skills">4</span></a></li>
+            <li><a href="#money"><span class="r">05–10</span><span class="t">Money and payments</span><span class="c" aria-label="6 skills">6</span></a></li>
+            <li><a href="#privacy"><span class="r">11–14</span><span class="t">Privacy, safety, and resilience</span><span class="c" aria-label="4 skills">4</span></a></li>
+            <li><a href="#sharing"><span class="r">15–18</span><span class="t">Sharing, publishing, and preservation</span><span class="c" aria-label="4 skills">4</span></a></li>
+            <li><a href="#research"><span class="r">19–20</span><span class="t">Research and media</span><span class="c" aria-label="2 skills">2</span></a></li>
+            <li><a href="#developer"><span class="r">21–31</span><span class="t">Product and developer workflows</span><span class="c" aria-label="11 skills">11</span></a></li>
+<!--/gen-->
+          </ol>
+        </nav>
+        <div class="depts">
+          <form class="finder js-only" role="search" aria-label="Skills">
+            <label for="q">Find a skill</label>
+            <div class="finder-row"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><path d="m13 13 4.5 4.5" stroke-linecap="round"/></svg><input id="q" type="search" placeholder="Try “Signal”, “pay”, “archive”…" autocomplete="off" aria-describedby="q-status"></div>
+            <p class="finder-status" id="q-status" role="status" aria-live="polite"></p>
+            <ul class="results" id="results" hidden></ul>
+          </form>
+<!--gen:categories tpl=tpl-dept-->
+          <section class="dept" id="communication" aria-labelledby="communication-h">
+            <div class="dept-head"><p class="dno">01–04 · 4 skills</p><h3 id="communication-h">Communication and coordination</h3><p>Talk privately, coordinate without platforms.</p></div>
+            <ol class="entries" start="1">
+              <li class="entry" id="skill-bitchat"><span class="no" aria-hidden="true">01</span><div class="body">
+                <h4><a href="skill.html?s=bitchat">BitChat</a></h4>
+                <p>Message people nearby over Bluetooth mesh — no internet, no accounts.</p>
+                <p class="ask"><b>Ask</b>“Post &quot;meeting moved to 7pm&quot; in the BitChat mesh and keep listening for replies.”</p>
+                <p class="meta"><button type="button" data-copy="npx skills add brenorb/freedom-skills -s bitchat" data-what="install command for BitChat">Copy install</button><button class="js-only" type="button" data-demo="bitchat">Watch demo</button><a href="https://github.com/brenorb/freedom-skills/tree/main/skills/bitchat" target="_blank" rel="noopener noreferrer">GitHub ↗<span class="vh"> (opens in a new tab)</span></a></p>
+              </div></li>
+              <li class="entry" id="skill-nostr-cli"><span class="no" aria-hidden="true">02</span><div class="body">
+                <h4><a href="skill.html?s=nostr-cli">Nostr CLI</a></h4>
+                <p>Post, reply, DM, and publish long-form on Nostr from the command line.</p>
+                <p class="ask"><b>Ask</b>“Publish this draft as a long-form Nostr article from my writing account.”</p>
+                <p class="meta"><button type="button" data-copy="npx skills add brenorb/freedom-skills -s nostr-cli" data-what="install command for Nostr CLI">Copy install</button><button class="js-only" type="button" data-demo="nostr-cli">Watch demo</button><a href="https://github.com/brenorb/freedom-skills/tree/main/skills/nostr-cli" target="_blank" rel="noopener noreferrer">GitHub ↗<span class="vh"> (opens in a new tab)</span></a></p>
+              </div></li>
+              <li class="entry" id="skill-nihao"><span class="no" aria-hidden="true">03</span><div class="body">
+                <h4><a href="skill.html?s=nihao">nihao</a></h4>
+                <p>Create a complete Nostr identity in one command, or score an existing one 0–8.</p>
+                <p class="ask"><b>Ask</b>“Check how healthy my npub is and tell me what to fix.”</p>
+                <p class="meta"><button type="button" data-copy="npx skills add brenorb/freedom-skills -s nihao" data-what="install command for nihao">Copy install</button><button class="js-only" type="button" data-demo="nihao">Watch demo</button><a href="https://github.com/brenorb/freedom-skills/tree/main/skills/nihao" target="_blank" rel="noopener noreferrer">GitHub ↗<span class="vh"> (opens in a new tab)</span></a></p>
+              </div></li>
+              <li class="entry" id="skill-signal-cli"><span class="no" aria-hidden="true">04</span><div class="body">
+                <h4><a href="skill.html?s=signal-cli">Signal</a></h4>
+                <p>Send end-to-end encrypted Signal messages and files from your agent.</p>
+                <p class="ask"><b>Ask</b>“Send the signed PDF to Ana on Signal.”</p>
+                <p class="meta"><button type="button" data-copy="npx skills add brenorb/freedom-skills -s signal-cli" data-what="install command for Signal">Copy install</button><button class="js-only" type="button" data-demo="signal-cli">Watch demo</button><a href="https://github.com/brenorb/freedom-skills/tree/main/skills/signal-cli" target="_blank" rel="noopener noreferrer">GitHub ↗<span class="vh"> (opens in a new tab)</span></a></p>
+              </div></li>
+            </ol>
+          </section>
+          <section class="dept" id="money" aria-labelledby="money-h">
+            <div class="dept-head"><p class="dno">05–10 · 6 skills</p><h3 id="money-h">Money and payments</h3><p>Self-custodial Bitcoin and Lightning for agents and apps.</p></div>
+            <ol class="entries" start="5">
+              <li class="entry" id="skill-btcdeb"><span class="no" aria-hidden="true">05</span><div class="body">
+                <h4><a href="skill.html?s=btcdeb">btcdeb</a></h4>
+                <p>Step through Bitcoin Script one opcode at a time.</p>
+                <p class="ask"><b>Ask</b>“Debug why this 2-of-3 multisig script fails verification.”</p>
+                <p class="meta"><button type="button" data-copy="npx skills add brenorb/freedom-skills -s btcdeb" data-what="install command for btcdeb">Copy install</button><button class="js-only" type="button" data-demo="btcdeb">Watch demo</button><a href="https://github.com/brenorb/freedom-skills/tree/main/skills/btcdeb" target="_blank" rel="noopener noreferrer">GitHub ↗<span class="vh"> (opens in a new tab)</span></a></p>
+              </div></li>
+              <li class="entry" id="skill-mdk-agent-wallet"><span class="no" aria-hidden="true">06</span><div class="body">
+                <h4><a href="skill.html?s=mdk-agent-wallet">Agent wallet</a></h4>
+                <p>A self-custodial Lightning wallet your agent can actually use.</p>
+                <p class="ask"><b>Ask</b>“Pay this L402 endpoint up to 500 sats and show me the receipt.”</p>
+                <p class="meta"><button type="button" data-copy="npx skills add brenorb/freedom-skills -s mdk-agent-wallet" data-what="install command for Agent wallet">Copy install</button><button class="js-only" type="button" data-demo="mdk-agent-wallet">Watch demo</button><a href="https://github.com/brenorb/freedom-skills/tree/main/skills/mdk-agent-wallet" target="_blank" rel="noopener noreferrer">GitHub ↗<span class="vh"> (opens in a new tab)</span></a></p>
+              </div></li>
+              <li class="entry" id="skill-mdk-l402-api"><span class="no" aria-hidden="true">07</span><div class="body">
+                <h4><a href="skill.html?s=mdk-l402-api">Paid APIs (L402)</a></h4>
+                <p>Charge per request in sats with HTTP 402 — no accounts, no cards.</p>
+                <p class="ask"><b>Ask</b>“Put my /api/summarize route behind a 10-sat L402 paywall.”</p>
+                <p class="meta"><button type="button" data-copy="npx skills add brenorb/freedom-skills -s mdk-l402-api" data-what="install command for Paid APIs (L402)">Copy install</button><button class="js-only" type="button" data-demo="mdk-l402-api">Watch demo</button><a href="https://github.com/brenorb/freedom-skills/tree/main/skills/mdk-l402-api" target="_blank" rel="noopener noreferrer">GitHub ↗<span class="vh"> (opens in a new tab)</span></a></p>
+              </div></li>
+              <li class="entry" id="skill-mdk-mcp"><span class="no" aria-hidden="true">08</span><div class="body">
+                <h4><a href="skill.html?s=mdk-mcp">Money Dev Kit MCP</a></h4>
+                <p>Wire your coding agent to Money Dev Kit&#x27;s live MCP tools.</p>
+                <p class="ask"><b>Ask</b>“Connect Cursor to the Money Dev Kit MCP server.”</p>
+                <p class="meta"><button type="button" data-copy="npx skills add brenorb/freedom-skills -s mdk-mcp" data-what="install command for Money Dev Kit MCP">Copy install</button><button class="js-only" type="button" data-demo="mdk-mcp">Watch demo</button><a href="https://github.com/brenorb/freedom-skills/tree/main/skills/mdk-mcp" target="_blank" rel="noopener noreferrer">GitHub ↗<span class="vh"> (opens in a new tab)</span></a></p>
+              </div></li>
+              <li class="entry" id="skill-mdk-nextjs-checkout"><span class="no" aria-hidden="true">09</span><div class="body">
+                <h4><a href="skill.html?s=mdk-nextjs-checkout">Next.js checkout</a></h4>
+                <p>Add Lightning checkout to a Next.js App Router app.</p>
+                <p class="ask"><b>Ask</b>“Add a Lightning checkout button to my pricing page.”</p>
+                <p class="meta"><button type="button" data-copy="npx skills add brenorb/freedom-skills -s mdk-nextjs-checkout" data-what="install command for Next.js checkout">Copy install</button><button class="js-only" type="button" data-demo="mdk-nextjs-checkout">Watch demo</button><a href="https://github.com/brenorb/freedom-skills/tree/main/skills/mdk-nextjs-checkout" target="_blank" rel="noopener noreferrer">GitHub ↗<span class="vh"> (opens in a new tab)</span></a></p>
+              </div></li>
+              <li class="entry" id="skill-mdk-replit-checkout"><span class="no" aria-hidden="true">10</span><div class="body">
+                <h4><a href="skill.html?s=mdk-replit-checkout">Replit checkout</a></h4>
+                <p>Add Lightning checkout to a Replit Vite + Express app.</p>
+                <p class="ask"><b>Ask</b>“Make my Replit app accept Lightning payments.”</p>
+                <p class="meta"><button type="button" data-copy="npx skills add brenorb/freedom-skills -s mdk-replit-checkout" data-what="install command for Replit checkout">Copy install</button><button class="js-only" type="button" data-demo="mdk-replit-checkout">Watch demo</button><a href="https://github.com/brenorb/freedom-skills/tree/main/skills/mdk-replit-checkout" target="_blank" rel="noopener noreferrer">GitHub ↗<span class="vh"> (opens in a new tab)</span></a></p>
+              </div></li>
+            </ol>
+          </section>
+          <section class="dept" id="privacy" aria-labelledby="privacy-h">
+            <div class="dept-head"><p class="dno">11–14 · 4 skills</p><h3 id="privacy-h">Privacy, safety, and resilience</h3><p>Reduce exposure, audit before you trust, lock things in time.</p></div>
+            <ol class="entries" start="11">
+              <li class="entry" id="skill-rampart-hook-configurator"><span class="no" aria-hidden="true">11</span><div class="body">
+                <h4><a href="skill.html?s=rampart-hook-configurator">Rampart hooks</a></h4>
+                <p>Redact personal data before it reaches the model, restore it after.</p>
+                <p class="ask"><b>Ask</b>“Set up Rampart so names and emails never reach the model.”</p>
+                <p class="meta"><button type="button" data-copy="npx skills add brenorb/freedom-skills -s rampart-hook-configurator" data-what="install command for Rampart hooks">Copy install</button><button class="js-only" type="button" data-demo="rampart-hook-configurator">Watch demo</button><a href="https://github.com/brenorb/freedom-skills/tree/main/skills/rampart-hook-configurator" target="_blank" rel="noopener noreferrer">GitHub ↗<span class="vh"> (opens in a new tab)</span></a></p>
+              </div></li>
+              <li class="entry" id="skill-security-audit"><span class="no" aria-hidden="true">12</span><div class="body">
+                <h4><a href="skill.html?s=security-audit">Security audit</a></h4>
+                <p>Multi-phase security audits with independent verification.</p>
+                <p class="ask"><b>Ask</b>“Run a full security audit of this repo and write up the findings.”</p>
+                <p class="meta"><button type="button" data-copy="npx skills add brenorb/freedom-skills -s security-audit" data-what="install command for Security audit">Copy install</button><button class="js-only" type="button" data-demo="security-audit">Watch demo</button><a href="https://github.com/brenorb/freedom-skills/tree/main/skills/security-audit" target="_blank" rel="noopener noreferrer">GitHub ↗<span class="vh"> (opens in a new tab)</span></a></p>
+              </div></li>
+              <li class="entry" id="skill-skillspector"><span class="no" aria-hidden="true">13</span><div class="body">
+                <h4><a href="skill.html?s=skillspector">SkillSpector</a></h4>
+                <p>Scan any skill for vulnerabilities before you install it.</p>
+                <p class="ask"><b>Ask</b>“Scan this skills repo before I install anything from it.”</p>
+                <p class="meta"><button type="button" data-copy="npx skills add brenorb/freedom-skills -s skillspector" data-what="install command for SkillSpector">Copy install</button><button class="js-only" type="button" data-demo="skillspector">Watch demo</button><a href="https://github.com/brenorb/freedom-skills/tree/main/skills/skillspector" target="_blank" rel="noopener noreferrer">GitHub ↗<span class="vh"> (opens in a new tab)</span></a></p>
+              </div></li>
+              <li class="entry" id="skill-timelock-sh"><span class="no" aria-hidden="true">14</span><div class="body">
+                <h4><a href="skill.html?s=timelock-sh">timelock.sh</a></h4>
+                <p>Encrypt a file so nobody — not even you — can open it before a set time.</p>
+                <p class="ask"><b>Ask</b>“Lock this letter so it can&#x27;t be opened for two weeks.”</p>
+                <p class="meta"><button type="button" data-copy="npx skills add brenorb/freedom-skills -s timelock-sh" data-what="install command for timelock.sh">Copy install</button><button class="js-only" type="button" data-demo="timelock-sh">Watch demo</button><a href="https://github.com/brenorb/freedom-skills/tree/main/skills/timelock-sh" target="_blank" rel="noopener noreferrer">GitHub ↗<span class="vh"> (opens in a new tab)</span></a></p>
+              </div></li>
+            </ol>
+          </section>
+          <section class="dept" id="sharing" aria-labelledby="sharing-h">
+            <div class="dept-head"><p class="dno">15–18 · 4 skills</p><h3 id="sharing-h">Sharing, publishing, and preservation</h3><p>Publish without a host, share without a cloud, keep proof it existed.</p></div>
+            <ol class="entries" start="15">
+              <li class="entry" id="skill-hosted-nowhere"><span class="no" aria-hidden="true">15</span><div class="body">
+                <h4><a href="skill.html?s=hosted-nowhere">Hosted Nowhere</a></h4>
+                <p>Publish pages that live in the link itself — no server to seize.</p>
+                <p class="ask"><b>Ask</b>“Make a Nowhere fundraiser page for the community garden.”</p>
+                <p class="meta"><button type="button" data-copy="npx skills add brenorb/freedom-skills -s hosted-nowhere" data-what="install command for Hosted Nowhere">Copy install</button><button class="js-only" type="button" data-demo="hosted-nowhere">Watch demo</button><a href="https://github.com/brenorb/freedom-skills/tree/main/skills/hosted-nowhere" target="_blank" rel="noopener noreferrer">GitHub ↗<span class="vh"> (opens in a new tab)</span></a></p>
+              </div></li>
+              <li class="entry" id="skill-p2p-transfer-filepizza"><span class="no" aria-hidden="true">16</span><div class="body">
+                <h4><a href="skill.html?s=p2p-transfer-filepizza">FilePizza</a></h4>
+                <p>Send a file browser-to-browser. Nothing is uploaded to a cloud.</p>
+                <p class="ask"><b>Ask</b>“Give me a peer-to-peer link for this 2 GB video.”</p>
+                <p class="meta"><button type="button" data-copy="npx skills add brenorb/freedom-skills -s p2p-transfer-filepizza" data-what="install command for FilePizza">Copy install</button><button class="js-only" type="button" data-demo="p2p-transfer-filepizza">Watch demo</button><a href="https://github.com/brenorb/freedom-skills/tree/main/skills/p2p-transfer-filepizza" target="_blank" rel="noopener noreferrer">GitHub ↗<span class="vh"> (opens in a new tab)</span></a></p>
+              </div></li>
+              <li class="entry" id="skill-wayback-archive"><span class="no" aria-hidden="true">17</span><div class="body">
+                <h4><a href="skill.html?s=wayback-archive">Wayback archive</a></h4>
+                <p>Save a page to the Wayback Machine before it disappears.</p>
+                <p class="ask"><b>Ask</b>“Archive these 40 links and give me citation URLs.”</p>
+                <p class="meta"><button type="button" data-copy="npx skills add brenorb/freedom-skills -s wayback-archive" data-what="install command for Wayback archive">Copy install</button><button class="js-only" type="button" data-demo="wayback-archive">Watch demo</button><a href="https://github.com/brenorb/freedom-skills/tree/main/skills/wayback-archive" target="_blank" rel="noopener noreferrer">GitHub ↗<span class="vh"> (opens in a new tab)</span></a></p>
+              </div></li>
+              <li class="entry" id="skill-opentimestamps"><span class="no" aria-hidden="true">18</span><div class="body">
+                <h4><a href="skill.html?s=opentimestamps">OpenTimestamps</a></h4>
+                <p>Prove a file existed at a point in time, anchored in Bitcoin.</p>
+                <p class="ask"><b>Ask</b>“Timestamp this contract and verify the proof next week.”</p>
+                <p class="meta"><button type="button" data-copy="npx skills add brenorb/freedom-skills -s opentimestamps" data-what="install command for OpenTimestamps">Copy install</button><button class="js-only" type="button" data-demo="opentimestamps">Watch demo</button><a href="https://github.com/brenorb/freedom-skills/tree/main/skills/opentimestamps" target="_blank" rel="noopener noreferrer">GitHub ↗<span class="vh"> (opens in a new tab)</span></a></p>
+              </div></li>
+            </ol>
+          </section>
+          <section class="dept" id="research" aria-labelledby="research-h">
+            <div class="dept-head"><p class="dno">19–20 · 2 skills</p><h3 id="research-h">Research and media</h3><p>Investigate quietly and transcribe locally.</p></div>
+            <ol class="entries" start="19">
+              <li class="entry" id="skill-domain-intel"><span class="no" aria-hidden="true">19</span><div class="body">
+                <h4><a href="skill.html?s=domain-intel">Domain intel</a></h4>
+                <p>Passive domain reconnaissance. No API keys, no noise.</p>
+                <p class="ask"><b>Ask</b>“Who&#x27;s behind this phishing domain and what else do they run?”</p>
+                <p class="meta"><button type="button" data-copy="npx skills add brenorb/freedom-skills -s domain-intel" data-what="install command for Domain intel">Copy install</button><button class="js-only" type="button" data-demo="domain-intel">Watch demo</button><a href="https://github.com/brenorb/freedom-skills/tree/main/skills/domain-intel" target="_blank" rel="noopener noreferrer">GitHub ↗<span class="vh"> (opens in a new tab)</span></a></p>
+              </div></li>
+              <li class="entry" id="skill-fast-transcript"><span class="no" aria-hidden="true">20</span><div class="body">
+                <h4><a href="skill.html?s=fast-transcript">Fast transcript</a></h4>
+                <p>Transcribe audio and video locally, with speaker labels.</p>
+                <p class="ask"><b>Ask</b>“Transcribe this interview and label who is speaking.”</p>
+                <p class="meta"><button type="button" data-copy="npx skills add brenorb/freedom-skills -s fast-transcript" data-what="install command for Fast transcript">Copy install</button><button class="js-only" type="button" data-demo="fast-transcript">Watch demo</button><a href="https://github.com/brenorb/freedom-skills/tree/main/skills/fast-transcript" target="_blank" rel="noopener noreferrer">GitHub ↗<span class="vh"> (opens in a new tab)</span></a></p>
+              </div></li>
+            </ol>
+          </section>
+          <section class="dept" id="developer" aria-labelledby="developer-h">
+            <div class="dept-head"><p class="dno">21–31 · 11 skills</p><h3 id="developer-h">Product and developer workflows</h3><p>Design, build, test, and review freedom-tech software.</p></div>
+            <ol class="entries" start="21">
+              <li class="entry" id="skill-mo-ux-vibedesign-btc"><span class="no" aria-hidden="true">21</span><div class="body">
+                <h4><a href="skill.html?s=mo-ux-vibedesign-btc">Bitcoin UX review</a></h4>
+                <p>A senior Bitcoin UX review — copy, flows, wireframes, mockups.</p>
+                <p class="ask"><b>Ask</b>“Review the onboarding flow of my Lightning wallet.”</p>
+                <p class="meta"><button type="button" data-copy="npx skills add brenorb/freedom-skills -s mo-ux-vibedesign-btc" data-what="install command for Bitcoin UX review">Copy install</button><button class="js-only" type="button" data-demo="mo-ux-vibedesign-btc">Watch demo</button><a href="https://github.com/brenorb/freedom-skills/tree/main/skills/mo-ux-vibedesign-btc" target="_blank" rel="noopener noreferrer">GitHub ↗<span class="vh"> (opens in a new tab)</span></a></p>
+              </div></li>
+              <li class="entry" id="skill-napplet-make"><span class="no" aria-hidden="true">22</span><div class="body">
+                <h4><a href="skill.html?s=napplet-make">napplet-make</a></h4>
+                <p>Go from one prompt to a working, tested Nostr napplet.</p>
+                <p class="ask"><b>Ask</b>“Make a napplet that shows my friends&#x27; latest long-form posts.”</p>
+                <p class="meta"><button type="button" data-copy="npx skills add brenorb/freedom-skills -s napplet-make" data-what="install command for napplet-make">Copy install</button><button class="js-only" type="button" data-demo="napplet-make">Watch demo</button><a href="https://github.com/brenorb/freedom-skills/tree/main/skills/napplet-make" target="_blank" rel="noopener noreferrer">GitHub ↗<span class="vh"> (opens in a new tab)</span></a></p>
+              </div></li>
+              <li class="entry" id="skill-napplet-design"><span class="no" aria-hidden="true">23</span><div class="body">
+                <h4><a href="skill.html?s=napplet-design">napplet-design</a></h4>
+                <p>Turn an app idea into a safe napplet build spec before any code.</p>
+                <p class="ask"><b>Ask</b>“Plan a napplet for a shared reading list.”</p>
+                <p class="meta"><button type="button" data-copy="npx skills add brenorb/freedom-skills -s napplet-design" data-what="install command for napplet-design">Copy install</button><button class="js-only" type="button" data-demo="napplet-design">Watch demo</button><a href="https://github.com/brenorb/freedom-skills/tree/main/skills/napplet-design" target="_blank" rel="noopener noreferrer">GitHub ↗<span class="vh"> (opens in a new tab)</span></a></p>
+              </div></li>
+              <li class="entry" id="skill-napplet-ui"><span class="no" aria-hidden="true">24</span><div class="body">
+                <h4><a href="skill.html?s=napplet-ui">napplet-ui</a></h4>
+                <p>Napplet layouts with no title header that work from tiny widget to full screen.</p>
+                <p class="ask"><b>Ask</b>“Make my napplet look right at any size.”</p>
+                <p class="meta"><button type="button" data-copy="npx skills add brenorb/freedom-skills -s napplet-ui" data-what="install command for napplet-ui">Copy install</button><button class="js-only" type="button" data-demo="napplet-ui">Watch demo</button><a href="https://github.com/brenorb/freedom-skills/tree/main/skills/napplet-ui" target="_blank" rel="noopener noreferrer">GitHub ↗<span class="vh"> (opens in a new tab)</span></a></p>
+              </div></li>
+              <li class="entry" id="skill-napplet-build"><span class="no" aria-hidden="true">25</span><div class="body">
+                <h4><a href="skill.html?s=napplet-build">napplet-build</a></h4>
+                <p>Implement a napplet from its spec as one conformant, single-file index.html.</p>
+                <p class="ask"><b>Ask</b>“Implement the reading-list napplet from this spec.”</p>
+                <p class="meta"><button type="button" data-copy="npx skills add brenorb/freedom-skills -s napplet-build" data-what="install command for napplet-build">Copy install</button><button class="js-only" type="button" data-demo="napplet-build">Watch demo</button><a href="https://github.com/brenorb/freedom-skills/tree/main/skills/napplet-build" target="_blank" rel="noopener noreferrer">GitHub ↗<span class="vh"> (opens in a new tab)</span></a></p>
+              </div></li>
+              <li class="entry" id="skill-napplet-sdk"><span class="no" aria-hidden="true">26</span><div class="body">
+                <h4><a href="skill.html?s=napplet-sdk">napplet-sdk</a></h4>
+                <p>The right @napplet/sdk call for each job, with fallbacks when a domain is missing.</p>
+                <p class="ask"><b>Ask</b>“How do I load a user&#x27;s last 20 notes in my napplet?”</p>
+                <p class="meta"><button type="button" data-copy="npx skills add brenorb/freedom-skills -s napplet-sdk" data-what="install command for napplet-sdk">Copy install</button><button class="js-only" type="button" data-demo="napplet-sdk">Watch demo</button><a href="https://github.com/brenorb/freedom-skills/tree/main/skills/napplet-sdk" target="_blank" rel="noopener noreferrer">GitHub ↗<span class="vh"> (opens in a new tab)</span></a></p>
+              </div></li>
+              <li class="entry" id="skill-napplet-interop"><span class="no" aria-hidden="true">27</span><div class="body">
+                <h4><a href="skill.html?s=napplet-interop">napplet-interop</a></h4>
+                <p>Let your napplets hand notes, profiles and DMs to each other.</p>
+                <p class="ask"><b>Ask</b>“Open a profile in another napplet when I click an author.”</p>
+                <p class="meta"><button type="button" data-copy="npx skills add brenorb/freedom-skills -s napplet-interop" data-what="install command for napplet-interop">Copy install</button><button class="js-only" type="button" data-demo="napplet-interop">Watch demo</button><a href="https://github.com/brenorb/freedom-skills/tree/main/skills/napplet-interop" target="_blank" rel="noopener noreferrer">GitHub ↗<span class="vh"> (opens in a new tab)</span></a></p>
+              </div></li>
+              <li class="entry" id="skill-napplet-port"><span class="no" aria-hidden="true">28</span><div class="body">
+                <h4><a href="skill.html?s=napplet-port">napplet-port</a></h4>
+                <p>Turn an existing Nostr web app into focused, sandboxed napplets.</p>
+                <p class="ask"><b>Ask</b>“Port my Nostr client into a napplet.”</p>
+                <p class="meta"><button type="button" data-copy="npx skills add brenorb/freedom-skills -s napplet-port" data-what="install command for napplet-port">Copy install</button><button class="js-only" type="button" data-demo="napplet-port">Watch demo</button><a href="https://github.com/brenorb/freedom-skills/tree/main/skills/napplet-port" target="_blank" rel="noopener noreferrer">GitHub ↗<span class="vh"> (opens in a new tab)</span></a></p>
+              </div></li>
+              <li class="entry" id="skill-napplet-migrate"><span class="no" aria-hidden="true">29</span><div class="body">
+                <h4><a href="skill.html?s=napplet-migrate">napplet-migrate</a></h4>
+                <p>Move legacy napplet manifests and projects to the current artifact-hash format.</p>
+                <p class="ask"><b>Ask</b>“Convert my old signed napplet manifest to the current format.”</p>
+                <p class="meta"><button type="button" data-copy="npx skills add brenorb/freedom-skills -s napplet-migrate" data-what="install command for napplet-migrate">Copy install</button><button class="js-only" type="button" data-demo="napplet-migrate">Watch demo</button><a href="https://github.com/brenorb/freedom-skills/tree/main/skills/napplet-migrate" target="_blank" rel="noopener noreferrer">GitHub ↗<span class="vh"> (opens in a new tab)</span></a></p>
+              </div></li>
+              <li class="entry" id="skill-napplet-icon"><span class="no" aria-hidden="true">30</span><div class="body">
+                <h4><a href="skill.html?s=napplet-icon">napplet-icon</a></h4>
+                <p>A napplet app icon that still reads at 16 px, ready to embed in the build.</p>
+                <p class="ask"><b>Ask</b>“Make an icon for my reading-list napplet.”</p>
+                <p class="meta"><button type="button" data-copy="npx skills add brenorb/freedom-skills -s napplet-icon" data-what="install command for napplet-icon">Copy install</button><button class="js-only" type="button" data-demo="napplet-icon">Watch demo</button><a href="https://github.com/brenorb/freedom-skills/tree/main/skills/napplet-icon" target="_blank" rel="noopener noreferrer">GitHub ↗<span class="vh"> (opens in a new tab)</span></a></p>
+              </div></li>
+              <li class="entry" id="skill-napplet-test"><span class="no" aria-hidden="true">31</span><div class="body">
+                <h4><a href="skill.html?s=napplet-test">napplet-test</a></h4>
+                <p>Conformance, boundary and UI checks before you publish a napplet.</p>
+                <p class="ask"><b>Ask</b>“Run conformance tests on my napplet before I ship it.”</p>
+                <p class="meta"><button type="button" data-copy="npx skills add brenorb/freedom-skills -s napplet-test" data-what="install command for napplet-test">Copy install</button><button class="js-only" type="button" data-demo="napplet-test">Watch demo</button><a href="https://github.com/brenorb/freedom-skills/tree/main/skills/napplet-test" target="_blank" rel="noopener noreferrer">GitHub ↗<span class="vh"> (opens in a new tab)</span></a></p>
+              </div></li>
+            </ol>
+          </section>
+<!--/gen-->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="connectors" aria-labelledby="connectors-h">
+    <div class="frame">
+      <header class="sec-head"><h2 id="connectors-h">Connectors</h2></header>
+      <p class="conn-lead">Paste the prompt into the agent you already run, and it sets itself up.</p>
+      <ol class="entries">
+<!--gen:connectors tpl=tpl-connector-->
+        <li class="entry" id="connector-whitenoise"><span class="no" aria-hidden="true">01</span><div class="body">
+          <h4>White Noise</h4>
+          <p>Message your agent from White Noise, in end-to-end encrypted chats.</p>
+          <p class="ask"><b>Works with</b>Hermes, OpenClaw, Claude Code, Codex, OpenCode, Pi, Goose</p>
+          <p class="meta"><button type="button" data-copy="Connect an agent runtime on this machine to White Noise encrypted chats using the maintained Marmot connectors. Do not write, copy or modify connector code.
+
+1. Read the upstream guide first: &lt;https://github.com/marmot-protocol/mdk/blob/master/integrations/README.md&gt;. It is the source of truth for supported runtimes, prerequisites, the current release, commands and troubleshooting. If anything here disagrees with it, follow the guide.
+2. Ask which one runtime I want to connect: Hermes, OpenClaw, Claude Code, Codex, OpenCode, Pi or Goose. Install only that one.
+3. Ask for the White Noise account (`npub`) that may invite and message the agent.
+4. Check the guide&#x27;s prerequisites for that runtime: the runtime is installed, signed in and working, and the OS and architecture are supported. Report what is missing. Do not install or sign in to the runtime unless I ask.
+5. Install with the guide&#x27;s verified-installer helper: download the installer and its adjacent `.sha256` from the `marmot-protocol/mdk` release, verify the checksum, and only then run the local file. Never pipe a download into a shell. Use the release version the guide documents; do not invent or reuse a version from memory.
+6. When the install finishes, show me the agent&#x27;s new White Noise identity (`npub`) so I can add it in White Noise and invite it to a DM or group. Do not send invitations or messages on my behalf unless I ask.
+7. Run the guide&#x27;s first-install verification and tell me the result, including anything you could not check, such as the relay list on my phone.
+8. If something breaks, read the selected connector&#x27;s README and the guide before changing the service, runtime, allowlist or account configuration.
+
+Rules:
+
+- Keep the default isolation: one identity, home and service per connector. Share an account or socket across runtimes only if I ask, and then follow the guide.
+- An accepted invite is not permission to run the agent. Keep the sender allowlist, and never widen it without my explicit instruction.
+- Never ask for, print or store my White Noise private key (`nsec`).
+- For ordinary Nostr identity or messaging tasks, use the Nostr tools instead of this connector.
+" data-what="setup prompt for White Noise">Copy prompt</button><a href="https://github.com/brenorb/freedom-skills/blob/main/connectors/whitenoise/PROMPT.md" target="_blank" rel="noopener noreferrer">Read the prompt ↗<span class="vh"> (opens in a new tab)</span></a></p>
+        </div></li>
+<!--/gen-->
+      </ol>
+    </div>
+  </section>
+
+  <div class="back" id="install" aria-labelledby="install-h" role="region">
+    <div class="frame">
+      <header class="sec-head"><h2 id="install-h">Install</h2></header>
+      <ol class="ways">
+        <li><h3>All skills <span class="tag">Recommended</span></h3><p>With the open <code>skills</code> CLI.</p>
+          <div class="cmd"><pre><code>npx skills add brenorb/freedom-skills</code></pre><button class="copy" type="button" data-copy="npx skills add brenorb/freedom-skills" data-what="install command">Copy</button></div></li>
+        <li><h3>One skill</h3><p>Add <code>-s</code> and the skill’s name.</p>
+          <div class="cmd"><pre><code>npx skills add brenorb/freedom-skills -s signal-cli</code></pre><button class="copy" type="button" data-copy="npx skills add brenorb/freedom-skills -s signal-cli" data-what="one-skill install command">Copy</button></div></li>
+        <li><h3>By hand</h3><p>A skill is a folder. Copy it where your agent looks.</p>
+          <div class="cmd"><pre><code>git clone https://github.com/brenorb/freedom-skills
+cp -r freedom-skills/skills/signal-cli ~/.claude/skills/</code></pre><button class="copy" type="button" data-copy="git clone https://github.com/brenorb/freedom-skills
+cp -r freedom-skills/skills/signal-cli ~/.claude/skills/" data-what="both commands">Copy</button></div></li>
+      </ol>
+    </div>
+  </div>
+
+  <section class="section" id="safety" aria-labelledby="safety-h">
+    <div class="frame">
+      <header class="sec-head"><h2 id="safety-h">It asks before it acts.</h2></header>
+      <ul class="safety-list">
+        <li><strong>Confirms first.</strong> Skills tell your agent to show the caveats and get your OK before it sends, pays or publishes.</li>
+        <li><strong>Plain text you can read.</strong> Read any skill before you install it, or scan it first with <a href="skill.html?s=skillspector">SkillSpector</a>.</li>
+        <li><strong>Personal data stays out of the model.</strong> <a href="skill.html?s=rampart-hook-configurator">Rampart hooks</a> redact selected details before a request reaches the model and restore them in the reply.</li>
+        <li><strong>Your keys, your money.</strong> The <a href="skill.html?s=mdk-agent-wallet">agent wallet</a> is self-custodial.</li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="frame">
+    <div class="why" id="why">
+      <section aria-labelledby="why-h">
+        <p class="kicker">Why</p>
+        <h2 id="why-h">Freedom shouldn’t require 10,000 hours of training.</h2>
+        <p>Freedom tools let people talk, pay and publish without asking permission, but each comes with its own setup and security homework. Freedom Skills turns that know-how into tested skills your agent can follow.</p>
+        <ol class="journey" aria-label="From raw tools to human rights — chapters on the About page">
+          <li><a href="about.html#raw-tools"><span class="n">1</span>Raw tools</a></li>
+          <li><a href="about.html#tested-skills"><span class="n">2</span>Tested skills</a></li>
+          <li><a href="about.html#guided-use"><span class="n">3</span>Guided use</a></li>
+          <li><a href="about.html#safer-action"><span class="n">4</span>Safer action</a></li>
+          <li><a href="about.html#human-rights"><span class="n">5</span>Human rights</a></li>
+        </ol>
+      </section>
+      <section class="open" id="contribute" aria-labelledby="open-h">
+        <p class="kicker">Open source</p>
+        <h2 id="open-h">Know a freedom tool? Teach it.</h2>
+        <p>Freedom Skills is open source. Propose a skill, improve a workflow or report a problem.</p>
+        <p class="btns"><a class="btn" href="https://github.com/brenorb/freedom-skills" target="_blank" rel="noopener noreferrer">Repository ↗<span class="vh"> (opens in a new tab)</span></a><a class="btn ghost" href="https://github.com/brenorb/freedom-skills/issues" target="_blank" rel="noopener noreferrer">Issues ↗<span class="vh"> (opens in a new tab)</span></a></p>
+      </section>
+    </div>
+  </div>
+</main>
+
+<footer class="colophon">
+  <div class="frame">
+    <p><strong>Freedom Skills.</strong> No trackers, no cookies, no third-party requests.</p>
+    <ul>
+      <li><a href="about.html">About</a></li>
+      <li><a href="https://github.com/brenorb/freedom-skills" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+      <li><a href="https://github.com/brenorb/freedom-skills/issues" target="_blank" rel="noopener noreferrer">Issues</a></li>
+      <li><a href="https://agentskills.io" target="_blank" rel="noopener noreferrer">agentskills.io</a></li>
+    </ul>
+  </div>
+</footer>
+
+<!-- Templates for the generated regions above. Edit these, then run scripts/build_site_data.py. -->
+<template id="tpl-toc">
+            <li><a href="#{{id}}"><span class="r">{{range}}</span><span class="t">{{name}}</span><span class="c" aria-label="{{count_label}}">{{count}}</span></a></li>
+</template>
+<template id="tpl-dept">
+          <section class="dept" id="{{id}}" aria-labelledby="{{id}}-h">
+            <div class="dept-head"><p class="dno">{{range}} · {{count_label}}</p><h3 id="{{id}}-h">{{name}}</h3><p>{{blurb}}</p></div>
+            <ol class="entries" start="{{first_no_int}}">
+{{each:tpl-entry}}
+            </ol>
+          </section>
+</template>
+<template id="tpl-connector">
+        <li class="entry" id="connector-{{slug}}"><span class="no" aria-hidden="true">{{no}}</span><div class="body">
+          <h4>{{name}}</h4>
+          <p>{{tagline}}</p>
+          <p class="ask"><b>Works with</b>{{works_with}}</p>
+          <p class="meta"><button type="button" data-copy="{{prompt}}" data-what="setup prompt for {{name}}">Copy prompt</button><a href="{{prompt_url}}" target="_blank" rel="noopener noreferrer">Read the prompt ↗<span class="vh"> (opens in a new tab)</span></a></p>
+        </div></li>
+</template>
+<template id="tpl-entry">
+              <li class="entry" id="skill-{{slug}}"><span class="no" aria-hidden="true">{{no}}</span><div class="body">
+                <h4><a href="skill.html?s={{slug}}">{{name}}</a></h4>
+                <p>{{tagline}}</p>
+                <p class="ask"><b>Ask</b>“{{example_prompt}}”</p>
+                <p class="meta"><button type="button" data-copy="{{install}}" data-what="install command for {{name}}">Copy install</button><button class="js-only" type="button" data-demo="{{slug}}">Watch demo</button><a href="{{url}}" target="_blank" rel="noopener noreferrer">GitHub ↗<span class="vh"> (opens in a new tab)</span></a></p>
+              </div></li>
+</template>
+<script src="content/skills.js"></script>
+<script src="content/skill-details.js"></script>
+<script src="site.js"></script>
+<script src="player.js"></script>
+<script>
+(function () {
+  var FS = window.FS; if (!FS || !FS.Player) return;
+  var el = document.getElementById('player');
+  var p = new FS.Player(el, { chips: true, slugs: FS.ordered.map(function (s) { return s.slug; }), slug: 'signal-cli', skillLink: true });
+  // "Watch the demo" on any skill entry loads it into the player
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest && e.target.closest('[data-demo]');
+    if (!b) return;
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    el.scrollIntoView({ block: 'center', behavior: reduce ? 'auto' : 'smooth' });
+    p.load(b.getAttribute('data-demo'), { play: true, focus: true });
+  });
+})();
+</script>
+</body>
+</html>

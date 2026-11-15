@@ -7,6 +7,12 @@
 - Only fall back to environment checks or onboarding if that action fails, or if the environment is genuinely uncertain.
 - Do not make `command -v ...` or setup verification the mandatory first step when the tool is already known-good.
 
+## Adding or changing a skill
+
+- Follow `.claude/skills/add-freedom-skill/SKILL.md` for skills and for connectors (`connectors/<slug>/PROMPT.md`). Every skill folder has a `site.yaml` card next to its `SKILL.md`; the website data, the README skill tables and the live site pages are generated from those cards by `scripts/build_site_data.py`.
+- Never hand-edit `site/content/skills.json`, `skill-details.json`, their `.js` twins, or the README between `<!-- skills:start -->`/`<!-- skills:end -->` and `<!-- connectors:start -->`/`<!-- connectors:end -->`.
+- Before committing: `uv run --with pyyaml python scripts/build_site_data.py` and `python3 scripts/check_site_links.py`. Turn on the hooks once per clone with `git config core.hooksPath .githooks` to have this done on every commit.
+
 ## Language
 
 - Write everything in English: skills, docs, code comments, commit messages, pull request and issue titles and bodies, and review comments.

@@ -1,0 +1,48 @@
+# Website and README card for this skill. Agents don't load this file.
+# scripts/build_site_data.py turns it into the site's data, the README table and the skill pages.
+category: sharing
+order: 10
+name: Hosted Nowhere
+tagline: Publish pages that live in the link itself — no server to seize.
+summary: Create and operate Nowhere pages — messages, drops, events, fundraisers, petitions, forums, SVG
+  art — through one app router, with CLI and browser workflows.
+readme: Create and operate Nowhere pages through one app router, with CLI and browser workflows; includes
+  deprecated Store guidance.
+tool: nowhere-cli
+upstream: https://github.com/brenorb/nowhere-cli
+example_prompt: Make a Nowhere fundraiser page for the community garden.
+what_for: Create and update shareable Nowhere pages (messages, text drops, events, fundraisers, petitions,
+  forums, SVG art) where the whole site lives in the link.
+needs: Node.js 20+ with npx; network access for relay operations
+prompts:
+- Make a Nowhere fundraiser page for the community garden.
+- Turn this announcement into a Nowhere message page.
+- Create an event invite for Saturday's meetup.
+- Start a petition and tell me how many people signed.
+- What kind of Nowhere page is this link?
+- Update the event link with the new start time.
+caveats:
+- 'The site is the full fragment after #; an unencrypted link exposes its content to anyone holding it.'
+- Updates build a new URL; links you already shared don't change.
+- Updates replace whole arrays such as tags and items, so patches are kept narrow.
+- 'Store is deprecated: a buyer can pay without the seller reliably receiving the order.'
+demo:
+  prompt: Make a Nowhere fundraiser page for the community garden.
+  steps:
+  - kind: match
+    text: 'Recognized the skill: hosted-nowhere'
+  - kind: run
+    text: 'Fills fundraiser.json: name, description, image and your payment method'
+  - kind: run
+    text: Prepares the fundraiser link
+    cmd: npx --yes nowhere-cli create fundraiser --input fundraiser.json --json
+  - kind: check
+    text: Opens the final link and checks the app, content and exact payment destination
+  - kind: caveat
+    text: An unencrypted link exposes its content to anyone who has it. Edits make a new URL; old links
+      don't change.
+  - kind: confirm
+    text: Create the 'Community Garden' fundraiser link?
+    action: Create
+  result: You get the new fundraiser link, checked and ready to share.
+music: null

@@ -1,0 +1,49 @@
+# Website and README card for this skill. Agents don't load this file.
+# scripts/build_site_data.py turns it into the site's data, the README table and the skill pages.
+category: research
+order: 10
+name: Domain intel
+tagline: Passive domain reconnaissance. No API keys, no noise.
+summary: Passive domain reconnaissance, including subdomains, SSL certificates, WHOIS, DNS, and availability
+  checks.
+readme: Passive domain reconnaissance, including subdomains, SSL certificates, WHOIS, DNS, and availability
+  checks.
+tool: Python stdlib
+upstream: https://github.com/brenorb/freedom-skills/tree/main/skills/domain-intel
+example_prompt: Who's behind this phishing domain and what else do they run?
+what_for: Look up who's behind a domain and what it runs (WHOIS, DNS, SSL certificates, subdomains from
+  certificate logs, availability) with no API keys.
+needs: Python 3 only; no dependencies or API keys
+prompts:
+- Who's behind this phishing domain and what else do they run?
+- List subdomains of example.com from certificate logs.
+- When does example.com's SSL certificate expire?
+- Is coolstartup.io available?
+- Compare DNS and SSL for these three domains.
+- What mail servers does example.com use?
+caveats:
+- 'Passive only: no port scans; the SSL check is the one direct connection to the target.'
+- WHOIS servers often redact registrant info under GDPR.
+- The availability check is a heuristic, not authoritative like a registrar API.
+- crt.sh can be slow for very popular domains.
+demo:
+  prompt: Who's behind this phishing domain and what else do they run?
+  steps:
+  - kind: match
+    text: 'Recognized the skill: domain-intel'
+  - kind: run
+    text: WHOIS lookup
+    cmd: python3 scripts/domain_intel.py whois example.com
+  - kind: run
+    text: Subdomains from Certificate Transparency logs
+    cmd: python3 scripts/domain_intel.py subdomains example.com
+  - kind: run
+    text: Certificate details and SANs
+    cmd: python3 scripts/domain_intel.py ssl example.com
+  - kind: caveat
+    text: Registrant details are often redacted (GDPR), and WHOIS on port 43 may be blocked.
+  - kind: confirm
+    text: Save the findings to ./domain-report.md?
+    action: Save
+  result: Registrar, dates, name servers, subdomains and certificate SANs collected as leads.
+music: null
