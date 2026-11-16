@@ -11,6 +11,8 @@ on:
 jobs:
   offline-workflows:
     runs-on: ubuntu-latest
+    # The suite takes about 3 minutes. Without a limit a stuck run sits for GitHub's 6-hour default.
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
