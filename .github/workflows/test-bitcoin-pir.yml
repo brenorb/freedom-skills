@@ -1,0 +1,18 @@
+name: Test Bitcoin PIR wrapper
+
+on:
+  pull_request:
+    paths:
+      - "skills/bitcoin-pir/**"
+      - ".github/workflows/test-bitcoin-pir.yml"
+
+jobs:
+  wrapper:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          python-version: "3.12"
+      - name: Test checkout reuse and output parsing without network queries
+        run: uv run --with pytest python -m pytest skills/bitcoin-pir/tests -q
