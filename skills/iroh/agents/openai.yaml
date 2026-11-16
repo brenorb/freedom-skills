@@ -1,0 +1,4 @@
+interface:
+  display_name: "iroh"
+  short_description: "Official iroh examples and relay workflows from source"
+  default_prompt: "Use $iroh to run the official n0-computer/iroh transfer or search examples, inspect relay workflows, and set up a local iroh development relay safely from a source checkout."
