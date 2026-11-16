@@ -1,0 +1,4 @@
+interface:
+  display_name: "stegg-steganography"
+  short_description: "Use ST3GG through uvx for local steganography"
+  default_prompt: "Use $stegg-steganography to hide or recover file payloads in image carriers with uvx-based ST3GG workflows, cautious defaults, and threat-model-aware handling for adversarial environments."
