@@ -1,0 +1,19 @@
+name: Test Nostr VPN command recipes
+
+on:
+  pull_request:
+    paths:
+      - "skills/nostr-vpn/**"
+      - "tests/nostr_vpn/**"
+      - ".github/workflows/test-nostr-vpn.yml"
+
+jobs:
+  recipes:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          python-version: "3.12"
+      - name: Execute recipes against argv-only config fixtures
+        run: uv run --with pytest python -m pytest tests/nostr_vpn -q
