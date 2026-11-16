@@ -1,5 +1,5 @@
 # Skill categories, in the order the website and README show them.
-# Each card in catalog/skills/<slug>.yaml names one of these ids as its category.
+# Each card in site/catalog/skills/<slug>.yaml names one of these ids as its category.
 categories:
 - id: communication
   name: Communication and coordination

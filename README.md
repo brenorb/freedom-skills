@@ -27,7 +27,7 @@ Freedom Skills follows the open [Agent Skills standard](https://agentskills.io).
 ## Available skills
 
 <!-- skills:start -->
-<!-- Generated from catalog/ by scripts/build_site_data.py. Edit those cards, not this. -->
+<!-- Generated from site/catalog/ by scripts/build_site_data.py. Edit those cards, not this. -->
 
 ### Communication and coordination
 

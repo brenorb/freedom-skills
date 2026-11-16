@@ -1,8 +1,9 @@
 name: Website
 
 # Publishes site/ to GitHub Pages at https://freedomskills.dev on every push to main.
-# The site data is regenerated from skills/ and connectors/ first, so the published site is
+# The site data is regenerated from the cards in site/catalog/ first, so the published site is
 # never behind the repository even before the "Site data and links" workflow commits it back.
+# site/catalog/ holds source cards, not pages, so it is removed before upload.
 on:
   push:
     branches: [main]
@@ -28,10 +29,12 @@ jobs:
       - uses: astral-sh/setup-uv@v6
         with:
           python-version: "3.12"
-      - name: Regenerate site data from skills/ and connectors/
+      - name: Regenerate site data from site/catalog/
         run: uv run --with pyyaml python scripts/build_site_data.py
       - name: Links point at files that exist
         run: python3 scripts/check_site_links.py
+      - name: Keep the source cards off the website
+        run: rm -rf site/catalog
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
