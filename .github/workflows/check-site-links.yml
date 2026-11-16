@@ -1,6 +1,6 @@
 name: Site data and links
 
-# The website and the README skill tables are generated from skills/*/site.yaml.
+# The website and the README skill tables are generated from the cards in site/catalog/.
 # - Pull requests: fail if the generated files are stale, or if anything links to a skill
 #   or file this commit doesn't contain.
 # - Pushes to main: regenerate and commit the generated files if someone forgot, then check.

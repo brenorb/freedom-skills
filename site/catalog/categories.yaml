@@ -1,0 +1,21 @@
+# Skill categories, in the order the website and README show them.
+# Each card in site/catalog/skills/<slug>.yaml names one of these ids as its category.
+categories:
+- id: communication
+  name: Communication and coordination
+  blurb: Talk privately, coordinate without platforms.
+- id: money
+  name: Money and payments
+  blurb: Self-custodial Bitcoin and Lightning for agents and apps.
+- id: privacy
+  name: Privacy, safety, and resilience
+  blurb: Reduce exposure, audit before you trust, lock things in time.
+- id: sharing
+  name: Sharing, publishing, and preservation
+  blurb: Publish without a host, share without a cloud, keep proof it existed.
+- id: research
+  name: Research and media
+  blurb: Investigate quietly and transcribe locally.
+- id: developer
+  name: Product and developer workflows
+  blurb: Design, build, test, and review freedom-tech software.

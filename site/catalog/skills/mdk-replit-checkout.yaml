@@ -1,0 +1,45 @@
+# Website and README card for skills/mdk-replit-checkout/. Kept out of the skill folder so it isn't installed into agents.
+# scripts/build_site_data.py turns it into the site's data, the README table and the skill pages.
+category: money
+order: 50
+name: Replit checkout
+tagline: Add Lightning checkout to a Replit Vite + Express app.
+summary: Money Dev Kit Lightning checkout in Replit Vite, React, and Express applications.
+readme: Money Dev Kit Lightning checkout in Replit Vite, React, and Express applications.
+tool: '@moneydevkit/replit'
+upstream: https://docs.moneydevkit.com
+example_prompt: Make my Replit app accept Lightning payments.
+what_for: Make a Replit app with a Vite + React client and an Express server accept Lightning payments
+  through Money Dev Kit checkout.
+needs: A Replit app with Vite + React and Express; a Money Dev Kit account
+prompts:
+- Make my Replit app accept Lightning payments.
+- Add a Lightning checkout button to my Replit store page.
+- Mount the Money Dev Kit route in my Express server.
+- My Replit build drops @moneydevkit. Fix the bundler allowlist.
+- Show a success screen after a Lightning payment in my Replit app.
+caveats:
+- Uses @moneydevkit/replit, not @moneydevkit/nextjs.
+- Both MDK_ACCESS_TOKEN and MDK_MNEMONIC are required and are never hard-coded.
+- Adds @moneydevkit/core and @moneydevkit/replit to the bundler allowlist if script/build.ts exists.
+- Not for static, design-only Replit projects.
+demo:
+  prompt: Make my Replit app accept Lightning payments.
+  steps:
+  - kind: match
+    text: 'Recognized the skill: mdk-replit-checkout'
+  - kind: check
+    text: Confirms the app has both a Vite + React client and an Express server
+  - kind: run
+    text: Installs the packages
+    cmd: npm install @moneydevkit/replit express
+  - kind: run
+    text: Mounts createMdkExpressRouter() at /api/mdk and adds a useCheckout() button
+  - kind: caveat
+    text: Asks for your email and name before creating a Money Dev Kit account; keys go in Replit env
+      vars.
+  - kind: confirm
+    text: Apply the changes and restart the Replit app?
+    action: Apply
+  result: Checkout works in the Replit preview with sandbox payments, no wallet needed.
+music: null

@@ -1,0 +1,49 @@
+# Website and README card for skills/signal-cli/. Kept out of the skill folder so it isn't installed into agents.
+# scripts/build_site_data.py turns it into the site's data, the README table and the skill pages.
+category: communication
+order: 40
+name: Signal
+tagline: Send end-to-end encrypted Signal messages and files from your agent.
+summary: Private Signal messages and attachments, account and contact inspection, group workflows, setup,
+  and troubleshooting.
+readme: Private Signal messages and attachments, account and contact inspection, group workflows, setup,
+  and troubleshooting.
+tool: signal-cli
+upstream: https://github.com/AsamK/signal-cli
+example_prompt: Send the signed PDF to Ana on Signal.
+what_for: Send Signal messages and files to people or groups from your computer, through a linked device
+  on your own Signal account.
+needs: signal-cli installed and linked as a secondary device to your Signal account
+prompts:
+- Send the signed PDF to Ana on Signal.
+- 'Message the Book Club group: ''Thursday at 7, my place.'''
+- Send me a note-to-self on Signal to check it's working.
+- Link Signal on this laptop.
+- Find Ana in my Signal contacts.
+- Send these three photos to Bruno on Signal.
+caveats:
+- signal-cli can look healthy with no linked account; listAccounts is the real check.
+- Contacts, groups and profiles can be stale until receive runs.
+- If the lookup returns several candidates, it stops and asks which one.
+- Group sends may warn about stale members yet still deliver; success means a clean exit.
+demo:
+  prompt: Send the signed PDF to Ana on Signal.
+  steps:
+  - kind: match
+    text: 'Recognized the skill: signal-cli'
+  - kind: run
+    text: Syncs contacts and groups first
+    cmd: signal-cli -u "<your-number>" receive
+  - kind: run
+    text: Looks up the recipient
+    cmd: python3 scripts/find_contact.py --account "<your-number>" --query "Ana"
+  - kind: check
+    text: Exactly one contact matches; if several did, it would stop and ask
+  - kind: caveat
+    text: Confirms the recipient and final text before any send, and asks explicitly if the content is
+      sensitive.
+  - kind: confirm
+    text: Send signed-contract.pdf to Ana (+55…) with 'Signed copy attached'?
+    action: Send
+  result: Sent from your linked device; Ana gets it like any other Signal message.
+music: null

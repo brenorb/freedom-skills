@@ -1,0 +1,42 @@
+# Website and README card for skills/blossom-cli/. Kept out of the skill folder so it isn't installed into agents.
+# scripts/build_site_data.py turns it into the site's data, the README table and the skill pages.
+category: sharing
+order: 50
+name: Blossom
+tagline: Store files on Nostr's hash-addressed servers and get them back from any copy.
+summary: Upload, download, verify, mirror and recover files across Blossom servers with blossom-cli.
+readme: Uploading, downloading, verifying, mirroring, and recovering files across Blossom servers.
+tool: blossom-cli
+upstream: https://github.com/brenorb/blossom-cli
+example_prompt: Upload this PDF to my Blossom server and check it arrived intact.
+what_for: Put files on Blossom servers under their SHA-256 hash, check every copy matches the original,
+  replicate them to more servers, and recover them from whichever server still has them.
+needs: uv (uvx) and network access; a Nostr secret key in BLOSSOM_SECRET_KEY for blob operations
+prompts:
+- Upload this PDF to my Blossom server and check it arrived intact.
+- Mirror this blob to my two backup servers.
+- This Blossom link is dead. Find the file on another server.
+- Which files have I uploaded to blossom.example.com?
+- Delete this blob from my server.
+caveats:
+- Uploads are public by hash; encrypt sensitive files first.
+- Every upload, mirror and download is checked against the file's SHA-256 before it counts as done.
+- Nostr metadata publishing stays off unless you ask for it.
+- blossom-cli 0.5.6 delete and mirror fail on servers that require hash-scoped authorization.
+demo:
+  prompt: Upload this PDF to my Blossom server and check it arrived intact.
+  steps:
+  - kind: match
+    text: 'Recognized the skill: blossom-cli'
+  - kind: caveat
+    text: Anyone with the hash can fetch the file. Encrypt it first if it's sensitive.
+  - kind: confirm
+    text: Upload report.pdf to blossom.example.com without publishing Nostr metadata?
+    action: Upload
+  - kind: run
+    text: Uploads with the published CLI, key read from the environment
+    cmd: uvx blossom-cli --server "$BLOSSOM_SERVER" --format json --no-publish upload /absolute/path/to/report.pdf
+  - kind: check
+    text: The local SHA-256 matches the hash the server returned
+  result: report.pdf is stored at blossom.example.com/<sha256>, and the server copy matches the local file.
+music: null

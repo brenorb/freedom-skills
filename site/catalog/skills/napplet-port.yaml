@@ -1,0 +1,44 @@
+# Website and README card for skills/napplet-port/. Kept out of the skill folder so it isn't installed into agents.
+# scripts/build_site_data.py turns it into the site's data, the README table and the skill pages.
+category: developer
+order: 80
+name: napplet-port
+tagline: Turn an existing Nostr web app into focused, sandboxed napplets.
+summary: Map an existing Nostr app into napplet boundaries for migration.
+readme: Map an existing Nostr app into napplet boundaries for migration.
+tool: '@napplet/cli'
+upstream: https://github.com/napplet/web
+example_prompt: Port my Nostr client into a napplet.
+what_for: 'Plan how to turn an existing Nostr web app, client or widget into napplets: inventory its relay,
+  signing, storage, network and site-chrome code and map each part to a shipped NAP.'
+needs: The source of an existing Nostr web app
+prompts:
+- Port my Nostr client into a napplet.
+- Which parts of this app use window.nostr or localStorage?
+- Split my Nostr app into focused napplets.
+- Replace my relay pool with outbox calls.
+- Write a port handoff for napplet-design.
+caveats:
+- Not done when it compiles; done when the napplet owns no authority that belongs to the shell.
+- Features that need a NAP the SDK doesn't export are listed as blocked or deferred.
+- The site header, nav, footer and page router are deleted; the runtime frames the applet.
+- relay stays only for a named relay-local escape hatch.
+demo:
+  prompt: Port my Nostr client into a napplet.
+  steps:
+  - kind: match
+    text: 'Recognized the skill: napplet-port'
+  - kind: run
+    text: Inventories each feature and the browser authority it uses today
+  - kind: check
+    text: Maps relay pools to outbox, window.nostr signing to shell publishes, localStorage to storage
+  - kind: run
+    text: 'Splits the monolith into focused napplets: feed, composer, profile, DMs'
+  - kind: caveat
+    text: A leftover relay client, signer, direct network layer or site header means the boundary is still
+      wrong.
+  - kind: confirm
+    text: Hand the port inventory to napplet-design?
+    action: Continue
+  result: A handoff listing NAPs used, removed infrastructure and chrome, gaps and verification scenarios.
+music: null

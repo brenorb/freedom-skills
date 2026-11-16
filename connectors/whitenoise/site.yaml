@@ -1,8 +1,0 @@
-# Website and README card for this connector. Agents don't load this file.
-# scripts/build_site_data.py turns it into the site's data and the README connectors table.
-order: 10
-name: White Noise
-tagline: Message your agent from White Noise, in end-to-end encrypted chats.
-readme: Chat with Hermes, OpenClaw, Claude Code, Codex, OpenCode, Pi or Goose from White Noise over end-to-end encrypted Marmot groups.
-works_with: [Hermes, OpenClaw, Claude Code, Codex, OpenCode, Pi, Goose]
-upstream: https://github.com/marmot-protocol/mdk/tree/master/integrations

@@ -1,0 +1,41 @@
+# Website and README card for skills/p2p-transfer-filepizza/. Kept out of the skill folder so it isn't installed into agents.
+# scripts/build_site_data.py turns it into the site's data, the README table and the skill pages.
+category: sharing
+order: 20
+name: FilePizza
+tagline: Send a file browser-to-browser. Nothing is uploaded to a cloud.
+summary: Share local files through temporary peer-to-peer links with FilePizza.
+readme: Sharing local files through temporary peer-to-peer links with FilePizza.
+tool: filepizza-cli
+upstream: https://github.com/brenorb/filepizza-cli
+example_prompt: Give me a peer-to-peer link for this 2 GB video.
+what_for: Send a file straight from your computer to someone's browser with a temporary peer-to-peer FilePizza
+  link, without uploading it to a server.
+needs: Node.js 22+ and npm
+prompts:
+- Give me a peer-to-peer link for this 2 GB video.
+- Is my FilePizza share still running?
+- Stop seeding the file I shared earlier.
+- Send this zip to Ana with a direct download link.
+caveats:
+- The sender must stay online; the link stops working once seeding ends.
+- Not for seed phrases, private keys, wallets or similar high-risk secrets.
+- Peer IP, service metadata and the recipient's in-browser JavaScript are part of the trust model.
+- Large files depend on WebRTC, so success is less certain than a server upload.
+demo:
+  prompt: Give me a peer-to-peer link for this 2 GB video.
+  steps:
+  - kind: match
+    text: 'Recognized the skill: p2p-transfer-filepizza'
+  - kind: check
+    text: The path exists, is a regular file, and isn't a seed phrase, key or wallet
+  - kind: run
+    text: Prepares the share with the pinned CLI
+    cmd: npx --yes filepizza-cli@0.1.0 share /absolute/path/to/video.mp4
+  - kind: caveat
+    text: You must stay online until the download finishes. Peer IPs can be exposed to each other.
+  - kind: confirm
+    text: Create a public share link for video.mp4?
+    action: Share
+  result: Seeding at a file.pizza short link; keep this computer online until the download is done.
+music: null
