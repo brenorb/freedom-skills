@@ -13,8 +13,10 @@ from pathlib import Path
 import re
 import selectors
 import shutil
+import signal
 import subprocess
 import tempfile
+import time
 import unittest
 from urllib.parse import urlsplit
 from urllib.request import urlopen
@@ -25,6 +27,86 @@ SKILL = REPO / "skills" / "hosted-nowhere"
 EXAMPLES = SKILL / "examples"
 APPS = ("message", "drop", "event", "fundraiser", "petition", "forum", "art", "store")
 BASELINE = "0.3.0"
+
+
+def kill_group(process: subprocess.Popen, sig: int) -> None:
+    """Signal the whole process group, not just npx.
+
+    npx runs the real program as a child process that holds our stdout/stderr pipes. Killing
+    only npx leaves that child alive, and reading the pipes until they close never ends.
+    """
+    try:
+        os.killpg(process.pid, sig)
+    except ProcessLookupError:
+        pass
+
+
+def run(argv, timeout, **kwargs) -> subprocess.CompletedProcess:
+    """subprocess.run(capture_output=True, text=True), but a timeout kills the whole group.
+
+    subprocess.run only kills npx, so the real CLI under it would keep running after a timeout.
+    """
+    process = subprocess.Popen(
+        argv, stdin=subprocess.DEVNULL, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+        text=True, start_new_session=True, **kwargs,
+    )
+    try:
+        stdout, stderr = process.communicate(timeout=timeout)
+    except subprocess.TimeoutExpired:
+        kill_group(process, signal.SIGKILL)
+        stdout, stderr = process.communicate(timeout=5)
+        raise subprocess.TimeoutExpired(argv, timeout, output=stdout, stderr=stderr) from None
+    return subprocess.CompletedProcess(argv, process.returncode, stdout, stderr)
+
+
+def stop(process: subprocess.Popen, grace: float = 5) -> str:
+    """Stop a process started with start_new_session=True and return its stderr.
+
+    Every wait has a limit. The old cleanup ended with a bare communicate(), which never
+    returned when npx was gone but its child still held the pipes.
+    """
+    kill_group(process, signal.SIGTERM)
+    try:
+        return process.communicate(timeout=grace)[1]
+    except subprocess.TimeoutExpired:
+        kill_group(process, signal.SIGKILL)
+        return process.communicate(timeout=5)[1]
+
+
+# Like npx: a wrapper whose child inherits stdout/stderr. The trailing `true` stops sh from
+# exec-ing the child, so the child really is a separate process holding the pipes.
+WRAPPED_CHILD = "python3 -c 'import signal, time; signal.signal(signal.SIGTERM, signal.SIG_IGN); time.sleep(30)' {marker}; true"
+
+
+class HarnessTimeouts(unittest.TestCase):
+    """The harness must fail fast, never hang, when a wrapped child outlives its wrapper."""
+
+    def setUp(self):
+        self.marker = f"hosted-nowhere-harness-{os.getpid()}-{self.id().rsplit('.', 1)[-1]}"
+        self.addCleanup(subprocess.run, ["pkill", "-KILL", "-f", self.marker])
+
+    def assert_no_survivors(self):
+        survivors = subprocess.run(["pgrep", "-f", self.marker], capture_output=True, text=True).stdout
+        self.assertFalse(survivors.strip(), "child process outlived the harness")
+
+    def test_run_timeout_kills_the_child_holding_the_pipes(self):
+        start = time.monotonic()
+        with self.assertRaises(subprocess.TimeoutExpired):
+            run(["sh", "-c", WRAPPED_CHILD.format(marker=self.marker)], timeout=1)
+        self.assertLess(time.monotonic() - start, 10)
+        self.assert_no_survivors()
+
+    def test_stop_returns_when_the_child_ignores_sigterm(self):
+        process = subprocess.Popen(
+            ["sh", "-c", WRAPPED_CHILD.format(marker=self.marker)],
+            stdin=subprocess.DEVNULL, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+            text=True, start_new_session=True,
+        )
+        time.sleep(0.5)
+        start = time.monotonic()
+        stop(process, grace=1)
+        self.assertLess(time.monotonic() - start, 10)
+        self.assert_no_survivors()
 
 
 class SkillResources(unittest.TestCase):
@@ -53,10 +135,10 @@ class NowhereWorkflows(unittest.TestCase):
         ):
             raise ValueError("NOWHERE_CLI_COMMAND must be a nonempty JSON argv array")
         try:
-            version = subprocess.run(
-                [*cls.command, "--version"], capture_output=True, text=True,
-                timeout=120, check=True,
-            ).stdout.strip()
+            result = run([*cls.command, "--version"], timeout=120)
+            if result.returncode:
+                raise RuntimeError(f"nowhere --version failed: {result.stderr.strip()}")
+            version = result.stdout.strip()
         except FileNotFoundError as error:
             raise RuntimeError(
                 "Node.js 20+ with npx is required, or set NOWHERE_CLI_COMMAND to an existing build"
@@ -73,10 +155,7 @@ class NowhereWorkflows(unittest.TestCase):
         self.counter = 0
 
     def raw(self, *args):
-        return subprocess.run(
-            [*self.command, *args], cwd=self.work, env=self.env,
-            capture_output=True, text=True, timeout=30,
-        )
+        return run([*self.command, *args], timeout=30, cwd=self.work, env=self.env)
 
     def cli(self, *args):
         result = self.raw(*args, "--json")
@@ -110,17 +189,12 @@ class NowhereWorkflows(unittest.TestCase):
             relay_command = ["node", fixture, str(entrypoint)]
         process = subprocess.Popen(
             [*relay_command, *(["--reject"] if reject else [])],
-            stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True,
+            stdin=subprocess.DEVNULL, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True,
+            start_new_session=True,
         )
 
         def close():
-            if process.poll() is None:
-                process.terminate()
-            try:
-                return process.communicate(timeout=5)[1]
-            except subprocess.TimeoutExpired:
-                process.kill()
-                return process.communicate()[1]
+            return stop(process)
 
         self.addCleanup(close)
         with selectors.DefaultSelector() as selector:
