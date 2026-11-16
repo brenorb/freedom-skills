@@ -1,0 +1,42 @@
+# Website and README card for skills/nsyte-ci/. Kept out of the skill folder so it isn't installed into agents.
+# scripts/build_site_data.py turns it into the site's data, the README table and the skill pages.
+category: sharing
+order: 70
+name: nsyte CI
+tagline: Redeploy your nsite from GitHub Actions or GitLab CI on every push, with a revocable key.
+summary: Deploy nsites from CI/CD pipelines with a revocable nbunksec credential, the nsite-action GitHub Action or a pinned nsyte binary.
+readme: Deploying nsites from GitHub Actions, GitLab CI, or other pipelines with revocable credentials and pinned nsyte releases.
+tool: nsyte
+upstream: https://github.com/sandwichfarm/nsyte
+example_prompt: Set up a GitHub Action that deploys my nsite on every push to main.
+what_for: Automate nsite deploys from a pipeline, using a CI credential you can revoke from your signer app,
+  a pinned nsyte version and a secrets scan before anything is published.
+needs: An existing nsyte project, a NIP-46 signer app that stays online during runs, and a CI secret for the nbunksec credential
+prompts:
+- Set up a GitHub Action that deploys my nsite on every push to main.
+- Deploy my nsite from GitLab CI.
+- Tag each release of my site with an nsyte snapshot.
+- My nsite CI job hangs at "waiting for bunker". Why?
+- Review my nsite-action workflow for problems.
+caveats:
+- You run nsyte ci and store the nbunksec yourself; the agent never handles the credential.
+- Never put a raw nsec or hex key in CI; an nbunksec can be revoked in the signer app.
+- nsite-action skips the secrets scan by default; the skill sets skip_secrets_scan to "false".
+- Pin the nsyte version; the action defaults to latest.
+demo:
+  prompt: Set up a GitHub Action that deploys my nsite on every push to main.
+  steps:
+  - kind: match
+    text: 'Recognized the skill: nsyte-ci'
+  - kind: caveat
+    text: Run nsyte ci yourself and save the nbunksec1… value as the NBUNK_SECRET repository secret.
+  - kind: run
+    text: Checks the committed config before wiring it into CI
+    cmd: nsyte validate
+  - kind: check
+    text: The workflow pins nsite-action and nsyte, and turns the secrets scan on
+  - kind: confirm
+    text: Add .github/workflows/deploy-nsite.yml to the repository?
+    action: Add
+  result: Every push to main builds the site and deploys it with a revocable CI credential.
+music: null

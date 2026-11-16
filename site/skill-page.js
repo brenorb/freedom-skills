@@ -1,4 +1,4 @@
-/* skill.html?s=<slug> — one template for all 32 skills, rendered from
+/* skill.html?s=<slug> — one template for all 34 skills, rendered from
    content/skills.js + content/skill-details.js. Unknown slug → a picker. */
 (function () {
   'use strict';
@@ -13,9 +13,9 @@
   function cmd(text, what, big) { return '<div class="cmd' + (big ? ' big' : '') + '"><pre><code>' + esc(text) + '</code></pre>' + copyBtn(text, what) + '</div>'; }
 
   if (!s) {
-    document.title = 'All 32 skills — Freedom Skills';
+    document.title = 'All 34 skills — Freedom Skills';
     var h = '<div class="picker-intro"><p class="kicker">Skill pages</p><h1>Pick a skill.</h1><p class="dek">' +
-      (slug ? 'There’s no skill called “' + esc(slug) + '”. ' : '') + 'Every one of the 32 has its own page with a demo, prompts to try, and how to install it.</p></div>';
+      (slug ? 'There’s no skill called “' + esc(slug) + '”. ' : '') + 'Every one of the 34 has its own page with a demo, prompts to try, and how to install it.</p></div>';
     FS.cats.forEach(function (c, ci) {
       var list = FS.ordered.filter(function (k) { return k.category === c.id; });
       h += '<section class="dept" aria-labelledby="p-' + c.id + '"><div class="dept-head"><p class="dno">Category ' + FS.num(ci + 1) + ' · ' + list.length + ' skills</p><h2 id="p-' + c.id + '" style="font-family:var(--display);font-size:1.6rem;margin:0;letter-spacing:-.02em">' + esc(c.name) + '</h2></div><ol class="entries">' +
@@ -34,7 +34,7 @@
   var upHost = s.upstream.replace(/^https?:\/\//, '').replace(/\/$/, '');
 
   root.innerHTML =
-    '<p class="crumbs"><a href="index.html">Home</a> / <a href="index.html#' + c.id + '">' + esc(c.name) + '</a> / ' + FS.num(s.no) + ' of 32</p>' +
+    '<p class="crumbs"><a href="index.html">Home</a> / <a href="index.html#' + c.id + '">' + esc(c.name) + '</a> / ' + FS.num(s.no) + ' of 34</p>' +
     '<header class="sk-head"><span class="sk-no" aria-hidden="true">' + FS.num(s.no) + '</span><div>' +
       '<p class="kicker">' + esc(c.name) + '</p><h1>' + esc(s.name) + '</h1><p class="dek">' + esc(s.tagline) + '</p></div></header>' +
     '<div class="sk-grid"><div class="sk-main">' +
@@ -47,7 +47,7 @@
     '</div><aside class="sk-side" aria-label="Install and details">' +
       '<section aria-labelledby="in-h"><h2 id="in-h">Install</h2>' +
         '<p class="cmd-label">This skill</p>' + cmd(d.install, 'install command for ' + s.name, true) +
-        '<p class="cmd-label">All 32 skills</p>' + cmd('npx skills add brenorb/freedom-skills', 'install command for all skills') +
+        '<p class="cmd-label">All 34 skills</p>' + cmd('npx skills add brenorb/freedom-skills', 'install command for all skills') +
         '<p class="cmd-label">By hand</p>' + cmd(byHand, 'both commands') +
       '</section>' +
       '<section aria-labelledby="need-h"><h2 id="need-h">Before you start</h2><dl>' +

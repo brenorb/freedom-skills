@@ -67,6 +67,8 @@ Freedom Skills follows the open [Agent Skills standard](https://agentskills.io).
 | [`wayback-archive`](skills/wayback-archive/) | Archiving webpages, checking snapshots, creating stable citation links, and batch archiving URLs. |
 | [`opentimestamps`](skills/opentimestamps/) | Timestamping files with OpenTimestamps, creating and upgrading `.ots` proofs, and verifying that a file was attested in Bitcoin. |
 | [`blossom-cli`](skills/blossom-cli/) | Uploading, downloading, verifying, mirroring, and recovering files across Blossom servers. |
+| [`nsyte`](skills/nsyte/) | Deploying, inspecting, updating, and removing static websites (nsites) on Nostr relays and Blossom servers. |
+| [`nsyte-ci`](skills/nsyte-ci/) | Deploying nsites from GitHub Actions, GitLab CI, or other pipelines with revocable credentials and pinned nsyte releases. |
 
 ### Research and media
 

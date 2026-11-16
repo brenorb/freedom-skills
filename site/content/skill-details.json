@@ -961,6 +961,109 @@
     "needs": "uv (uvx) and network access; a Nostr secret key in BLOSSOM_SECRET_KEY for blob operations",
     "music": null
   },
+  "nsyte": {
+    "slug": "nsyte",
+    "install": "npx skills add brenorb/freedom-skills -s nsyte",
+    "what_for": "Turn a built static site into an nsite. Files go to Blossom servers, a signed manifest goes to Nostr relays, and any nsite gateway can serve it.",
+    "prompts": [
+      "Deploy my ./dist folder as an nsite and give me the link.",
+      "Set up nsyte for this project using my bunker.",
+      "Show me what would be published before you deploy.",
+      "Check whether my nsite reached all my relays and Blossom servers.",
+      "Replace just index.html on my published site.",
+      "Why is my nsite showing the old version?"
+    ],
+    "demo": {
+      "prompt": "Deploy my ./dist folder as an nsite and give me the link.",
+      "steps": [
+        {
+          "kind": "match",
+          "text": "Recognized the skill: nsyte"
+        },
+        {
+          "kind": "run",
+          "text": "Scans the build for leaked secrets",
+          "cmd": "nsyte scan ./dist"
+        },
+        {
+          "kind": "run",
+          "text": "Previews the signed events without publishing anything",
+          "cmd": "nsyte deploy ./dist --dry-run"
+        },
+        {
+          "kind": "caveat",
+          "text": "Publishing signs a public manifest with your key; your bunker will ask you to approve it."
+        },
+        {
+          "kind": "confirm",
+          "text": "Publish ./dist to the relays and Blossom servers in .nsite/config.json?",
+          "action": "Publish"
+        },
+        {
+          "kind": "run",
+          "text": "Uploads the files and publishes the manifest",
+          "cmd": "nsyte deploy ./dist"
+        }
+      ],
+      "result": "The site is live at https://<npub>.nsite.lol/ and served from every configured Blossom server."
+    },
+    "caveats": [
+      "Secrets (nsec, nbunksec, bunker URLs) are never printed or committed; signing goes through a bunker or an environment variable.",
+      "Only the build directory is deployed; run nsyte scan on it first to catch leaked secrets.",
+      "delete and undeploy are irreversible and need your explicit confirmation.",
+      "Relays and Blossom servers come from your config; the skill does not invent endpoints."
+    ],
+    "needs": "The nsyte CLI (Homebrew, Scoop, AUR or a pinned release binary) and a Nostr signer, preferably a NIP-46 bunker",
+    "music": null
+  },
+  "nsyte-ci": {
+    "slug": "nsyte-ci",
+    "install": "npx skills add brenorb/freedom-skills -s nsyte-ci",
+    "what_for": "Automate nsite deploys from a pipeline, using a CI credential you can revoke from your signer app, a pinned nsyte version and a secrets scan before anything is published.",
+    "prompts": [
+      "Set up a GitHub Action that deploys my nsite on every push to main.",
+      "Deploy my nsite from GitLab CI.",
+      "Tag each release of my site with an nsyte snapshot.",
+      "My nsite CI job hangs at \"waiting for bunker\". Why?",
+      "Review my nsite-action workflow for problems."
+    ],
+    "demo": {
+      "prompt": "Set up a GitHub Action that deploys my nsite on every push to main.",
+      "steps": [
+        {
+          "kind": "match",
+          "text": "Recognized the skill: nsyte-ci"
+        },
+        {
+          "kind": "caveat",
+          "text": "Run nsyte ci yourself and save the nbunksec1… value as the NBUNK_SECRET repository secret."
+        },
+        {
+          "kind": "run",
+          "text": "Checks the committed config before wiring it into CI",
+          "cmd": "nsyte validate"
+        },
+        {
+          "kind": "check",
+          "text": "The workflow pins nsite-action and nsyte, and turns the secrets scan on"
+        },
+        {
+          "kind": "confirm",
+          "text": "Add .github/workflows/deploy-nsite.yml to the repository?",
+          "action": "Add"
+        }
+      ],
+      "result": "Every push to main builds the site and deploys it with a revocable CI credential."
+    },
+    "caveats": [
+      "You run nsyte ci and store the nbunksec yourself; the agent never handles the credential.",
+      "Never put a raw nsec or hex key in CI; an nbunksec can be revoked in the signer app.",
+      "nsite-action skips the secrets scan by default; the skill sets skip_secrets_scan to \"false\".",
+      "Pin the nsyte version; the action defaults to latest."
+    ],
+    "needs": "An existing nsyte project, a NIP-46 signer app that stays online during runs, and a CI secret for the nbunksec credential",
+    "music": null
+  },
   "domain-intel": {
     "slug": "domain-intel",
     "install": "npx skills add brenorb/freedom-skills -s domain-intel",

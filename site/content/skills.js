@@ -30,7 +30,7 @@ window.FREEDOM_SKILLS = {
       "id": "sharing",
       "name": "Sharing, publishing, and preservation",
       "blurb": "Publish without a host, share without a cloud, keep proof it existed.",
-      "count": 5
+      "count": 7
     },
     {
       "id": "research",
@@ -254,6 +254,28 @@ window.FREEDOM_SKILLS = {
       "tool": "blossom-cli",
       "upstream": "https://github.com/brenorb/blossom-cli",
       "url": "https://github.com/brenorb/freedom-skills/tree/main/skills/blossom-cli"
+    },
+    {
+      "slug": "nsyte",
+      "name": "nsyte",
+      "category": "sharing",
+      "summary": "Deploy, inspect, update and remove static websites (nsites) on Nostr relays and Blossom servers with the official nsyte skill.",
+      "tagline": "Publish a static website on Nostr and Blossom, with no host that can take it down.",
+      "example_prompt": "Deploy my ./dist folder as an nsite and give me the link.",
+      "tool": "nsyte",
+      "upstream": "https://github.com/sandwichfarm/nsyte",
+      "url": "https://github.com/brenorb/freedom-skills/tree/main/skills/nsyte"
+    },
+    {
+      "slug": "nsyte-ci",
+      "name": "nsyte CI",
+      "category": "sharing",
+      "summary": "Deploy nsites from CI/CD pipelines with a revocable nbunksec credential, the nsite-action GitHub Action or a pinned nsyte binary.",
+      "tagline": "Redeploy your nsite from GitHub Actions or GitLab CI on every push, with a revocable key.",
+      "example_prompt": "Set up a GitHub Action that deploys my nsite on every push to main.",
+      "tool": "nsyte",
+      "upstream": "https://github.com/sandwichfarm/nsyte",
+      "url": "https://github.com/brenorb/freedom-skills/tree/main/skills/nsyte-ci"
     },
     {
       "slug": "domain-intel",
