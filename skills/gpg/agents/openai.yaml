@@ -1,0 +1,4 @@
+interface:
+  display_name: "GPG"
+  short_description: "Encrypt, decrypt, and sign files with GnuPG"
+  default_prompt: "Use $gpg to encrypt or decrypt this file safely, and guide me through passphrase or recipient-key handling."
