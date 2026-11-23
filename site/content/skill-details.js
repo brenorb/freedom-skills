@@ -843,7 +843,7 @@ window.FREEDOM_SKILL_DETAILS = {
         {
           "kind": "run",
           "text": "Prepares the croc command for the approved file.",
-          "cmd": "croc send -- \"/absolute/path/to/file\""
+          "cmd": "croc --disable-clipboard send -- \"/absolute/path/to/file\""
         },
         {
           "kind": "caveat",

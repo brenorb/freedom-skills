@@ -29,7 +29,7 @@ demo:
     text: Confirms the exact file and receiving computer.
   - kind: run
     text: Prepares the croc command for the approved file.
-    cmd: croc send -- "/absolute/path/to/file"
+    cmd: croc --disable-clipboard send -- "/absolute/path/to/file"
   - kind: caveat
     text: Keep both computers online and keep the code private.
   - kind: confirm

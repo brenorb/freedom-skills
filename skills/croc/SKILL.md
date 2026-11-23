@@ -7,15 +7,17 @@ description: Send or receive files and folders between two computers with croc's
 
 ## Send
 
+For hosted or unknown agent setups, keep raw Croc output out of the agent transcript; start from a private human terminal or use a local wrapper that returns only sanitized status and errors. Read [trust assumptions](references/trust-assumptions.md) before handling an invite.
+
 With the user's chosen file and recipient confirmed, start the live transfer:
 
 ```bash
-croc send -- "/absolute/path/to/file"
+croc --disable-clipboard send -- "/absolute/path/to/file"
 ```
 
 Pass multiple approved paths as separate arguments. Prefer explicit files. For a folder, inspect hidden files and metadata or stage a clean copy containing only approved files: croc v11.6.6 includes `.git` by default. Do not transfer credential material such as wallet seeds or private keys.
 
-Keep the sender running while the recipient connects. Use croc's generated code; anyone with it can attempt to join. Tell the user where to retrieve it locally or deliver it only to the intended recipient through an authorized private channel. Don't paste it into public posts, command arguments, logs, or shared transcripts. If it leaks, stop the sender and generate a fresh code.
+Keep the sender running while the recipient connects. Use croc's generated code; anyone with it can attempt to join. Tell the user where to retrieve it locally or deliver it only to the intended recipient through an authorized private channel. Keep the invite and its receive URL out of command arguments and shared output. If it leaks, stop the sender and generate a fresh code.
 
 ## Receive
 
