@@ -819,6 +819,53 @@ window.FREEDOM_SKILL_DETAILS = {
     "needs": "Node.js 22+ and npm",
     "music": null
   },
+  "croc": {
+    "slug": "croc",
+    "install": "npx skills add brenorb/freedom-skills -s croc",
+    "what_for": "Transfer files between two computers using a one-time code, without putting them in hosted storage.",
+    "prompts": [
+      "Use croc to send this zip to my other computer.",
+      "Receive a croc transfer into a new folder.",
+      "Send these three photos with croc.",
+      "Help me resume an interrupted croc transfer."
+    ],
+    "demo": {
+      "prompt": "Use croc to send this zip to my other computer.",
+      "steps": [
+        {
+          "kind": "match",
+          "text": "Recognized the skill: croc"
+        },
+        {
+          "kind": "check",
+          "text": "Confirms the exact file and receiving computer."
+        },
+        {
+          "kind": "run",
+          "text": "Prepares the croc command for the approved file.",
+          "cmd": "croc send -- \"/absolute/path/to/file\""
+        },
+        {
+          "kind": "caveat",
+          "text": "Keep both computers online and keep the code private."
+        },
+        {
+          "kind": "confirm",
+          "text": "Start the live transfer to your other computer?",
+          "action": "Send"
+        }
+      ],
+      "result": "The sender displays a private code and waits for the receiver to accept."
+    },
+    "caveats": [
+      "Both computers must be online until the transfer completes.",
+      "Treat the one-time code as a secret and share it only with the intended recipient.",
+      "Folder transfers can include hidden files such as Git metadata.",
+      "Croc encrypts content but can use an Internet relay; it does not hide network metadata."
+    ],
+    "needs": "croc on both computers; both online during the transfer",
+    "music": null
+  },
   "wayback-archive": {
     "slug": "wayback-archive",
     "install": "npx skills add brenorb/freedom-skills -s wayback-archive",

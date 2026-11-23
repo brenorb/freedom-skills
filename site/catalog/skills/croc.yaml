@@ -1,0 +1,39 @@
+# Website and README card for skills/croc/.
+category: sharing
+order: 25
+name: Croc
+tagline: Send files between two computers with an encrypted transfer and a one-time code.
+summary: Send and receive files or folders with croc's encrypted live transfer.
+readme: Encrypted live file and folder transfers between two computers using a one-time code.
+tool: croc
+upstream: https://github.com/schollz/croc
+example_prompt: Use croc to send this zip to my other computer.
+what_for: Transfer files between two computers using a one-time code, without putting them in hosted storage.
+needs: croc on both computers; both online during the transfer
+prompts:
+- Use croc to send this zip to my other computer.
+- Receive a croc transfer into a new folder.
+- Send these three photos with croc.
+- Help me resume an interrupted croc transfer.
+caveats:
+- Both computers must be online until the transfer completes.
+- Treat the one-time code as a secret and share it only with the intended recipient.
+- Folder transfers can include hidden files such as Git metadata.
+- Croc encrypts content but can use an Internet relay; it does not hide network metadata.
+demo:
+  prompt: Use croc to send this zip to my other computer.
+  steps:
+  - kind: match
+    text: 'Recognized the skill: croc'
+  - kind: check
+    text: Confirms the exact file and receiving computer.
+  - kind: run
+    text: Prepares the croc command for the approved file.
+    cmd: croc send -- "/absolute/path/to/file"
+  - kind: caveat
+    text: Keep both computers online and keep the code private.
+  - kind: confirm
+    text: Start the live transfer to your other computer?
+    action: Send
+  result: The sender displays a private code and waits for the receiver to accept.
+music: null
