@@ -9,7 +9,7 @@ tool: croc
 upstream: https://github.com/schollz/croc
 example_prompt: Use croc to send this zip to my other computer.
 what_for: Transfer files between two computers using a one-time code, without putting them in hosted storage.
-needs: croc on both computers; both online during the transfer
+needs: croc on both computers; Python 3 for the automated helper; both online during the transfer
 prompts:
 - Use croc to send this zip to my other computer.
 - Receive a croc transfer into a new folder.
@@ -29,7 +29,7 @@ demo:
     text: Confirms the exact file and receiving computer.
   - kind: run
     text: Prepares the croc command for the approved file.
-    cmd: croc --disable-clipboard send -- "/absolute/path/to/file"
+    cmd: croc --ignore-stdin --disable-clipboard send -- "/absolute/path/to/file"
   - kind: caveat
     text: Keep both computers online and keep the code private.
   - kind: confirm

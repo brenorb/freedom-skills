@@ -843,7 +843,7 @@ window.FREEDOM_SKILL_DETAILS = {
         {
           "kind": "run",
           "text": "Prepares the croc command for the approved file.",
-          "cmd": "croc --disable-clipboard send -- \"/absolute/path/to/file\""
+          "cmd": "croc --ignore-stdin --disable-clipboard send -- \"/absolute/path/to/file\""
         },
         {
           "kind": "caveat",
@@ -863,7 +863,7 @@ window.FREEDOM_SKILL_DETAILS = {
       "Folder transfers can include hidden files such as Git metadata.",
       "Croc encrypts content but can use an Internet relay; it does not hide network metadata."
     ],
-    "needs": "croc on both computers; both online during the transfer",
+    "needs": "croc on both computers; Python 3 for the automated helper; both online during the transfer",
     "music": null
   },
   "wayback-archive": {
