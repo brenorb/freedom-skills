@@ -42,7 +42,7 @@ window.FREEDOM_SKILLS = {
       "id": "developer",
       "name": "Product and developer workflows",
       "blurb": "Design, build, test, and review freedom-tech software.",
-      "count": 11
+      "count": 12
     }
   ],
   "skills": [
@@ -309,6 +309,17 @@ window.FREEDOM_SKILLS = {
       "tool": "Bitcoin Design community practice",
       "upstream": "https://bitcoin.design",
       "url": "https://github.com/brenorb/freedom-skills/tree/main/skills/mo-ux-vibedesign-btc"
+    },
+    {
+      "slug": "inference-optimisation",
+      "name": "Inference optimisation",
+      "category": "developer",
+      "summary": "Improve local LLM serving speed under a memory cap with theoretical ceilings, controlled experiments, and full-context stability gates.",
+      "tagline": "Tune your local model server with measured experiments and stability checks.",
+      "example_prompt": "Speed up my local model server under a 40 GiB memory cap while keeping 128K context stable.",
+      "tool": "Python and Bash",
+      "upstream": "https://github.com/sybil-solutions/inference-optimisation-skill",
+      "url": "https://github.com/brenorb/freedom-skills/tree/main/skills/inference-optimisation"
     },
     {
       "slug": "napplet-make",
