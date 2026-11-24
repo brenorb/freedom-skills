@@ -16,7 +16,6 @@ license: MIT
 metadata:
   author: "0xSero / Sybil Solutions"
   repository: "https://github.com/sybil-solutions/inference-optimisation-skill"
-  upstream_commit: "fda968e7fc1996aa23c67139c755fe541c9d4be0"
 ---
 
 # Inference optimisation (hill-climbing a model server)
