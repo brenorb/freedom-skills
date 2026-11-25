@@ -2,12 +2,13 @@
 
 ## Secret delivery
 
-Provision the same fresh, high-entropy `CROC_SECRET` in both child environments using a trusted local orchestrator or secret manager. The helper deliberately does not generate, print, persist or deliver a code. A local process environment is not inherently secret from its host or same-user processes; use the trust boundary described in [trust assumptions](trust-assumptions.md). Do not paste a real code into agent tool arguments, source files, shell tracing, logs or shared transcripts. Generating a code with Croc's default sender also prints code-bearing output; use that route only in a private terminal.
+Read the installed [local privacy choice](local-privacy.md) first. With **allowed**, the sender helper generates a fresh random code when `CROC_SECRET` is absent and includes `code` in its `running` event. The agent may use it to set `CROC_SECRET` on the intended receiver through an authorized tool/channel. With **private**, provision the same fresh, high-entropy `CROC_SECRET` in both child environments through trusted local automation; never return it to the model. A local process environment is not inherently secret from its host or same-user processes. Avoid unnecessary logs and shell history in either mode; see [trust assumptions](trust-assumptions.md).
 
 The bundled helper invokes Croc without stdin or a controlling terminal, suppresses both output streams at the OS boundary, and emits `running` followed by `completed` or `failed`. It gives Croc a temporary `HOME`/`XDG_CONFIG_HOME` so saved options cannot override the intended receive code, relay or collision policy; the user's Croc configuration stays untouched. Use explicit helper flags or environment settings such as `CROC_RELAY` for custom configuration. Completion requires Croc to exit 0; check the received manifest/hashes separately. No TTY emulation, `read`, `yes | croc`, clipboard or `--classic` is needed.
 
 ```bash
-# CROC_SECRET is already injected locally; resolve scripts/ from the skill folder.
+# The receiver needs CROC_SECRET; in private mode inject it locally on both sides.
+# Resolve scripts/ from the skill folder.
 # Start on the sender, then run the receiver concurrently on the other endpoint.
 python3 scripts/transfer.py send "/absolute/path/file" "/absolute/path/folder"
 python3 scripts/transfer.py receive "/absolute/path/empty-directory"

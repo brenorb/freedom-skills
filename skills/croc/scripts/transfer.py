@@ -1,15 +1,18 @@
 #!/usr/bin/env python3
-"""Run an authorized Croc transfer without a terminal or secret-bearing output."""
+"""Run an authorized Croc transfer under the choice saved in its SKILL.md."""
 
 import argparse
 import json
 import os
 from pathlib import Path
+import secrets
 import signal
 import subprocess
 import sys
 import tempfile
 import time
+
+from invite_policy import read_policy
 
 
 def status(state, **fields):
@@ -45,7 +48,14 @@ def main():
     receive.add_argument("destination")
     args = parser.parse_args()
 
-    if not os.environ.get("CROC_SECRET", "").strip():
+    policy = read_policy()
+    if policy["model_access"] == "ask":
+        status("failed", error="configuration_required", policy=policy)
+        return 2
+    secret = os.environ.get("CROC_SECRET", "").strip()
+    if not secret and args.mode == "send" and policy["model_access"] == "allow":
+        secret = secrets.token_hex(24)
+    if not secret:
         status("failed", error="missing_secret")
         return 2
     if os.environ.get("CROC_STORE_TOKEN"):
@@ -91,7 +101,7 @@ def main():
     # Remembered Croc options can override a receive code/relay/collision policy.
     # Keep each invocation independent without changing the user's Croc config.
     configuration = tempfile.TemporaryDirectory(prefix="croc-transfer-")
-    child_env = {**os.environ, "HOME": configuration.name,
+    child_env = {**os.environ, "CROC_SECRET": secret, "HOME": configuration.name,
                  "XDG_CONFIG_HOME": str(Path(configuration.name) / "config")}
     try:
         process = subprocess.Popen(
@@ -103,7 +113,9 @@ def main():
         status("failed", error="cannot_start_croc")
         return 2
     try:
-        if not status("running"):
+        # Only the choice saved in the installed SKILL.md permits exposing an invite.
+        fields = {"code": secret} if args.mode == "send" and read_policy()["model_access"] == "allow" else {}
+        if not status("running", **fields):
             return 1
         deadline = time.monotonic() + args.timeout
         while True:

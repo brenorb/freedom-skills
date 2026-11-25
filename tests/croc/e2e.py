@@ -9,6 +9,7 @@ from pathlib import Path
 import platform
 import secrets
 import signal
+import shutil
 import socket
 import subprocess
 import sys
@@ -49,6 +50,13 @@ class Case:
         for key in ("CROC_RELAY", "CROC_PASS", "CROC_STORE_TOKEN", "SOCKS5_PROXY", "HTTP_PROXY"):
             self.env.pop(key, None)
         (root / "home").mkdir()
+        self.installed = root / "installed-croc"
+        shutil.copytree(ROOT / "skills/croc", self.installed, ignore=shutil.ignore_patterns(".local", "__pycache__"))
+        self.helper_path = self.installed / "scripts/transfer.py"
+        skill_file = self.installed / "SKILL.md"
+        skill_file.write_text(skill_file.read_text().replace(
+            "Model may handle transfer links and codes: not configured",
+            "Model may handle transfer links and codes: private"))
         self.src, self.dst = root / "source", root / "destination"
         self.src.mkdir(); self.dst.mkdir()
         (self.src / "payload.bin").write_bytes(bytes(range(256)) * 4096)
@@ -108,7 +116,7 @@ class Case:
         return process
 
     def helper(self, *args):
-        return [sys.executable, str(HELPER), "--croc", self.binary, "--relay", self.relay,
+        return [sys.executable, str(self.helper_path), "--croc", self.binary, "--relay", self.relay,
                 "--relay-only", "--timeout", "8", *args]
 
     def send(self, helper=False, ignore=True, piped=None):
@@ -144,6 +152,30 @@ class Case:
 
 
 def run_case(name, case):
+    if name == "helper_allow_generated_invite":
+        skill_file = case.installed / "SKILL.md"
+        skill_file.write_text(skill_file.read_text().replace(
+            "Model may handle transfer links and codes: private",
+            "Model may handle transfer links and codes: allowed"))
+        sender_env = {**case.env}; sender_env.pop("CROC_SECRET")
+        sender = case.start(case.helper("send", str(case.src / "payload.bin"), str(case.src / "bundle")),
+                            "send", env=sender_env)
+        deadline = time.monotonic() + 3
+        invite = None
+        while invite is None:
+            lines = (case.root / "send.stdout").read_text().splitlines()
+            if lines:
+                invite = json.loads(lines[0]).get("code")
+            assert time.monotonic() < deadline, "Generated invite not returned"
+            if invite is None:
+                time.sleep(.02)
+        assert len(invite) == 48
+        receiver = case.receive(helper=True, env={**case.env, "CROC_SECRET": invite})
+        rx, tx = receiver.wait(timeout=20), sender.wait(timeout=10)
+        assert (tx, rx) == (0, 0)
+        assert manifest(case.src) == manifest(case.dst)
+        return {"sender_exit": tx, "receiver_exit": rx, "manifest_equal": True,
+                "generated_invite_returned": True, "invite_value_omitted_from_report": True}
     if name in ("direct_files_and_folder", "helper_files_and_folder",
                 "direct_piped_stdin_ignored", "helper_piped_stdin_ignored"):
         helper = name.startswith("helper")
@@ -291,7 +323,7 @@ def main():
               "helper_sha256": sha(HELPER.read_bytes()), "transport": "loopback relay; sender --no-local --transport relay",
               "terminal": "All transfer children assert isatty(0/1/2)=false and /dev/tty cannot open",
               "stdin": "DEVNULL except explicit pipe regression and pipe-ignore cases", "cases": []}
-    names = ("direct_files_and_folder", "helper_files_and_folder", "direct_piped_stdin_ignored",
+    names = ("helper_allow_generated_invite", "direct_files_and_folder", "helper_files_and_folder", "direct_piped_stdin_ignored",
              "helper_piped_stdin_ignored", "control_missing_ignore_stdin",
              "control_missing_yes", "helper_missing_secret", "helper_conflicting_store_token", "helper_nonempty_destination",
              "helper_wrong_secret", "helper_timeout", "helper_sigterm_cleanup", "helper_ignores_saved_config")

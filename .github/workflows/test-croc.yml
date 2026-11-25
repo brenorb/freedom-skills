@@ -5,12 +5,14 @@ on:
     paths:
       - "skills/croc/**"
       - "tests/croc/**"
+      - "tests/invite_privacy/**"
       - ".github/workflows/test-croc.yml"
   push:
     branches: [main, feat/croc-skill]
     paths:
       - "skills/croc/**"
       - "tests/croc/**"
+      - "tests/invite_privacy/**"
       - ".github/workflows/test-croc.yml"
   workflow_dispatch:
 
@@ -59,6 +61,8 @@ jobs:
           work/croc/croc --version
       - name: Run real transfers and negative controls without a terminal
         run: python3 tests/croc/e2e.py --croc work/croc/croc --report work/croc/evidence.json
+      - name: Verify installed privacy preferences and invite filtering
+        run: python3 -m unittest discover -s tests/invite_privacy -v
       - uses: actions/upload-artifact@v4
         if: always()
         with:

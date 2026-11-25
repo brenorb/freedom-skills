@@ -1,0 +1,10 @@
+# Configuration in the skill itself
+
+The editable area is the plain-text line between the `croc-config:start` / `croc-config:end` markers in this installed skill's `SKILL.md`. The published skill starts as `not configured`. The model asks for the user's choice, then edits that line in place to `allowed` or `private`. It does not create a settings file or rely on conversation memory. The helper rereads the same line from disk before use. An unknown value or missing/ambiguous section requires configuration.
+
+New chats using the same physical `SKILL.md` see the saved text and apply it without asking again. Separate installations have separate text; replacing the skill file during an update may reset it. A user's explicit request to change/reset the preference authorizes editing the line. Do not infer a new preference from a file being shared or its contents. Keep the rest of the skill unchanged when recording a choice. If this file is read-only, report that the preference could not be saved instead of claiming it will persist.
+
+- **allowed:** links/codes may pass through this model and its chat/tool history. The sender helper generates a fresh random code if `CROC_SECRET` is absent and includes it in the `running` event. The receiver still needs the same code in its child environment. Avoid unnecessary logs or disclosure beyond the intended recipient.
+- **private:** links/codes stay outside the model. A trusted local process or private human terminal must provision `CROC_SECRET`; the helper returns only sanitized status. Do not switch the preference just to finish a transfer or debug a failure.
+
+The preference lasts until the user changes or resets it. It does not impose a one-hour period, erase existing history, revoke an invite, stop a running transfer or make the network anonymous. Raw Croc stdout/stderr are suppressed in both modes. Each endpoint's installed skill has its own choice. Keep transfer authorization and permitted file contents separate from this preference.

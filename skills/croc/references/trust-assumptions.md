@@ -1,18 +1,18 @@
 # Croc trust assumptions
 
-Croc encrypts the file contents in transit. That does not protect a transfer code from your own agent stack. Treat the code and any receive command, URL, or QR code containing it as the same secret.
+Croc encrypts the file contents in transit. That does not protect a transfer code from your own agent stack. Treat the code and any receive command, URL, or QR code containing it as the same access capability. Read the installed [local privacy choice](local-privacy.md) before handling one.
 
 ## Hosted or unknown agent stack
 
-Decide where inference runs and where tool output, transcripts, traces, logs, telemetry, and synced history go. The model's license or availability of its weights tells you nothing about that data path. A shell running on your computer can still return output to a hosted model. If any part of the path is remote, or you cannot verify the path, use this default:
+Decide where inference runs and where tool output, transcripts, traces, logs, telemetry, and synced history go. A shell running on your computer can still return output to a hosted model. On first use ask for the local privacy choice instead of assuming either permission or prohibition. With an effective **allowed** choice, the user accepts invite exposure to this model/history under that saved choice; the helper may generate and return a code. With **private**, apply this boundary:
 
-- Use a private terminal that is not shared, recorded, or relayed to the agent, or the bundled `scripts/transfer.py` helper with `CROC_SECRET` provisioned locally. The helper discards both Croc stdout and stderr and returns only sanitized JSON states/errors; it does not deliver the secret between endpoints. Do not dump raw output even when debugging a failure. See [automation](automation.md).
+- Use a private terminal that is not shared, recorded, or relayed to the agent, or the bundled `scripts/transfer.py` helper with `CROC_SECRET` provisioned locally. In private mode it returns only sanitized JSON status/errors. Do not dump raw output even when debugging a failure. See [automation](automation.md).
 - Use `--disable-clipboard` so Croc does not copy the invite to a clipboard that may sync or be shared. Keep the code and code-bearing URL local; do not forward them to the inference provider, an online decoder, or a logging service.
 - Let the user retrieve the invite from that private terminal, enter it locally at the receiver, or pass it through an authorized private channel that does not expose it to the agent or provider. A private human terminal is not the same as an agent terminal whose output enters a transcript.
 
 ## Verified local and trusted end to end
 
-A local model may handle the invite when that helps the authorized transfer, provided inference and secret-bearing tool output, traces, logs, telemetry, and sync are all kept within the verified local trust boundary. There is no blanket ban on local handling. Still avoid shared output, persistence by default, and disclosure to anyone other than the intended recipient. Do not put the literal in command arguments or shell history; do not use `--remember` for a one-time invite.
+The saved choice still applies: do not override private because inference is local, or override an explicit allowed choice because it is hosted. Explain the relevant trust assumptions when the user chooses. Even with allow, avoid unnecessary logs/persistence and disclosure to anyone other than the intended recipient; do not use `--remember` for a one-time invite. Changing the preference does not erase previous history or revoke a code.
 
 If an invite escapes the intended boundary, stop the sender and generate a new invite before continuing.
 
