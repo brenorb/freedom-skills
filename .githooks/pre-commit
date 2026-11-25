@@ -1,12 +1,12 @@
 #!/bin/sh
 # Turn on once per clone:   git config core.hooksPath .githooks
 #
-# 1. Validates every skill the commit touches (scripts/validate_skills_ref.sh).
-# 2. Keeps the website and README in step with skills/: when the commit touches skills/,
+# 1. Requires metadata in each changed SKILL.md, reading the staged Git snapshot.
+# 2. Validates every skill the commit touches (scripts/validate_skills_ref.sh).
+# 3. Keeps the website and README in step with skills/: when the commit touches skills/,
 #    site/, connectors/ or README.md, it regenerates the site data, the README skill tables and live
 #    pages, stages exactly the files it rewrote, and checks every link points at something
-#    that exists. It blocks the commit only when a skill is missing its catalog card or a
-#    link is broken, and says how to fix it.
+#    that exists. Validation failures stop the commit and explain what needs fixing.
 
 set -eu
 
@@ -19,6 +19,7 @@ if [ -z "$staged_files" ]; then
   exit 0
 fi
 
+uv run --quiet --with pyyaml python scripts/check_skill_metadata.py --staged
 "$repo_root/scripts/validate_skills_ref.sh" $staged_files
 
 # --- website and README ---

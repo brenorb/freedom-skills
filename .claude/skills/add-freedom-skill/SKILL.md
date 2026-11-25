@@ -1,6 +1,8 @@
 ---
 name: add-freedom-skill
 description: Use when adding, renaming or removing a skill in this repository's skills/ folder or a connector in connectors/, or changing how one appears on the website or in the README (category, tagline, example prompts, demo, caveats). Writes the skill's catalog card, regenerates the website data and README tables, and runs the link and skill checks.
+metadata:
+  repository: "https://github.com/brenorb/freedom-skills"
 ---
 
 # Add or change a Freedom Skill
@@ -13,7 +15,8 @@ between `<!-- skills:start -->` and `<!-- skills:end -->` by hand.
 
 ## Add a skill
 
-1. Write `skills/<slug>/SKILL.md` (frontmatter `name: <slug>` and a `description`; workflow
+1. Write `skills/<slug>/SKILL.md` (frontmatter `name: <slug>`, a `description`, and a nonempty
+   `metadata` mapping with string keys and values, such as `repository` and quoted `version`; workflow
    action-first, as `AGENTS.md` asks).
 2. Create its website card:
    ```bash
@@ -38,6 +41,9 @@ between `<!-- skills:start -->` and `<!-- skills:end -->` by hand.
    python3 scripts/check_site_links.py
    ./scripts/validate_skills_ref.sh skills/<slug>/SKILL.md
    ```
+   The pre-commit hook validates metadata from the staged `SKILL.md` snapshot; CI applies
+   the same rule to added or changed `SKILL.md` files in the PR head. Existing untouched
+   skills are checked when their `SKILL.md` is next changed.
 6. Commit the skill folder, its card and the regenerated files together.
 
 ## Add a connector

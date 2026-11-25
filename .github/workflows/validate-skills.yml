@@ -5,6 +5,10 @@ on:
     paths:
       - "skills/**"
       - "scripts/validate_skills_ref.sh"
+      - "scripts/check_skill_metadata.py"
+      - "tests/skill_metadata/**"
+      - ".githooks/pre-commit"
+      - ".claude/skills/**"
       - ".github/workflows/validate-skills.yml"
 
 jobs:
@@ -29,3 +33,12 @@ jobs:
 
           mapfile -t changed_files < <(git diff --name-only "$base_sha" "$head_sha")
           ./scripts/validate_skills_ref.sh "${changed_files[@]}"
+
+      - name: Test metadata validation and commit hook
+        run: uv run --with pyyaml python -m unittest discover -s tests/skill_metadata -v
+
+      - name: Require metadata in changed SKILL.md files
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: uv run --with pyyaml python scripts/check_skill_metadata.py --base "$BASE_SHA" --head "$HEAD_SHA"
