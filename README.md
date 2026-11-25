@@ -83,6 +83,7 @@ Freedom Skills follows the open [Agent Skills standard](https://agentskills.io).
 | Skill | What it enables |
 |---|---|
 | [`mo-ux-vibedesign-btc`](skills/mo-ux-vibedesign-btc/) | Senior Bitcoin UX reviews covering interviews, copy, flows, wireframes, mockups, and benchmarks. |
+| [`inference-optimisation`](skills/inference-optimisation/) | Tune local LLM serving speed, speculative decoding, prefill, KV cache, and startup with controlled experiments and stability checks. |
 | [`napplet-make`](skills/napplet-make/) | **Entrypoint** for creating a complete napplet end to end from one prompt using the other skills. |
 | [`napplet-design`](skills/napplet-design/) | Plan safe, conformant sandboxed Nostr napplets before implementation. |
 | [`napplet-ui`](skills/napplet-ui/) | Design applet interfaces that work from compact widgets to full panes. |

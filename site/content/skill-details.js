@@ -1263,6 +1263,59 @@ window.FREEDOM_SKILL_DETAILS = {
     "needs": "Screenshots or descriptions of your app's screens; Playwright to render mockups",
     "music": null
   },
+  "inference-optimisation": {
+    "slug": "inference-optimisation",
+    "install": "npx skills add brenorb/freedom-skills -s inference-optimisation",
+    "what_for": "Find what limits a local model server, change one setting at a time, and keep improvements supported by interleaved control runs. Covers decode, prefill, speculative decoding, KV capacity, startup, and time to first token.",
+    "prompts": [
+      "Speed up my local model server under a 40 GiB memory cap while keeping 128K context stable.",
+      "What is the theoretical maximum tokens per second for this model on my machine?",
+      "Compare speculative decoding settings for one user and four concurrent users.",
+      "Find why long-context prefill is slow on my server.",
+      "Reduce model startup time and time to first token.",
+      "Qualify a pinned build and report the gains against the baseline."
+    ],
+    "demo": {
+      "prompt": "Speed up my local model server under a 40 GiB memory cap while keeping 128K context stable.",
+      "steps": [
+        {
+          "kind": "match",
+          "text": "Recognized the skill: inference-optimisation"
+        },
+        {
+          "kind": "check",
+          "text": "Records the baseline, measured hardware limits, memory cap, required context, and allowed quality changes."
+        },
+        {
+          "kind": "run",
+          "text": "Calculates theoretical ceilings using the bundled hardware example; real tuning uses measurements from your machine.",
+          "cmd": "python3 skills/inference-optimisation/scripts/ceiling.py skills/inference-optimisation/examples/ceiling-ornith-b390.json"
+        },
+        {
+          "kind": "check",
+          "text": "Interleaves candidate and control runs, logs failures, and checks long-context retrieval and concurrent stability."
+        },
+        {
+          "kind": "caveat",
+          "text": "Speed gains must beat both neighbouring controls without a material regression; published numbers need a clean pinned build."
+        },
+        {
+          "kind": "confirm",
+          "text": "Publish the qualified recipe with its baseline, measured results, pins, and known limitations?",
+          "action": "Publish"
+        }
+      ],
+      "result": "A measured best configuration, an experiment ledger, and a report comparing baseline, current speed, and practical ceilings."
+    },
+    "caveats": [
+      "Single-run gains can be noise; use at least six decode samples and interleaved control runs.",
+      "A winning configuration must pass long-context retrieval and concurrent full-context stability checks before it is called best.",
+      "Lossy changes must be labelled; changes claimed to be lossless need an output equivalence check.",
+      "Run one GPU job at a time, enforce the memory cap, and drain requests before stopping a server."
+    ],
+    "needs": "Python 3, a local model server with an OpenAI-compatible API, measured hardware and model details; Bash and flock for the queue, Linux and Docker for the bundled memory probe",
+    "music": null
+  },
   "napplet-make": {
     "slug": "napplet-make",
     "install": "npx skills add brenorb/freedom-skills -s napplet-make",
