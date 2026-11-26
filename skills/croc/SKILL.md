@@ -1,6 +1,10 @@
 ---
 name: croc
 description: Send or receive files and folders between two computers with croc's encrypted live transfer and one-time code, including non-interactive agent workflows. Use when both endpoints can stay online until the transfer finishes.
+compatibility: Requires Python 3 and the Croc CLI; the non-interactive helper is tested with Croc v11.6.6 on Linux and macOS. Network access is needed for live transfers.
+metadata:
+  version: "0.1.0"
+  repository: "https://github.com/schollz/croc"
 ---
 
 # Croc
