@@ -1,0 +1,71 @@
+name: Croc non-interactive E2E
+
+on:
+  pull_request:
+    paths:
+      - "skills/croc/**"
+      - "tests/croc/**"
+      - "tests/invite_privacy/**"
+      - ".github/workflows/test-croc.yml"
+  push:
+    branches: [main, feat/croc-skill]
+    paths:
+      - "skills/croc/**"
+      - "tests/croc/**"
+      - "tests/invite_privacy/**"
+      - ".github/workflows/test-croc.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  transfer:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Download and verify official Croc v11.6.6
+        shell: bash
+        run: |
+          set -euo pipefail
+          case "$(uname -s)-$(uname -m)" in
+            Linux-x86_64) platform=Linux-64bit ;;
+            Darwin-arm64) platform=macOS-ARM64 ;;
+            Darwin-x86_64) platform=macOS-64bit ;;
+            *) exit 1 ;;
+          esac
+          mkdir -p work/croc
+          archive="croc_v11.6.6_${platform}.tar.gz"
+          base=https://github.com/schollz/croc/releases/download/v11.6.6
+          curl --fail --location --retry 3 "$base/$archive" -o "work/croc/$archive"
+          curl --fail --location --retry 3 "$base/croc_v11.6.6_checksums.txt" -o work/croc/checksums.txt
+          python3 - "$archive" <<'PY'
+          import hashlib, pathlib, sys, tarfile
+          root = pathlib.Path('work/croc')
+          archive = root / sys.argv[1]
+          expected = next(line.split()[0] for line in (root / 'checksums.txt').read_text().splitlines() if line.endswith(archive.name))
+          actual = hashlib.sha256(archive.read_bytes()).hexdigest()
+          assert actual == expected, 'Release checksum mismatch'
+          print(f'{archive.name} sha256={actual}')
+          with tarfile.open(archive) as bundle:
+              bundle.extract(next(member for member in bundle if member.name == 'croc'), root, filter='data')
+          PY
+          work/croc/croc --version
+      - name: Run real transfers and negative controls without a terminal
+        run: python3 tests/croc/e2e.py --croc work/croc/croc --report work/croc/evidence.json
+      - name: Verify installed privacy preferences and invite filtering
+        run: python3 -m unittest discover -s tests/invite_privacy -v
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: croc-e2e-${{ matrix.os }}
+          path: work/croc/evidence.json
+          if-no-files-found: warn

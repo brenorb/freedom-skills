@@ -30,7 +30,7 @@ window.FREEDOM_SKILLS = {
       "id": "sharing",
       "name": "Sharing, publishing, and preservation",
       "blurb": "Publish without a host, share without a cloud, keep proof it existed.",
-      "count": 7
+      "count": 8
     },
     {
       "id": "research",
@@ -221,6 +221,17 @@ window.FREEDOM_SKILLS = {
       "tool": "filepizza-cli",
       "upstream": "https://github.com/brenorb/filepizza-cli",
       "url": "https://github.com/brenorb/freedom-skills/tree/main/skills/p2p-transfer-filepizza"
+    },
+    {
+      "slug": "croc",
+      "name": "Croc",
+      "category": "sharing",
+      "summary": "Send and receive files or folders with croc's encrypted live transfer.",
+      "tagline": "Send files between two computers with an encrypted transfer and a one-time code.",
+      "example_prompt": "Use croc to send this zip to my other computer.",
+      "tool": "croc",
+      "upstream": "https://github.com/schollz/croc",
+      "url": "https://github.com/brenorb/freedom-skills/tree/main/skills/croc"
     },
     {
       "slug": "wayback-archive",

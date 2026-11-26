@@ -64,6 +64,7 @@ Freedom Skills follows the open [Agent Skills standard](https://agentskills.io).
 |---|---|
 | [`hosted-nowhere`](skills/hosted-nowhere/) | Create and operate Nowhere pages through one app router, with CLI and browser workflows; includes deprecated Store guidance. |
 | [`p2p-transfer-filepizza`](skills/p2p-transfer-filepizza/) | Sharing local files through temporary peer-to-peer links with FilePizza. |
+| [`croc`](skills/croc/) | Encrypted live file and folder transfers between two computers using a one-time code. |
 | [`wayback-archive`](skills/wayback-archive/) | Archiving webpages, checking snapshots, creating stable citation links, and batch archiving URLs. |
 | [`opentimestamps`](skills/opentimestamps/) | Timestamping files with OpenTimestamps, creating and upgrading `.ots` proofs, and verifying that a file was attested in Bitcoin. |
 | [`blossom-cli`](skills/blossom-cli/) | Uploading, downloading, verifying, mirroring, and recovering files across Blossom servers. |
