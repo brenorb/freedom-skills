@@ -10,11 +10,14 @@
   var FS = window.FS = { esc: esc, repo: REPO };
   if (D) {
     FS.skills = D.skills;
+    Array.prototype.forEach.call(document.querySelectorAll('[data-skill-count]'), function (element) {
+      element.textContent = D.skills.length;
+    });
     FS.cats = D.categories;
     FS.bySlug = {};
     FS.catById = {};
     D.categories.forEach(function (c) { FS.catById[c.id] = c; });
-    // number skills 01–27 in category order, like the issue's contents
+    // Number skills in category order, like the issue's contents.
     var order = [];
     D.categories.forEach(function (c) { D.skills.forEach(function (s) { if (s.category === c.id) order.push(s); }); });
     FS.ordered = order;
