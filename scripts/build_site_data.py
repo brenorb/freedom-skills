@@ -20,8 +20,8 @@ Outputs (never edit by hand):
 - site/content/skill-details.json, skill-details.js    prompts, demo steps, caveats per skill
 - README.md, between <!-- skills:start --> and <!-- skills:end --> (and the connectors markers)
 - Live pages: any site/**/*.html with <!--gen:...--> regions. Each region is rebuilt from a
-  <template id="..."> in the same file, and the skill count ("all 27 skills") is updated in every
-  .html and .js of that page's folder. Pages without regions are left alone.
+  <template id="..."> in the same file. Pages without regions are left alone.
+  Displayed global skill totals use data-skill-count elements or skills.length at runtime.
 
 Template syntax inside a <template>: {{field}} (HTML-escaped). In a category template,
 {{each:TEMPLATE_ID}} renders that template once per skill in the category.
@@ -274,7 +274,7 @@ def render(template: str, fields: dict, templates: dict, members: list[dict], da
     return PLACEHOLDER.sub(sub, template)
 
 
-def update_page(text: str, data: dict, where: str, old_total: int | None) -> str:
+def update_page(text: str, data: dict, where: str) -> str:
     templates = dict(TEMPLATE.findall(text))
 
     def region(m):
@@ -293,25 +293,7 @@ def update_page(text: str, data: dict, where: str, old_total: int | None) -> str
                     items.append(render(templates[tid], category_fields(c, members, data), templates, members, data, where))
         return start + "\n".join(items) + "\n" + end
 
-    text = REGION.sub(region, text)
-    new_total = len(data["skills"])
-    if old_total and old_total != new_total:
-        text = rewrite_total(text, old_total, new_total)
-    return text
-
-
-def rewrite_total(text: str, old: int, new: int) -> str:
-    """Update phrases like 'all 27 skills', 'the 27 skills', '27 open skills', 'one of the 27'."""
-    o = str(old)
-    patterns = [
-        rf"\b{o}(?=(?:\s|&nbsp;)+(?:open\s+|free\s+)?skills\b)",
-        rf"(?i)(?<=\ball ){o}\b",
-        rf"(?i)(?<=\bthe ){o}\b(?![\d–-])",
-        rf"(?i)(?<=\bof ){o}\b(?![\d–-])",
-    ]
-    for p in patterns:
-        text = re.sub(p, str(new), text)
-    return text
+    return REGION.sub(region, text)
 
 
 SITE = "site"  # the website folder GitHub Pages publishes
@@ -334,9 +316,6 @@ def build(root: Path) -> dict[Path, str]:
     """Return {path: new content} for every output file."""
     data = load(root)
     content = root / SITE / "content"
-    old_total = None
-    if (content / "skills.json").exists():
-        old_total = len(json.loads((content / "skills.json").read_text())["skills"])
     cat, det = catalog(data), details(data)
     out = {}
     if content.is_dir():
@@ -347,7 +326,7 @@ def build(root: Path) -> dict[Path, str]:
     readme = root / "README.md"
     out[readme] = update_readme(readme.read_text(), data)
     for page in live_files(root):
-        out[page] = update_page(page.read_text(), data, str(page.relative_to(root)), old_total)
+        out[page] = update_page(page.read_text(), data, str(page.relative_to(root)))
     return out
 
 
