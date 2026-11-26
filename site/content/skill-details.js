@@ -1169,6 +1169,54 @@ window.FREEDOM_SKILL_DETAILS = {
     "needs": "fscript (Homebrew, uvx or uv tool install); yt-dlp for remote URLs",
     "music": null
   },
+  "sayit": {
+    "slug": "sayit",
+    "install": "npx skills add brenorb/freedom-skills -s sayit",
+    "what_for": "Follow an agent session hands-free with short spoken findings, changes of direction, and a complete final handoff while the underlying work continues.",
+    "prompts": [
+      "Use sayit while you work and keep me updated aloud.",
+      "I am going AFK; speak your progress as you investigate this bug.",
+      "Talk me through the test results with Say It.",
+      "Give me a spoken handoff when the review is complete.",
+      "Turn off voice mode and continue in text only."
+    ],
+    "demo": {
+      "prompt": "Use sayit while you work and keep me updated aloud.",
+      "steps": [
+        {
+          "kind": "match",
+          "text": "Recognized the skill: sayit"
+        },
+        {
+          "kind": "run",
+          "text": "Queues a short opening and immediately continues the task.",
+          "cmd": "sayit \"I am checking the task and will keep you updated aloud.\" --enqueue --detach >/dev/null 2>&1 &!"
+        },
+        {
+          "kind": "check",
+          "text": "Speaks meaningful findings and keeps exact commands and links in the written channel."
+        },
+        {
+          "kind": "caveat",
+          "text": "Voice mode stays active in this conversation until you ask for text only."
+        },
+        {
+          "kind": "confirm",
+          "text": "Spoken updates accompany the work and a final handoff.",
+          "action": "Listen"
+        }
+      ],
+      "result": "Hands-free progress updates and a spoken handoff, with a written record to revisit."
+    },
+    "caveats": [
+      "Voice mode persists in this conversation until you explicitly turn it off; a one-off read-aloud request does not enable ongoing narration.",
+      "Speech is queued in the background; the agent does not wait for playback or verify that you heard it.",
+      "A downloaded model is required; synthesis works offline after model download.",
+      "Spoken updates omit secrets and sensitive information; exact commands, links, and code stay in text."
+    ],
+    "needs": "macOS 15 or later on Apple silicon, the Say It app and CLI, and a downloaded speech model",
+    "music": null
+  },
   "mo-ux-vibedesign-btc": {
     "slug": "mo-ux-vibedesign-btc",
     "install": "npx skills add brenorb/freedom-skills -s mo-ux-vibedesign-btc",

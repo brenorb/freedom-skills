@@ -1,0 +1,40 @@
+# Website and README card; kept outside the installed skill folder.
+category: research
+order: 30
+name: Say It
+tagline: Hear your agent's progress aloud while it keeps working.
+summary: Live spoken progress updates and final handoffs through local Say It text-to-speech on Apple silicon Macs.
+readme: Live spoken agent updates and hands-free narration with local Say It text-to-speech on Apple silicon Macs.
+tool: sayit
+upstream: https://github.com/callebtc/sayit
+example_prompt: Use sayit while you work and keep me updated aloud.
+what_for: Follow an agent session hands-free with short spoken findings, changes of direction, and a complete final handoff while the underlying work continues.
+needs: macOS 15 or later on Apple silicon, the Say It app and CLI, and a downloaded speech model
+prompts:
+- Use sayit while you work and keep me updated aloud.
+- I am going AFK; speak your progress as you investigate this bug.
+- Talk me through the test results with Say It.
+- Give me a spoken handoff when the review is complete.
+- Turn off voice mode and continue in text only.
+caveats:
+- Voice mode persists in this conversation until you explicitly turn it off; a one-off read-aloud request does not enable ongoing narration.
+- Speech is queued in the background; the agent does not wait for playback or verify that you heard it.
+- A downloaded model is required; synthesis works offline after model download.
+- Spoken updates omit secrets and sensitive information; exact commands, links, and code stay in text.
+demo:
+  prompt: Use sayit while you work and keep me updated aloud.
+  steps:
+  - kind: match
+    text: 'Recognized the skill: sayit'
+  - kind: run
+    text: Queues a short opening and immediately continues the task.
+    cmd: sayit "I am checking the task and will keep you updated aloud." --enqueue --detach >/dev/null 2>&1 &!
+  - kind: check
+    text: Speaks meaningful findings and keeps exact commands and links in the written channel.
+  - kind: caveat
+    text: Voice mode stays active in this conversation until you ask for text only.
+  - kind: confirm
+    text: Spoken updates accompany the work and a final handoff.
+    action: Listen
+  result: Hands-free progress updates and a spoken handoff, with a written record to revisit.
+music: null

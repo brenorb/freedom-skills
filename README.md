@@ -76,6 +76,7 @@ Freedom Skills follows the open [Agent Skills standard](https://agentskills.io).
 |---|---|
 | [`domain-intel`](skills/domain-intel/) | Passive domain reconnaissance, including subdomains, SSL certificates, WHOIS, DNS, and availability checks. |
 | [`fast-transcript`](skills/fast-transcript/) | Transcribe and inspect audio and video with the local `fscript` CLI, including local files and supported remote URLs. |
+| [`sayit`](skills/sayit/) | Live spoken agent updates and hands-free narration with local Say It text-to-speech on Apple silicon Macs. |
 
 ### Product and developer workflows
 

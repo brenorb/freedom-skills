@@ -34,7 +34,7 @@
       "id": "research",
       "name": "Research and media",
       "blurb": "Investigate quietly and transcribe locally.",
-      "count": 2
+      "count": 3
     },
     {
       "id": "developer",
@@ -296,6 +296,17 @@
       "tool": "fscript",
       "upstream": "https://github.com/brenorb/freedom-skills/tree/main/skills/fast-transcript",
       "url": "https://github.com/brenorb/freedom-skills/tree/main/skills/fast-transcript"
+    },
+    {
+      "slug": "sayit",
+      "name": "Say It",
+      "category": "research",
+      "summary": "Live spoken progress updates and final handoffs through local Say It text-to-speech on Apple silicon Macs.",
+      "tagline": "Hear your agent's progress aloud while it keeps working.",
+      "example_prompt": "Use sayit while you work and keep me updated aloud.",
+      "tool": "sayit",
+      "upstream": "https://github.com/callebtc/sayit",
+      "url": "https://github.com/brenorb/freedom-skills/tree/main/skills/sayit"
     },
     {
       "slug": "mo-ux-vibedesign-btc",
