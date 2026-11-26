@@ -4,8 +4,6 @@ description: Live spoken progress updates and hands-free agent narration through
 license: MIT
 metadata:
   repository: https://github.com/callebtc/sayit
-  source: https://github.com/callebtc/sayit/blob/8c35d7859bfaa794923956d453a6716482d87022/skills/sayit/SKILL.md
-  upstream-commit: 8c35d7859bfaa794923956d453a6716482d87022
 ---
 
 # sayit — live-agent spoken narration
