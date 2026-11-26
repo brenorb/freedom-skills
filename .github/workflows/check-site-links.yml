@@ -38,8 +38,13 @@ jobs:
       - uses: astral-sh/setup-uv@v6
         with:
           python-version: "3.12"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
       - name: Test the generator and the link checker
         run: uv run --with pytest --with pyyaml python -m pytest tests/site_data tests/site_links -q
+      - name: Test displayed catalog counts
+        run: node --test tests/site_data/skill-counts.test.cjs
       - name: Generated files are up to date
         run: uv run --with pyyaml python scripts/build_site_data.py --check
       - name: Catalog, README and links point at files that exist

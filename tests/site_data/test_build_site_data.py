@@ -34,7 +34,7 @@ old tables
 ## Hooks
 """
 
-PAGE = """<p>Install all 3 skills</p>
+PAGE = """<p>Install all <span data-skill-count></span> skills</p>
 <ol>
 <!--gen:categories tpl=t-cat-->
 stale
@@ -71,10 +71,10 @@ def make_repo(root: Path) -> Path:
     (root / "README.md").write_text(README)
     content = root / "site" / "content"
     content.mkdir(parents=True)
-    # The previous catalog had 3 skills listed under an old name; the count is still 3.
+    # Previously generated data is an output, never the source for current totals.
     (content / "skills.json").write_text(json.dumps({"skills": [{"slug": "x"}, {"slug": "y"}, {"slug": "z"}]}))
     (root / "site" / "index.html").write_text(PAGE)
-    (root / "site" / "app.js").write_text("label = 'Every one of the 3 skills';\n")
+    (root / "site" / "app.js").write_text("label = data.skills.length + ' skills';\n")
     (root / "site" / "old").mkdir()
     (root / "site" / "old" / "index.html").write_text("<p>Install all 3 skills</p>\n")
     return root
@@ -127,18 +127,18 @@ def test_live_page_regions_counts_and_escaping(tmp_path):
     assert '<li id="pay">03 Pay · 1 skill<ul>' in page
     assert '<a href="https://github.com/brenorb/freedom-skills/blob/main/skills/zeta/SKILL.md">Zeta</a>' in page
     assert "“Say &quot;hi&quot; to Ana”" in page
-    assert "<p>Install all 3 skills</p>" in page  # 3 skills before and after: nothing to rewrite
+    assert '<p>Install all <span data-skill-count></span> skills</p>' in page
     assert '<template id="t-skill">' in page  # templates stay in the page
 
 
-def test_count_changes_reach_live_folder_but_not_frozen_pages(tmp_path):
+def test_new_skills_update_catalog_without_rewriting_display_code(tmp_path):
     root = make_repo(tmp_path)
-    (root / "site/content/skills.json").write_text(json.dumps({"skills": [{"slug": s} for s in "wxyz"]}))
-    (root / "site/index.html").write_text(PAGE.replace("all 3", "all 4"))
-    (root / "site/app.js").write_text("label = 'Every one of the 4 skills';\n")
+    original_js = (root / "site/app.js").read_text()
+    skill(root, "gamma", "category: pay\n")
     run(root)
-    assert "Install all 3 skills" in (root / "site/index.html").read_text()
-    assert "Every one of the 3 skills" in (root / "site/app.js").read_text()
+    assert len(json.loads((root / "site/content/skills.json").read_text())["skills"]) == 4
+    assert '<p>Install all <span data-skill-count></span> skills</p>' in (root / "site/index.html").read_text()
+    assert (root / "site/app.js").read_text() == original_js
     assert (root / "site/old/index.html").read_text() == "<p>Install all 3 skills</p>\n"
 
 
@@ -185,16 +185,16 @@ def test_unknown_placeholder_is_an_error(tmp_path, capsys):
     assert "unknown placeholder {{nmae}}" in capsys.readouterr().err
 
 
-@pytest.mark.parametrize("text,expected", [
-    ("Install all 27 skills", "Install all 28 skills"),
-    ("Browse the 27 skills", "Browse the 28 skills"),
-    ("27 open skills for agents", "28 open skills for agents"),
-    ("page 3 of 27", "page 3 of 28"),
-    ("range 22–27 · 6 skills", "range 22–27 · 6 skills"),
-    ("all 270 skills", "all 270 skills"),
-])
-def test_rewrite_total(text, expected):
-    assert gen.rewrite_total(text, 27, 28) == expected
+@pytest.mark.parametrize("previous_catalog", [None, "{invalid JSON", '{"skills": []}'])
+def test_generation_does_not_depend_on_previous_catalog_totals(tmp_path, previous_catalog):
+    root = make_repo(tmp_path)
+    path = root / "site/content/skills.json"
+    if previous_catalog is None:
+        path.unlink()
+    else:
+        path.write_text(previous_catalog)
+    assert run(root) == 0
+    assert len(json.loads(path.read_text())["skills"]) == 3
 
 
 def add_connectors(root: Path, readme_markers: bool = True):
