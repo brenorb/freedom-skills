@@ -25,8 +25,8 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: astral-sh/setup-uv@v6
+      - uses: actions/checkout@v7.0.1
+      - uses: astral-sh/setup-uv@v10.4.0
         with:
           python-version: "3.12"
       - name: Regenerate site data from site/catalog/
@@ -35,9 +35,9 @@ jobs:
         run: python3 scripts/check_site_links.py
       - name: Keep the source cards off the website
         run: rm -rf site/catalog
-      - uses: actions/configure-pages@v5
-      - uses: actions/upload-pages-artifact@v3
+      - uses: actions/configure-pages@v6.0.0
+      - uses: actions/upload-pages-artifact@v5.0.0
         with:
           path: site
       - id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5.0.1
