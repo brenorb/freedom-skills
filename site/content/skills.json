@@ -40,7 +40,7 @@
       "id": "developer",
       "name": "Product and developer workflows",
       "blurb": "Design, build, test, and review freedom-tech software.",
-      "count": 12
+      "count": 13
     }
   ],
   "skills": [
@@ -340,6 +340,17 @@
       "tool": "@napplet/cli",
       "upstream": "https://github.com/napplet/web",
       "url": "https://github.com/brenorb/freedom-skills/tree/main/skills/napplet-make"
+    },
+    {
+      "slug": "simplicityhl-simplex",
+      "name": "SimplicityHL with Simplex",
+      "category": "developer",
+      "summary": "Write, debug, audit, build, and test SimplicityHL contracts for Liquid with pinned references and an execution fixture.",
+      "tagline": "Write and test Liquid spending conditions with SimplicityHL and Simplex.",
+      "example_prompt": "Build a Liquid contract that requires a Schnorr signature, and test valid and invalid spends.",
+      "tool": "Simplex CLI and Rust/Cargo",
+      "upstream": "https://github.com/BlockstreamResearch/smplx",
+      "url": "https://github.com/brenorb/freedom-skills/tree/main/skills/simplicityhl-simplex"
     },
     {
       "slug": "napplet-design",
