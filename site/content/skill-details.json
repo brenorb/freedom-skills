@@ -1373,6 +1373,64 @@
     "needs": "napplet CLI (@napplet/cli 0.13.0) and pnpm; Kehto/Paja for a runtime preview",
     "music": null
   },
+  "simplicityhl-simplex": {
+    "slug": "simplicityhl-simplex",
+    "install": "npx skills add brenorb/freedom-skills -s simplicityhl-simplex",
+    "what_for": "Develop Liquid spending predicates, inspect authorization branches, generate Rust bindings, and test signatures, witnesses, timelocks, covenants, and asset conservation.",
+    "prompts": [
+      "Build a Liquid contract that requires a Schnorr signature, and test valid and invalid spends.",
+      "Add a refund path after a 1000-block relative delay and test the sequence flags.",
+      "Debug this Simplex build and confirm my contract appears in the generated metadata.",
+      "Audit this SimplicityHL contract against its intended spending policy.",
+      "Write acceptance and rejection tests for this multisignature contract."
+    ],
+    "demo": {
+      "prompt": "Build a Liquid contract that requires a Schnorr signature, and test valid and invalid spends.",
+      "steps": [
+        {
+          "kind": "match",
+          "text": "Recognized the skill: simplicityhl-simplex"
+        },
+        {
+          "kind": "run",
+          "text": "Initializes a Simplex project and inspects its generated scaffold.",
+          "cmd": "simplex init NAME"
+        },
+        {
+          "kind": "check",
+          "text": "Writes the signature predicate, separating deployment parameters from spend-time witnesses."
+        },
+        {
+          "kind": "run",
+          "text": "Builds the contract and checks that its generated metadata covers the intended source.",
+          "cmd": "simplex build"
+        },
+        {
+          "kind": "run",
+          "text": "Runs the acceptance and rejection tests in a transaction environment.",
+          "cmd": "simplex test --no-simplex --show-output"
+        },
+        {
+          "kind": "caveat",
+          "text": "Passing offline tests does not establish node consensus validation or blockchain inclusion."
+        },
+        {
+          "kind": "confirm",
+          "text": "Review the contract, generated bindings, test results, and validation limits.",
+          "action": "Review"
+        }
+      ],
+      "result": "A contract, generated Rust bindings, and execution test results with the validation limits stated."
+    },
+    "caveats": [
+      "Contracts cannot read current chain height or UTXO age; timelocks enforce transaction lower bounds, not upper deadlines.",
+      "Simplex 0.0.12 can skip invalid sources while returning success; inspect artifact and metadata coverage.",
+      "Offline execution tests do not establish blockchain inclusion or consensus validation on a node.",
+      "Deployment keys must be committed parameters or constants, not unbound witnesses."
+    ],
+    "needs": "Simplex 0.0.12, SimplicityHL 0.7.2, and Rust/Cargo; cached dependencies for offline builds and tests",
+    "music": null
+  },
   "napplet-design": {
     "slug": "napplet-design",
     "install": "npx skills add brenorb/freedom-skills -s napplet-design",
