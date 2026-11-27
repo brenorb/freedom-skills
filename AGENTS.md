@@ -9,6 +9,7 @@
 
 ## Adding or changing a skill
 
+- Every added or changed `SKILL.md` needs a nonempty frontmatter `metadata` mapping with string keys and values (for example `repository` and a quoted `version`). The pre-commit hook validates the staged snapshot; CI validates the PR head snapshot.
 - Follow `.claude/skills/add-freedom-skill/SKILL.md` for skills and for connectors (`connectors/<slug>/PROMPT.md`). Every skill has a website card in `site/catalog/skills/<slug>.yaml`; the website data, the README skill tables and the live site pages are generated from those cards by `scripts/build_site_data.py`.
 - Never put website, README or catalog files inside `skills/<slug>/`. `npx skills add` copies the whole skill folder into the user's agent, so a skill folder holds only what the agent needs.
 - Never hand-edit `site/content/skills.json`, `skill-details.json`, their `.js` twins, or the README between `<!-- skills:start -->`/`<!-- skills:end -->` and `<!-- connectors:start -->`/`<!-- connectors:end -->`.
