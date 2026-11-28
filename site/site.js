@@ -126,6 +126,9 @@
       var d = FS.details(s.slug), c = FS.catById[s.category];
       return [s.name, s.slug, s.tagline, s.summary, s.tool, c.name, d.prompts.join(' ')].join('   ').toLowerCase();
     });
+    var connectorHay = (D.connectors || []).map(function (c) {
+      return [c.name, c.slug, c.tagline, (c.works_with || []).join(' '), c.upstream, c.prompt].join('   ').toLowerCase();
+    });
     function hi(text, terms) {
       var out = esc(text);
       terms.forEach(function (t) { if (t.length < 2) return; out = out.replace(new RegExp('(' + t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'ig'), '<mark>$1</mark>'); });
@@ -136,14 +139,20 @@
       if (!v) { list.hidden = true; list.innerHTML = ''; stat.textContent = ''; return; }
       var terms = v.split(/\s+/);
       var hits = FS.ordered.filter(function (s, i) { return terms.every(function (t) { return hay[i].indexOf(t) !== -1; }); });
-      stat.textContent = hits.length ? hits.length + (hits.length === 1 ? ' skill matches' : ' skills match') + ' “' + input.value.trim() + '”' : 'Nothing matches “' + input.value.trim() + '”. Try a tool (Signal, Lightning) or a verb (pay, archive, publish).';
+      var connectorHits = (D.connectors || []).filter(function (c, i) { return terms.every(function (t) { return connectorHay[i].indexOf(t) !== -1; }); });
+      var count = hits.length + connectorHits.length;
+      stat.textContent = count ? count + (count === 1 ? ' result matches' : ' results match') + ' “' + input.value.trim() + '”' : 'Nothing matches “' + input.value.trim() + '”. Try a tool (White Noise, Signal, Lightning) or a verb (pay, archive, publish).';
       list.innerHTML = hits.map(function (s) {
         return '<li class="res"><div><h4><a href="skill.html?s=' + s.slug + '"><span class="no">' + FS.num(s.no) + '</span>' + hi(s.name, terms) + '</a></h4><p>' + hi(s.tagline, terms) + '</p></div>' +
           '<div class="acts"><button class="mini solid" type="button" data-copy="' + esc(FS.install(s.slug)) + '" data-what="install command for ' + esc(s.name) + '">Copy install</button>' +
           '<a class="mini" href="skill.html?s=' + s.slug + '">Skill page</a>' +
           '<a class="mini" href="' + esc(s.url) + '" target="_blank" rel="noopener noreferrer">GitHub ↗<span class="vh"> (opens in a new tab)</span></a></div></li>';
+      }).join('') + connectorHits.map(function (c) {
+        return '<li class="res"><div><h4><a href="#connector-' + esc(c.slug) + '"><span class="no">C</span>' + hi(c.name, terms) + '</a></h4><p>' + hi(c.tagline, terms) + '</p></div>' +
+          '<div class="acts"><button class="mini solid" type="button" data-copy="' + esc(c.prompt) + '" data-what="setup prompt for ' + esc(c.name) + '">Copy prompt</button>' +
+          '<a class="mini" href="' + esc(c.prompt_url) + '" target="_blank" rel="noopener noreferrer">Read prompt ↗<span class="vh"> (opens in a new tab)</span></a></div></li>';
       }).join('');
-      list.hidden = !hits.length;
+      list.hidden = !count;
     }
     input.addEventListener('input', run);
     input.addEventListener('keydown', function (e) { if (e.key === 'Escape') { input.value = ''; run(); } });
